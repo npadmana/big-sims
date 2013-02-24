@@ -554,10 +554,22 @@ mass function?
 {*} I am not sure how Manera et al. assigned masses to halos...apparently,
 they were using analytic mass functions for this...:(
 
+{*} relation between $n(M)$ and HOD.
+
+{*} ingredients of mass function: cosmology, initial conditions (how
+important is initial condition??), what other physical processes??
+
+In this section, we examine how mass resolutions and time steps affect
+to mass functions. Note that all the number densities (as a function
+of halo mass) are mean of 100 samples generated through bootstrap
+method.
+
 
 \subsubsection{Mass Resolution}
 
-\begin{figure}
+{*} Analytic comparison
+
+\begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum_massResolution}
 
 \caption{Comparison of mass functions (should I call this number density?)
@@ -569,14 +581,14 @@ from bootstrap method. We compare them with the simulations of $256^{3}$
 particles with 450 large steps and 5 inner steps (described as $256^{3}$
 with circles in the figure) and $128^{3}$ particles with 450 large
 steps and 5 inner steps (described as $128^{3}$ with red stars in
-the figure).}
-\end{figure}
+the figure). }
+\end{figure*}
 
 
 
 \subsubsection{Time Steps}
 
-\begin{figure}
+\begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum2}
 
 \caption{Comparison of mass functions (should I call this number density?)
@@ -590,10 +602,10 @@ with circles in the figure) and with 300 large steps and 2 inner steps
 (described as $256^{3}(300:2)$ with red stars in the figure).}
 
 
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}
+\begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0\lyxdot 15}\caption{Ratios of mass functions of different time steps with $256^{3}$ particles,
 compared to $512^{3}$ particles with 450 large steps and 5 inner
 steps, at redshift $z=0.15$. Different colors are corresponding to
@@ -601,7 +613,7 @@ different time steps. The legend in the plot has the same format as
 the one in Figure 1. This plot shows that the simulations with 450
 and 300 large steps agree well with the simulation with $512^{3}$
 particles.}
-\end{figure}
+\end{figure*}
 
 
 
@@ -626,6 +638,8 @@ cross-power with $256^{3}$ particles?
 \begin{figure}
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_mcut13\lyxdot 5_ws}
 
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_mcut13\lyxdot 5_wo}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_mcut13\lyxdot 5_ws}
+
 \caption{Halo auto power spectra for different mass resolutions ($512^{3}$,
 $256^{3}$, and $128^{3}$ particles in the box of $(256h^{-1}{\rm Mpc})^{3}$)
 with a fixed time step of 450/5. The sample of halos is equivalent
@@ -634,14 +648,7 @@ to a mass thresholds of $M=10^{13.5}{\rm M_{\odot}}$.}
 
 
 \begin{figure}
-\caption{Halo Biases for different mass resolutions with a fixed time step
-of 450/5 at redshift $z=0.15$. To calculate halo biases from halo
-auto power spectra, we took a square-root of ratios between halos
-and DM particles (from $256^{3}$ particles-simulation...which I may
-change to $512^{2}$ particles-simulation later...). Selected halos
-have a mass greater than $10^{13.5}{\rm M_{\odot}}$. Left panel uses
-shot-noise subtracted auto power spectra and tight panels are not
-shot-noise subtracted.}
+\caption{Cross power spectra between halos and matter?}
 
 
 \end{figure}
@@ -654,36 +661,33 @@ shot-noise subtracted.}
 is no way to match halos for large number of mocks (because then we
 lose a whole point of generating mocks faster...).
 
-\begin{figure}
+\begin{figure*}[t]
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_256_mcut12\lyxdot 5_ws}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_256_mcut12\lyxdot 5_ws_z0\lyxdot 15}
+
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_256_mcut12\lyxdot 5_wo}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_256_mcut12\lyxdot 5_wo_z0\lyxdot 15}
+
 \caption{Halo auto power spectra for different time steps with a fixed mass
 resolution $256^{3}$ particles in the box of $(256h^{-1}{\rm Mpc})^{3}$).
 The sample of halos is equivalent to a mass thresholds of $M=10^{13.5}{\rm M_{\odot}}$.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0\lyxdot 15}
+\begin{figure*}[p]
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0\lyxdot 15}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
 
-\caption{Cross power spectra of halos with DM particles at redshift $z=0.15$.
+\caption{Left: Cross power spectra of halos with DM particles at redshift $z=0.15$.
 DM particles are taken from the simulation of $256^{3}$ particles
 with 450 large steps and 5 inner steps. Different colors indicate
 different halo mass slices: ${\rm log_{10}M\in[12.5,13.0]}$ (blue),
 ${\rm log_{10}M\in[13.0,13.5]}$ (green), and ${\rm log_{10}M>13.5}$
 (red). Lines are the simulations with 450 large steps and 5 inner
-steps, and circles are the ones with 300 large steps and 2 inner steps. }
+steps, and circles are the ones with 300 large steps and 2 inner steps.
+Right:Ratios of cross power spectra for different simulations with
+respect to the cross power spectra with 450 large steps and 5 inner
+steps. }
 
 
-\end{figure}
-
-
-\begin{figure}
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
-
-\caption{Ratios of cross power spectra for different simulations with respect
-to the cross power spectra with 450 large steps and 5 inner steps. }
-
-
-\end{figure}
+\end{figure*}
 
 \begin{itemize}
 \item Cross correlations with full N-body, higher particle loading etc 
