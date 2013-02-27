@@ -98,17 +98,26 @@ the matching conditions for distance and mass ratio.}
 \subsection{Mass Resolution}
 
 In this section, we examine how mass resolutions affect to halo properties.
-We use a $(256h^{-1}{\rm Mpc)^{3}}$-cubical box and three different
+We use a $(256h^{-1}{\rm Mpc)^{3}}$-cubic box and three different
 mass resolutions: $512^{3}$, $256^{3}$, and $128^{3}$ particles
 with a fixed time steps (450/5). We take a simulation of $512^{3}$
 particles as a reference. Table \ref{tab:unmatched_512} indicates
 fractions of unmatched halos in the sample of $512^{3}$-particle
 mass resolution by matching with the samples of $256^{3}$ and $128^{3}$
-particles at redshift $z=0.15$. Since having a different mass resolution
-means that halo samples have different lower mass limits, we only
-impose matching conditions on halos greater than $10^{12.5}{\rm M_{\odot}}$
-for the $256^{3}$-particles sample and greater than $10^{13.5}{\rm M_{\odot}}$for
-the $128^{3}$-particles sample. \textcolor{red}{XXXX}
+particles. Since having a different mass resolution implies that halo
+samples have different lower mass limits, we only impose matching
+conditions on halos greater than $10^{12.5}{\rm M_{\odot}}$ for the
+case of $256^{3}$-particles sample and greater than $10^{13.5}{\rm M_{\odot}}$
+for the case of $128^{3}$-particles sample. For matching between
+$512^{3}$ and $256^{3}$ partciles, the above matching conditions
+are enough to find pairs for most of halos. On the other hand, as
+indicated in Figure \ref{fig:HaloPosition512}, separations of matched
+halos between $512^{3}$ and $128^{3}$ particles are bigger than
+$0.5h^{-1}{\rm Mpc}$ and the distance condition it too tight to find
+a pair. The right panel in Table \ref{tab:unmatched_512} shows how
+unmatched fractions are changed by changing the distance condition.
+This suggests that dynamics for $128^{3}$ and $512^{3}$ are very
+different(?)...
 
 \begin{table*}[p]
 \begin{tabular}{|c|c|c|c|}
@@ -116,17 +125,33 @@ the $128^{3}$-particles sample. \textcolor{red}{XXXX}
 mass-resolution\textbackslash{}z & 0.15 & 0.5 & 0.8\tabularnewline
 \hline 
 \hline 
-$256^{3}$ & 0.872 & 0.879 & 0.889\tabularnewline
+$256^{3}$ & 0.150 & 0.128 & 0.120\tabularnewline
 \hline 
-$128^{3}$ & 0.997 & 0.998 & 0.998\tabularnewline
+$128^{3}$ & 0.842 & 0.831 & 0.817\tabularnewline
+\hline 
+\end{tabular}%
+\begin{tabular}{|c|c|c|c|}
+\hline 
+z\textbackslash{}distance $[h^{-1}{\rm Mpc}]$ & 0.5 & 1.0 & 2.0\tabularnewline
+\hline 
+\hline 
+0.15 & 0.842 & 0.260 & 0.061\tabularnewline
+\hline 
+0.5 & 0.831 & 0.260 & 0.066\tabularnewline
+\hline 
+0.8 & 0.817 & 0.213 & 0.053\tabularnewline
 \hline 
 \end{tabular}
 
-\caption{\label{tab:unmatched_512}(WRONG!!!!!!!!!)Fractions of unmatched halos
-(over matched halos) for the sample of $512^{3}$ particles when we
-compare a halo by halo for $256^{3}$ and $128^{3}$ particles with
-a fixed time step (450/5). Most of halos are unmatched due to large
-differences on numbers of halo in different mass resolution samples.}
+\caption{\label{tab:unmatched_512}Left: Fractions of unmatched halos (over
+matched halos) for the sample of $512^{3}$ particles when we compare
+a halo by halo for $256^{3}$ and $128^{3}$ particles with a fixed
+time step (450/5). For the comparison between $512^{3}$ and $256^{3}$
+particles, we select halos greater than $10^{12.5}{\rm M_{\odot}}$,
+while for the case of $512^{3}$ and $128^{3}$ particles, halos greater
+than $10^{13.5}{\rm M_{\odot}}$ are selected. Right: For the comparison
+between $512^{3}$ and $128^{3}$ particles, we examined how the unmatched
+fractions are changed due to distance conditions.}
 \end{table*}
 
 
@@ -150,27 +175,35 @@ and $10^{13.5}{\rm M_{\odot}}$ for $512^{3}$ and $128^{3}$ particles
 samples.
 
 \begin{figure*}
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/plots_450_5/distance1_normed_450_5_z0\lyxdot 15} 
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/plots_450_5/distance1_normed_450_5_z0\lyxdot 15}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/NoDist_M14\lyxdot 0_distance1_normed_450_5_z0\lyxdot 15}
 
-\caption{\label{fig:HaloPosition512}Histograms of distance difference for
-matched halos with respect to halos from $512^{3}$ particles with
-450 large steps and 5 inner steps. Different colors correspond to
-different mass resolutions: $256^{3}$ particles and $128^{3}$ particles
-with a fixed time step (450/5) at redshift $z=0.15$. }
+\caption{\label{fig:HaloPosition512}Left: Histograms of distance difference
+for matched halos with respect to halos from $512^{3}$ particles
+with 450 large steps and 5 inner steps. Different colors correspond
+to different mass resolutions: $256^{3}$ particles and $128^{3}$
+particles with a fixed time step (450/5) at redshift $z=0.15$. Right:
+Histograms of distance difference for matched halos without iposing
+a distance condition. Halos are selected so that their masses are
+greater than $10^{14}{\rm M_{\odot}}$ at redshift $z=0.15$.}
 
 
 \end{figure*}
 
 
-Figure \ref{fig:HaloPosition512} depicts the halo position differences
-of individual halos. The simulation with $128^{3}$ particles has
-more scatter and its distribution is not Gaussian ($\rightarrow$
-\textcolor{red}{What does this possibly imply? How does this affect
-to power spectra?}). For the simulation with $256^{3}$ particles,
-the result improves siginificantly and the positions are matched within
-a few hundreds kpc. For halo masses, the results are shown in Figure
-\ref{fig:HaloMass512} and both simulations with $256^{3}$ and $128^{3}$
-particles well agree with the simulation with $512^{3}$ particles.
+Figure \ref{fig:HaloPosition512} shows distance between matched halos
+in two different samples. If two samples have the same halos at the
+same positions, then those distances go to zero. The simulation with
+$128^{3}$ particles has more scatter and its distribution is not
+Gaussian. As indicated in the right panel, the mean separation for
+halos between $128^{3}$ and $512^{3}$ particles is about $1h^{-1}{\rm Mpc}$.
+For the right panel, we only select halos whose masses are greater
+than $10^{14}{\rm M_{\odot}}$. For the simulation with $256^{3}$
+particles, the result improves siginificantly and the positions are
+matched within a few hundreds kpc. For halo masses, the results are
+shown in Figure \ref{fig:HaloMass512} and both simulations with $256^{3}$
+and $128^{3}$ particles well agree with the simulation with $512^{3}$
+particles.
 
 \begin{figure*}
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/plots_450_5/histogram3_normed_450_5_z0\lyxdot 15}
@@ -202,7 +235,9 @@ the $128^{3}$-particle sample are within 0.6 radians.}
 
 
 Figure \ref{fig:HaloVelocity512} indicates that difference on velocity
-magnitude for $256^{3}$-particles sample is relatively small.
+magnitude. For the case between $512^{3}$ and $256^{3}$ particles,
+the scatter is relatively small. The mean and standard deviation are
+\textcolor{red}{XXXX}.
 
 
 \subsection{Time steps}
@@ -456,7 +491,7 @@ simulations. Lower: Ratio of unmatched halo number densities (which
 are the same as the ones in the left plot) with respect to the corresponding
 total number densities. Both plots are at redshift $z=0.15$. I am
 not sure why there are more unmatched halos above $10^{14}{\rm M_{\odot}}$
-for 150/2. -> I may check the conditions of surrounding halos...}
+for 150/2. }
 \end{figure*}
  
 \begin{table*}[p]
@@ -503,35 +538,19 @@ Again, changing the matching conditions don't affect on the fraction
 of unmatched halos much and the fraction is always less than 10\%.
 
 {*}{*}{*}snapshots for unmatched halos whose mass is greater than
-$10^{14}{\rm M_{\odot}}$
-
-There are two unmatched halos whose mass is greater than $10^{14}{\rm M_{\odot}}$
-in 450/5. One of them was completely unmatched with any halos from
-300/2 (shown in Figure \ref{unmatch1}), while the other was due to
-the distance criteion on matching conditions (shown in Figure \ref{unmatch2}).
+$10^{14}{\rm M_{\odot}}$. There is a weird case between 450\_5 and
+300\_2...
 
 \begin{figure*}[t]
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/Unmatched_revised/mass14_unmacthedHalo1_data}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/Unmatched_revised/mass14_cont_unmatchedHalo1_sample}
+\includegraphics[width=1\textwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Snap1_256_300_2_z0\lyxdot 15}
 
-\caption{\label{unmatch1}Two halos from 300/2 which are close to the unmatched
-halo with halo mass $10^{14.003}{\rm M_{\odot}}$(from 450/5) are
-separate more than $2h^{-1}{\rm Mpc}$ and are either larger ($10^{14.612}{\rm M_{\odot}})$
-or smaller ($10^{13.3}{\rm M_{\odot}}$) than the mass criterion.}
+\caption{Snapshot of halos between 450/5 and 300/2 which don't agree completey.
+All the surrounding halos in 300/2 have distance more than $2h^{-1}{\rm Mpc}$
+from an unmatched halo in 450/5.}
+
+
 \end{figure*}
 
-
-\begin{figure*}[p]
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/Unmatched_revised/mass14_unmacthedHalo2_data}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/Unmatched_revised/mass14_cont_unmatchedHalo2_sample}
-
-\caption{\label{unmatch2}This halo is considered as an unmatched halo, because
-the closest halo from 300/2 has the distance of $0.55h^{-1}{\rm Mpc}$
-(and log-mass difference of 0.1). The matching condition used here
-was $0.5h^{-1}{\rm Mpc}$. }
-\end{figure*}
-
-
-Now, \textcolor{red}{we check the first halo more closely to investigate
-why there is no declared halos}...
 
 
 \section{Observable/Statistics}
@@ -564,55 +583,87 @@ to mass functions. Note that all the number densities (as a function
 of halo mass) are mean of 100 samples generated through bootstrap
 method.
 
+Note that mass functions and their errors plotted in this section
+are calculated by the bootstrap method.
+
 
 \subsubsection{Mass Resolution}
 
 {*} Analytic comparison
 
-\begin{figure*}[p]
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum_massResolution}
+In this section, we investigate effects of mass resolutions on mass
+function and number density of halos (as a function of mass). For
+the case of $128^{3}$ particles simulation, a mass of one particle
+is \textcolor{red}{XXX}, which implies that we cannot have halos smaller
+than about $10^{13.5}{\rm M_{\odot}}$ through FOF. This is because
+FOF requires a certain number of particles clustered to declare a
+halo. The lowest mass halo for $256^{3}$ particles simulations is
+about $10^{12.5}{\rm M_{\odot}}$. Figure \ref{fig:massFn512} shows
+number densities as a function of halo mass at redshift $z=0.15$
+and $z=0.8$. The colored regions indicate number densities for $512^{3}$
+particles with 450/5 with erros, which are calculated through the
+bootstrap method. The reason that number densities for $128^{3}$
+particles below $M_{halo}<10^{13.5}{\rm M_{\odot}}$ are constant
+is because there are no halos smaller than $10^{13.5}{\rm M_{\odot}}$
+for the case of $128^{3}$ particles. Otherwise, all three simulations
+have almost the same number densities, though they start slightly
+deviating on large halo mass end. \textcolor{red}{I don't understand
+the disagreement at $z=0.8$ is bigger than that for $z=0.15$:(}
 
-\caption{Comparison of mass functions (should I call this number density?)
-for different simulations at redshift $z=0.15$ and $z=0.8$. The
-shaded regions indicate the upper limit and the lower limit of mass
-functions for the simulation with $512^{3}$ particles and 450 steps
-with 5 inner steps. The mean and standard deviations are calculated
-from bootstrap method. We compare them with the simulations of $256^{3}$
-particles with 450 large steps and 5 inner steps (described as $256^{3}$
-with circles in the figure) and $128^{3}$ particles with 450 large
-steps and 5 inner steps (described as $128^{3}$ with red stars in
-the figure). }
+\begin{figure*}[p]
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum_massResolution}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum_massResolution}
+
+\caption{\label{fig:massFn512}Comparison of mass functions (should I call
+this number density?) for different simulations at redshift $z=0.15$
+and $z=0.8$. The shaded regions indicate the upper limit and the
+lower limit of mass functions for the simulation with $512^{3}$ particles
+and 450 steps with 5 inner steps. The mean and standard deviations
+are calculated from bootstrap method. We compare them with the simulations
+of $256^{3}$ particles with 450 large steps and 5 inner steps (described
+as $256^{3}$ with circles in the figure) and $128^{3}$ particles
+with 450 large steps and 5 inner steps (described as $128^{3}$ with
+red stars in the figure). }
 \end{figure*}
 
 
 
 \subsubsection{Time Steps}
 
+Here, we check the same thing as 2.1.1 for varying time steps with
+a fixed mass reslution of $256^{3}$ particles. Figure \ref{fig:massFn256}
+compares 450/5 and 300/2 with $512^{3}:450/5$. The colored regions
+indicate number densities of $512^{3}:450/5$ with errors. Both 450/5
+and 300/2 for $256^{3}$ particles are well within the errors. Figure
+\ref{fig:massFnRatio} shows the ratios between $512^{3}$ (450/5)
+and $256^{3}$ particles with different time steps. For the case of
+450 and 300 global time steps, the match is better than 10\%.
+
 \begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum2}
 
-\caption{Comparison of mass functions (should I call this number density?)
-for different simulations at redshift $z=0.15$ and $z=0.8$. The
-shaded regions indicate the upper limit and the lower limit of mass
-functions for the simulation with $512^{3}$ particles and 450 steps
-with 5 inner(?) steps. The mean and standard deviations are calculated
-from bootstrap method. We compare them with the simulations of $256^{3}$
-particles with 450 large steps and 5 inner steps (described as $256^{3}(450:5)$
-with circles in the figure) and with 300 large steps and 2 inner steps
-(described as $256^{3}(300:2)$ with red stars in the figure).}
+\caption{\label{fig:massFn256}Comparison of mass functions (should I call
+this number density?) for different simulations at redshift $z=0.15$
+and $z=0.8$. The shaded regions indicate the upper limit and the
+lower limit of mass functions for the simulation with $512^{3}$ particles
+and 450 steps with 5 inner(?) steps. The mean and standard deviations
+are calculated from bootstrap method. We compare them with the simulations
+of $256^{3}$ particles with 450 large steps and 5 inner steps (described
+as $256^{3}(450:5)$ with circles in the figure) and with 300 large
+steps and 2 inner steps (described as $256^{3}(300:2)$ with red stars
+in the figure).}
 
 
 \end{figure*}
 
 
 \begin{figure*}[p]
-\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0\lyxdot 15}\caption{Ratios of mass functions of different time steps with $256^{3}$ particles,
-compared to $512^{3}$ particles with 450 large steps and 5 inner
-steps, at redshift $z=0.15$. Different colors are corresponding to
-different time steps. The legend in the plot has the same format as
-the one in Figure 1. This plot shows that the simulations with 450
-and 300 large steps agree well with the simulation with $512^{3}$
-particles.}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0\lyxdot 15}\caption{\label{fig:massFnRatio}Ratios of mass functions of different time
+steps with $256^{3}$ particles, compared to $512^{3}$ particles
+with 450 large steps and 5 inner steps, at redshift $z=0.15$. Different
+colors are corresponding to different time steps. The legend in the
+plot has the same format as the one in Figure 1. This plot shows that
+the simulations with 450 and 300 large steps agree well with the simulation
+with $512^{3}$ particles.}
 \end{figure*}
 
 
@@ -634,6 +685,10 @@ and time steps on power spectra.
 {*}only auto power spectra since I don't have DM particle samples
 for $512^{3}$ particles resolution. Are there any meanings to calculate
 cross-power with $256^{3}$ particles?
+
+``Before doing the ratio, a Poisson shot noise contribution of $1/n$,
+where $n$ is a number density of halos, have been subtracted from
+the power, as it is common under the approximation of Poisson sampling.
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_mcut13\lyxdot 5_ws}
@@ -675,11 +730,11 @@ The sample of halos is equivalent to a mass thresholds of $M=10^{13.5}{\rm M_{\o
 \begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0\lyxdot 15}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
 
-\caption{Left: Cross power spectra of halos with DM particles at redshift $z=0.15$.
-DM particles are taken from the simulation of $256^{3}$ particles
-with 450 large steps and 5 inner steps. Different colors indicate
-different halo mass slices: ${\rm log_{10}M\in[12.5,13.0]}$ (blue),
-${\rm log_{10}M\in[13.0,13.5]}$ (green), and ${\rm log_{10}M>13.5}$
+\caption{Left: Cross power spectra between halos and DM particles at redshift
+$z=0.15$. DM particles are taken from the simulation of $256^{3}$
+particles with 450 large steps and 5 inner steps. Different colors
+indicate different halo mass slices: ${\rm log_{10}M\in[12.5,13.0]}$
+(blue), ${\rm log_{10}M\in[13.0,13.5]}$ (green), and ${\rm log_{10}M>13.5}$
 (red). Lines are the simulations with 450 large steps and 5 inner
 steps, and circles are the ones with 300 large steps and 2 inner steps.
 Right:Ratios of cross power spectra for different simulations with
@@ -688,6 +743,15 @@ steps. }
 
 
 \end{figure*}
+
+
+\begin{figure}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossCoeff2_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
+
+\caption{cross-power coefficients.}
+
+
+\end{figure}
 
 \begin{itemize}
 \item Cross correlations with full N-body, higher particle loading etc 
@@ -700,6 +764,29 @@ comparison indicates is that corresponding halos don't have the same
 masses. ->What kind of problems do we have by having this issue?->$b(M)$
 may be diffrent for different simulations. 
 \end{itemize}
+\begin{figure*}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossCoeff2_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/matchedCross1_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
+
+\caption{Cross-power cpefficients for mass-selected halos (left) and for matched
+halos (right).}
+
+
+\end{figure*}
+
+
+\begin{figure*}
+\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/Bias_mass_ws_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}\includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/Bias_matched_ws_mcut12\lyxdot 5to13\lyxdot 0_z0\lyxdot 15}
+
+\caption{Halo Biases for different stepsizes with $256^{3}$ particles at redshift
+$z=0.15$. Left panel is halo biases for samples which are selected
+based on mass, and right panel is for samples which are corresponding
+to halos of 450 large steps and 5 inner steps. Different colors indicate
+different stepsizes and mass range for halo samples is from $10^{12.5}{\rm M_{\odot}}$
+to $10^{13.0}{\rm M_{\odot}}$.}
+\end{figure*}
+
+
 
 \section{Observable Box}
 
