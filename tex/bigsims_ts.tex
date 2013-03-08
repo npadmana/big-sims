@@ -43,8 +43,8 @@ properties as mock catalogs.
 
 First, we compare a halo by halo in different simulations. Since all
 the simulations use exactly the same initial conditions, if those
-approximated N-body simulations can recover the halos reasonably well
-(compared to a full N-body simulation), then we should find the same
+approximated N-body simulations recover the halos well enough (compared
+to a full N-body simulation), we find the same (\textcolor{red}{similar?})
 halo at the same position with the same mass in samples using different
 mass resolutions and time steps. The question here are how mass resolutions
 and time steps affect on halo properties (i.e., mass, position and
@@ -69,7 +69,7 @@ cubic box. We also checked how those conditions affect to fraction
 of matched halos by changing the numerical values for distance and
 mass ratio criteria. As shown in Table \ref{tab:unmatchedHalo}, changing
 a criterion on mass ratio did not change the fraction much, while
-the distance conditions does. This iimplies that deviation of halo
+the distance conditions does. This implies that deviation of halo
 masses on pairs is relatively small.
 
 \begin{table*}[p]
@@ -169,10 +169,10 @@ simulation (right, green) at redshift $z=0.15$. }
 
 
 Figure \ref{fig:unmatchedHalo512} shows number densities of unmatched
-halos as a function of halo mass at redshift $z=0.15$. In matching,
-an algorithm takes a finer resolution sample as a reference and finds
-a matched halo from the other sample. Surprisingly, the number densities
-for bothe samples are almost the same.
+halos as a function of halo mass at redshift $z=0.15$. To match a
+halo by halo, an algorithm takes a finer resolution sample as a reference
+and finds a matched halo from the other sample. Surprisingly, the
+number densities for bothe samples are almost the same.
 
 \begin{figure*}
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/plots_450_5/distance1_normed_450_5_z0\lyxdot 15}
@@ -407,8 +407,8 @@ are not considered as halos. In \textcolor{red}{Manera et al. 2012}
 which approximates N-body simulations by using the second-order Lagrangian
 Perturbation Theory, they solved this problem by changing the linking
 length for FOF., but one of our advantages in this approximated N-body
-simulations is that we don't really need to tune the linking length
-in order to get halos correctly.
+simulations is that we can avoid tuning the linking length in order
+to get halos correctly.
 
 \begin{figure*}[p]
 \includegraphics[width=1\columnwidth]{/Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/velMag_z0\lyxdot 15}
@@ -479,7 +479,7 @@ The histogram is a function of velocity magnitude differences. For
 150 global steps, the means slightly deviate from 0 and have negative
 values. This means that magnitude of velocity for 150 global steps
 is smaller than that for 450 global steps. One way to explain this
-is that because smaller time step halos are less dense, the potential
+is that smaller time step halos are less dense, and the potential
 wells at center of halos may be less deeper than the ones for larger
 step sizes. We also examined differences on velocity direction (orientation?).
 More than 98\% of paired halos have angle differences (with respect
