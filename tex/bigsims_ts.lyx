@@ -433,7 +433,7 @@ Fractions of matched halo for the sample of 450/5 when we compare a halo
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -444,6 +444,9 @@ status collapsed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_256_300_2_z0.15.pdf
 	lyxscale 50
