@@ -1,0 +1,4603 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass mn2e
+\begin_preamble
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+%Make my life significantly easier
+
+\global\long\def\bd{{\bm{\delta}}}
+\end_preamble
+\options usenatbib
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding latin9
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Matching Halos
+\end_layout
+
+\begin_layout Standard
+(How should I show the varification between 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles...?)
+\end_layout
+
+\begin_layout Standard
+In this section, we investigate how the number of steps affects to halo
+ properties.
+ In order to compare halos in different simulations, it is required to identify
+ the same halos in those samples.
+ Since all the simulations use exactly the same initial conditions, if those
+ approximated N-body simulations recover the halos well enough (compared
+ to a full N-body simulation), we find the same halo at the same position
+ with the same mass.
+ In those simulations, we stored information of particle id and halo id
+ besides particle's position and velocity.
+ Particle id is an id to identify each particle and halo id is a tag for
+ the halo where the particle belongs.
+ Having the same particle id implies that those particles were initially
+ at the same position.
+ On the other hand, there is no correspondence for halo id, because halo
+ id is assigned to each halo rather randomly.
+ So, we need to match halo id in different samples to identify whether two
+ halos are the same halo or not.
+ By matching halos by halos, we can investigate the effect of step numbers
+ on halo properties (i.e., halo mass, position, and velocity).
+\end_layout
+
+\begin_layout Standard
+To find matched halos, we first identify particle ids in each halo.
+ Note that we did all the matching with respect to the sample of 450/5.
+ For each halo in 450/5, we identify particle id and find the corresponding
+ particles in 
+\color red
+the other sample
+\color inherit
+.
+ Among those particles, we take a halo id that those particles 
+\color red
+share
+\color inherit
+ the most.
+ Since the number of halos in the samples is different, there are some halos
+ which match with two or more halos in 450/5.
+ For those 
+\begin_inset Quotes eld
+\end_inset
+
+double-booked
+\begin_inset Quotes erd
+\end_inset
+
+ halos, we also checked the fraction of matched particles over the total
+ number of particles in those halos and chose the one whose fraction is
+ the largest.
+ At last, we decided to make thresholds to check whether those macthed halos
+ can be really identified as the same galos.
+ We checked the fraction of matched particles over the total number and
+ eliminated the ones whose fractions are below the threshold.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction1"
+
+\end_inset
+
+ and Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:matchedHalo"
+
+\end_inset
+
+ show how matched (and unmatched) fractions are changed as a function of
+ thresholds.
+ We chose the threshold of 0.5 in the following section, because 
+\color red
+XXX
+\color inherit
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement p
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+threshold
+\backslash
+redshift
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.15$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.973
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.973
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.972
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.955
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.953
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.952
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.75
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.709
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.662
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.638
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:matchedHalo"
+
+\end_inset
+
+Fractions of matched halo for the sample of 450/5 when we compare a halo
+ by halo for 300/2.
+ Here, both simulations have the same mass resolution (i.e., 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in the box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+).
+ This table shows how the fraction is changed according to changing the
+ thresholds.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_256_450_5_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_256_300_2_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:fraction1"
+
+\end_inset
+
+The fraction of unmatched halo number density and the total number of halos
+ for the simulation of 300 global steps and 2 sub-cycles matching with 450
+ global steps and 5 sub-cycles at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Both are from 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particle simulations.
+ The right panel is the fractions for 450/5 and the left panel is the fraction
+ for 300/2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At la
+\color black
+st, we show the fraction between number density of unmatched halos and the
+ total number density at three different redshifts and with different number
+ of steps in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+.
+ 
+\color red
+I need to check why z=0.8 behaves so differently for 450/5 (and whether the
+ same thing is happened for matching with other samples)
+\color black
+.
+ As shown in the right panel in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+, the fractions are almost the same for different redshifts.
+ On the other hand, the left panel in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+ shows that global time steps actually affect to the fraction of unmatched
+ halos on any halo mass while sub-cycles only affect on low-mass halos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_450_300_2.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_300_300_2.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_450_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:fraction2"
+
+\end_inset
+
+The fraction of unmatched halo number density and the total number of halos
+ for the simulation of 300 global steps and 2 sub-cycles matching with 450
+ global steps and 5 sub-cycles.
+ All the sample are 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particle simulations.
+ The right panel is the fractions between 450/5 and 300/2 as a function
+ of redshift and the left panel is the fractions between 450 and various
+ number steps at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Note that the middle plot is the same as the right plot but the fractions
+ for 300/2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Time steps
+\end_layout
+
+\begin_layout Standard
+In this section, we examine how global steps and sub-cycles affect to halo
+ properties.
+ The goal here is to know the smallest global steps and sub-cycles required
+ to preserve necessary properties for mock catalogs.
+ 
+\end_layout
+
+\begin_layout Standard
+Here, all the samples have the same mass resolution, 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in the box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+.
+ We use 450/5 (450 global steps and 5 sub-cycles) as a reference to other
+ samples: 300/3, 300/2, 150/3, and 150/2.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_massDiff_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/scatterMass_256_300_2_12.5to15.0_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:HaloMass"
+
+\end_inset
+
+Right: Histograms of log-based mass difference of different simulation step
+ sizes with respect to the one with 450 global steps and 5 sub-cycles.
+ Histograms are not normalized and all halos are from the simulations with
+ 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles.
+ For each of simulations: 300 global steps with 3 sub-cycles (blue) and
+ 2 sub-cycles (green), and 150 global steps with 3 sub-cycles (red).
+ Left: A scatter plot of halo mass between 450/5 and 300/2 at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ This scatter plot indicates that most of halo masses agree well except
+ some halos (
+\color red
+which I should investigate further
+\color inherit
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.006
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.113
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.124
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.021
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.118
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.039
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.125
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HaloMass"
+
+\end_inset
+
+Means and standard deviations for halo mass differences in log-based halo
+ mass (with base 10) in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloMass"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloMass"
+
+\end_inset
+
+ shows halo mass differences for paired halos with respect to halos from
+ 450/5.
+ Global steps affect on overall distribution properties (i.e., mean and standard
+ deviation shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloMass"
+
+\end_inset
+
+), while sub-cycles affect on their amplitudes.
+ This is because sub-cycles changes small-scale dynamics and it can cause
+ a difference on number of halos declared through FOF, whose linking length
+ is fixed to 
+\begin_inset Formula $b=0.2$
+\end_inset
+
+.
+ In general, smaller step sizes make distribution of DM particles as halos
+ more diffused (since bigger stepsizes cen't capture all the non-linearities
+ that finer stepsizes can) and there is a possibility that some of gathered
+ DM particles are not considered as halos.
+ In 
+\color red
+Manera et al.
+ 2012
+\color inherit
+ which approximates N-body simulations by using the second-order Lagrangian
+ Perturbation Theory, they solved this problem by changing the linking length
+ for FOF., but one of our advantages in this approximated N-body simulations
+ is that we can avoid tuning the linking length in order to get halos correctly.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance3_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:HaloPosition"
+
+\end_inset
+
+Histograms of distance difference for matched halos with respect to halos
+ from 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles.
+ Different colors correspond to different simulation step sizes: 300 global
+ steps with 3 sub-cycles (blue) and 2 sub-cycles (green), and 150 global
+ steps with 3 sub-cycles (red) and 2 sub-cycles (cyan).
+ All the simulations use 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float table
+placement H
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std[
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.172
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.674
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.235
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.312
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.458
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.348
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.509
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.118
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std[
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std[
+\begin_inset Formula $h^{-1}{\rm Mpc}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HaloPosition"
+
+\end_inset
+
+Means and standard deviations for positional differences in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloPosition"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloPosition"
+
+\end_inset
+
+ shows positional differences for paired halos.
+ This histogram indicates that global step has bigger effects on overall
+ halo positions and the effect of sub-cycles is almost negligible.
+ Most of halos for 300 global steps have their center positions within 100
+ kpc by comparing with halo center positions for 450/5, while the simulations
+ for 150 global steps have more scatter in the figure.
+ Means and standard deviations for the histograms are shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloPosition"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_velocity_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:HaloVelocity"
+
+\end_inset
+
+Histograms of velocity magnitude difference for matched halos with respect
+ to halos from 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles.
+ Different colors correspond to different simulation stepsizes: 300 global
+ steps with 3 sub-cycles (blue) and 2 sub-cycles (green), and 150 global
+ steps with 3 sub-cycles (red) and 2 sub-cycles (cyan).
+ All the simulations use 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ 
+\color red
+Note that angle difference of velocity vectors for 98% of matched halos
+ are within 0.3 radians.
+ Also, change the unit of velocity, which is wrong!!!!!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float table
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula ${\rm km/{\rm s}}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula ${\rm km/s}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-4.92
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32.55
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-5.53
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+36.58
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-22.10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+35.94
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-20.82
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+38.44
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula ${\rm km/{\rm s}}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula ${\rm km/s}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula ${\rm km/{\rm s}}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula ${\rm km/s}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HaloVelocity"
+
+\end_inset
+
+Means and standard deviations for halo velocity differences in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloVelocity"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float table
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula ${\rm km/{\rm s}}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula ${\rm km/s}$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.993
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.054
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.057
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.052
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.052
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z=0.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fraction within 10 degree
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.951
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.938
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.928
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.923
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:HaloVelPhase"
+
+\end_inset
+
+Means and standard deviations for halo velocity phase differences.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For halo velocities, the results are shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloVelocity"
+
+\end_inset
+
+.
+ The histogram is a function of velocity magnitude differences.
+ For 150 global steps, the means slightly deviate from 0 and have negative
+ values.
+ This means that magnitude of velocity for 150 global steps is smaller than
+ that for 450 global steps.
+ One way to explain this is that smaller time step halos are less dense,
+ and the potential wells at center of halos may be less deeper than the
+ ones for larger step sizes.
+ We also examined differences on velocity direction.
+ More than 
+\color red
+98%
+\color inherit
+ of paired halos have angle differences (with respect to halos for 450/5)
+ within 0.3 radians.
+ This implies that orientation of velocities are well-preserved among the
+ samples for different time steps.
+\end_layout
+
+\begin_layout Section
+Observable/Statistics
+\end_layout
+
+\begin_layout Standard
+Goal: To correctly describe the large-scale distribution of these galaxies.
+ 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ Need to correctly locate DM halos in the simulations and estimate their
+ masses.
+\end_layout
+
+\begin_layout Subsection
+Mass Function
+\end_layout
+
+\begin_layout Standard
+* Why do we care about mass functions?: White 2002 
+\begin_inset Quotes eld
+\end_inset
+
+mass function is one of the most fundamental predictions of a theory of
+ structre formation.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+* If we have samples with different mass functions, what does it mean? and
+ what kind of problems are caused by that?
+\end_layout
+
+\begin_layout Standard
+* What does it physically (observationally?) mean to have the same mass
+ function?
+\end_layout
+
+\begin_layout Standard
+* I am not sure how Manera et al.
+ assigned masses to halos...apparently, they were using analytic mass functions
+ for this...:(
+\end_layout
+
+\begin_layout Standard
+* relation between 
+\begin_inset Formula $n(M)$
+\end_inset
+
+ and HOD.
+\end_layout
+
+\begin_layout Standard
+* ingredients of mass function: cosmology, initial conditions (how important
+ is initial condition??), what other physical processes??
+\end_layout
+
+\begin_layout Standard
+In this section, we examine how mass resolutions and time steps affect to
+ mass functions.
+ Note that all the number densities (as a function of halo mass) are mean
+ of 100 samples generated through the bootstrap method.
+\end_layout
+
+\begin_layout Subsubsection
+Mass Resolution
+\end_layout
+
+\begin_layout Standard
+* Analytic comparison
+\end_layout
+
+\begin_layout Standard
+In this section, we investigate effects of mass resolutions on mass function
+ and number density of halos (as a function of mass).
+ For the case of 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles simulation, a mass of one particle is about 
+\begin_inset Formula $10^{12}{\rm M_{\odot}}$
+\end_inset
+
+, which implies that we cannot have halos smaller than about 
+\begin_inset Formula $10^{13.5}{\rm M_{\odot}}$
+\end_inset
+
+ through FOF.
+ This is because FOF requires a certain number of particles clustered to
+ declare a halo.
+ The lowest mass halo for 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles simulations is about 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFn512"
+
+\end_inset
+
+ shows number densities as a function of halo mass at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
+ The colored regions indicate number densities for 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles with 450/5 with errors.
+ The reason that number densities for 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles below 
+\begin_inset Formula $M_{halo}<10^{13.5}{\rm M_{\odot}}$
+\end_inset
+
+ are constant is because there are no halos smaller than 
+\begin_inset Formula $10^{13.5}{\rm M_{\odot}}$
+\end_inset
+
+ for the case of 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles.
+ Otherwise, all three simulations have almost the same number densities,
+ though they start slightly deviating on large halo mass end.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum_massResolution.pdf
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum_massResolution.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:massFn512"
+
+\end_inset
+
+Comparison of mass functions (should I call this number density?) for different
+ simulations at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
+ The shaded regions indicate the upper limit and the lower limit of mass
+ functions for the simulation with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles and 450 steps with 5 sub-cycles.
+ The mean and standard deviations are calculated from bootstrap method.
+ We compare them with the simulations of 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles (described as 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ with circles in the figure) and 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles (described as 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ with red stars in the figure).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Time Steps
+\end_layout
+
+\begin_layout Standard
+Here, we check the same thing as 2.1.1 for varying time steps with a fixed
+ mass reslution of 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFn256"
+
+\end_inset
+
+ compares 450/5 and 300/2 with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles mass resolution and 450/5 time steps.
+ The colored regions indicate number densities of 
+\begin_inset Formula $512^{3}:450/5$
+\end_inset
+
+ with errors.
+ Both 450/5 and 300/2 for 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles are well within the errors.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFnRatio"
+
+\end_inset
+
+ shows the ratios between 
+\begin_inset Formula $512^{3}:450/5$
+\end_inset
+
+ and 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with different time steps.
+ For the case of 450 and 300 global time steps, the agreement is better
+ than 10%.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloNum2.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:massFn256"
+
+\end_inset
+
+Comparison of mass functions (should I call this number density?) for different
+ simulations at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
+ The shaded regions indicate the upper limit and the lower limit of mass
+ functions for the simulation with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles and 450 steps with 5 inner(?) steps.
+ The mean and standard deviations are calculated from bootstrap method.
+ We compare them with the simulations of 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles (described as 
+\begin_inset Formula $256^{3}(450:5)$
+\end_inset
+
+ with circles in the figure) and with 300 global steps and 2 sub-cycles
+ (described as 
+\begin_inset Formula $256^{3}(300:2)$
+\end_inset
+
+ with red stars in the figure).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:massFnRatio"
+
+\end_inset
+
+Ratios of mass functions of different time steps with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles, compared to 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles, at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Different colors are corresponding to different time steps.
+ The legend in the plot has the same format as the one in Figure 1.
+ This plot shows that the simulations with 450 and 300 global steps agree
+ well with the simulation with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Halo power spectra
+\end_layout
+
+\begin_layout Standard
+In this section, we examine how mass resolution and time steps change statistica
+l observables (i.e., auto- and cross-power spectra).
+ By calculating those quantities, we want to know what the smallest global
+ steps and sub-cycles required to preserve enough properties on power spectra
+ for observations.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Mass Resolution
+\end_layout
+
+\begin_layout Standard
+In this subsection, we calculate auto power spectra for two different mass
+ resolutions, 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in a 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+ cubic box.
+ Halos used here are selected so that those halo masses are greater than
+ 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:autoPower512"
+
+\end_inset
+
+, we show various auto power spectra for 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles-simulations at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+, and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ on the left panels and ratios of auto power spectra between those two samples
+ on the right panels.
+ Power spectra on the upper panels are subtracted a Poisson shot noise of
+ 
+\begin_inset Formula $1/n$
+\end_inset
+
+, where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the nuber density of halos.
+ The lower panels are the same as the upper panels without a Poisson shot
+ noise subtraction.
+ As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:autoPower512"
+
+\end_inset
+
+, the agreement between 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles- simulations is within 10%.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_mcut12.5_ws.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_mcut12.5_ws.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_mcut12.5_wo.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_mcut12.5_wo.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:autoPower512"
+
+\end_inset
+
+Halo auto power spectra for different mass resolutions (
+\begin_inset Formula $512^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+, and 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles in the box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+) with a fixed time step of 450/5.
+ The sample of halos is equivalent to a mass thresholds of 
+\begin_inset Formula $M=10^{13.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Time Steps
+\end_layout
+
+\begin_layout Standard
+In this subsection, we examine effects of time steps on power spectra.
+ While global steps is responsible for resolving the large scale structure,
+ sub-cycles mainly afftes on the small scales and inner structure of halos
+\color black
+.
+ We want to evaluate qualitative effects of those
+\color inherit
+ differences on dynamics.
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:autoPower_time"
+
+\end_inset
+
+, we show various auto power spectra for 450/5 and 300/2 at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+, and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ on the left panels and ratios of auto power spectra for different global
+ steps and sub-cycles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ on the right panels.
+ Power spectra on the upper panels are subtracted a Poisson shot noise of
+ 
+\begin_inset Formula $1/n$
+\end_inset
+
+, where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the nuber density of halos.
+ The lower panels are the same as the upper panels without a Poisson shot
+ noise subtraction.
+ Note that halos selected here has a mass treshhold of 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:autoPower_time"
+
+\end_inset
+
+, the agreement between 450/5 and other time steps is within 10%.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_256_mcut12.5_ws.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_256_mcut12.5_ws_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_256_mcut12.5_wo.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_ratio_256_mcut12.5_wo_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:autoPower_time"
+
+\end_inset
+
+Left: Halo auto power spectra for different redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (blue), 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+ (green), and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ (red), which compare 450/5 (dashed line) and 300/2 (circles).
+ Right: Ratios of halo auto power spectra between 450/5 and other time steps
+ at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ All the samples used here has the same mass resolution, 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in a 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+ cubic box.
+ The upper panels are subtracted a Poission shot noise, while the lower
+ panels are without a Poisson shot noise subtraction.
+ The sample of halos is equivalent to a mass thresholds of 
+\begin_inset Formula $M=10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossPower_time"
+
+\end_inset
+
+, we computed the cross power spectra between halos and the matter field
+ at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ For the matter field, we used the one for 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles mass resolution with 450/5 time steps.
+ On the left panel, we show three different mass bins and compare 300/2
+ (circles) and 450/5 (solid line) simulations.
+ They agree remarkably well.
+ On the right panel, we take ratios between the cross power spectrum for
+ 450/5 time steps and the cross for other time steps.
+ Halos selected for the right panel has a mass from 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
+\end_inset
+
+.
+ We see that all the ratios are within 5% accuracy except 150/2 simulations
+ on small scales.
+ Note that those ratios are equivalent to the ratios of the halo biases,
+ which implies that biases for different time steps are almost the same.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12.5to13.0_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:crossPower_time"
+
+\end_inset
+
+Left: Cross power spectra between halos and DM particles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ DM particles are taken from the simulation of 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles with 450 global steps and 5 sub-cycles.
+ Different colors indicate different halo mass slices: 
+\begin_inset Formula ${\rm log_{10}M\in[12.5,13.0]}$
+\end_inset
+
+ (blue), 
+\begin_inset Formula ${\rm log_{10}M\in[13.0,13.5]}$
+\end_inset
+
+ (green), and 
+\begin_inset Formula ${\rm log_{10}M>13.5}$
+\end_inset
+
+ (red).
+ Lines are the simulations with 450 global steps and 5 sub-cycles, and circles
+ are the ones with 300 global steps and 2 sub-cycles.
+ Right:Ratios of cross power spectra for different simulations with respect
+ to the cross power spectra with 450 global steps and 5 sub-cycles.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Observable Box
+\end_layout
+
+\begin_layout Standard
+What we want to check/know here are:
+\end_layout
+
+\begin_layout Standard
+1) What redshift can we use linear-shifting?,
+\end_layout
+
+\begin_layout Standard
+2) What redshift-step size is required to preserve dynamics in simulations?
+\end_layout
+
+\begin_layout Appendix
+Appendix A: snapshots for unmatched halos whose mass is greater than 
+\begin_inset Formula $10^{14}{\rm M_{\odot}}$
+\end_inset
+
+.
+ There is a weird case between 450_5 and 300_2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Snap1_256_300_2_z0.15.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Snapshot of halos between 450/5 and 300/2 which don't agree completey.
+ All the surrounding halos in 300/2 have distance more than 
+\begin_inset Formula $2h^{-1}{\rm Mpc}$
+\end_inset
+
+ from an unmatched halo in 450/5.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Appendix
+Appendix B: mass selected samples v.s.
+ matched halo samples
+\end_layout
+
+\begin_layout Itemize
+Comparison of matched halo samples and mass-sliced samples: what the comparison
+ indicates is that corresponding halos don't have the same masses.
+ ->What kind of problems do we have by having this issue?->
+\begin_inset Formula $b(M)$
+\end_inset
+
+ may be diffrent for different simulations.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossCoeff2_mcut12.5to13.0_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/matchedCross1_mcut12.5to13.0_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Cross-power coefficients for mass-selected halos (left) and for matched
+ halos (right) at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Both cross power coefficients compare the 450/5 simulation and other time
+ steps.
+ Halos for 450/5 have a mass from 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/Bias_mass_ws_mcut12.5to13.0_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/Bias_matched_ws_mcut12.5to13.0_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Halo Biases for different stepsizes with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Left panel is halo biases for samples which are selected based on mass,
+ and right panel is for samples which are corresponding to halos of 450
+ global steps and 5 sub-cycles.
+ Different colors indicate different stepsizes and mass range for halo samples
+ is from 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Appendix
+Appendix C: Extra Plots
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower2_256_mcut12.5_ws_mass.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Auto power spectra for different halo mass bins, which compare 450/5 (solid
+ line) and 300/2 (circles) at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossCoeff2_mcut12.5to13.0_z0.15.pdf
+	lyxscale 80
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Cross power coefficients between 450/5 and other time steps at redshift
+ 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Halos used here have a mass from 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/plots_450_5/velMag1_normed_450_5_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/velMag1_normed_450_5_z0.5.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/velMag1_normed_450_5_z0.8.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms of velocity magnitude difference for matched halos with respect
+ to halos from 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+(left), 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+ (middle), and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ (right).
+ Different colors correspond to different mass resolutions: 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles (blue) and 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+ particles (green).
+ All the simulations use the same step size, 450/5.
+ Note that angle difference of velocity vectors for 95% of matched halos
+ in the 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+-particle sample are within 0.3 radians and 90% in the 
+\begin_inset Formula $128^{3}$
+\end_inset
+
+-particle sample are within 0.6 radians.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $256^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula $km/s$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula $km/s$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.15$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.69
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+33.60
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.09
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+49.94
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.82
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+59.42
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $128^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean [
+\begin_inset Formula $km/s$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std [
+\begin_inset Formula $km/s$
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.15$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+59.45
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+74.44
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $z=0.8$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24.97
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+89.64
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mean and standard deviations for the velocity magnitude difference histograms,
+ which compares 
+\begin_inset Formula $256^{3}/128^{3}$
+\end_inset
+
+ particles with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles.
+ I just felt wierd that deviations on means from 0.0 become bigger and the
+ values of standard deviations become bigger as redshift goes higher.
+ I feel that this should be opposite...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Appendix
+Appendix D: Redshift-space distortion
+\end_layout
+
+\begin_layout Standard
+D1: Mass Resolution
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_mcut12.5_ws.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_ratio_mcut12.5_ws.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Halo auto power spectra in redshift-space for different mass resolutions
+ (
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+particles in the box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+) with a fixed time step of 450/5.
+ The sample of halos is equivalent to a mass thresholds of 
+\begin_inset Formula $M=10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_256_mcut12.5.pdf
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_ratio_256_mcut12.5_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Halo auto power spectra in redshift-space for different redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (blue), 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+ (green), and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ (red), which compare 450/5 (dashed line) and 300/2 (circles).
+ Right: Ratios of halo auto power spectra between 450/5 and other time steps
+ at redshift 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ All the samples used here has the same mass resolution, 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in a 
+\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
+\end_inset
+
+ cubic box.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fontsize
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_ratio_256_mcut12.5_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower25_s_ratio_256_mcut12.5_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower30_s_ratio_256_mcut12.5_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Check for fontsize 20,25,30...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
