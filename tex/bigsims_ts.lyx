@@ -91,6 +91,10 @@ Mass Resolution
 Step Size
 \end_layout
 
+\begin_layout Subsubsection
+Algorithm
+\end_layout
+
 \begin_layout Standard
 Here, we investigated how the number of step sizes affect on halo properties
  (i.e., halo mass, position, and velocity) and statistical observables.
@@ -137,7 +141,7 @@ reference "fig:fraction1"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -223,7 +227,7 @@ d with the corresponding halos in the 300/2 better than the individual halo
 placement bp
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -361,10 +365,10 @@ reference "fig:mass-content"
 
 .
  There are three reasons that halos are considered as unmatched.
- First, if there is no common particles in the halos, we consider them as
- unmatched.
+ First, if there are no common particles in the halos, we consider them
+ as unmatched.
  Second, if the fraction of common particles over the total number of particles
- in each halo is less than 50%, we eliminate those halos.
+ in each halo is less than 50%, we eliminate those spurious halos.
  At last, we remove the multiply-booked halos except the ones which have
  the most number of common particles.
  We showed each unmatched number density as a function of halo mass.
@@ -376,9 +380,9 @@ reference "fig:mass-content"
 
 \begin_layout Standard
 \begin_inset Float figure
-wide false
+wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -435,17 +439,17 @@ name "fig:mass-content"
 \end_layout
 
 \begin_layout Standard
-At la
+
 \color black
-st, we show the cumulative fractions of unmatched halos as a function of
- redshift and the number of step size in Figure 
+In Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:fraction2"
 
 \end_inset
 
-.
+, we show the cumulative fractions of unmatched halos as a function of redshift
+ and the number of step size.
  As shown in the right panel in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -462,12 +466,13 @@ reference "fig:fraction2"
 \end_inset
 
  shows that global time steps actually affect to the fraction of unmatched
- halos on any halo mass and sub-cycles only affect on low-mass halos.
+ halos on any halo mass and sub-cycles make differences on low-mass halos.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-wide false
+placement p
+wide true
 sideways false
 status open
 
@@ -532,51 +537,34 @@ Right: (Remove dashed lines) The cumulative fraction of unmatched halos
 
 \end_layout
 
-\begin_layout Subsection
-Time steps
-\end_layout
-
-\begin_layout Standard
-In this section, we examine how global steps and sub-cycles affect to halo
- properties.
- The goal here is to know the smallest global steps and sub-cycles required
- to preserve necessary properties for mock catalogs.
- 
-\end_layout
-
-\begin_layout Standard
-Here, all the samples have the same mass resolution, 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles in the box of 
-\begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
-\end_inset
-
-.
- We use 450/5 (450 global steps and 5 sub-cycles) as a reference to other
- samples: 300/3, 300/2, 150/3, and 150/2.
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float figure
+placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_massDiff_z0.15.pdf
-	lyxscale 60
-	width 100col%
+	lyxscale 50
+	width 65col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/scatterMass_256_300_2_z0.15.pdf
-	lyxscale 60
-	width 100col%
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance_z0.15.pdf
+	lyxscale 50
+	width 65col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_velocity_z0.15.pdf
+	lyxscale 50
+	width 65col%
 
 \end_inset
 
@@ -589,48 +577,168 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:HaloMass"
+name "fig:HaloProperty_step"
 
 \end_inset
 
-Right: Histograms of log-based mass difference of different simulation step
- sizes with respect to the one with 450 global steps and 5 sub-cycles.
- Histograms are not normalized and all halos are from the simulations with
+Comparison of halo properties (i.e., halo mass, position, and velocity) for
+ matched halos matching to the 450/5 simulation, taken as a reference, at
  
-\begin_inset Formula $256^{3}$
+\begin_inset Formula $z=0.15.$
 \end_inset
 
- particles.
- For each of simulations: 300 global steps with 3 sub-cycles (blue) and
- 2 sub-cycles (green), and 150 global steps with 3 sub-cycles (red).
- Left: A scatter plot of halo mass between 450/5 and 300/2 at 
+ Left: (Change x-axis and its label) Comparison of halo masses as a histogram
+ of halo mass ratio to the 450/5.
+ Different colors correspond to different number of step size: 300/3 (blue),
+ 300/2 (green), 150/3 (red), and 150/2 (light blue).
+ As shown, the means for the 150 global steps simulation are slightly off
+ from the center and sub-cycles are less effective on halo mass.
+ Middle: Comparison of halo position as a histogram of distance between
+ the matched halos matching to the 450/5.
+ Color scheme used here is the same as for halo mass.
+ The plot shows more scatter for the case of the 150 glbal steps to the
+ center position.
+ For the 300 global time steps, the results improve considerably, and the
+ center position is matched in these cases to better than 200 kpc.
+ Right: Comparison of velocity as a histogram of velocity difference in
+ magnitude between the matched halos to the 450/5.
+ Color scheme used here is the same as the plots of halo mass and position.
+ As clearly shown, the means for the 150 global steps are negatively(?)
+ off from the center and the velocity differences to the 450/5 are more
+ scattered.
+ It implies that halo structures in the 150 global steps are more diffuse
+ than the structure in the 450/5 and they have shallower potential well.
+ All the comparisons indicate that the difference between 3 and 2 sub-cycles
+ in this case is negligible.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Halo Properties
+\end_layout
+
+\begin_layout Standard
+Here, we present halo properties (i.e., halo mass, position, and velocity)
+ for matched halos matching to the 450/5, taken as a reference.
+ The panels in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+, from left to right, show the comparison of halo mass, position, and velocity
+ for the matched halos at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
 .
- This scatter plot indicates that most of halo masses agree well except
- some halos (
-\color red
-which I should investigate further
-\color inherit
-).
-\end_layout
+ As shown, the 150 global steps have more scatter in the halo properties
+ and the means are off from the center to the halo mass ratio and the velocity
+ difference.
+ This indicates that the halo structure in these cases is more diffused
+ than the case of the 300 or the 450 global steps.
+ For the 300 global steps, the results are siginificantly improved and the
+ center position is matched in these cases to better than 200 kpc.
+ As is clear from Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
 
 \end_inset
 
-
-\end_layout
+, the difference between 3 and 2 sub-cycles is negligible on halo properties.
+ The same results shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
 
 \end_inset
 
+ but for other redshifts are in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloMass"
 
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloMassSlice"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloPosition"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloVelocity"
+
+\end_inset
+
+, and they support the same argument discussed for Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloVelocity"
+
+\end_inset
+
+ shows fractions of halos whose velocity directions are matched to the ones
+ for the 450/5 within 10 degree.
+ More than 90% of the matched halos have angles between the velocities within
+ 10 degree at all the redshifts, 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, 
+\begin_inset Formula $z=0.5$
+\end_inset
+
+, and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
-wide true
+placement h
+wide false
 sideways false
 status collapsed
+
+\begin_layout Plain Layout
+Table: 
+\begin_inset Formula ${\rm log_{10}(M/M_{450/5})}$
+\end_inset
+
+ 
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -1287,7 +1395,7 @@ Medians,
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:HaloMass"
+reference "fig:HaloProperty_step"
 
 \end_inset
 
@@ -1307,9 +1415,10 @@ reference "fig:HaloMass"
 
 \begin_layout Standard
 \begin_inset Float table
+placement H
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2002,7 +2111,7 @@ Medians,
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:HaloMass"
+reference "fig:HaloProperty_step"
 
 \end_inset
 
@@ -2022,106 +2131,11 @@ reference "fig:HaloMass"
 \end_layout
 
 \begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloMass"
-
-\end_inset
-
- shows halo mass differences for paired halos with respect to halos from
- 450/5.
- Global steps affect on overall distribution properties (i.e., mean and standard
- deviation shown in Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:HaloMass"
-
-\end_inset
-
-), while sub-cycles affect on their amplitudes.
- This is because sub-cycles changes small-scale dynamics and it can cause
- a difference on number of halos declared through FOF, whose linking length
- is fixed to 
-\begin_inset Formula $b=0.2$
-\end_inset
-
-.
- In general, smaller step sizes make distribution of DM particles as halos
- more diffused (since bigger stepsizes cen't capture all the non-linearities
- that finer stepsizes can) and there is a possibility that some of gathered
- DM particles are not considered as halos.
- In 
-\color red
-Manera et al.
- 2012
-\color inherit
- which approximates N-body simulations by using the second-order Lagrangian
- Perturbation Theory, they solved this problem by changing the linking length
- for FOF., but one of our advantages in this approximated N-body simulations
- is that we can avoid tuning the linking length in order to get halos correctly.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance_z0.15.pdf
-	lyxscale 70
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:HaloPosition"
-
-\end_inset
-
-Histograms of distance difference for matched halos with respect to halos
- from 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles with 450 global steps and 5 sub-cycles.
- Different colors correspond to different simulation step sizes: 300 global
- steps with 3 sub-cycles (blue) and 2 sub-cycles (green), and 150 global
- steps with 3 sub-cycles (red) and 2 sub-cycles (cyan).
- All the simulations use 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles at redshift 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- 
 \begin_inset Float table
 placement H
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2795,97 +2809,14 @@ reference "fig:HaloPosition"
 
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloPosition"
-
-\end_inset
-
- shows positional differences for paired halos.
- This histogram indicates that global step has bigger effects on overall
- halo positions and the effect of sub-cycles is almost negligible.
- Most of halos for 300 global steps have their center positions within 100
- kpc by comparing with halo center positions for 450/5, while the simulations
- for 150 global steps have more scatter in the figure.
- Means and standard deviations for the histograms are shown in Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:HaloPosition"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement p
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_velocity_z0.15.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:HaloVelocity"
-
-\end_inset
-
-Histograms of velocity magnitude difference for matched halos with respect
- to halos from 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles with 450 global steps and 5 sub-cycles.
- Different colors correspond to different simulation stepsizes: 300 global
- steps with 3 sub-cycles (blue) and 2 sub-cycles (green), and 150 global
- steps with 3 sub-cycles (red) and 2 sub-cycles (cyan).
- All the simulations use 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles at redshift 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- 
-\color red
-Note that angle difference of velocity vectors for 98% of matched halos
- are within 0.3 radians.
- Also, change the unit of velocity, which is wrong!!!!!
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- 
 \begin_inset Float table
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -3518,9 +3449,6 @@ median
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption
 
 \begin_layout Plain Layout
@@ -3563,7 +3491,7 @@ reference "fig:HaloVelocity"
 \begin_inset Float table
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -3701,46 +3629,8 @@ Fractions for halo velocity phase differences.
 
 \end_layout
 
-\begin_layout Standard
-For halo velocities, the results are shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloVelocity"
-
-\end_inset
-
-.
- The histogram is a function of velocity magnitude differences.
- For 150 global steps, the means slightly deviate from 0 and have negative
- values.
- This means that magnitude of velocity for 150 global steps is smaller than
- that for 450 global steps.
- One way to explain this is that smaller time step halos are less dense,
- and the potential wells at center of halos may be less deeper than the
- ones for larger step sizes.
- We also examined differences on velocity direction.
- More than 
-\color red
-90%
-\color inherit
- of paired halos have angle differences (with respect to halos for 450/5)
- within 10 degrees.
- This implies that orientation of velocities are well-preserved among the
- samples for different time steps.
-\end_layout
-
 \begin_layout Section
 Observable/Statistics
-\end_layout
-
-\begin_layout Standard
-Goal: To correctly describe the large-scale distribution of these galaxies.
- 
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
- Need to correctly locate DM halos in the simulations and estimate their
- masses.
 \end_layout
 
 \begin_layout Subsection
