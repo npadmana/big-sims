@@ -79,71 +79,42 @@ Matching Halos
 \end_layout
 
 \begin_layout Standard
-(How should I show the varification between 
+In this section, we ran a set of convergence tests using small simulation
+ boxes.
+\end_layout
+
+\begin_layout Subsection
+Mass Resolution
+\end_layout
+
+\begin_layout Subsection
+Step Size
+\end_layout
+
+\begin_layout Standard
+Here, we investigated how the number of step sizes affect on halo properties
+ (i.e., halo mass, position, and velocity) and statistical observables.
+ The mass resolution is fixed to 
 \begin_inset Formula $256^{3}$
 \end_inset
 
- and 
-\begin_inset Formula $512^{3}$
+ particles in the cubical box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc)^{3}}$
 \end_inset
 
- particles...?)
-\end_layout
-
-\begin_layout Standard
-In this section, we investigate how the number of steps affects to halo
- properties.
- In order to compare halos in different simulations, it is required to identify
- the same halos in those samples.
- Since all the simulations use exactly the same initial conditions, if those
- approximated N-body simulations recover the halos well enough (compared
- to a full N-body simulation), we find the same halo at the same position
- with the same mass.
- In those simulations, we stored information of particle id and halo id
- besides particle's position and velocity.
- Particle id is an id to identify each particle and halo id is a tag for
- the halo where the particle belongs.
- Having the same particle id implies that those particles were initially
- at the same position.
- On the other hand, there is no correspondence for halo id, because halo
- id is assigned to each halo rather randomly.
- So, we need to match halo id in different samples to identify whether two
- halos are the same halo or not.
- By matching halos by halos, we can investigate the effect of step numbers
- on halo properties (i.e., halo mass, position, and velocity).
-\end_layout
-
-\begin_layout Standard
-To find matched halos, we first identify particle ids in each halo.
- Note that we did all the matching with respect to the sample of 450/5.
- For each halo in 450/5, we identify particle id and find the corresponding
- particles in 
-\color red
-the other sample
-\color inherit
 .
- Among those particles, we take a halo id that those particles 
-\color red
-share
-\color inherit
- the most.
- Since the number of halos in the samples is different, there are some halos
- which match with two or more halos in 450/5.
- For those 
-\begin_inset Quotes eld
-\end_inset
+ 
+\end_layout
 
-double-booked
-\begin_inset Quotes erd
-\end_inset
-
- halos, we also checked the fraction of matched particles over the total
- number of particles in those halos and chose the one whose fraction is
- the largest.
- At last, we decided to make thresholds to check whether those macthed halos
- can be really identified as the same galos.
- We checked the fraction of matched particles over the total number and
- eliminated the ones whose fractions are below the threshold.
+\begin_layout Standard
+Since our simulations all start with the same initial conditions, we match
+ halos in different simulations by matching their particle content.
+ Given a halo in simulation A, we consider the halos in simulation B that
+ its particles correspond to.
+ Given this list of possible matches, we match to the halo with the largest
+ number of common particles.
+ To avoid spurious matches, we also require that this fraction of common
+ particles (relative to simulation A) exceeds a chosen threshold.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -151,20 +122,22 @@ reference "fig:fraction1"
 
 \end_inset
 
- shows how matched (and unmatched) fractions are changed as a function of
- thresholds.
- We chose the threshold of 0.5 in the following section, because 
-\color red
-XXX
-\color inherit
-.
+ Shows the cumulative fraction of unmatched halos matching the 450/5 to
+ the 300/2 simulation at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ with various thresholds.
+ As expected, the unmatched fraction increases with increasing threshold
+ and decreasing hao mass.
+ We adopt a threshold of 50% as out default choice.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -187,19 +160,264 @@ name "fig:fraction1"
 
 \end_inset
 
-The fraction of unmatched halo number density and the total number of halos
- for the simulation of 300/2 matching with 450/5 at 
+The cumulative fraction of unmatched halos matching the 450/5 to the 300/2
+ simulation at z=0.15 as a function of halo mass.
+ The solid lines, from top to bottom, correspond to matching thresholds
+ of 75%, 50%, and 25%.
+ The dashed line shows the same quantity except now matching the 300/2 to
+ the 450/5 simulation for a threshold of 50%.
+ As expected, the unmatched fraction increases with decreasing halo mass
+ and increasing threshold.
+ We adopt a threshold of 50% as our default choice.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the above matching algorithm is unidirectional, multiple halos in
+ A might be matched to a single halo in B; this happens 1 to 2% of the time
+ with a matching threshold of 50%.
+ We refer to these as multiply-booked halos in what follows.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
+
+\end_inset
+
+ compares halo mass for the matched halos between the 450/5 and the 300/2
+ simulations at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
 .
- Both are from 
-\begin_inset Formula $256^{3}$
+ We classified those matched halos into multiply-booked halos and the rest.
+ As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
+
 \end_inset
 
- particle simulations.
- Solid lines represent the unmatched fractions for 450/5 with various thresholds
- and a dashed line is for 300/2 with the threshold of 0.5.
+, the summed halo mass for those multiply-booked halos in the 450/5 is correlate
+d with the corresponding halos in the 300/2 better than the individual halo
+ mass in the 450/5.
+ This inplies that those multiply-booked halos in the 450/5 are merged into
+ one halo in the 300/2.
+ Since larger global steps and sub-cycles can capture dynamics better, it
+ is likely that the halos in the 450/5 forms sub-structure ealier than the
+ 300/2 simulation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement bp
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/scatterMass_256_300_2_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/testDB_nonDB_300_2_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/testDB_numPart_mass_300_2_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/testDB_sum_mass_f0.5_300_2_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mass-scatter1"
+
+\end_inset
+
+(Change the shape of the plots)The comparison of halo mass for the matched
+ halos matching the 450/5 to the 300/2 simulation at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The x-axis is the halo masses for the 450/5 simulation and the y-axis is
+ the halo masses for the 300/2 simulation.
+ The top left panel shows the mass scatter of all the matched halos.
+ As shown, there are some matched halos in the 300/2, which are more massive
+ than the halos in the 450/5.
+ The top right panel compares for halos which are not 
+\begin_inset Quotes eld
+\end_inset
+
+multiply-booked halos
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This plot does not show the positive mass discrepancy between the 300/2
+ and the 450/5 simulations.
+ The bottom panels are for 
+\begin_inset Quotes eld
+\end_inset
+
+multiply-booked halos
+\begin_inset Quotes erd
+\end_inset
+
+.
+ While we plotted all the 
+\begin_inset Quotes eld
+\end_inset
+
+multiply-booked halos
+\begin_inset Quotes erd
+\end_inset
+
+ in the left panel, we summed halo masses of the 
+\begin_inset Quotes eld
+\end_inset
+
+multiply-booked halos
+\begin_inset Quotes erd
+\end_inset
+
+ in the right panel.
+ Those plots indicate that those 
+\begin_inset Quotes eld
+\end_inset
+
+multiply-booked halos
+\begin_inset Quotes erd
+\end_inset
+
+ in the 450/5 are merged into one halo in the 300/2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-content"
+
+\end_inset
+
+ shows the number densities of the unmatched halos in the 450/5 matching
+ to the 300/2 at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ There are three reasons that halos are considered as unmatched.
+ First, if there is no common particles in the halos, we consider them as
+ unmatched.
+ Second, if the fraction of common particles over the total number of particles
+ in each halo is less than 50%, we eliminate those halos.
+ At last, we remove the multiply-booked halos except the ones which have
+ the most number of common particles.
+ We showed each unmatched number density as a function of halo mass.
+ There are only low-mass unmatched halos for not having any common particles.
+ This is because low-mass halos are formed with smaller number of particles
+ and it is likely that particles in a halo in A do not form a halo in B.
+ As shown, most of unmatched halos are due to the threshold criterion.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchHalo2_content_300_2_z0.15.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mass-content"
+
+\end_inset
+
+ (Change the legends) The number density of unmatched halos in the 450/5
+ simulation matching to the 300/2 as a function of halo mass at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The solid line represents the total number density of unmatched halos with
+ a threshold of 50%.
+ The dashed lines are the number densities of the unmatched halos based
+ on different criteria.
+ The unmatched density shown as the green line is due to not finding any
+ common particle in the 300/2 simulation.
+ The red line is due to the threshold of 50% as the fraction of common particles
+ over the total number of particles in each halo in the 450/5.
+ The light blue line is due to eliminating multiply-booked halos except
+ the ones which have the most common particles.
+ As shown, most of unmatched halos are due to the threshold of 50%.
 \end_layout
 
 \end_inset
@@ -219,21 +437,14 @@ The fraction of unmatched halo number density and the total number of halos
 \begin_layout Standard
 At la
 \color black
-st, we show the fraction between number density of unmatched halos and the
- total number density at three different redshifts and with different number
- of steps in Figure 
+st, we show the cumulative fractions of unmatched halos as a function of
+ redshift and the number of step size in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:fraction2"
 
 \end_inset
 
-.
- 
-\color red
-I need to check why z=0.8 behaves so differently for 450/5 (and whether the
- same thing is happened for matching with other samples)
-\color black
 .
  As shown in the right panel in Figure 
 \begin_inset CommandInset ref
@@ -251,18 +462,18 @@ reference "fig:fraction2"
 \end_inset
 
  shows that global time steps actually affect to the fraction of unmatched
- halos on any halo mass while sub-cycles only affect on low-mass halos.
+ halos on any halo mass and sub-cycles only affect on low-mass halos.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_450_300_2.pdf
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_redshift_450_300_2_f0.5.pdf
 	lyxscale 50
 	width 100col%
 
@@ -270,15 +481,7 @@ status collapsed
 
  
 \begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_300_300_2.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
- 
-\begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_450_z0.15.pdf
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_steps_450_z0.15.pdf
 	lyxscale 50
 	width 100col%
 
@@ -297,23 +500,22 @@ name "fig:fraction2"
 
 \end_inset
 
-The fraction of unmatched halo number density and the total number of halos
- for the simulation of 300 global steps and 2 sub-cycles matching with 450
- global steps and 5 sub-cycles.
+Right: (Remove dashed lines) The cumulative fraction of unmatched halos
+ matching the 450/5 to the 300/2 as a function of redshift.
+ The plot shows that the unmatched fraction does not depend on redshift.
+ Left: The cumulative fraction of unmatched halos matching the 450/5 to
+ the other step sizes at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ As shown, sub-cycles only affect on low-mass end.
  All the sample are 
 \begin_inset Formula $256^{3}$
 \end_inset
 
  particle simulations.
- The right panel is the fractions between 450/5 and 300/2 as a function
- of redshift and the left panel is the fractions between 450 and various
- number steps at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- Note that the middle plot is the same as the right plot but the fractions
- for 300/2.
+ 
 \end_layout
 
 \end_inset
