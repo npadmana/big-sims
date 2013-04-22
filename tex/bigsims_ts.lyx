@@ -96,6 +96,143 @@ Algorithm
 \end_layout
 
 \begin_layout Standard
+Here, we investigated how the number of step sizes affect on halo properties
+ (i.e., halo mass, position, and velocity) and statistical observables.
+ The mass resolution is fixed to 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles in the cubical box of 
+\begin_inset Formula $(256h^{-1}{\rm Mpc)^{3}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Since our simulations all start with the same initial conditions, we match
+ halos in different simulations by matching their particle content.
+ Given a halo in simulation A, we consider the halos in simulation B that
+ its particles correspond to.
+ Given this list of possible matches, we match to the halo with the largest
+ number of common particles.
+ To avoid spurious matches, we also require that this fraction of common
+ particles (relative to simulation A) exceeds a chosen threshold.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction1"
+
+\end_inset
+
+ Shows the cumulative fraction of unmatched halos matching the 450/5 to
+ the 300/2 simulation at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ with various thresholds.
+ As expected, the unmatched fraction increases with increasing threshold
+ and decreasing hao mass.
+ We adopt a threshold of 50% as out default choice.
+\end_layout
+
+\begin_layout Standard
+Since the above matching algorithm is unidirectional, multiple halos in
+ A might be matched to a single halo in B; this happens 1 to 2% of the time
+ with a matching threshold of 50%.
+ We refer to these as multiply-booked halos in what follows.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
+
+\end_inset
+
+ compares halo mass for the matched halos between the 450/5 and the 300/2
+ simulations at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ We classified those matched halos into multiply-booked halos and the rest.
+ As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
+
+\end_inset
+
+, the summed halo mass for those multiply-booked halos in the 450/5 is correlate
+d with the corresponding halos in the 300/2 better than the individual halo
+ mass in the 450/5.
+ This inplies that those multiply-booked halos in the 450/5 are merged into
+ one halo in the 300/2.
+ Since larger global steps and sub-cycles can capture dynamics better, it
+ is likely that the halos in the 450/5 forms sub-structure ealier than the
+ 300/2 simulation.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-content"
+
+\end_inset
+
+ shows the number densities of the unmatched halos in the 450/5 matching
+ to the 300/2 at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ There are three reasons that halos are considered as unmatched.
+ First, if there are no common particles in the halos, we consider them
+ as unmatched.
+ Second, if the fraction of common particles over the total number of particles
+ in each halo is less than 50%, we eliminate those spurious halos.
+ At last, we remove the multiply-booked halos except the ones which have
+ the most number of common particles.
+ We showed each unmatched number density as a function of halo mass.
+ There are only low-mass unmatched halos for not having any common particles.
+ This is because low-mass halos are formed with smaller number of particles
+ and it is likely that particles in a halo in A do not form a halo in B.
+ As shown, most of unmatched halos are due to the threshold criterion.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+, we show the cumulative fractions of unmatched halos as a function of redshift
+ and the number of step size.
+ As shown in the right panel in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+, the fractions are almost the same for different redshifts.
+ On the other hand, the left panel in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+ shows that global time steps actually affect to the fraction of unmatched
+ halos on any halo mass and sub-cycles make differences on low-mass halos.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -269,7 +406,7 @@ multiply-booked halos
 
 \begin_layout Standard
 \begin_inset Float figure
-wide true
+wide false
 sideways false
 status collapsed
 
@@ -328,7 +465,7 @@ name "fig:mass-content"
 placement p
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -400,13 +537,13 @@ Halo Properties
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_massDiff_z0.15.pdf
 	lyxscale 50
-	width 65col%
+	width 70col%
 
 \end_inset
 
@@ -414,7 +551,7 @@ status collapsed
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance_z0.15.pdf
 	lyxscale 50
-	width 65col%
+	width 70col%
 
 \end_inset
 
@@ -422,7 +559,7 @@ status collapsed
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_velocity_z0.15.pdf
 	lyxscale 50
-	width 65col%
+	width 70col%
 
 \end_inset
 
@@ -579,12 +716,835 @@ reference "tab:HaloVelocity"
 .
 \end_layout
 
+\begin_layout Subsubsection
+Quantitative Tests
+\end_layout
+
+\begin_layout Standard
+Here, we show several quantitative tests including comparison of mass functions
+ and cross power spectra as a function of time steps, redshift, and halo
+ mass.
+ Since the 300/2 simulation is our final target, we mainly focus on the
+ comparison between the 450/5 and the 300/2 simulations.
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFn_step"
+
+\end_inset
+
+, we caluculated mass functions for the simulations with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles as a function of time steps and compared them to the simulation
+ with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ For the simulation of 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles, the number of time step used here is always 450/5.
+ As shown, mass functions for the 450 and the 300 global steps with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles match to the 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles simulation better than10 percent and the effect of 3 and 2 sub-cycles
+ for the 300 global steps are mainly on low-mass halos.
+ This supports the choice of the 300/2 as our final choice.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFn_redshift"
+
+\end_inset
+
+, we compare the 300/2 to the 450/5 as a function of redshift.
+ In the left panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:massFn_redshift"
+
+\end_inset
+
+, we calculated the errors for the mass functions of 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles through the bootstrap method and compared the mass functions
+ for the 300/2 and the 450/5 simulation with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles to the 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles simulations at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
+ Those mass functions for 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles are well within the errors for the 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles simulations.
+ In the right panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_redshift"
+
+\end_inset
+
+, we compared the mass functions for the 300/2 to the 450/5 as a function
+ of redshift.
+ As shown, the agreement between the 300/2 and the 450/5 decreases as decreasing
+ halo mass and increasing redshift, but all the mass functions for the 300/2
+ match to the 450/5 at 5 per cent on the mass range from 
+\begin_inset Formula $10^{13}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{14}{\rm M_{\odot}}$
+\end_inset
+
+.
+ One possible explanation for decreasing number densities for the 300/2
+ on low-mass halos is that halos in the 300/2 tend to be more puffed up
+ than the ones in the 450/5 due to small number of short-range time steps
+ and some particle clustering in the 300/2 are not defined as halos by FOF.
+\end_layout
+
+\begin_layout Standard
+In order to study how the fluctuation (difference?) of position shown in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+ affects on halo bias, we calculated halo-matter cross power spectra shown
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMater_step"
+
+\end_inset
+
+, Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_redshift"
+
+\end_inset
+
+, and Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_mass"
+
+\end_inset
+
+.
+ Here, we used the dark matter density field of the 450/5 simulation with
+ 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles for all the cross power spectra.
+ The comparison of halo-matter cross power spectra gives an idea about halo
+ bias.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMater_step"
+
+\end_inset
+
+, we compared the cross power spectra for various time steps to the 450/5
+ at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The halo biases for the 300 global steps match to the halo bias for the
+ 450/5 at 5 per cent, while the biases for the 150 global steps gets larger
+ on small scales.
+ We compared the cross power spectra for the 300/2 to the 450/5 as a function
+ of redshift and halo mass slices in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_redshift"
+
+\end_inset
+
+ and Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_mass"
+
+\end_inset
+
+ respectively.
+ As shown, the halo bias for the 300/2 gets larger as increasing redshift.
+ 
+\color red
+On the other hand, selection of halo mass seems to give no effect on the
+ halo bias.
+\end_layout
+
+\begin_layout Standard
+To investigate the effect of variation on velocity shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+, we calculated halo auto power spectra in redshift-space in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rsd_step"
+
+\end_inset
+
+ and Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rsd_redshift"
+
+\end_inset
+
+ as a function of time step and redshift.
+ As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rsd_step"
+
+\end_inset
+
+, the monopole terms of the redshift-space auto power spectra for the 300
+ global steps match to the 450/5 at 5 per cent and the sub-cycles gives
+ negligible effect on those monopoles.
+ We also compared the monopoles for the 300/2 to the 450/5 as a function
+ of redshift, shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rsd_redshift"
+
+\end_inset
+
+.
+ We did not see siginificant effect of redshift on those monopoles.
+\end_layout
+
+\begin_layout Standard
+As the last quantitative test, we computed galaxy-matter cross power spectra
+ for the 300/2 and the 450/5 through Halo Occupation Distiributions (HODs).
+ The HOD gives a conditional probability for the number of central and satellite
+ galaxies in a halo and populates halos with galaxies based on a set of
+ parameters and halo mass.
+ Here, we used the formulation proposed by Zheng et al.
+ 2005:
+\begin_inset Formula 
+\[
+<N_{cen}>=\frac{1}{2}[1+erf(\frac{\log M_{cut}-{\rm log}M_{halo}}{\sqrt{2}\sigma})]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+<N_{sat}>=<N_{cen}>(\frac{M_{halo}-\kappa M_{cut}}{M_{1}})^{\alpha},
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $M_{cut}$
+\end_inset
+
+,
+\begin_inset Formula $\sigma$
+\end_inset
+
+,
+\begin_inset Formula $\kappa$
+\end_inset
+
+,
+\begin_inset Formula $M_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ are set of free parameters.
+ We set the parameters to 
+\begin_inset Formula $M_{cut}=13.06$
+\end_inset
+
+,
+\begin_inset Formula $M_{1}=14.0$
+\end_inset
+
+,
+\begin_inset Formula $\sigma=0.21$
+\end_inset
+
+,
+\begin_inset Formula $\kappa=1.5$
+\end_inset
+
+, and 
+\begin_inset Formula $\alpha=1.19$
+\end_inset
+
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossGal_redshift"
+
+\end_inset
+
+.
+ As shown, the trend shown in the halo-matter cross power spectra, which
+ is the increase of bias for the 300/2 to the 450/5 as increasing redshift,
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_redshift"
+
+\end_inset
+
+ is somewhat supressed and all the cross power spectra for the 300/2 match
+ to the 450/5 at almost 2 per cent, but note that this agreement depends
+ on the choice of the HOD parameters.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0.15.pdf
+	lyxscale 70
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:massFn_step"
+
+\end_inset
+
+Comparison of mass functions for the simulations with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles as a function of time step at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, using the simulation with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles as a reference.
+ Different colors correspond to different number of time steps.
+ As shown, the mass functions for the 450 and the 300 global steps match
+ to the simulation of 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles at 10 percent, except on high-mass end where there are a fewer
+ number of halos.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloNum2.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloRatioNum_timestep.pdf
+	lyxscale 60
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:massFn_redshift"
+
+\end_inset
+
+Left: Comparison of the halo number densities for the 300/2 and the 450/5
+ simulation with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles to the simulation with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+.
+ The shaded regions are the number densities for the 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles samples, including errors calculated from the bootstrap method.
+ The circle line is for the 450/5 and the star line is for the 300/2 with
+ 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles.
+ The number densities from top to bottom correspond to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ respectively.
+ Both the number densities for the 450/5 and the 300/2 are within the errors
+ (?) for the 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles.
+ Right: The ratio of the number densities of the 300/2 to the 450/5, which
+ have the same mass resolution, as a function of redshift.
+ The 300/2 matches to the 450/5 at 10 per cent on the mass range from 
+\begin_inset Formula $10^{13}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{14}{\rm M_{\odot}}$
+\end_inset
+
+.
+ As indicated, the agreement (?) between the 450/5 and the 300/2 decreses
+ with increasing redshift on low-mass end.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12.5to13.0_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:crossMater_step"
+
+\end_inset
+
+Comparison of halo bias for various time steps to the 450/5 by comparing
+ halo-matter cross power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The mass range for halos used here is from 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+ to 
+\begin_inset Formula $10^{13}{\rm M_{\odot}}$
+\end_inset
+
+.
+ Different colors correspond to different number of time steps, as labeled
+ in the figure.
+ The cross power spectra for the 300 global steps match to the 450/5 at
+ 5 per cent on any scales, while the halo bias for the 15o global steps
+ becomes larger on small scales.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/crossPower/WithoutShotNoise/crossMatter256_ratio_mcut12.5.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:crossMatter_redshift"
+
+\end_inset
+
+ Comparison of halo bias between the 450/5 and the 300/2 simulations by
+ comparing halo-matter cross power spectra as a function of redshift.
+ Different colors correspond to different redshifts, as labeled in the figure.
+ The mass threshold used here is 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ The cross power spectra for the 300/2 match to the 450/5 at almost 5 per
+ cent for all the redshifts.
+ As shown, the deviation from the 450/5 gets larger as increasing redshift.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:crossMatter_mass"
+
+\end_inset
+
+Comparison of halo bias between the 450/5 and the 300/2 simulations by comparing
+ halo-matter cross power spectra as a function of mass slices at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Different colors correspond to different mass slices as labeled in the
+ figure.
+ The solid lines represent the cross power spectra for the 450/5 and the
+ circle lines are for the 300/2.
+ For any halo mass slices, the cross power spectra for the 300/2 match sufficien
+tly to the 450/5.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/autoPower25_s_ratio_256_mcut12.5_z0.15.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rsd_step"
+
+\end_inset
+
+Comparison of monopole terms of halo auto power spectra in the redshift-space
+ as a function of time steps at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The mass threshold for the halos used here is 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ Different colors correspond to different time steps shown in the figure.
+ The monopoles for the 300 global steps agree to the 450/5 at about 5 per
+ cent on any scales.
+ The deviation of the 150/2 from the 450/5 is about 5 percent on all scales
+ (?).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../Tomomi/HACC/Conv/Plots4lyx/autoPower_s_256_mcut12.5.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rsd_redshift"
+
+\end_inset
+
+ (Change to ratio) Comparison of monopole terms of halo auto power spectra
+ in the redshift-space, comparing the 300/2 to the 450/5, as a function
+ of redshift Different colors correspond to different redshift shown in
+ the figure.
+ The mass threshold for the halos here is 
+\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+\end_inset
+
+.
+ The dashed lines are for the 450/5 and the circle lines are for the 300/2.
+ The monopoles for the 300/2 agree well to the 450/5 at all redshifts shown
+ here.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Galaxy256/crossMatter_gal_256.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:crossGal_redshift"
+
+\end_inset
+
+Comparison of galaxy-matter cross power spectra from the 300/2 to the 450/5
+ as a function of redshift.
+ We populated halos with galaxies by using a set of the HOD parameters described
+ in the sentence(?).
+ Different colors correspond to different redshift.
+ The cross power spectra for the 300/2 match to the 450/5 at 5 per cent
+ (and almost 2 per cent).
+ As shown, the deviation of the 300/2 from the 450/5 gets larger as increasing
+ redshift, which is also found for halo-matter cross power spectra shown
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:crossMatter_redshift"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float table
 placement h
-wide false
+wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Table: 
@@ -1287,7 +2247,7 @@ reference "fig:HaloProperty_step"
 placement H
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2011,7 +2971,7 @@ s decreases as increasing halo mass and decreasing redshift.
 placement H
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2683,10 +3643,6 @@ Comparison of halo positions for various time steps to the 450/5 simulation
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
  
@@ -2696,7 +3652,7 @@ Comparison of halo positions for various time steps to the 450/5 simulation
 \begin_inset Float table
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -3374,10 +4330,6 @@ reference "fig:HaloProperty_step"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
  
@@ -3520,515 +4472,6 @@ Fractions of halos whose velocity direction matches with the 450/5 within
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Quantitative Test 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0.15.pdf
-	lyxscale 70
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:massFn_step"
-
-\end_inset
-
-Comparison of mass functions (should I say nuber density?) for the simulations
- with 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles as a function of time steps at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-, using the simulation with 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles as a reference.
- Different colors correspond to different number of time steps.
- As shown, the mass functions for the 450 and the 300 global steps match
- to the simulation of 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles at 10 per cent, except on high-mass end where there are a fewer
- number of halos.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloNum2.pdf
-	lyxscale 60
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/haloRatioNum_timestep.pdf
-	lyxscale 60
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:massFn_redshift"
-
-\end_inset
-
-Left: Comparison of the halo number densities for the 300/2 and the 450/5
- simulation with 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles to the simulation with 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.8$
-\end_inset
-
-.
- The shaded regions are the number densities for the 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles samples, including errors calculated from the bootstrap method.
- The circle line is for the 450/5 and the star line is for the 300/2 with
- 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles.
- The number densities from top to bottom correspond to 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.8$
-\end_inset
-
- respectively.
- Both the number densities for the 450/5 and the 300/2 are within the errors
- (?) for the 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles.
- Right: The ratio of the number densities of the 300/2 to the 450/5, which
- have the same mass resolution, as a function of redshift.
- The 300/2 matches to the 450/5 at 10 per cent on the mass range from 
-\begin_inset Formula $10^{13}{\rm M_{\odot}}$
-\end_inset
-
- to 
-\begin_inset Formula $10^{14}{\rm M_{\odot}}$
-\end_inset
-
-.
- As indicated, the agreement (?) between the 450/5 and the 300/2 decreses
- with increasing redshift on low-mass end.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12.5to13.0_z0.15.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:crossMater_step"
-
-\end_inset
-
-Comparison of halo bias for various time steps to the 450/5 by comparing
- halo-matter cross power spectra at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- Different colors correspond to different number of time steps, as labeled
- in the figure.
- The cross power spectra for the 300 global steps match to the 450/5 at
- 5 per cent on any scales, while the halo bias for the 15o global steps
- becomes larger on small scales.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/crossPower/WithoutShotNoise/crossMatter256_ratio_mcut12.5.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:crossMatter_redshift"
-
-\end_inset
-
- Comparison of halo bias between the 450/5 and the 300/2 simulations by
- comparing halo-matter cross power spectra as a function of redshift.
- Different colors correspond to different redshifts, as labeled in the figure.
- The cross power spectra for the 300/2 match to the 450/5 at almost 5 per
- cent for all the redshifts.
- As shown, the deviation from the 450/5 gets larger as increasing redshift.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/crossMatter4_z0.15.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:crossMatter_mass"
-
-\end_inset
-
-Comparison of halo bias between the 450/5 and the 300/2 simulations by comparing
- halo-matter cross power spectra as a function of mass slices at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- Different colors correspond to different mass slices as labeled in the
- figure.
- The solid lines represent the cross power spectra for the 450/5 and the
- circle lines are for the 300/2.
- For any halo mass slices, the cross power spectra for the 300/2 match sufficien
-tly to the 450/5.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/autoPower25_s_ratio_256_mcut12.5_z0.15.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:rsd_step"
-
-\end_inset
-
-Comparison of monopole terms of halo auto power spectra in the redshift-space
- as a function of time steps at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- Different colors correspond to different time steps shown in the figure.
- The monopoles for the 300 global steps agree to the 450/5 at about 5 per
- cent on any scales.
- The deviation of the 150/2 from the 450/5 is about 5 percent on all scales
- (?).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Plots4lyx/autoPower_s_256_mcut12.5.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:rsd_redshift"
-
-\end_inset
-
-Comparison of monopole terms of halo auto power spectra in the redshift-space,
- comparing the 300/2 to the 450/5, as a function of redshift Different colors
- correspond to different redshift shown in the figure.
- The dashed lines are for the 450/5 and the circle lines are for the 300/2.
- The monopoles for the 300/2 agree well to the 450/5 at all redshifts shown
- here.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../Tomomi/HACC/Conv/Galaxy/numDen_gal1_halo_z0.15.png
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:hod1"
-
-\end_inset
-
- Comparison of Halo Occupation Distributions (HODs) from the 450/5 simulation
- and Zheng et al.
- 2005.
- The solid lines are the expected number of galaxies from Zheng et al.
- 2005 with a set of HOD parameters and the circle lines are the number of
- galaxies in a halo from the simulation of the 450/5 populated with the
- same set of HOD parameters.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Galaxy256/crossMatter_gal_256.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:crossGal_redshift"
-
-\end_inset
-
-Comparison of galaxy-matter cross power spectra from the 300/2 to the 450/5
- as a function of redshift.
- We populated halos with galaxies by using a set of the HOD parameters described
- in the sentence(?).
- Different colors correspond to different redshift.
- The cross power spectra for the 300/2 match to the 450/5 at 5 per cent
- (and almost 2 per cent).
- As shown, the deviation of the 300/2 from the 450/5 gets larger as increasing
- redshift, which is also found for halo-matter cross power spectra shown
- in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMatter_redshift"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
