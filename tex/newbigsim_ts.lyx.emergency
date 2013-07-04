@@ -280,7 +280,7 @@ Left: Cumulative mass functions for the simulations of
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -583,14 +583,6 @@ status open
 \end_inset
 
 
-\begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/crossMatter_m450_timestep_softMcut13.0_s0.5_z0.15.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Plain Layout
@@ -615,23 +607,6 @@ as a function of time steps
 by
 \color inherit
  sub-cycles.
- Note that the halos are selected for mass from 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
- to 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
-\end_inset
-
- here (left) and soft mass cut with 
-\begin_inset Formula $M_{cut}=13.0$
-\end_inset
-
- and 
-\begin_inset Formula $\sigma=0.5$
-\end_inset
-
- (right).
 \end_layout
 
 \end_inset
@@ -707,7 +682,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/autoMono_timestep_softMcut13.0_s0.5_z0.15.pdf
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_ratio_256_mcut12.5_z0.15.pdf
 	lyxscale 50
 	width 100col%
 
@@ -730,11 +705,6 @@ name "fig:rsd_step"
  450/5 as a reference.
  For 300 global steps, the agreement with the 450/5 is well within 5% on
  large scales.
- Here, we selected the halos with the mass threshold of 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
-.
 \end_layout
 
 \end_inset
@@ -859,11 +829,6 @@ reference "fig:mass-content"
  sample but not in another sample due to the way the FoF algorithm define
  halos.
  As shown, most of unmatched halos are due to the threshold criterion.
- 
-\color red
-We also checked how the number of matched halos is changed as a function
- of redshift, and we observed that redshift does not affect to the matching
- algorithm.
 \end_layout
 
 \begin_layout Standard
@@ -896,9 +861,9 @@ name "fig:fraction1"
 The cumulative fraction of unmatched halos matching the 450/5 to the 300/2
  simulation at z=0.15 as a function of halo mass.
  The solid lines, from top to bottom, correspond to matching thresholds
- of 75%, 50%, and 25% for the unmatched halos in the 450/5 sample.
- The dashed line shows the same quantity for the 300/2 sample for a threshold
- of 50%.
+ of 75%, 50%, and 25%.
+ The dashed line shows the same quantity except now matching the 300/2 to
+ the 450/5 simulation for a threshold of 50%.
  As expected, the unmatched fraction increases with decreasing halo mass
  and increasing threshold.
  We adopt a threshold of 50% as our default choice.
@@ -1029,7 +994,7 @@ multiply-booked
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1083,56 +1048,111 @@ sub halos
 
 \end_layout
 
+\begin_layout Standard
+At last, we show how our matching algorithm works for different redshifts
+ and different time steps, shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+.
+ The left panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+ shows cumulative fractions of unmatched halos matching the simulation of
+ 300/2 to the 450/5 for various redshifts.
+ As shown, we do not see any redshift dependence in the number of unmatched
+ halos.
+ In the right panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fraction2"
+
+\end_inset
+
+, we compare cumulative fractions of unmatched halos for various time steps
+ at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ As expected, fewer number of time steps increases the number of unmatched
+ halos.
+ It is possible that the simulations with fewer time steps do not resolve
+ substructure of halos, creating more multiply-booked halos on large halo
+ masses.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement p
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_redshift_450_300_2_f0.5.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/unmatchedHalo_steps_450_z0.15.pdf
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:fraction2"
+
+\end_inset
+
+Right: The cumulative fraction of unmatched halos matching the 450/5 to
+ the 300/2 as a function of redshift.
+ Left: The cumulative fraction of unmatched halos matching the 450/5 to
+ the other step sizes at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Halo Properties
 \end_layout
 
 \begin_layout Standard
-Here, we compare halo properties (i.e., halo mass, position, and velocity)
+Here, we present halo properties (i.e., halo mass, position, and velocity)
  for halos matched to those in the 450/5.
- The comparison of halo mass between the 450/5 and the 300/2 is shown in
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:mass-scatter1"
-
-\end_inset
-
-.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:mass-scatter1"
-
-\end_inset
-
- shows that the halos in the 300/2 simulation tend to be slightly more massive
- than the corresponding halos in the 450/5.
- We also compare the halos in the simulation of other time steps to the
- corresponding halos in the 450/5 and show medians, 
-\begin_inset Formula $\Delta_{65\%}$
-\end_inset
-
-, and 
-\begin_inset Formula $\Delta_{95\%}$
-\end_inset
-
- for the mass differences at different redshifts and for different mass
- slices in Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:HaloMass"
-
-\end_inset
-
- and Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:HaloMassSlice"
-
-\end_inset
-
-.
  The panels in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1140,18 +1160,14 @@ reference "fig:HaloProperty_step"
 
 \end_inset
 
-, from left to right, show the comparison of halo position and velocity
+, from left to right, show the comparison of halo mass, position, and velocity
  for the matched halos at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
 .
  As shown, the 150 global steps have more scatter in the halo properties
- and the means differ for the 
-\color red
-halo mass ratio 
-\color inherit
-and the velocity difference.
+ and the means differ for the halo mass ratio and the velocity difference.
  This indicates that the halo structure in these cases is more diffused
  than the case of the 300 or the 450 global steps.
  For the 300 global steps, the results are significantly improved and the
@@ -1174,19 +1190,32 @@ reference "fig:HaloProperty_step"
  but for other redshifts are in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
+reference "tab:HaloMass"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:HaloMassSlice"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "tab:HaloPosition"
 
 \end_inset
 
- and 
+, and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:HaloVelocity"
 
 \end_inset
 
-.
- They support the same argument discussed for Figure 
+, and they support the same argument discussed for Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:HaloProperty_step"
@@ -1228,6 +1257,14 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_massDiff_z0.15.pdf
+	lyxscale 50
+	width 70col%
+
+\end_inset
+
+
+\begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance_z0.15.pdf
 	lyxscale 50
 	width 70col%
@@ -1258,9 +1295,13 @@ name "fig:HaloProperty_step"
 Comparison of matched halos in the different simulations corresponding to
  300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan) with respect
  to the 450/5.
- From left to right, we compared halo position and velocity respectively.
-
+ From left to right, we compared halo mass, position, and velocity respectively.
+ or 
 \color blue
+Comparison of matched halos in the different simulations corresponding to
+ 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
+ From left to right, we compare halo mass, position, and velocity for the
+ halos matching to the 450/5 simulation respectively.
  
 \color black
 The agreement between 300 global steps and the 450/5 is considerably good,
@@ -1326,7 +1367,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum_noTweak_redshift.pdf
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum_timestep.pdf
 	width 100col%
 
 \end_inset
@@ -1456,11 +1497,11 @@ reference "fig:massFn_tweak"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum_tweak5_redshift.pdf
+	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/afterTweaking/20130508/haloRatioNum_tweak5_redshift.pdf
 	width 100col%
 
 \end_inset
@@ -1540,12 +1581,18 @@ reference "fig:crossPower_redshift"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/crossMatter_m450_tweak300_2_softMcut13.0_s0.5.pdf
-	lyxscale 75
+	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/afterTweaking/20130508/crossMatter_tweak5_mcut12.5.pdf
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/afterTweaking/20130508/crossMatter_tweak5_mcut13.0.pdf
 	width 100col%
 
 \end_inset
@@ -1592,34 +1639,15 @@ Ratio of halo-matter cross power spectra after reassigning halo masses for
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
+*Should I also do redshift-space power spectra?
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-redshift-space
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Standard
+*We can also calculate redshift-space power spectra with different time
+ steps for matter densities instead of halos.
+ Theoretically, mass selection only affects to halo bias not not the growth
+ factor...which means that this tweking should not affect to redshift-space
+ halo power spectra more than halo bias...
 \end_layout
 
 \begin_layout Standard

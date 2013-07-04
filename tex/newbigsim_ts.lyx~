@@ -707,7 +707,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/autoMono_timestep_softMcut13.0_s0.5_z0.15.pdf
+	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/autoPower_s_ratio_256_mcut12.5_z0.15.pdf
 	lyxscale 50
 	width 100col%
 
@@ -1456,7 +1456,7 @@ reference "fig:massFn_tweak"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1540,7 +1540,7 @@ reference "fig:crossPower_redshift"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1592,42 +1592,11 @@ Ratio of halo-matter cross power spectra after reassigning halo masses for
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-redshift-space
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float table
 placement h
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Table: 
@@ -2330,7 +2299,7 @@ reference "fig:HaloProperty_step"
 placement H
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular

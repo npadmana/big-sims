@@ -546,7 +546,9 @@ reference "fig:crossMater_step"
 
  is equivalent to the ratio of halo bias between the 450/5 and other time-steps,
  showing systematic errors due to the de-tuned simulations.
- Note that halos used here have the mass of 
+ 
+\color red
+Note that halos used here have the mass of 
 \begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
 \end_inset
 
@@ -554,6 +556,8 @@ reference "fig:crossMater_step"
 \begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
 \end_inset
 
+
+\color inherit
 , but we observed the same trend in cross power spectra calculated with
  different halo mass ranges.
  Here, we use only one realization for the calculations and this is partly
@@ -615,7 +619,9 @@ as a function of time steps
 by
 \color inherit
  sub-cycles.
- Note that the halos are selected for mass from 
+ Note that the halos are selected for 
+\color red
+mass from 
 \begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
 \end_inset
 
@@ -631,7 +637,9 @@ by
 \begin_inset Formula $\sigma=0.5$
 \end_inset
 
- (right).
+ (right)
+\color inherit
+.
 \end_layout
 
 \end_inset
@@ -676,10 +684,14 @@ reference "fig:rsd_step"
 \end_inset
 
 .
- The mass threshold used here is 
+ 
+\color red
+The mass threshold used here is 
 \begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
 \end_inset
 
+
+\color inherit
 .
  We see that the simulations with 150 global steps do not have the same
  velocity fields as the 450/5 simulation, because their ratios for the redshift-
@@ -730,10 +742,14 @@ name "fig:rsd_step"
  450/5 as a reference.
  For 300 global steps, the agreement with the 450/5 is well within 5% on
  large scales.
- Here, we selected the halos with the mass threshold of 
+ Here, we selected 
+\color red
+the halos with the mass threshold of 
 \begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
 \end_inset
 
+
+\color inherit
 .
 \end_layout
 
@@ -1540,7 +1556,7 @@ reference "fig:crossPower_redshift"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1575,37 +1591,6 @@ Ratio of halo-matter cross power spectra after reassigning halo masses for
  (right).
  The agreements with the 450/5 are all within 2%.
  
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-redshift-space
 \end_layout
 
 \end_inset
