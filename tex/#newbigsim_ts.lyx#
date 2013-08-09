@@ -2,7 +2,7 @@
 \lyxformat 413
 \begin_document
 \begin_header
-\textclass mn2e
+\textclass jcappub
 \begin_preamble
 
 
@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
-
+\usepackage[left,modulo]{lineno}
 \global\long\def\bd{{\bm{\delta}}}
 \end_preamble
 \options usenatbib
@@ -62,7 +62,7 @@
 \paragraph_separation indent
 \paragraph_indentation default
 \quotes_language english
-\papercolumns 1
+\papercolumns 2
 \papersides 1
 \paperpagestyle default
 \tracking_changes false
@@ -74,12 +74,46 @@
 
 \begin_body
 
+\begin_layout Title
+Generating Mock Catalogs for the Baryon Oscillation Spectroscopic Survey:
+ An Approximate N-Body approach
+\end_layout
+
+\begin_layout Author
+Aaronson Aardvark...e.t.c.
+\end_layout
+
+\begin_layout Abstract
+We introduce and test an approximate scheme for generating mock catalogs
+ for large-scale structure measurements in galaxy surveys, specializing
+ in this work to the Baryon Oscillation Spectroscopic Survey.
+ things to add later...A brief description of the approximation scheme, tests
+ and the accuracy we reach, and some comments about the timings of the tests
+ and the BOSS sampes.
+\end_layout
+
 \begin_layout Section
-Mass Resolution
+Introduction
 \end_layout
 
 \begin_layout Standard
-Here, we compare samples with 
+Why do we need large number of large N-body simuations? Discuss both covariance
+ matrix estimation as well as systematic error estimation.
+ Emphasize importance to capture as much of the physics as is possible...e.t.c.
+\end_layout
+
+\begin_layout Section
+HACC
+\end_layout
+
+\begin_layout Section
+Convergence Test 1: Mass Resolution
+\end_layout
+
+\begin_layout Standard
+In this section, we investigate how mass resolution affects on halo bias
+ and mass functions.
+ We prepare two samples with 
 \begin_inset Formula $256^{3}$
 \end_inset
 
@@ -87,9 +121,17 @@ Here, we compare samples with
 \begin_inset Formula $512^{3}$
 \end_inset
 
- particles with the same initial conditions and the number of time steps
- (450/5).
- We first show comparison of cumulative mass functions in Figure 
+ particles in the cubic box, whose side length is 
+\begin_inset Formula $256h^{-1}{\rm Mpc}$
+\end_inset
+
+.
+ Note that both samples are simulated from the same initial density field
+ with the same number of time steps.
+\end_layout
+
+\begin_layout Standard
+We first show comparison of cumulative mass functions in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:massFn_massResolution"
@@ -99,32 +141,24 @@ reference "fig:massFn_massResolution"
 .
  We calculate mean and its error through the bootstrap method, generating
  100 samples by choosing halos randomly from an output of the simulation.
- The mean and its error for the samples of 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles are indicated as shaded regions in the right panel of Figure
- 
+ In the right panel of Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:massFn_massResolution"
 
 \end_inset
 
-.
- The mean for 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- particles indicated as circles is within the error of 
+, the mean and its error for the samples of 
 \begin_inset Formula $512^{3}$
 \end_inset
 
- particles on halo masses ~
-\begin_inset Formula $10^{13.5}{\rm M_{\odot}}$
+ particles are indicated as shaded regions and the mean for 
+\begin_inset Formula $256^{3}$
 \end_inset
 
-.
+ particles indicated as ci
+\color black
+rcles.
  The discrepancy in the mass functions between 
 \begin_inset Formula $256^{3}$
 \end_inset
@@ -133,23 +167,84 @@ reference "fig:massFn_massResolution"
 \begin_inset Formula $512^{3}$
 \end_inset
 
- particles becomes larger on large halo masses, mainly because there are
- a few large halos and therefore it is more sensitive to the differences
- in the number of halos.
+ particles becomes larger on large halo masses.
+ This is mainly because there are a few large halos and therefore it is
+ more sensitive to the differences in the number of halos.
+ 
+\color red
+It is possible that samples with higher mass resolutions resolve more small
+ halos and a multiple halos in the samples with 
+\begin_inset Formula $512^{3}$
+\end_inset
+
+ particles correspond to one larger halo in the 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles samples.
+
+\color black
  We also see that agreement between the samples of those two mass resolutions
- is better at lower redshift, possibly because particles are more well clustered
- at lower redshift.
- Those differences on mass functions can cause systematic errors on halo
- bias due to selection of halos.
- We compare halo auto power spectra to see how halo biases for those two
- mass resolutions differ in Figure 
+ is better at lower redshift (
+\color red
+How can I investigate the reason for this?
+\color black
+).
+ 
+\end_layout
+
+\begin_layout Standard
+In Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:haloAuto_mass"
 
 \end_inset
 
+, we compare halo-matter cross power spectra at various redshifts.
+ Here, we use the same matter density field generated with 
+\begin_inset Formula $256^{3}$
+\end_inset
+
+ particles for both cases, and we select halos based on the 
+\begin_inset Quotes eld
+\end_inset
+
+soft-mass cut
+\begin_inset Quotes erd
+\end_inset
+
+ method using the probability given by 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+<N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
+\end{equation}
+
+\end_inset
+
+where we set 
+\begin_inset Formula ${\rm M_{cut}=10^{13.0}[{\rm M_{\odot}]}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma=0.5$
+\end_inset
+
 .
+ This probability has a similar form to the halo occupation distribution
+ (hereafter, HOD) technique so that the probability gradually becomes one
+ as increasing halo mass.
+ We use this method to avoid noise from halos scattering across sharp boundaries
+ on halo mass.
+ Using the soft mass-cut method, we generate 10 samples to compute the cross
+ power spectra and their errors.
+ From now on, we use the same method for halo selections to compute power
+ spectra.
+ Note that the ratio of those cross power spectra is equivalent to the ratio
+ of halo bias.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -157,46 +252,18 @@ reference "fig:haloAuto_mass"
 
 \end_inset
 
- shows the ratio of auto power spectra in real-space for the simulations
- with 
+ shows the halo bias for 
 \begin_inset Formula $256^{3}$
 \end_inset
 
- and 
+ particles is smaller than for 
 \begin_inset Formula $512^{3}$
 \end_inset
 
- particles at three different redshifts, 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-, 
-\begin_inset Formula $z=0.5$
-\end_inset
-
-, and 
-\begin_inset Formula $z=0.8$
-\end_inset
-
-.
- We subtract a Poisson shot noise of 
-\begin_inset Formula $1/n$
-\end_inset
-
- , where 
-\begin_inset Formula $n$
-\end_inset
-
- is the average number density of halos, to calculate the auto power spectra.
- The difference between auto power spectra of 
-\begin_inset Formula $256^{3}$
-\end_inset
-
- and 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles is within 10% at any redshifts.
+ particles and they agree well within 2%.
+ This also implies the effect on halo bias due to different mass resolusion
+ is less sensitive compared to the effect on mass functions.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -262,8 +329,8 @@ Left: Cumulative mass functions for the simulations of
 \end_inset
 
  particles.
- The deviation from on on large halo masses is mainly due to the fewer number
- of large halos.
+ The deviation from one on large halo masses is mainly caused by the fewer
+ number of large halos.
 \end_layout
 
 \end_inset
@@ -303,7 +370,7 @@ name "fig:haloAuto_mass"
 
 \end_inset
 
-Ratio of halo auto power spectra between the samples of 
+Ratio of halo-matter cross power spectra between the samples of 
 \begin_inset Formula $512^{3}$
 \end_inset
 
@@ -312,8 +379,16 @@ Ratio of halo auto power spectra between the samples of
 \end_inset
 
  particles for various redshifts.
- The agreements are all within 10%.
- 
+ The overall agreements are all within 2%.
+ Note that halos are selected based on the 
+\begin_inset Quotes eld
+\end_inset
+
+soft-mass cut
+\begin_inset Quotes erd
+\end_inset
+
+ method described in the section.
 \end_layout
 
 \end_inset
@@ -327,7 +402,7 @@ Ratio of halo auto power spectra between the samples of
 \end_layout
 
 \begin_layout Section
-Selection of the minimal time steps
+Convergence Test 2: Selection of the minimal time steps
 \end_layout
 
 \begin_layout Standard
@@ -339,20 +414,6 @@ The goal in this section is to determine the sufficient time-stepping scheme
  time solver.
  In order to quantitatively evaluate different time-stepping schemes, we
  run a set of convergence tests using smaller simulation boxes.
- As already explained, our aim is to carry out simulations in approximate
- 
-\begin_inset Formula $(4h^{-1}{\rm Gpc})^{3}$
-\end_inset
-
- volumes with 
-\begin_inset Formula $4096^{3}$
-\end_inset
-
- particles, leading to a particle mass of ~
-\begin_inset Formula $10^{11}{\rm M_{\odot}}$
-\end_inset
-
-.
  We scale down these volumes to 
 \begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
 \end_inset
@@ -362,11 +423,6 @@ The goal in this section is to determine the sufficient time-stepping scheme
 \end_inset
 
  particles, which keeps the particle mass unchanged.
- In addition, we have carried out one simulation with 
-\begin_inset Formula $512^{3}$
-\end_inset
-
- particles with exactly the same phases for detailed mass resolution studies.
  The number of time steps were chosen as 450/5, 300/3, 300/2, 150/3, 150/2,
  where the first number indicates the number of long time steps and the
  second number the number of short time steps for each long time step.
@@ -377,389 +433,12 @@ The goal in this section is to determine the sufficient time-stepping scheme
 .
  After determining our target time-stepping scheme, we do a more detailed
  examination at various redshifts in the next section.
- To provide some idea of the variation across all of the choices, we compare
- observable quantities including mass functions and power spectra in real
- and redshift spaces, as well as masses and positions of halos matched one
- by one.
- Based on a number of convergence tests, the 300/2 combination turned out
- to be the best choice.
+ To evaluate different choices, we compare the properties (masses, positions,
+ and velocities) of the individual halos themselves in addition to the statistic
+al descriptions provided by the mass function and power spectra.
 \end_layout
 
 \begin_layout Subsection
-Observables
-\end_layout
-
-\begin_layout Standard
-We investigate how mass resolution and the number of time steps affects
- the observable quantities including mass functions and power spectra.
-\end_layout
-
-\begin_layout Subsubsection
-Time Steps
-\end_layout
-
-\begin_layout Standard
-We first compute mass functions from outputs of different time-stepping
- schemes, as shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:massFn_step"
-
-\end_inset
-
-, where we compare simulations with reduced number of time steps to the
- 450/5 simulation.
- In Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:massFn_step"
-
-\end_inset
-
-, we show the ratio 
-\begin_inset Formula $n(>M)/n_{450/5}(>M)$
-\end_inset
-
-, where 
-\begin_inset Formula $n_{450/5}(>M)$
-\end_inset
-
- is a cumulative mass function for the 450/5 simulation and 
-\begin_inset Formula $n(>M)$
-\end_inset
-
- is a cumulative mass function for different time steps shown in different
- colors.
- Here, we use a fixed linking length of 
-\begin_inset Formula $b=0.16$
-\end_inset
-
- times the mean interparticle separation for all the simulations to identify
- halos through the friends-of-friends (hereafter, fof) algorithm, and halo
- masses are assigned based on the number of particles contained in halos.
- We see that the cumulative mass functions for 150 global steps have smaller
- amplitudes overall than those for 450 and 300 global steps.
- This is because a smaller number of time steps makes halos more diffused
- and the fixed linking length cannot connect some particles in the outputs
- of 150 global steps whose corresponding particles are connected in the
- simulations of larger global steps.
- In addition to the difference in global steps, sub-cycles also make the
- internal structure of halos more diffused and this leads to the suppression
- on the number of low-mass halos.
- In 
-\color red
-Manera et al.
- 2012
-\color inherit
- which uses the second-order Lagrangian perturbation theory to generate
- dark matter fields, they used a longer linking length and reassigned halo
- masses in order to solve the same problem of having diffused halos.
- We find that overall agreement between the simulations of 450/5 and 300
- global steps on mass functions is sufficient.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/haloRatioNum256_z0.15.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:massFn_step"
-
-\end_inset
-
- Comparison of cumulative mass functions in different simulations taking
- the 450/5 as a reference.
- Lines, from top to bottom, correspond to different time steps, 300/3 (blue),
- 300/2 (green), 150/3 (red), and 150/2 (cyan) respectively.
- As shown, the agreement between 300 global steps and the 450/5 is close
- to one on large halo mass and sub-cycles make differences only on small
- halo mass.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The next measure of interest is the cross power spectra between halos and
- matter densities, as shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
-.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
- shows the ratio 
-\begin_inset Formula $P_{hm}/P_{hm,450/5}$
-\end_inset
-
- at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-, where 
-\begin_inset Formula $P_{hm,450/5}$
-\end_inset
-
- is the cross power spectrum for 450/5 and 
-\begin_inset Formula $P_{hm}$
-\end_inset
-
- is the cross power spectrum for other time steps labeled in the figure.
- To calculate the cross power spectra, we use the output of the 450/5 simulation
- for the matter densities for all the halo sample.
- In this way, the ratio 
-\begin_inset Formula $P_{hm}/P_{hm,450/5}$
-\end_inset
-
- is equivalent to the ratio of halo bias between the 450/5 and other time-steps,
- showing systematic errors due to the de-tuned simulations.
- 
-\color red
-Note that halos used here have the mass of 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
- to 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
-\end_inset
-
-
-\color inherit
-, but we observed the same trend in cross power spectra calculated with
- different halo mass ranges.
- Here, we use only one realization for the calculations and this is partly
- why our cross power spectra are noisy on large scales.
- Another contribution to the noise is the relatively small volume of the
- simulation box.
- We see that the agreement between 450/5 and 300 global steps is remarkably
- good and that the differences are well within 5% on any scales.
- In addition, we see the systematic error on halo biases for 150 global
- steps is also within 5% on large scales.
- This implies that halo bias on large scales is not largely affected by
- reduction of the time steps.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Plots4lyx/crossMatter3_ratio_mcut12.5to13.0_z0.15.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/crossMatter_m450_timestep_softMcut13.0_s0.5_z0.15.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:crossMater_step"
-
-\end_inset
-
- Ratio of halo-matter cross power spectra 
-\color blue
-as a function of time steps
-\color inherit
- with respect to the 450/5.
- The agreements with the 450/5 are all within 5% on large scales.
- For 300 global steps, both agree well even on small scales with little
- difference 
-\color blue
-by
-\color inherit
- sub-cycles.
- Note that the halos are selected for 
-\color red
-mass from 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
- to 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
-\end_inset
-
- here (left) and soft mass cut with 
-\begin_inset Formula $M_{cut}=13.0$
-\end_inset
-
- and 
-\begin_inset Formula $\sigma=0.5$
-\end_inset
-
- (right)
-\color inherit
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The final quantitative comparison here is auto power spectra in redshift
- space.
- We are particularly interested in how de-tuning affects the velocity fields
- and therefore, the redshift space.
- The result is shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:rsd_step"
-
-\end_inset
-
- as the ratio 
-\begin_inset Formula $P_{s}/P_{s,450/5}$
-\end_inset
-
-, where 
-\begin_inset Formula $P_{s,450/5}$
-\end_inset
-
- is the auto power spectrum calculated from the simulation of 450/5 and
- 
-\begin_inset Formula $P_{s}$
-\end_inset
-
- is the auto power spectrum with reduced number of time steps.
- Before taking the ratio, we subtracted a Poisson shot noise contribution
- of 
-\begin_inset Formula $1/n$
-\end_inset
-
-.
- 
-\color red
-The mass threshold used here is 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
-
-\color inherit
-.
- We see that the simulations with 150 global steps do not have the same
- velocity fields as the 450/5 simulation, because their ratios for the redshift-
-space power spectra between 450/5 and 150 global steps show larger deviations
- compared to the ratios for halo biases, shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
-.
- This implies that the simulations with only 150 global steps have systematic
- errors in the measurement of the growth factor through redshift-space distortio
-ns.
- For 300 global steps, the agreement with the 450/5 simulation is sufficiently
- good on large scales.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/autoMono_timestep_softMcut13.0_s0.5_z0.15.pdf
-	lyxscale 50
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:rsd_step"
-
-\end_inset
-
- Ratio of redshift-space auto power spectra in different time steps, taking
- 450/5 as a reference.
- For 300 global steps, the agreement with the 450/5 is well within 5% on
- large scales.
- Here, we selected 
-\color red
-the halos with the mass threshold of 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
-\end_inset
-
-
-\color inherit
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -774,8 +453,8 @@ We compare halo properties for those of corresponding halos in different
  two different samples and then compare halo mass, position, and velocity
  for those matched halos.
  From the quantitative comparison, we find that the samples with 300 global
- steps have much less scatter for the baseline of the 450/5 sample than
- the samples with 150 global steps.
+ steps have much less scatter for the baseline of the sample of the 450/5
+ simulation than the samples with 150 global steps.
  In addition to that, we see that the differences between sub-cycles are
  almost negligible.
 \end_layout
@@ -800,8 +479,8 @@ reference "fig:fraction1"
 
 \end_inset
 
- shows the cumulative fraction of unmatched halos matching the 450/5 to
- the 300/2 simulation at 
+ shows the cumulative fraction of unmatched halos matching the 450/5 simulation
+ to the 300/2 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -823,8 +502,8 @@ reference "fig:mass-scatter1"
 
 \end_inset
 
- compares halo mass for the matched halos between the 450/5 and the 300/2
- simulations at 
+ compares halo mass for the matched halos between the 450/5 simulation and
+ the 300/2 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -837,14 +516,14 @@ reference "fig:mass-scatter1"
 
 \end_inset
 
-, the summed halo mass for those multiply-booked halos in the 450/5 is correlate
-d with the corresponding halos in the 300/2 better than the individual halo
- mass in the 450/5.
- This implies that those multiply-booked halos in the 450/5 are merged into
- one halo in the 300/2.
+, the summed halo mass for those multiply-booked halos in the 450/5 simulation
+ is correlated with the corresponding halos in the 300/2 simulation better
+ than the individual halo mass in the 450/5 simulation.
+ This implies that those multiply-booked halos in the 450/5 simulation are
+ merged into one halo in the 300/2 simulation.
  Since larger global steps and sub-cycles can capture dynamics better, it
- is likely that the halos in the 450/5 forms sub-structure earlier than
- the 300/2 simulation.
+ is likely that the halos in the 450/5simulation forms sub-structure earlier
+ than the 300/2 simulation.
 \end_layout
 
 \begin_layout Standard
@@ -855,8 +534,8 @@ reference "fig:mass-content"
 
 \end_inset
 
- shows the number densities of the unmatched halos in the 450/5 matching
- to the 300/2 at 
+ shows the number densities of the unmatched halos in the 450/5 simulation
+ matching to the 300/2 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -872,11 +551,11 @@ reference "fig:mass-content"
  We only find unmatched halos on low-mass regions for the reason that the
  halos don't have any common particles.
  This is because there are some low-mass halos which are identified in one
- sample but not in another sample due to the way the FoF algorithm define
+ sample but not in another sample due to the way the FOF algorithm define
  halos.
  As shown, most of unmatched halos are due to the threshold criterion.
  
-\color red
+\color black
 We also checked how the number of matched halos is changed as a function
  of redshift, and we observed that redshift does not affect to the matching
  algorithm.
@@ -909,8 +588,8 @@ name "fig:fraction1"
 
 \end_inset
 
-The cumulative fraction of unmatched halos matching the 450/5 to the 300/2
- simulation at z=0.15 as a function of halo mass.
+The cumulative fraction of unmatched halos matching the 450/5 simulation
+ to the 300/2 simulation at z=0.15 as a function of halo mass.
  The solid lines, from top to bottom, correspond to matching thresholds
  of 75%, 50%, and 25% for the unmatched halos in the 450/5 sample.
  The dashed line shows the same quantity for the 300/2 sample for a threshold
@@ -919,6 +598,8 @@ The cumulative fraction of unmatched halos matching the 450/5 to the 300/2
  and increasing threshold.
  We adopt a threshold of 50% as our default choice.
  
+\color red
+Do we really need the result for the 300/2 simulation?
 \end_layout
 
 \end_inset
@@ -985,8 +666,8 @@ name "fig:mass-scatter1"
 
 \end_inset
 
-Comparison of halo masses matching the 450/5 (x-axis) to the 300/2 (y-axis)
- simulation at 
+Comparison of halo masses matching the 450/5 simulation (x-axis) to the
+ 300/2 simulation (y-axis) at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -1010,8 +691,9 @@ multiply-booked
 \end_inset
 
  halos whose corresponding halo masses are added (bottom right).
- Those panels imply that large mass difference between the 450/5 and the
- 300/2 shown in the top left panel is mainly due to those 
+ Those panels imply that large mass difference between the 450/5 simulation
+ and the 300/2 simulation shown in the top left panel is mainly due to those
+ 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1027,8 +709,8 @@ multiply-booked
 \begin_inset Quotes erd
 \end_inset
 
- halos in the 450/5 are merged into one halo in the 300/2 due to larger
- time steps.
+ halos in the 450/5 simulation are merged into one halo in the 300/2 simulation
+ due to larger time steps.
 \end_layout
 
 \end_inset
@@ -1105,9 +787,9 @@ Halo Properties
 
 \begin_layout Standard
 Here, we compare halo properties (i.e., halo mass, position, and velocity)
- for halos matched to those in the 450/5.
- The comparison of halo mass between the 450/5 and the 300/2 is shown in
- Figure 
+ for halos matched to those in the 450/5 simulation.
+ The comparison of halo mass between the 450/5 simulation and the 300/2
+ simulation is shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:mass-scatter1"
@@ -1123,9 +805,9 @@ reference "fig:mass-scatter1"
 \end_inset
 
  shows that the halos in the 300/2 simulation tend to be slightly more massive
- than the corresponding halos in the 450/5.
+ than the corresponding halos in the 450/5 simulation.
  We also compare the halos in the simulation of other time steps to the
- corresponding halos in the 450/5 and show medians, 
+ corresponding halos in the 450/5 simulation and show medians, 
 \begin_inset Formula $\Delta_{65\%}$
 \end_inset
 
@@ -1163,9 +845,9 @@ reference "fig:HaloProperty_step"
 
 .
  As shown, the 150 global steps have more scatter in the halo properties
- and the means differ for the 
-\color red
-halo mass ratio 
+ and the means d
+\color black
+iffer for the halo mass ratio 
 \color inherit
 and the velocity difference.
  This indicates that the halo structure in these cases is more diffused
@@ -1246,7 +928,7 @@ status open
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_distance_z0.15.pdf
 	lyxscale 50
-	width 70col%
+	width 100col%
 
 \end_inset
 
@@ -1254,7 +936,7 @@ status open
 \begin_inset Graphics
 	filename /Users/ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/particleID/histogram_velocity_z0.15.pdf
 	lyxscale 50
-	width 70col%
+	width 100col%
 
 \end_inset
 
@@ -1272,15 +954,15 @@ name "fig:HaloProperty_step"
 \end_inset
 
 Comparison of matched halos in the different simulations corresponding to
- 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan) with respect
- to the 450/5.
+ the time steps of 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan)
+ with respect to the 450/5 simulation.
  From left to right, we compared halo position and velocity respectively.
 
 \color blue
  
 \color black
-The agreement between 300 global steps and the 450/5 is considerably good,
- with little difference from the number of sub-cycles.
+The agreement between 300 global steps and the 450/5 simulation is considerably
+ good, with little difference from the number of sub-cycles.
 \end_layout
 
 \end_inset
@@ -1299,16 +981,16 @@ As a conclusion through several convergence tests shown in this section,
 \end_layout
 
 \begin_layout Section
-Tuning 300/2
+Convergence Test 3: Tuning 300/2
 \end_layout
 
 \begin_layout Standard
-In the previous section, we choose 300/2 as our final target for the time-steppi
-ng scheme.
+In the previous section, we choose the 300/2 simulation as our final target
+ for the time-stepping scheme.
  Now, we need to take a close look at observable quantities calculated from
- the samples of 300/2 at various redshifts.
- Here, we first compare cumulative mass functions between 450/5 and 300/2
- at redshifts 
+ the samples of the 300/2 simulation at various redshifts.
+ Here, we first compare cumulative mass functions between the 450/5 simulation
+ and the 300/2 simulation at redshifts 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -1330,8 +1012,9 @@ reference "fig:massFn_redshift"
 .
  As shown, an offset from one increases with higher redshifts, particularly
  on small halo masses.
- To make the mass functions for 300/2 closer to the ones for 450/5, we decided
- to reassign halo masses for halos in the simulations of 300/2.
+ To make the mass functions for the 300/2 simulation closer to the ones
+ for the 450/5 simulation, we decided to reassign halo masses for halos
+ in the simulations of the 300/2 simulation.
 \end_layout
 
 \begin_layout Standard
@@ -1343,6 +1026,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum_noTweak_redshift.pdf
+	lyxscale 50
 	width 100col%
 
 \end_inset
@@ -1360,7 +1044,8 @@ name "fig:massFn_redshift"
 
 \end_inset
 
-Comparison of cumulative mass functions between 450/5 and 300/2 at 
+Comparison of cumulative mass functions between the 450/5 simulation and
+ the 300/2 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -1397,9 +1082,9 @@ method
 \end_layout
 
 \begin_layout Standard
-In order to compare halo mass differences between 300/2 and 450/5, we first
- match halos in the 300/2 simulation to halos in the 450/5 by using our
- matching algorithm.
+In order to compare halo mass differences between the 300/2 simulation and
+ the 450/5 simulation, we first match halos in the 300/2 simulation to halos
+ in the 450/5 simulation by using our matching algorithm.
  Next, we take mean of the halo mass differences for those matched halos
  as a function of halo mass of 300/2 and fit the mean to a functional shown
  below,
@@ -1430,8 +1115,8 @@ where
 \end_inset
 
  are free parameters which are functions of the redshift.
- By fitting to the samples of 300/2 to the 450/5 by using the above functional,
- we find best fit parameters shown below:
+ By fitting to the samples of the 300/2 simulation to the 450/5 simulation
+ by using the above functional, we find best fit parameters shown below:
 \end_layout
 
 \begin_layout Standard
@@ -1454,8 +1139,8 @@ and
 \end_layout
 
 \begin_layout Standard
-Applying the functional to the samples from 300/2, we obtain mass functions
- shown in Figure 
+Applying the functional to the samples from the 300/2 simulation, we obtain
+ mass functions shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:massFn_tweak"
@@ -1463,20 +1148,21 @@ reference "fig:massFn_tweak"
 \end_inset
 
 .
- The match of reassigned halo mass functions for 300/2 to the 450/5 mass
- functions is significantly improved that now the difference is well within
- 5% on any halo masses at any redshifts.
+ The match of reassigned halo mass functions for the 300/2 simulation to
+ the ones for the 450/5 simulation is significantly improved that now the
+ difference is well within 5% on any halo masses at any redshifts.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum_tweak5_redshift.pdf
+	lyxscale 50
 	width 100col%
 
 \end_inset
@@ -1495,9 +1181,9 @@ name "fig:massFn_tweak"
 \end_inset
 
 Comparison of cumulative mass functions after reassigning halo masses for
- the simulation of 300/2.
- The agreement of 300/2 with 450/5 is significantly improved especially
- on halo masses greater than 
+ the 300/2 simulation.
+ The agreement between the 300/2 simulation and the 450/5 simulation is
+ significantly improved especially on halo masses greater than 
 \begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
 \end_inset
 
@@ -1520,7 +1206,7 @@ Power Spectra
 
 \begin_layout Standard
 We calculate halo-matter cross power spectra after reassigning halo masses
- for 300/2, as shown in Figure 
+ for the 300/2 simulation, as shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:crossPower_redshift"
@@ -1537,8 +1223,8 @@ reference "fig:crossPower_redshift"
 \end_inset
 
  for the right panel.
- As expected from the mass functions, the match between 300/2 and 450/5
- with the threshold of 
+ As expected from the mass functions, the match between the 300/2 simulation
+ and the 450/5 simulation with the threshold of 
 \begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
 \end_inset
 
@@ -1547,21 +1233,21 @@ reference "fig:crossPower_redshift"
 \end_inset
 
 .
- The agreement between 300/2 and 450/5 is, however, well within 2% for both
- cases, which is a significant improvement compared to the results shown
- in the previous section.
+ The agreement between the 300/2 simulation and the 450/5 simulation is,
+ however, well within 2% for both cases, which is a significant improvement
+ compared to the results shown in the previous section.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Matching_halos/20130703/crossMatter_m450_tweak300_2_softMcut13.0_s0.5.pdf
-	lyxscale 75
+	lyxscale 50
 	width 100col%
 
 \end_inset
@@ -1580,17 +1266,19 @@ name "fig:crossPower_redshift"
 \end_inset
 
 Ratio of halo-matter cross power spectra after reassigning halo masses for
- the sample from the 300/2 simulation with halo mass thresholds of 
-\begin_inset Formula $10^{12.5}{\rm M_{\odot}}$
+ the sample from the 300/2 simulations.
+ We select halos based on the soft mass-cut method
+\color black
+ with 
+\begin_inset Formula $M_{cut}=13.0$
 \end_inset
 
- (left) and 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
+ and 
+\begin_inset Formula $\sigma=0.5$
 \end_inset
 
- (right).
- The agreements with the 450/5 are all within 2%.
- 
+.
+ The overall agreements are well within 2%.
 \end_layout
 
 \end_inset
@@ -1605,6 +1293,22 @@ Ratio of halo-matter cross power spectra after reassigning halo masses for
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+THE BOSS SIMULATIONS
+\end_layout
+
+\begin_layout Subsection
+Simulation Parameters
+\end_layout
+
+\begin_layout Subsection
+Building the Galaxy Catalog
+\end_layout
+
+\begin_layout Subsection
+An Application
 \end_layout
 
 \begin_layout Standard
