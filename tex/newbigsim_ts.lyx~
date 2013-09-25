@@ -1878,7 +1878,7 @@ In this paper, we study how reducing the number of time steps in the N-body
  dynamics give little effects on statistical observables.
  Especially, the agreement between the full N-body simulation (i.e., the 450/5
  simulation) and the approximated simulations on halo bias is within 1~2%
- after the mass adujustment.
+ after the mass adjustment.
  In Section 4, we generate galaxy mocks from the sample of the 300/2 simulation
  at 
 \begin_inset Formula $z=0.55$

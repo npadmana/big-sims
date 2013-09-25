@@ -1094,7 +1094,7 @@ Corresponding
 \begin_inset Formula $\beta$
 \end_inset
 
- in Eqn.
+ in Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1224,7 +1224,7 @@ reference "fig:massFn_step"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1397,11 +1397,11 @@ reference "fig:HaloProperty_step"
 placement p
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_tweak256_real_z0.15.pdf
 	lyxscale 60
 	width 50col%
 
@@ -1409,7 +1409,7 @@ status collapsed
 
 
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/crossMatter_tweak256_redshift_z0.15.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_tweak256_redshift_z0.15.pdf
 	lyxscale 60
 	width 50col%
 
@@ -1811,11 +1811,11 @@ The correlation function computed from our sample mocks fits to the correlation
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/xis_obs_wError.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/xis_obs_wError.pdf
 	width 50col%
 
 \end_inset
