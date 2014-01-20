@@ -85,12 +85,19 @@ Aaronson Aardvark...e.t.c.
 \end_layout
 
 \begin_layout Abstract
-We introduce and test an approximate scheme for generating mock catalogs
+Recently, the necessity and the demand for the large number of large N-body
+ simulations have been increased in astronomy due to the precision required
+ for measurements to understand cosmic acceleration.
+ We introduce and test an approximate scheme for generating mock catalogs
  for large-scale structure measurements in galaxy surveys, specializing
- in this work to the Baryon Oscillation Spectroscopic Survey.
- things to add later...A brief description of the approximation scheme, tests
- and the accuracy we reach, and some comments about the timings of the tests
- and the BOSS samples.
+ in this work to the Baryon Oscillation Spectroscopic Survey (BOSS).
+ Our approximated N-body simulation reduses the number of time steps in
+ order to save computational time.
+ This, however, makes the structure of dark matter halos in the simulations
+ more diffused compared to the full N-body simulations.
+ In this paper, we show how we can reconstruct an accurate structure of
+ dark matter halos, which is sufficient for the precision that BOSS aims
+ for.
 \end_layout
 
 \begin_layout Section
@@ -1401,7 +1408,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_tweak256_real_z0.15.pdf
 	lyxscale 60
 	width 50col%
 
