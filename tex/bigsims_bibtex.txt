@@ -1,0 +1,117 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf370
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 @ARTICLE\{2002MNRAS.329..629S,\
+   author = \{\{Scoccimarro\}, R. and \{Sheth\}, R.~K.\},\
+    title = "\{PTHALOS: a fast method for generating mock galaxy distributions\}",\
+  journal = \{\\mnras\},\
+   eprint = \{astro-ph/0106120\},\
+ keywords = \{METHODS: NUMERICAL, LARGE-SCALE STRUCTURE OF UNIVERSE\},\
+     year = 2002,\
+    month = jan,\
+   volume = 329,\
+    pages = \{629-640\},\
+      doi = \{10.1046/j.1365-8711.2002.04999.x\},\
+   adsurl = \{http://adsabs.harvard.edu/abs/2002MNRAS.329..629S\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+\
+@ARTICLE\{2013MNRAS.428.1036M,\
+   author = \{\{Manera\}, M. and \{Scoccimarro\}, R. and \{Percival\}, W.~J. and \
+	\{Samushia\}, L. and \{McBride\}, C.~K. and \{Ross\}, A.~J. and \{Sheth\}, R.~K. and \
+	\{White\}, M. and \{Reid\}, B.~A. and \{S\{\\'a\}nchez\}, A.~G. and \{de Putter\}, R. and \
+	\{Xu\}, X. and \{Berlind\}, A.~A. and \{Brinkmann\}, J. and \{Maraston\}, C. and \
+	\{Nichol\}, B. and \{Montesano\}, F. and \{Padmanabhan\}, N. and \{Skibba\}, R.~A. and \
+	\{Tojeiro\}, R. and \{Weaver\}, B.~A.\},\
+    title = "\{The clustering of galaxies in the SDSS-III Baryon Oscillation Spectroscopic Survey: a large sample of mock galaxy catalogues\}",\
+  journal = \{\\mnras\},\
+archivePrefix = "arXiv",\
+   eprint = \{1203.6609\},\
+ primaryClass = "astro-ph.CO",\
+ keywords = \{galaxies: haloes, large-scale structure of Universe\},\
+     year = 2013,\
+    month = jan,\
+   volume = 428,\
+    pages = \{1036-1054\},\
+      doi = \{10.1093/mnras/sts084\},\
+   adsurl = \{http://adsabs.harvard.edu/abs/2013MNRAS.428.1036M\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+\
+@ARTICLE\{2014arXiv1401.4171M,\
+   author = \{\{Manera\}, M. and \{Samushia\}, L. and \{Tojeiro\}, R. and \{Howlett\}, C. and \
+	\{Ross\}, A.~J. and \{Percival\}, W.~J. and \{Gil-Mar\{\\'\{\\i\}\}n\}, H. and \
+	\{Brownstein\}, J.~R. and \{Burden\}, A. and \{Montesano\}, F.\},\
+    title = "\{The clustering of galaxies in the SDSS-III Baryon Oscillation Spectroscopic Survey: mock galaxy catalogues for the low-redshift sample\}",\
+  journal = \{ArXiv e-prints\},\
+archivePrefix = "arXiv",\
+   eprint = \{1401.4171\},\
+ primaryClass = "astro-ph.CO",\
+ keywords = \{Astrophysics - Cosmology and Extragalactic Astrophysics, Astrophysics - Galaxy Astrophysics\},\
+     year = 2014,\
+    month = jan,\
+   adsurl = \{http://adsabs.harvard.edu/abs/2014arXiv1401.4171M\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+\
+@ARTICLE\{1996ApJ...462..563N,\
+   author = \{\{Navarro\}, J.~F. and \{Frenk\}, C.~S. and \{White\}, S.~D.~M.\},\
+    title = "\{The Structure of Cold Dark Matter Halos\}",\
+  journal = \{\\apj\},\
+   eprint = \{astro-ph/9508025\},\
+ keywords = \{COSMOLOGY: THEORY, COSMOLOGY: DARK MATTER, GALAXIES: HALOS, METHODS: NUMERICAL\},\
+     year = 1996,\
+    month = may,\
+   volume = 462,\
+    pages = \{563\},\
+      doi = \{10.1086/177173\},\
+   adsurl = \{http://adsabs.harvard.edu/abs/1996ApJ...462..563N\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+\
+@ARTICLE\{2011ApJ...740..102K,\
+   author = \{\{Klypin\}, A.~A. and \{Trujillo-Gomez\}, S. and \{Primack\}, J.\},\
+    title = "\{Dark Matter Halos in the Standard Cosmological Model: Results from the Bolshoi Simulation\}",\
+  journal = \{\\apj\},\
+archivePrefix = "arXiv",\
+   eprint = \{1002.3660\},\
+ primaryClass = "astro-ph.CO",\
+ keywords = \{cosmology: theory, large-scale structure of universe, methods: numerical\},\
+     year = 2011,\
+    month = oct,\
+   volume = 740,\
+      eid = \{102\},\
+    pages = \{102\},\
+      doi = \{10.1088/0004-637X/740/2/102\},\
+   adsurl = \{http://adsabs.harvard.edu/abs/2011ApJ...740..102K\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+\
+@ARTICLE\{2013arXiv1303.4666A,\
+   author = \{\{Anderson\}, L. and \{Aubourg\}, E. and \{Bailey\}, S. and \{Beutler\}, F. and \
+	\{Bolton\}, A.~S. and \{Brinkmann\}, J. and \{Brownstein\}, J.~R. and \
+	\{Chuang\}, C.-H. and \{Cuesta\}, A.~J. and \{Dawson\}, K.~S. and \
+	\{Eisenstein\}, D.~J. and \{Honscheid\}, K. and \{Kazin\}, E.~A. and \
+	\{Kirkby\}, D. and \{Manera\}, M. and \{McBride\}, C.~K. and \{Mena\}, O. and \
+	\{Nichol\}, R.~C. and \{Olmstead\}, M.~D. and \{Padmanabhan\}, N. and \
+	\{Palanque-Delabrouille\}, N. and \{Percival\}, W.~J. and \{Prada\}, F. and \
+	\{Ross\}, A.~J. and \{Ross\}, N.~P. and \{Sanchez\}, A.~G. and \{Samushia\}, L. and \
+	\{Schlegel\}, D.~J. and \{Schneider\}, D.~P. and \{Seo\}, H.-J. and \
+	\{Strauss\}, M.~A. and \{Thomas\}, D. and \{Tinker\}, J.~L. and \{Tojeiro\}, R. and \
+	\{Verde\}, L. and \{Weinberg\}, D.~H. and \{Xu\}, X. and \{Yeche\}, C.\
+	\},\
+    title = "\{The clustering of galaxies in the SDSS-III Baryon Oscillation Spectroscopic Survey: Measuring D\\_A and H at z=0.57 from the Baryon Acoustic Peak in the Data Release 9 Spectroscopic Galaxy Sample\}",\
+  journal = \{ArXiv e-prints\},\
+archivePrefix = "arXiv",\
+   eprint = \{1303.4666\},\
+ primaryClass = "astro-ph.CO",\
+ keywords = \{Astrophysics - Cosmology and Extragalactic Astrophysics\},\
+     year = 2013,\
+    month = mar,\
+   adsurl = \{http://adsabs.harvard.edu/abs/2013arXiv1303.4666A\},\
+  adsnote = \{Provided by the SAO/NASA Astrophysics Data System\}\
+\}\
+}
