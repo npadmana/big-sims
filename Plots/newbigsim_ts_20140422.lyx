@@ -13,7 +13,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
-\usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
+\usepackage{lineno}
+\global\long\def\bd{{\bm{\delta}}}
  \linenumbers
 \end_preamble
 \options usenatbib
@@ -47,7 +48,7 @@
 \use_esint 1
 \use_mhchem 0
 \use_mathdots 0
-\cite_engine basic
+\cite_engine natbib_authoryear
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -83,47 +84,13 @@ Generating Mock Catalogs for the Baryon Oscillation Spectroscopic Survey:
 Aaronson Aardvark...e.t.c.
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-abstract
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
+\begin_layout Abstract
 We introduce and test an approximate scheme for generating mock catalogs
  for large-scale structure measurements in galaxy surveys, specializing
  in this work to the Baryon Oscillation Spectroscopic Survey.
  things to add later...A brief description of the approximation scheme, tests
  and the accuracy we reach, and some comments about the timings of the tests
  and the BOSS samples.
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -202,6 +169,7 @@ Our N-body simulations are consist of two components: a long time step for
  The idea behind is reducing the number of both time steps as much as we
  can preserve enough mass resolution to correctly describe the large scale
  distribution of galaxies.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -212,26 +180,11 @@ In the following, we first briefly describe the mechanism of our approximated
  In Section 4, we populate halos in our samples with galaxies and compute
  correlation functions based on BOSS Data Release 9/11(?) geometry, and
  compare it with the observed correlation function.
+ 
 \end_layout
 
 \begin_layout Section
 HACC
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-input{hacc}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -242,18 +195,8 @@ Convergence Test: Selection of the minimal time steps
 In this section, we examine how reducing the number of time steps affects
  on halo properties (i.e., halo mass, position, and velocity) as well as observabl
 es such as halo mass functions and halo bias.
+
 \color black
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
  In order to quantitatively evaluate different time-stepping schemes, we
  run a set of convergence tests using smaller simulation boxes.
  We scale down these volumes to 
@@ -417,7 +360,8 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/unmatchedHalo_frac_450_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/unmatchedHalo_frac_450_300_2_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -467,14 +411,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/scatterMass_256_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/scatterMass_256_300_2_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
 
  
 \begin_inset Graphics
-	filename ../Plots/testDB_nonDB_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/testDB_nonDB_300_2_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -484,14 +430,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/testDB_DB_numPartCut_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/testDB_DB_numPartCut_300_2_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
 
  
 \begin_inset Graphics
-	filename ../Plots/testDB_sum_mass_f0.5_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/testDB_sum_mass_f0.5_300_2_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -566,7 +514,8 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/unmatchHalo2_content_300_2_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/unmatchHalo2_content_300_2_z0.15.pdf
+	lyxscale 60
 	width 50col%
 
 \end_inset
@@ -736,8 +685,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/massSlice_z0.15.pdf
-	width 50col%
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/massSlice_z0.15.pdf
 
 \end_inset
 
@@ -821,14 +769,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/histogram_distance_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/histogram_distance_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/histogram_velocity_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/histogram_velocity_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -850,18 +800,8 @@ Comparison of matched halos in the different simulations corresponding to
  the time steps of 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan)
  with respect to the 450/5 simulation.
  From left to right, we compared halo position and velocity respectively.
+
 \color blue
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
  
 \color black
 The agreement between 300 global steps and the 450/5 simulation is considerably
@@ -968,7 +908,7 @@ reference "tab:free_param1"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -978,7 +918,7 @@ status open
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -987,19 +927,19 @@ status open
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $\alpha$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1013,25 +953,25 @@ status open
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.005
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.005 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1042,25 +982,25 @@ status open
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.07
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.07 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1071,25 +1011,25 @@ status open
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.101
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.101 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1100,25 +1040,25 @@ status open
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.315
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.315 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1173,6 +1113,10 @@ reference "eq:mass_adjust"
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -1205,7 +1149,7 @@ any examples or plots for here? How can I tell the readers that this mass
 
 \end_inset
 
-and 
+and
 \begin_inset Formula 
 \begin{equation}
 \beta(z)=-0.154z-0.447.
@@ -1283,14 +1227,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/haloRatioNum256_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum256_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
 
- 
+
 \begin_inset Graphics
-	filename ../Plots/haloRatioNum256_tweak_z0.15.eps
+	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/haloRatioNum256_tweak_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -1400,7 +1346,6 @@ s equivalent to the ratio of halo bias between the 450/5 simulation and
 \begin_layout Standard
 
 \color black
- 
 \begin_inset Formula 
 \begin{equation}
 <N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
@@ -1422,18 +1367,8 @@ where we set
  as increasing halo mass.
  We use this method to avoid noise from halos scattering across sharp boundaries
  on halo mass.
+
 \color red
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
  
 \color inherit
 Note that the errors calculated here are not due to sample variance, because
@@ -1465,14 +1400,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
+	lyxscale 60
 	width 50col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/crossMatter_tweak256_redshift_z0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_tweak256_redshift_z0.15.pdf
+	lyxscale 60
 	width 50col%
 
 \end_inset
@@ -1690,14 +1627,16 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/hist_dist_z0.8to0.7.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0.8to0.7.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/hist_dist_z0.25to0.15.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0.25to0.15.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
@@ -1745,6 +1684,10 @@ name "fig:Histograms-of-distance"
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -1754,7 +1697,7 @@ name "fig:Histograms-of-distance"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -1764,7 +1707,7 @@ status open
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1776,12 +1719,12 @@ from
 \begin_inset Formula $z=0.7$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1789,12 +1732,12 @@ mean
 \begin_inset Formula $[h^{-1}{\rm Mpc}]$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1809,25 +1752,25 @@ std
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+before
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.306
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-before 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.306 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1838,25 +1781,25 @@ before
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+after
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.143
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-after 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.143 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1878,7 +1821,7 @@ after
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1890,12 +1833,12 @@ from
 \begin_inset Formula $z=0.15$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1903,12 +1846,12 @@ mean
 \begin_inset Formula $[h^{-1}{\rm Mpc}]$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1923,25 +1866,25 @@ std
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+before
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.399
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-before 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.399 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1952,25 +1895,25 @@ before
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+after
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.123
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-after 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.123 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2008,6 +1951,10 @@ name "tab:Mean-separation-and"
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -2017,18 +1964,20 @@ name "tab:Mean-separation-and"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/crossPower_shift_z0.8to0.7.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0.8to0.7.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/crossPower_shift_z0.15to0.25.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0.15to0.25.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
@@ -2094,6 +2043,10 @@ er spectra with respect to matter auto power spectra at
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -2103,11 +2056,12 @@ er spectra with respect to matter auto power spectra at
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/crossPower_shift_ratio.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
@@ -2134,6 +2088,10 @@ reference "fig:power-lightcone"
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -2144,7 +2102,7 @@ THE BOSS SIMULATIONS
 \end_layout
 
 \begin_layout Itemize
-Simulation Parameters: Nikhil 
+Simulation Parameters: Nikhil
 \end_layout
 
 \begin_layout Standard
@@ -2200,7 +2158,7 @@ N_{cen}(M)=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}
 
 \end_inset
 
-and 
+and
 \begin_inset Formula 
 \begin{equation}
 N_{sat}(M)=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},
@@ -2256,7 +2214,6 @@ Now, we need to give positions and velocities to those populated galaxies.
  and their velocities are the same as the velocities of the halos hosting
  those central galaxies.
  For satellite galaxies, we place them randomly assuming the NFW profile:
- 
 \begin_inset Formula 
 \begin{equation}
 \rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})},
@@ -2302,7 +2259,7 @@ citations
 Klypin et al.
  2010
 \color inherit
-: 
+:
 \begin_inset Formula 
 \begin{equation}
 c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
@@ -2323,6 +2280,7 @@ where
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2470,7 +2428,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/xis_obs_wError.eps
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/xis_obs_wError.pdf
 	width 50col%
 
 \end_inset
@@ -2495,15 +2453,9 @@ Correlation function monopoles
  of the mocks (green) and of the CMASS galaxy measured in 
 \color red
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-citet{2013arXiv1303.4666A}
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand citet
+key "2013arXiv1303.4666A"
 
 \end_inset
 
@@ -2520,6 +2472,10 @@ citet{2013arXiv1303.4666A}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2549,15 +2505,9 @@ In this paper, we study how reducing the number of time steps in the N-body
 
  in order to compare our result with the correlation function appeared in
  
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-citet{2013arXiv1303.4666A}
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand citet
+key "2013arXiv1303.4666A"
 
 \end_inset
 
@@ -2571,6 +2521,7 @@ citet{2013arXiv1303.4666A}
 \end_inset
 
  is well within the error in the measurement.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2581,7 +2532,6 @@ From the results we show in this paper, we conclude that the approximated
 \end_layout
 
 \begin_layout Standard
- 
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "bigsims"
