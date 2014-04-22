@@ -1485,11 +1485,11 @@ better way to phrase?
 \end_layout
 
 \begin_layout Section
-Lightcone
+Light cone
 \end_layout
 
 \begin_layout Standard
-In this section, we describe how we construct a lightcone output from the
+In this section, we describe how we construct a light cone output from the
  simulation.
  We have outputs at fixed redshift from 
 \begin_inset Formula $z=0.8$
@@ -1503,11 +1503,11 @@ In this section, we describe how we construct a lightcone output from the
  We first put an observer at the center of the simulation box, and cut out
  each output to a spherical shell whose radius corresponds to the redshift
  of the output.
- Then, we assemble the spherical shells consectively.
- At this point, a corresponding redshift of each object in the lightcone
+ Then, we assemble the spherical shells consecutively.
+ At this point, a corresponding redshift of each object in the light cone
  output is the redshift of the spherical shell where the object belongs
  to.
- In other words, the redshift distribution in the lightcone output is descrete.
+ In other words, the redshift distribution in the light cone output is discrete.
  The observational universe, however, has a smooth distribution of redshift,
  since redshift corresponds to the radial distance of each object.
  In order to recover the smooth correspondence between redshift and radial
@@ -1555,7 +1555,7 @@ reference "fig:Histograms-of-distance"
 
 \end_inset
 
- is the histograms of positional differeces at 
+ is the histograms of positional differences at 
 \begin_inset Formula $z=0.8$
 \end_inset
 
@@ -1667,7 +1667,7 @@ Histograms of distance for the matched halos at
 
  (right).
  The blue line represents the distribution of the distance before shifting
- and the green line is after shifing.
+ and the green line is after shifting.
  Both plots show that the distances between the halos at different redshifts
  become smaller after the shifting.
  
@@ -2034,7 +2034,7 @@ er spectra with respect to matter auto power spectra at
 \end_inset
 
 .
- Both plots show that the power specra after shifting agree well with the
+ Both plots show that the power spectra after shifting agree well with the
  power spectra at the redshift of destination and preserves the statistical
  property.
 \end_layout
@@ -2425,7 +2425,7 @@ The correlation function computed from our sample mocks fits to the correlation
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
