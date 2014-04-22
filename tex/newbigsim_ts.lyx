@@ -685,8 +685,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/massSlice_z0.15.pdf
-	width 50col%
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/massSlice_z0.15.pdf
 
 \end_inset
 
@@ -766,7 +765,7 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1624,7 +1623,7 @@ reference "fig:power-lightcone"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2425,7 +2424,7 @@ The correlation function computed from our sample mocks fits to the correlation
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
