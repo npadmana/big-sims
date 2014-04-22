@@ -1,5 +1,9 @@
 newbigsim_ts.pdf
 newbigsim_ts.toc
 newbigsim_ts.out
+newbigsim_ts.bbl
+newbigsim_ts.blg
 
 *~
+*.swp
+
