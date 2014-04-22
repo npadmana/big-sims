@@ -6,6 +6,7 @@
 \geometry{verbose}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage[authoryear]{natbib}
 
 \makeatletter
 
@@ -15,6 +16,9 @@
 %% A simple dot to overcome graphicx limitations
 \newcommand{\lyxdot}{.}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{jcappub}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 
@@ -26,12 +30,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
-\usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
+\usepackage{lineno}
+\global\long\def\bd{{\bm{\delta}}}
  \linenumbers
-
-
-
-
 
 \makeatother
 
@@ -43,14 +44,15 @@ Survey: An Approximate N-Body approach}
 
 \author{Aaronson Aardvark...e.t.c.}
 
-\maketitle
-\abstract{We introduce and test an approximate scheme for generating
-mock catalogs for large-scale structure measurements in galaxy surveys,
-specializing in this work to the Baryon Oscillation Spectroscopic
-Survey. things to add later...A brief description of the approximation
-scheme, tests and the accuracy we reach, and some comments about the
-timings of the tests and the BOSS samples.}
 
+\abstract{We introduce and test an approximate scheme for generating mock catalogs
+for large-scale structure measurements in galaxy surveys, specializing
+in this work to the Baryon Oscillation Spectroscopic Survey. things
+to add later...A brief description of the approximation scheme, tests
+and the accuracy we reach, and some comments about the timings of
+the tests and the BOSS samples.}
+
+\maketitle
 
 \section{Introduction}
 
@@ -107,19 +109,17 @@ Our N-body simulations are consist of two components: a long time
 step for solving the PM force and a set of short range sub-cycle steps
 for a direct particle-particle interaction. The idea behind is reducing
 the number of both time steps as much as we can preserve enough mass
-resolution to correctly describe the large scale distribution of galaxies.
+resolution to correctly describe the large scale distribution of galaxies. 
 
 In the following, we first briefly describe the mechanism of our approximated
 N-body simulations. In Section 3, we test and compare our method to
 the full N-body simulation and explain how we calibrate our samples.
 In Section 4, we populate halos in our samples with galaxies and compute
 correlation functions based on BOSS Data Release 9/11(?) geometry,
-and compare it with the observed correlation function.
+and compare it with the observed correlation function. 
 
 
 \section{HACC}
-
-\input{hacc.tex}
 
 
 \section{Convergence Test: Selection of the minimal time steps}
@@ -216,7 +216,7 @@ how the number of matched halos is changed as a function of redshift,
 and we observed that redshift does not affect to the matching algorithm.}
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchedHalo_frac_450_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/unmatchedHalo_frac_450_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:fraction1}The cumulative fraction of unmatched halos matching
 the 450/5 simulation to the 300/2 simulation at z=0.15 as a function
@@ -231,11 +231,11 @@ need the result for the 300/2 simulation?}}
 
 
 \begin{figure*}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/scatterMass_256_300_2_z0\lyxdot 15}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_nonDB_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/scatterMass_256_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/testDB_nonDB_300_2_z0\lyxdot 15}
 
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-scatter1}Comparison of halo masses matching the 450/5
 simulation (x-axis) to the 300/2 simulation (y-axis) at $z=0.15$.
@@ -252,7 +252,7 @@ into one halo in the 300/2 simulation due to larger time steps.}
 
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-content} Itemization of unmatched halos shown as
 cumulative number densities of the unmatched halos from each procedure
@@ -301,11 +301,9 @@ the difference between 3 and 2 sub-cycles is negligible on halo properties.
 Note that we observe the same trend in halo properties discussed here
 at different redshifts.
 
-%FIXME -- Missing figure
-%\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/massSlice_z0\lyxdot 15}
-
-
 \begin{figure}[t]
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/massSlice_z0\lyxdot 15}
+
 \caption{\label{fig:HaloProperty_mass}Comparison of halo mass for matched
 halos between the 450/5 simulation and other time-stepping schemes
 at $z=0.15$. We take all the matched halos whose masses are between
@@ -322,7 +320,7 @@ smaller for the case of small number of time steps than those in the
 
 
 \begin{figure*}[t]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_distance_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_velocity_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/histogram_distance_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/histogram_velocity_z0\lyxdot 15}
 
 \caption{\label{fig:HaloProperty_step}Comparison of matched halos in the different
 simulations corresponding to the time steps of 300/3 (blue), 300/2
@@ -369,22 +367,24 @@ at $z=0.15$ are listed on Table \ref{tab:free_param1}.
 \begin{table}
 \begin{tabular}{|c|c|c|}
 \hline 
- & $\alpha$  & $\beta$\tabularnewline
+ & $\alpha$ & $\beta$\tabularnewline
 \hline 
 \hline 
-300/3  & 0.005  & 0.175\tabularnewline
+300/3 & 0.005 & 0.175\tabularnewline
 \hline 
-300/2  & 0.07  & -0.47\tabularnewline
+300/2 & 0.07 & -0.47\tabularnewline
 \hline 
-150/3  & 0.101  & -0.162\tabularnewline
+150/3 & 0.101 & -0.162\tabularnewline
 \hline 
-150/2  & 0.315  & -0.411\tabularnewline
+150/2 & 0.315 & -0.411\tabularnewline
 \hline 
 \end{tabular}
 
 \caption{\label{tab:free_param1}Corresponding $\alpha$ and $\beta$ in Eq.
 \ref{eq:mass_adjust} for the samples with different number of time
 steps at $z=0.15$.}
+
+
 \end{table}
 
 
@@ -397,7 +397,7 @@ is successful more quantitatively?}):
 \begin{equation}
 \alpha(z)=0.123z+0.052,
 \end{equation}
-and 
+and
 \begin{equation}
 \beta(z)=-0.154z-0.447.
 \end{equation}
@@ -425,10 +425,7 @@ with the 300 global time steps, mass adjustment is especially effective
 on small halo masses.
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/haloRatioNum256_z0\lyxdot 15}
-%FIXME -- Missing figure
-%\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/haloRatioNum256_tweak_z0\lyxdot 15}
-
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/haloRatioNum256_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/Tomomi/HACC/Conv/Test_correction/haloRatioNum256_tweak_z0\lyxdot 15}
 
 \caption{\label{fig:massFn_step} Comparison of cumulative mass functions in
 different simulations taking the 450/5 simulation as a reference.
@@ -460,7 +457,7 @@ bias between the 450/5 simulation and the simulations with other time-steps.
 To select halos, we apply the soft-mass cut method using the probability
 given by }
 
-\textcolor{black}{{} 
+\textcolor{black}{
 \begin{equation}
 <N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
 \end{equation}
@@ -481,7 +478,7 @@ with the 450/5 simulation are almost 1\% on any scales in both real-space
 and redshift-space.
 
 \begin{figure*}[p]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_tweak256_real_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_tweak256_redshift_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_m450_tweak_softMcut13\lyxdot 0_s0\lyxdot 5_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossMatter_tweak256_redshift_z0\lyxdot 15}
 
 \caption{\label{fig:crossMater_step} Ratio of halo-matter cross pow\textcolor{black}{er
 spectra as a function of time steps with respect to the 450/5 simulation
@@ -503,9 +500,120 @@ are not affected by the differences on halo properties as much as
 those systematic differences (\textcolor{red}{better way to phrase?}).
 
 
+\section{Light cone}
+
+In this section, we describe how we construct a light cone output
+from the simulation. We have outputs at fixed redshift from $z=0.8$
+to $z=0.15$ for every 0.1. We first put an observer at the center
+of the simulation box, and cut out each output to a spherical shell
+whose radius corresponds to the redshift of the output. Then, we assemble
+the spherical shells consecutively. At this point, a corresponding
+redshift of each object in the light cone output is the redshift of
+the spherical shell where the object belongs to. In other words, the
+redshift distribution in the light cone output is discrete. The observational
+universe, however, has a smooth distribution of redshift, since redshift
+corresponds to the radial distance of each object. In order to recover
+the smooth correspondence between redshift and radial distance from
+the observer, we shift the position of each object from the redshift
+of the output $z_{sim}$ to its positional redshift $z_{pos}$ with
+its velocity.
+
+
+\subsection{Consistency Check}
+
+Here, we show some tests we ran to make sure that shifting the position
+of halos do not alter any physics and the nature of halo distribution.
+For the comparison, we choose two redshifts $z_{1}$ and $z_{2}$,
+and shift the halos in one sample at $z=z_{1}$ to $z=z_{2}$. We
+compare the distances for the halos which exist at both redshifts.
+Figure \ref{fig:Histograms-of-distance} is the histograms of positional
+differences at $z=0.8$ and $z=0.7$ and also at $z=0.25$ and $z=0.15$
+before and after shifting. We pick up high and low redshifts to show
+that our results are redshift independent. After shifting halos, we
+see that the mean distance between corresponding halos becomes closer
+and the scatter decreases, as shown in Table \ref{tab:Mean-separation-and}.
+
+Second, we evaluate how the distribution of halos is changed after
+shifting by computing power spectra. Figure \ref{fig:power-lightcone}
+shows the cross power spectra between DM particles and halos before
+and after shifting. Those cross power spectra agree well up to 1 $h{\rm Mpc^{-1}}$.
+Both Figure \ref{fig:Histograms-of-distance} and \ref{fig:power-lightcone}
+show that shifting halos do not alter any statistical property that
+original halo distribution possesses.
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0\lyxdot 8to0\lyxdot 7}\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0\lyxdot 25to0\lyxdot 15}
+
+\caption{Histograms of distance for the matched halos at $z=0.8$ and $z=0.7$
+(left) and at $z=0.25$ and $z=0.15$ (right). The blue line represents
+the distribution of the distance before shifting and the green line
+is after shifting. Both plots show that the distances between the
+halos at different redshifts become smaller after the shifting. \label{fig:Histograms-of-distance}}
+
+
+\end{figure}
+
+
+\begin{table}
+\begin{tabular}{|c|c|c|}
+\hline 
+from $z=0.8$ to $z=0.7$ & mean $[h^{-1}{\rm Mpc}]$ & std $[h^{-1}{\rm Mpc}]$\tabularnewline
+\hline 
+\hline 
+before & 0.306 & 0.152\tabularnewline
+\hline 
+after & 0.143 & 0.105\tabularnewline
+\hline 
+\end{tabular}%
+\begin{tabular}{|c|c|c|}
+\hline 
+from $z=0.25$ to $z=0.15$ & mean $[h^{-1}{\rm Mpc}]$ & std $[h^{-1}{\rm Mpc}]$\tabularnewline
+\hline 
+\hline 
+before & 0.399 & 0.192\tabularnewline
+\hline 
+after & 0.123 & 0.097\tabularnewline
+\hline 
+\end{tabular}
+
+\caption{Mean separation and the standard deviations of the halos at different
+redshifts before and after shifting. \label{tab:Mean-separation-and}}
+
+
+\end{table}
+
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0\lyxdot 8to0\lyxdot 7}\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0\lyxdot 15to0\lyxdot 25}
+
+\caption{\label{fig:power-lightcone}Ratio of halo-matter cross pow\textcolor{black}{er
+spectra with respect to matter auto power spectra at $z=0.8$ (left)
+and $z=0.15$ (right) respectively. In the left panel, we compare
+the original power spectra at $z=0.8$ (blue dashed line) and $z=0.7$
+(blue line) to the power spectra for the halos shifted from $z=0.8$
+to $z=0.7$ (red dashed line). The right panel has the same format
+as the left, but we shift the halos from $z=0.15$ to $z=0.25$. Both
+plots show that the power spectra after shifting agree well with the
+power spectra at the redshift of destination and preserves the statistical
+property.}}
+
+
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio}
+
+\caption{This is the alternative plot for Figure \ref{fig:power-lightcone} }
+
+
+\end{figure}
+
+
+
 \section{THE BOSS SIMULATIONS}
 \begin{itemize}
-\item Simulation Parameters: Nikhil 
+\item Simulation Parameters: Nikhil
 \end{itemize}
 describe box size, masses, geometry etc. Show that we can fit in two
 BOSS volumes per box. Also, mention that we decide to use the 300/2
@@ -531,7 +639,7 @@ galaxies is given by Poisson distribution with a mean $N_{sat}(M)$:
 \begin{equation}
 N_{cen}(M)=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}\right],
 \end{equation}
-and 
+and
 \begin{equation}
 N_{sat}(M)=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},
 \end{equation}
@@ -548,7 +656,7 @@ Now, we need to give positions and velocities to those populated galaxies.
 For central galaxies, their positions are always at the center of
 the halos and their velocities are the same as the velocities of the
 halos hosting those central galaxies. For satellite galaxies, we place
-them randomly assuming the NFW profile: 
+them randomly assuming the NFW profile:
 \begin{equation}
 \rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})},
 \end{equation}
@@ -562,7 +670,7 @@ we used the formula presented in \textcolor{red}{Klypin et al. 2010}:
 \begin{equation}
 c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
 \end{equation}
-where$c_{0}=9.60$, $M_{0}=10^{12.}$, and $\beta=0.75$.
+where$c_{0}=9.60$, $M_{0}=10^{12.}$, and $\beta=0.75$. 
 
 We assign velocities to the satellite galaxies by using the virial
 theorem. The virial theorem states that the mean kinetic energy of
@@ -610,12 +718,14 @@ our BAO peak is more smoothed out than the one in Anderson et al.
 2013.}
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xis_obs_wError}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/xis_obs_wError}
 
 \caption{\label{fig:xis}Correlation function monopoles $\xi(s)$ of the mocks
-(green) and of the CMASS galaxy measured in \textcolor{red}{Anderson
-et al. (2013)} (blue) at $z=0.55$. The BAO peak of the mock correlation
-function is smoothed due to the wide window function.}
+(green) and of the CMASS galaxy measured in \textcolor{red}{\citet{2013arXiv1303.4666A}}
+(blue) at $z=0.55$. The BAO peak of the mock correlation function
+is smoothed due to the wide window function.}
+
+
 \end{figure}
 
 
@@ -633,12 +743,16 @@ the 450/5 simulation) and the approximated simulations on halo bias
 is within 1\textasciitilde{}2\% after the mass adjustment. In Section
 4, we generate galaxy mocks from the sample of the 300/2 simulation
 at $z=0.55$ in order to compare our result with the correlation function
-appeared in \textcolor{red}{Anderson et al. 2013}. The overall agreement
-on the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$
-is well within the error in the measurement.
+appeared in \citet{2013arXiv1303.4666A}. The overall agreement on
+the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$ is
+well within the error in the measurement. 
 
 From the results we show in this paper, we conclude that the approximated
 N-body simulations can capture necessary physics to the current and
 future galaxy spectroscopic surveys and will be effective enough to
-achieve the precision required to those surveys. 
+achieve the precision required to those surveys.
+
+\bibliographystyle{plainnat}
+\bibliography{bigsims}
+
 \end{document}
