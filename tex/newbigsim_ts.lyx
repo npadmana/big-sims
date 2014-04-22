@@ -356,7 +356,7 @@ We also checked how the number of matched halos is changed as a function
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -407,7 +407,7 @@ Do we really need the result for the 300/2 simulation?
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -510,7 +510,7 @@ multiply-booked
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -681,7 +681,7 @@ reference "fig:HaloProperty_step"
 placement t
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1485,6 +1485,620 @@ better way to phrase?
 \end_layout
 
 \begin_layout Section
+Light cone
+\end_layout
+
+\begin_layout Standard
+In this section, we describe how we construct a light cone output from the
+ simulation.
+ We have outputs at fixed redshift from 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ for every 0.1.
+ We first put an observer at the center of the simulation box, and cut out
+ each output to a spherical shell whose radius corresponds to the redshift
+ of the output.
+ Then, we assemble the spherical shells consecutively.
+ At this point, a corresponding redshift of each object in the light cone
+ output is the redshift of the spherical shell where the object belongs
+ to.
+ In other words, the redshift distribution in the light cone output is discrete.
+ The observational universe, however, has a smooth distribution of redshift,
+ since redshift corresponds to the radial distance of each object.
+ In order to recover the smooth correspondence between redshift and radial
+ distance from the observer, we shift the position of each object from the
+ redshift of the output 
+\begin_inset Formula $z_{sim}$
+\end_inset
+
+ to its positional redshift 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+ with its velocity.
+\end_layout
+
+\begin_layout Subsection
+Consistency Check
+\end_layout
+
+\begin_layout Standard
+Here, we show some tests we ran to make sure that shifting the position
+ of halos do not alter any physics and the nature of halo distribution.
+ For the comparison, we choose two redshifts 
+\begin_inset Formula $z_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{2}$
+\end_inset
+
+, and shift the halos in one sample at 
+\begin_inset Formula $z=z_{1}$
+\end_inset
+
+ to 
+\begin_inset Formula $z=z_{2}$
+\end_inset
+
+.
+ We compare the distances for the halos which exist at both redshifts.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Histograms-of-distance"
+
+\end_inset
+
+ is the histograms of positional differences at 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ and also at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ before and after shifting.
+ We pick up high and low redshifts to show that our results are redshift
+ independent.
+ After shifting halos, we see that the mean distance between corresponding
+ halos becomes closer and the scatter decreases, as shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Mean-separation-and"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Second, we evaluate how the distribution of halos is changed after shifting
+ by computing power spectra.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+ shows the cross power spectra between DM particles and halos before and
+ after shifting.
+ Those cross power spectra agree well up to 1 
+\begin_inset Formula $h{\rm Mpc^{-1}}$
+\end_inset
+
+.
+ Both Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Histograms-of-distance"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+ show that shifting halos do not alter any statistical property that original
+ halo distribution possesses.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0.8to0.7.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_dist_z0.25to0.15.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms of distance for the matched halos at 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ (left) and at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (right).
+ The blue line represents the distribution of the distance before shifting
+ and the green line is after shifting.
+ Both plots show that the distances between the halos at different redshifts
+ become smaller after the shifting.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Histograms-of-distance"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+from 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean 
+\begin_inset Formula $[h^{-1}{\rm Mpc}]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std 
+\begin_inset Formula $[h^{-1}{\rm Mpc}]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+before
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.306
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.152
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+after
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.143
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.105
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean 
+\begin_inset Formula $[h^{-1}{\rm Mpc}]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+std 
+\begin_inset Formula $[h^{-1}{\rm Mpc}]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+before
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.399
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.192
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+after
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.123
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.097
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mean separation and the standard deviations of the halos at different redshifts
+ before and after shifting.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Mean-separation-and"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0.8to0.7.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_z0.15to0.25.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:power-lightcone"
+
+\end_inset
+
+Ratio of halo-matter cross pow
+\color black
+er spectra with respect to matter auto power spectra at 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ (left) and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (right) respectively.
+ In the left panel, we compare the original power spectra at 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ (blue dashed line) and 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ (blue line) to the power spectra for the halos shifted from 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ (red dashed line).
+ The right panel has the same format as the left, but we shift the halos
+ from 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+.
+ Both plots show that the power spectra after shifting agree well with the
+ power spectra at the redshift of destination and preserves the statistical
+ property.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+This is the alternative plot for Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 THE BOSS SIMULATIONS
 \end_layout
 
@@ -1811,7 +2425,7 @@ The correlation function computed from our sample mocks fits to the correlation
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1839,8 +2453,14 @@ Correlation function monopoles
 
  of the mocks (green) and of the CMASS galaxy measured in 
 \color red
-Anderson et al.
- (2013)
+
+\begin_inset CommandInset citation
+LatexCommand citet
+key "2013arXiv1303.4666A"
+
+\end_inset
+
+
 \color inherit
  (blue) at 
 \begin_inset Formula $z=0.55$
@@ -1886,10 +2506,12 @@ In this paper, we study how reducing the number of time steps in the N-body
 
  in order to compare our result with the correlation function appeared in
  
-\color red
-Anderson et al.
- 2013
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand citet
+key "2013arXiv1303.4666A"
+
+\end_inset
+
 .
  The overall agreement on the scale between 
 \begin_inset Formula $30h^{-1}{\rm Mpc}$
@@ -1908,6 +2530,17 @@ From the results we show in this paper, we conclude that the approximated
  N-body simulations can capture necessary physics to the current and future
  galaxy spectroscopic surveys and will be effective enough to achieve the
  precision required to those surveys.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bigsims"
+options "plainnat"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
