@@ -1,0 +1,519 @@
+#LyX file created by tex2lyx 2.0.5.1
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\options usenatbib
+\use_default_options false
+\language english
+\language_package none
+\inputencoding latin9
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\paperfontsize default
+\spacing single
+\use_hyperref 0
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+The HACC framework arose from the early realization that development of a future large-scale computational framework must be fully cognizant of coming changes in computational architectures. It is descended from an approach developed for the heterogeneous architecture of Roadrunner
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "mc3,pope10"
+
+\end_inset
+
+, the first computer to break the petaflop barrier. HACC is designed with great flexibility in mind (combining MPI with a variety of more local programming models, e.g., OpenCL, OpenMP) and is easily adaptable to different platforms. Currently, it is implemented on Cell-accelerated hardware, conventional and GPU-enhanced clusters (via OpenCL), on the IBM Blue Gene architecture (using OpenMP), and is running on prototype Intel MIC/Xeon Phi hardware. HACC is the first, and currently the only large-scale cosmology code suite world-wide, that can run at scale (and beyond) on all available supercomputer architectures. Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "hacc_scale"
+
+\end_inset
+
+ shows the scaling on the entire IBM BG/Q Sequoia up to 1,572,864 cores with an equal number of MPI ranks, attaining 13.94 PFlops at 69.2% of peak and 90% parallel efficiency -- this is the highest performance yet attained by a science code on any computer; for details, see Ref.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "habib12"
+
+\end_inset
+
+. Examples of science results obtained using HACC include 64-billion particle runs for baryon acoustic oscillations predictions for the BOSS Lyman-
+\begin_inset Formula $\alpha$
+\end_inset
+
+ forest
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "boss_bao"
+
+\end_inset
+
+ and high-statistics predictions for the halo profiles of massive clusters
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "conc_hacc"
+
+\end_inset
+
+. Currently, a very large 1.1 trillion particle simulation is being carried out on the BG/Q system Mira at Argonne. A nested snapshot at an early output time (
+\begin_inset Formula $z\sim3$
+\end_inset
+
+) from this simulation is shown in Fig.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "simpic"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%FIXME --- Make sure correctly set up
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename ../Plots/zoom_in.png
+	width 50col%
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Standard
+
+HACC result: Zoom-in visualization of the density field in a 1.1 trillion particle, 4.2
+\begin_inset space ~
+
+\end_inset
+
+Gpc box size simulation with HACC on 32 BG/Q racks. This figure illustrates the global dynamic range covered by the simulation, 
+\begin_inset Formula $\sim 10^6$
+\end_inset
+
+, although the finer details are not resolved by the visualization.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "simpic"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+HACC uses a hybrid parallel algorithmic structure, splitting the force calculation into a specially designed grid-based long/medium range spectral particle-mesh (PM) component that is common to all architectures, and an architecture-specific short-range solver. Modular code design combined with particle caching allows the short-range solvers to be `hot-swappable' on-node; they are blind to the parallel implementation of the long-range solver. The short-range solvers can use direct particle-particle interactions, i.e., a P
+\begin_inset Formula $^3$
+\end_inset
+
+M algorithm
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "hockney"
+
+\end_inset
+
+, as on Roadrunner or Titan, or use tree methods as on the IBM BG/Q and Cray XE6 systems (TreePM algorithm). The availability of multiple algorithms within the HACC framework allows us to carry out careful error analyses, for example, the P
+\begin_inset Formula $^3$
+\end_inset
+
+M and the TreePM versions agree to within 
+\begin_inset Formula $0.1\%$
+\end_inset
+
+ for the nonlinear power spectrum test in the code comparison suite of Ref.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "heitmann05"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+The HACC philosophy is that, as a general rule, both particle and grid methods are difficult to implement as global solutions: For physics and implementation reasons, grid-based techniques are better suited to larger length scales, with particle methods having the opposite property. This suggests that the higher `top' levels of code organization should be grid-based, interacting with particle information at a lower level of the computational hierarchy. The design ideas underlying HACC give us a very important head start in tackling the challenges posed by future architectures.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%FIXME --- Make sure correctly set up
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+
+\begin_inset Graphics 
+	filename ../Plots/overload.png
+	width 50col%
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Standard
+
+ Overloading in a 2-D domain decomposition: A node holds particles within its domain (green) and particle copies out to a given distance from its boundary (red, in blue square). Copies held by neighboring nodes form a mirrored particle cache.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "overload"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+On heterogeneous systems such as Roadrunner, or Titan at Oak Ridge, HACC has the following layout: At the top level, the medium/long range force is handled by a special low-noise, high accuracy, FFT-based method that operates at the CPU layer. Depending on the memory balance between the CPU and the accelerator (Cell or GPU), we can choose to specify two different modes, (i) grids held on the CPU and particles on the accelerator, or (ii) a streaming paradigm with grid and particle information primarily resident in CPU memory with computations streamed through the accelerator. In both cases, the local force solve is a direct particle-particle interaction, i.e., the whole is a P
+\begin_inset Formula $^3$
+\end_inset
+
+M code
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "hockney"
+
+\end_inset
+
+ with hardware acceleration, albeit an unconventional implementation based on high-order spectral methods. The acceleration leads to a speed-up of 50-100 times over conventional processors. For a many-core system, the top layer of the code remains the same, but the short-range solver changes to a tree-based algorithm which is much better suited to the Blue Gene and Intel MIC architectures.
+\end_layout
+
+\begin_layout Standard
+
+Our strategy simultaneously overcomes two problems: (i) how to switch short-range solvers easily, and (ii) overcome the communication bottleneck between the CPU and accelerator layers, or the analog for a many-core system (on-node vs. off-node communication). We drastically reduce the particle communication by using a mirrored particle cache, termed `particle overloading', implemented on top of our 3-D domain decomposition (see Fig.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "overload"
+
+\end_inset
+
+). The point of overloading -- loosely analogous to ghost regions in mesh-based codes -- is to allow exact medium/long-range force calculations with no communication of particle information and high-accuracy local force calculations with relatively sparse refreshes of the overloading zone (for details, see Ref.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "mc3"
+
+\end_inset
+
+). The second advantage of overloading is that it frees the local force solver from handling communication tasks, which are taken care of by the long/medium-range force framework. Thus new `on-node' local methods can be plugged in with no extra work and guaranteed scalability.
+\end_layout
+
+\begin_layout Standard
+
+Conventional particle-mesh codes use a mixture of spatial filtering/differencing and spectral techniques; the resulting complicated communication templates can be problematic, particularly at the accelerator or many-core processor level. To combat this, HACC uses digital filtering and differencing in the spectral domain, allowing a simple spatial deposition technique, Cloud-In-Cell (CIC) to be used. Combined with particle overloading, this can reduce all communication to a negligible overhead, except that in the parallel FFT, which lives only at the top level. A new 2-D domain decomposed (pencils instead of slabs) FFT has been implemented to guarantee good scaling properties. The code design leads to ideal scaling properties of HACC up to very large number of processors, with exascale requirements already designed in to the algorithms. Full-machine scaling has been demonstrated on Roadrunner's Open Science phase, when MC
+\begin_inset Formula $^3$
+\end_inset
+
+ (the HACC precursor) was the only code to run across the full machine, on Mira and Sequoia (Cf. Fig.
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "hacc_scale"
+
+\end_inset
+
+), and on Titan.
+\end_layout
+
+\begin_layout Standard
+
+HACC has been ported to all the DOE Leadership class platforms; the choice of the local force algorithm strongly depends on the architecture; for an accelerated system (local) 
+\begin_inset Formula $N^2$
+\end_inset
+
+ methods are favorable since `compute is free' but complicated data structures are to be avoided, while for CPU-based systems, tree algorithms are a superior choice. HACC currently supports three production variants: (i) the Cell-accelerated P
+\begin_inset Formula $^3$
+\end_inset
+
+M code on Cerrillos (a smaller, open version of Roadrunner); (ii) a GPU-accelerated P
+\begin_inset Formula $^3$
+\end_inset
+
+M version with an OpenCL implementation on OLCF's Titan; (iii) a TreePM version for many-core machines, e.g., ANL's Blue Gene/Q, Mira and NERSC's Hopper.
+\end_layout
+
+\begin_layout Standard
+
+An important feature of the work proposed here is the ability to carry out error-controlled approximate simulations at high throughput. In order to understand how we implement this, some details of the HACC time-stepping algorithm are now provided. HACC uses a symplectic scheme with sub-cycling of the short-range force. The basic idea is not to finite-difference the equations of motion, but to view evolution as a symplectic map on phase space, written in the exponentiated form familiar from Lie methods: 
+\begin_inset Formula $\zeta(t)=\exp(-t{\bf{H}})\zeta(0)$
+\end_inset
+
+ where, 
+\begin_inset Formula $\zeta$
+\end_inset
+
+ is a phase-space vector 
+\begin_inset Formula $({\bf x}, {\bf v})$
+\end_inset
+
+, 
+\begin_inset Formula $H$
+\end_inset
+
+ is the Hamiltonian, and the operator, 
+\begin_inset Formula ${\bf{H}}=[H,~]_P$
+\end_inset
+
+, denotes the action of taking the Poisson bracket with the Hamiltonian. Suppose that the Hamiltonian can be written as the sum of two parts; then by using the Campbell-Baker-Hausdorff (CBH) theorem we can build an integrator for the time evolution due to that Hamiltonian. Repeated application of the CBH formula can be used to show that 
+\begin_inset Formula \begin{displaymath}
+  \exp(-t({\bf{H}}_1+{\bf{H}}_2))=\exp(-(t/2){\bf{H}}_1)\exp(-t{\bf{H}}_2)
+  \exp(-(t/2){\bf{H}}_1) + O(t^3)\end{displaymath}
+\end_inset
+
+is a second order symplectic integrator. In the basic PM application, the Hamiltonian 
+\begin_inset Formula $H_1$
+\end_inset
+
+ is the free particle (kinetic) piece while 
+\begin_inset Formula $H_2$
+\end_inset
+
+ is the one-particle effective potential; corresponding respectively to the `stream' and `kick' maps 
+\begin_inset Formula $M_1=\exp(-t{\bf{H}}_1)$
+\end_inset
+
+ and 
+\begin_inset Formula $M_2=\exp(-t{\bf{H}}_2)$
+\end_inset
+
+. In the stream map, the particle position is drifted using its known velocity, which remains unchanged; in the kick map, the velocity is updated using the force evaluation, while the position remains unchanged. This symmetric `split-operator' step is termed SKS (stream-kick-stream). A KSK scheme constitutes an alternative second-order symplectic integrator.
+\end_layout
+
+\begin_layout Standard
+
+In the presence of both short and long-range forces, we split the Hamiltonian into two parts, 
+\begin_inset Formula $H_1=H_{sr} + H_{lr}$
+\end_inset
+
+ where 
+\begin_inset Formula $H_{sr}$
+\end_inset
+
+ contains the kinetic and particle-particle force interaction (with an associated map 
+\begin_inset Formula $M_{sr}$
+\end_inset
+
+), whereas, 
+\begin_inset Formula $H_2=H_{lr}$
+\end_inset
+
+ is just the long range force, corresponding to the map 
+\begin_inset Formula $M_{lr}$
+\end_inset
+
+. Since the long range force varies relatively slowly, we construct a single time-step map by subcycling 
+\begin_inset Formula $M_{sr}$
+\end_inset
+
+: 
+\begin_inset Formula $M_{full}(t)=M_{lr}(t/2)(M_{sr}(t/n_c))^{n_c}M_{lr}(t/2),$
+\end_inset
+
+ the total map being a usual second-order symplectic integrator. This corresponds to a KSK step, where the S is not an exact stream step, but has enough 
+\begin_inset Formula $M_{sr}$
+\end_inset
+
+ steps composed together to obtain the required accuracy. (We take care that the time-dependence in the self-consistent potential is treated correctly.) As discussed later below, we will use the flexibility in the sub-cycling as a way of reducing the number of time steps such that the loss of accuracy only affects the resolution at very small scales, which are not of interest in the current set of simulations. 
+\end_layout
+
+\end_body
+\end_document
