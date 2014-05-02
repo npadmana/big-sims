@@ -1,0 +1,414 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass jcappub
+\begin_preamble
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+%Make my life significantly easier
+
+\global\long\def\bd{{\bm{\delta}}}
+\end_preamble
+\options usenatbib
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding latin9
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Constructing Light Cones
+\end_layout
+
+\begin_layout Standard
+We build a light cone from snapshots whose redshift range is from 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ separated constantly in redshift by 
+\begin_inset Formula $\Delta z=0.1$
+\end_inset
+
+.
+ The light cone is constructed with the spherical shells.
+ Each shell is centered at the redshift of each snapshot and has a redshift
+ width of 0.1.
+ In each shell, we move halo positions by using peculiar velocities to shift
+ them into their light cone positions:
+\begin_inset Formula 
+\begin{equation}
+\vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $z_{snap}$
+\end_inset
+
+ is the redshift of the snapshot, 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+ is the redshift corresponding to its radial position, 
+\begin_inset Formula $\vec{v}_{pec}$
+\end_inset
+
+ is its peculiar velocity, and 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ is the time elapsed between 
+\begin_inset Formula $z_{snap}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+.
+ For the case of a halo crossing its boundary of the shell, we choose the
+ halo whose distance from the boundary is closer before shifting.
+\end_layout
+
+\begin_layout Standard
+To evaluate how shifting affects a spatial distribution of halos, we compare
+ the distances for the halos at different redshift before and after shifting
+ their positions.
+ For the comparison, we use the halos which exist at both redshifts by matching
+ halo particle profiles, which is the same method described in Section 3.1.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Histograms-of-distance"
+
+\end_inset
+
+ is the histograms of distances for the matched halos at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ before and after shifting.
+ After shifting halos, we see that the mean distance between corresponding
+ halos becomes closer and the scatter decreases.
+ This result holds at all redshifts examined.
+ 
+\end_layout
+
+\begin_layout Standard
+Additionally, we compare the change in halo bias due to shifting.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+ shows the ratios of halo matter cross power spectra over an auto matter
+ power spectrum at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The plot shows that shifting halos from 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ brings down the halo bias to the one at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+.
+ The agreement between the original power spectrum at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and the shifted power spectrum is 99.8% up to 1
+\begin_inset Formula $h{\rm Mpc^{-1}}$
+\end_inset
+
+.
+ Both Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+ shows that spatial distribution of the halos is shifted to the expected
+ distribution statistically.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/hist_dist_z0.25to0.15.eps
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The histogram shown in blue is that of the distances between the position
+ of the halos at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and where they have moved to in the simulation at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The histogram shown in green is that of the distances between the positions
+ of the halos at 
+\begin_inset Formula $z=0.15,$
+\end_inset
+
+ and the positions that would be predicted by shifting the positions from
+ the 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ simulation assuming the peculiar velocity was constant between the snapshots
+ (described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:lightcone"
+
+\end_inset
+
+).
+ The plot shows that the distances between the halos at different redshifts
+ become smaller after the shifting.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Histograms-of-distance"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/crossPower_shift_z0.15to0.25.eps
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:power-lightcone"
+
+\end_inset
+
+Ratio of halo-matter cross pow
+\color black
+er spectra with respect to matter auto power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ .
+ We compare the original power spectra at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ (blue dashed line) and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (blue line) to the power spectra for the halos shifted from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ (red dashed line).
+ The plot shows that the power spectra after shifting agrees well with the
+ power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and preserves the statistical property.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/crossPower_shift_ratio.eps
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+This is the alternative plot for Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:power-lightcone"
+
+\end_inset
+
+.
+ In this figure, we use the halo matter cross power spectra at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ as a denominator.
+ The dashed lines show the ratio with the cross power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ respectively before shifting, and the solid lines are the ratio after shifting
+ halo positions.
+ It indicates that shifting the positions of halos from one redshift to
+ the another preserves the distribution of halos statistically.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
