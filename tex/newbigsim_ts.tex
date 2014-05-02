@@ -40,16 +40,18 @@
 Survey: An Approximate N-Body approach}
 
 
-\author{Aaronson Aardvark...e.t.c.}
+\author{Tomomi Sunayama, Nikhil Padmanabhan, Katrin Heitmann, Salman Habib,
+Steve Rangel}
+
+
+\abstract{We introduce and test an approximate scheme for generating mock catalogs
+for large-scale structure measurements in galaxy surveys, specializing
+in this work to the Baryon Oscillation Spectroscopic Survey. things
+to add later...A brief description of the approximation scheme, tests
+and the accuracy we reach, and some comments about the timings of
+the tests and the BOSS samples.}
 
 \maketitle
-\abstract{We introduce and test an approximate scheme for generating
-mock catalogs for large-scale structure measurements in galaxy surveys,
-specializing in this work to the Baryon Oscillation Spectroscopic
-Survey. things to add later...A brief description of the approximation
-scheme, tests and the accuracy we reach, and some comments about the
-timings of the tests and the BOSS samples.}
-
 
 \section{Introduction}
 
@@ -301,7 +303,7 @@ potential is treated correctly.) As discussed later below, we will
 use the flexibility in the sub-cycling as a way of reducing the number
 of time steps such that the loss of accuracy only affects the resolution
 at very small scales, which are not of interest in the current set
-of simulations. 
+of simulations.
 
 
 \section{Convergence Test: Selection of the minimal time steps}
@@ -638,7 +640,7 @@ bias between the 450/5 simulation and the simulations with other time-steps.
 To select halos, we apply the soft-mass cut method using the probability
 given by }
 
-\textcolor{black}{{} 
+\textcolor{black}{
 \begin{equation}
 <N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
 \end{equation}
@@ -681,105 +683,82 @@ are not affected by the differences on halo properties as much as
 those systematic differences (\textcolor{red}{better way to phrase?}).
 
 
-\section{Light cone}
+\section{Constructing Light Cones}
 
-In this section, we describe how we construct a light cone output
-from the simulation. We have outputs at fixed redshift from $z=0.8$
-to $z=0.15$ for every 0.1. We first put an observer at the center
-of the simulation box, and cut out each output to a spherical shell
-whose radius corresponds to the redshift of the output. Then, we assemble
-the spherical shells consecutively. At this point, a corresponding
-redshift of each object in the light cone output is the redshift of
-the spherical shell where the object belongs to. In other words, the
-redshift distribution in the light cone output is discrete. The observational
-universe, however, has a smooth distribution of redshift, since redshift
-corresponds to the radial distance of each object. In order to recover
-the smooth correspondence between redshift and radial distance from
-the observer, we shift the position of each object from the redshift
-of the output $z_{sim}$ to its positional redshift $z_{pos}$ with
-its velocity.
+We build a light cone from snapshots whose redshift range is from
+$z=0.8$ to $z=0.15$ separated constantly in redshift by $\Delta z=0.1$.
+The light cone is constructed with the spherical shells. Each shell
+is centered at the redshift of each snapshot and has a redshift width
+of 0.1. In each shell, we move halo positions by using peculiar velocities
+to shift them into their light cone positions:
+\begin{equation}
+\vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
+\end{equation}
+where $z_{snap}$ is the redshift of the snapshot, $z_{pos}$ is the
+redshift corresponding to its radial position, $\vec{v}_{pec}$ is
+its peculiar velocity, and $\Delta t$ is the time elapsed between
+$z_{snap}$ and $z_{pos}$. For the case of a halo crossing its boundary
+of the shell, we choose the halo whose distance from the boundary
+is closer before shifting.
 
-
-\subsection{Consistency Check}
-
-Here, we show some tests we ran to make sure that shifting the position
-of halos do not alter any physics and the nature of halo distribution.
-For the comparison, we choose two redshifts $z_{1}$ and $z_{2}$,
-and shift the halos in one sample at $z=z_{1}$ to $z=z_{2}$. We
-compare the distances for the halos which exist at both redshifts.
-Figure \ref{fig:Histograms-of-distance} is the histograms of positional
-differences at $z=0.8$ and $z=0.7$ and also at $z=0.25$ and $z=0.15$
-before and after shifting. We pick up high and low redshifts to show
-that our results are redshift independent. After shifting halos, we
+To evaluate how shifting affects a spatial distribution of halos,
+we compare the distances for the halos at different redshift before
+and after shifting their positions. For the comparison, we use the
+halos which exist at both redshifts by matching halo particle profiles,
+which is the same method described in Section 3.1. Figure \ref{fig:Histograms-of-distance}
+is the histograms of distances for the matched halos at $z=0.25$
+and $z=0.15$ before and after shifting. After shifting halos, we
 see that the mean distance between corresponding halos becomes closer
-and the scatter decreases, as shown in Table \ref{tab:Mean-separation-and}.
+and the scatter decreases. This result holds at all redshifts examined. 
 
-Second, we evaluate how the distribution of halos is changed after
-shifting by computing power spectra. Figure \ref{fig:power-lightcone}
-shows the cross power spectra between DM particles and halos before
-and after shifting. Those cross power spectra agree well up to 1 $h{\rm Mpc^{-1}}$.
-Both Figure \ref{fig:Histograms-of-distance} and \ref{fig:power-lightcone}
-show that shifting halos do not alter any statistical property that
-original halo distribution possesses.
+Additionally, we compare the change in halo bias due to shifting.
+Figure \ref{fig:power-lightcone} shows the ratios of halo matter
+cross power spectra over an auto matter power spectrum at $z=0.15$.
+The plot shows that shifting halos from $z=0.15$ to $z=0.25$ brings
+down the halo bias to the one at $z=0.25$. The agreement between
+the original power spectrum at $z=0.25$ and the shifted power spectrum
+is 99.8\% up to 1$h{\rm Mpc^{-1}}$. Both Figure \ref{fig:power-lightcone}
+shows that spatial distribution of the halos is shifted to the expected
+distribution statistically.
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_z0\lyxdot 8to0\lyxdot 7}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_z0\lyxdot 25to0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_z0\lyxdot 25to0\lyxdot 15}
 
-\caption{Histograms of distance for the matched halos at $z=0.8$ and $z=0.7$
-(left) and at $z=0.25$ and $z=0.15$ (right). The blue line represents
-the distribution of the distance before shifting and the green line
-is after shifting. Both plots show that the distances between the
-halos at different redshifts become smaller after the shifting. \label{fig:Histograms-of-distance}}
+\caption{The histogram shown in blue is that of the distances between the position
+of the halos at $z=0.25$ and where they have moved to in the simulation
+at $z=0.15$. The histogram shown in green is that of the distances
+between the positions of the halos at $z=0.15,$ and the positions
+that would be predicted by shifting the positions from the $z=0.25$
+simulation assuming the peculiar velocity was constant between the
+snapshots (described in Eq. \ref{eq:lightcone}). The plot shows that
+the distances between the halos at different redshifts become smaller
+after the shifting. \label{fig:Histograms-of-distance}}
 \end{figure}
 
 
-\begin{table}
-\begin{tabular}{|c|c|c|}
-\hline 
-from $z=0.8$ to $z=0.7$  & mean $[h^{-1}{\rm Mpc}]$  & std $[h^{-1}{\rm Mpc}]$\tabularnewline
-\hline 
-\hline 
-before  & 0.306  & 0.152\tabularnewline
-\hline 
-after  & 0.143  & 0.105\tabularnewline
-\hline 
-\end{tabular}%
-\begin{tabular}{|c|c|c|}
-\hline 
-from $z=0.25$ to $z=0.15$  & mean $[h^{-1}{\rm Mpc}]$  & std $[h^{-1}{\rm Mpc}]$\tabularnewline
-\hline 
-\hline 
-before  & 0.399  & 0.192\tabularnewline
-\hline 
-after  & 0.123  & 0.097\tabularnewline
-\hline 
-\end{tabular}
-
-\caption{Mean separation and the standard deviations of the halos at different
-redshifts before and after shifting. \label{tab:Mean-separation-and}}
-\end{table}
-
-
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossPower_shift_z0\lyxdot 8to0\lyxdot 7}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossPower_shift_z0\lyxdot 15to0\lyxdot 25}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossPower_shift_z0\lyxdot 15to0\lyxdot 25}
 
 \caption{\label{fig:power-lightcone}Ratio of halo-matter cross pow\textcolor{black}{er
-spectra with respect to matter auto power spectra at $z=0.8$ (left)
-and $z=0.15$ (right) respectively. In the left panel, we compare
-the original power spectra at $z=0.8$ (blue dashed line) and $z=0.7$
-(blue line) to the power spectra for the halos shifted from $z=0.8$
-to $z=0.7$ (red dashed line). The right panel has the same format
-as the left, but we shift the halos from $z=0.15$ to $z=0.25$. Both
-plots show that the power spectra after shifting agree well with the
-power spectra at the redshift of destination and preserves the statistical
-property.}}
+spectra with respect to matter auto power spectra at $z=0.15$ . We
+compare the original power spectra at $z=0.25$ (blue dashed line)
+and $z=0.15$ (blue line) to the power spectra for the halos shifted
+from $z=0.25$ to $z=0.15$ (red dashed line). The plot shows that
+the power spectra after shifting agrees well with the power spectra
+at $z=0.15$ and preserves the statistical property.}}
 \end{figure}
 
 
 \begin{figure}
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/crossPower_shift_ratio}
 
-\caption{This is the alternative plot for Figure \ref{fig:power-lightcone} }
+\caption{This is the alternative plot for Figure \ref{fig:power-lightcone}.
+In this figure, we use the halo matter cross power spectra at $z=0.25$
+and $z=0.7$ as a denominator. The dashed lines show the ratio with
+the cross power spectra at $z=0.15$ and $z=0.8$ respectively before
+shifting, and the solid lines are the ratio after shifting halo positions.
+It indicates that shifting the positions of halos from one redshift
+to the another preserves the distribution of halos statistically.}
 \end{figure}
 
 
