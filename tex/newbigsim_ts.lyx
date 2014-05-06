@@ -745,18 +745,8 @@ Convergence Test: Selection of the minimal time steps
 In this section, we examine how reducing the number of time steps affects
  on halo properties (i.e., halo mass, position, and velocity) as well as observabl
 es such as halo mass functions and halo bias.
+
 \color black
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
  In order to quantitatively evaluate different time-stepping schemes, we
  run a set of convergence tests using smaller simulation boxes.
  We scale down these volumes to 
@@ -774,13 +764,7 @@ status collapsed
  .
  The number of time steps were chosen as 450/5, 300/3, 300/2, 150/3, 150/2,
  where the first number indicates the number of long time steps and the
- second number the number of short time steps for each long time step (
-\color red
-Can I consider the simulations with 450/5 as the full N-body simulations
- or not? Also, can/should we compare our results with the full N-body simulation
-s?
-\color black
-).
+ second number the number of short time steps for each long time step.
  To evaluate different time-stepping schemes, we first compare the properties
  (masses, positions, and velocities) of the individual halos themselves
  by matching halos in one sample to halos in another.
@@ -788,6 +772,11 @@ s?
  mass functions and power spectra.
  We found that differences on halo properties do not significantly affect
  on those statistical observables.
+ 
+\color red
+Based on a number of convergence tests, the 300/2 simulation became the
+ final target, sufficient to resolve positions and masses of halos reliably.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -916,7 +905,7 @@ We also checked how the number of matched halos is changed as a function
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -966,7 +955,7 @@ Do we really need the result for the 300/2 simulation?
 \begin_inset Float figure
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1065,7 +1054,7 @@ multiply-booked
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1235,7 +1224,7 @@ reference "fig:HaloProperty_step"
 placement t
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1471,7 +1460,7 @@ reference "tab:free_param1"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -1924,21 +1913,9 @@ where we set
  as increasing halo mass.
  We use this method to avoid noise from halos scattering across sharp boundaries
  on halo mass.
-\color red
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
- 
 \color inherit
-Note that the errors calculated here are not due to sample variance, because
+ Note that the errors calculated here are not due to sample variance, because
  we generate 10 samples from one full sample by using the soft-mass cut
  method.
  We see that, as we decrease the number of time steps, the ratio of the
@@ -2041,11 +2018,12 @@ reference "fig:HaloProperty_step"
 As a conclusion through several convergence tests shown in this section,
  we find that the observables such as mass functions and power spectra are
  not affected by the differences on halo properties as much as those systematic
- differences (
+ differences.
+ 
 \color red
-better way to phrase?
-\color inherit
-).
+Based on the results in this section, we concluded that the 300/2 simulation
+ gives sufficient resolution for halos.
+ 
 \end_layout
 
 \begin_layout Section
