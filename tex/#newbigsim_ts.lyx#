@@ -2511,7 +2511,7 @@ Now, we need to give positions and velocities to those populated galaxies.
  
 \begin_inset Formula 
 \begin{equation}
-\rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})^{2}},
+\rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})},
 \end{equation}
 
 \end_inset
