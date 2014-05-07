@@ -63,9 +63,11 @@ Mid Scale-Dark Energy Spectroscopic Instrument (MS-DESI). As the area
 covered by those current and future spectroscopic galaxy surveys get
 larger, galaxy mocks necessary to the cosmological analysis also have
 to be generated from N-body simulations with the corresponding large
-volume, which is computationally expensive. Besides the large volume
-required for the N-body simulations, we need many realizations to
-achieve the precision required for those measurements.
+volume, which is computationally expensive. Many studies have been
+done recently on the implementation of large N-body simulations (Las
+Damas, QPM, and others?). Besides the large volume required for the
+N-body simulations, we need many realizations to achieve the precision
+required for those measurements.
 
 There are several reasons for why we need large number of N-body simulations.
 One is to understand and to calibrate systematics caused by non-linear
@@ -96,9 +98,10 @@ initial positions without any steps in-between. The aim of our method
 is the same as this approach in the sense that we want to shorten
 computational time to generate those mocks. The problem of using 2LPT
 is that those simulations cannot capture non-linear gravitational
-evolution and therefore this approach requires to tune halo definitions
-(i.e., the linking length for the Friends-of-Friends (FOF) algorithm)
-and halo masses. Also, it is hard to resolve small halos in this approach,
+evolution at the level of precision required to resolve halos accurately
+and therefore this approach requires to tune halo definitions (i.e.,
+the linking length for the Friends-of-Friends (FOF) algorithm) and
+halo masses. Also, it is hard to resolve small halos in this approach,
 and therefore galaxies which reside in those small halos are placed
 on randomly selected dark matter particles in the mocks. It is, however,
 important to keep relatively high mass resolution to understand the
@@ -318,15 +321,15 @@ particles with the same particle mass as the simulations with $(4000h^{-1}{\rm M
 . The number of time steps were chosen as 450/5, 300/3, 300/2, 150/3,
 150/2, where the first number indicates the number of long time steps
 and the second number the number of short time steps for each long
-time step (}\textcolor{red}{Can I consider the simulations with 450/5
-as the full N-body simulations or not? Also, can/should we compare
-our results with the full N-body simulations?}\textcolor{black}{).
-To evaluate different time-stepping schemes, we first compare the
-properties (masses, positions, and velocities) of the individual halos
-themselves by matching halos in one sample to halos in another. Following
-to that, we compare statistical descriptions provided by the mass
-functions and power spectra. We found that differences on halo properties
-do not significantly affect on those statistical observables.}
+time step. To evaluate different time-stepping schemes, we first compare
+the properties (masses, positions, and velocities) of the individual
+halos themselves by matching halos in one sample to halos in another.
+Following to that, we compare statistical descriptions provided by
+the mass functions and power spectra. We found that differences on
+halo properties do not significantly affect on those statistical observables.
+}\textcolor{red}{Based on a number of convergence tests, the 300/2
+simulation became the final target, sufficient to resolve positions
+and masses of halos reliably. }
 
 
 \subsection{Matching }
@@ -648,9 +651,9 @@ where we set ${\rm M_{cut}=10^{13.0}[{\rm M_{\odot}]}}$ and $\sigma=0.5$.
 This probability has a similar form to the halo occupation distribution
 (hereafter, HOD) technique so that the probability gradually becomes
 one as increasing halo mass. We use this method to avoid noise from
-halos scattering across sharp boundaries on halo mass.}\textcolor{red}{{}
-}Note that the errors calculated here are not due to sample variance,
-because we generate 10 samples from one full sample by using the soft-mass
+halos scattering across sharp boundaries on halo mass.} Note that
+the errors calculated here are not due to sample variance, because
+we generate 10 samples from one full sample by using the soft-mass
 cut method. We see that, as we decrease the number of time steps,
 the ratio of the cross power spectra increases, especially in redshift-space,
 we observe large deviations from one on small scales for the 150/2
@@ -680,7 +683,9 @@ based on the soft mass-cut method with $M_{cut}=13.0$ and $\sigma=0.5$.}}
 As a conclusion through several convergence tests shown in this section,
 we find that the observables such as mass functions and power spectra
 are not affected by the differences on halo properties as much as
-those systematic differences (\textcolor{red}{better way to phrase?}).
+those systematic differences. \textcolor{red}{Based on the results
+in this section, we concluded that the 300/2 simulation gives sufficient
+resolution for halos. }
 
 
 \section{Constructing Light Cones}
@@ -771,6 +776,12 @@ describe box size, masses, geometry etc. Show that we can fit in two
 BOSS volumes per box. Also, mention that we decide to use the 300/2
 simulations (as an example here).
 
+By rotating our coordinate systems, we can fit in two BOSS volumes
+per box as shown in Figure X. For this specific case, we use Euler
+angles of XXX to define the rotation matrix $R$. We cut out a first
+BOSS volume with $\vec{x}_{old}$ and then define a new coordinate
+system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$.
+
 
 \subsection{Building the Galaxy Catalog}
 
@@ -810,7 +821,7 @@ the halos and their velocities are the same as the velocities of the
 halos hosting those central galaxies. For satellite galaxies, we place
 them randomly assuming the NFW profile: 
 \begin{equation}
-\rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})},
+\rho(r)=\frac{4\rho_{s}}{\frac{r}{r_{s}}(1+\frac{r}{r_{s}})^{2}},
 \end{equation}
 where $r_{s}$ is the characteristic radius defined as $r_{s}=R_{vir}/c$,
 where $R_{vir}$ is a virial radius for a halo and $c$ is the concentration
@@ -842,11 +853,11 @@ satellite galaxies is given as the sum of the halo velocity at the
 center of the host halo and the velocity contributed as a random motion
 inside the halo.
 
-Now, we generate galaxy mocks with our samples at $z=0.55$. In Figure
-\ref{fig:xis}, we compare the correlations function $\xi(s)$ with
-the one in \textcolor{red}{Anderson et al. (2013)}\textcolor{black}{,
-where $s$ is the redshift-space coordinate. Here, we use the following
-HOD parameters:}
+Now, we generate galaxy mocks from the light cone outputs and the
+static snapshots at $z=0.55$. In Figure \ref{fig:xis}, we compare
+the correlations function $\xi(s)$ with the one in \textcolor{red}{Anderson
+et al. (2013)}\textcolor{black}{, where $s$ is the redshift-space
+coordinate. Here, we use the following HOD parameters:}
 
 \textcolor{black}{$M_{cut}=12.9$, }
 
@@ -857,6 +868,11 @@ $\alpha=0.9$,
 \textcolor{black}{$\kappa=1.13$, }
 
 \textcolor{black}{$\sigma=0.74$. }
+
+Note that we fit the average number density of galaxies to that of
+Anderson et al. 2013 as shown in \textcolor{red}{Figure XX}. In order
+to fit the number density, we randomly select galaxies after populating
+halos through HOD.
 
 \textcolor{red}{Note that we compute the correlation functions in
 the redshift-space with periodic boundary condition (If we decide

@@ -2683,18 +2683,6 @@ Anderson et al.
 \end_layout
 
 \begin_layout Standard
-Note that we fit the average number density of galaxies to that of Anderson
- et al.
- 2013 as shown in 
-\color red
-Figure XX
-\color inherit
-.
- In order to fit the number density, we randomly select galaxies after populatin
-g halos through HOD.
-\end_layout
-
-\begin_layout Standard
 
 \color red
 Note that we compute the correlation functions in the redshift-space with
