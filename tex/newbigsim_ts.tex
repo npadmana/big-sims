@@ -30,7 +30,8 @@
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
 \usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
- \linenumbers
+\usepackage{astrobib_mnras2e}
+\linenumbers
 
 \makeatother
 
@@ -64,10 +65,9 @@ covered by those current and future spectroscopic galaxy surveys get
 larger, galaxy mocks necessary to the cosmological analysis also have
 to be generated from N-body simulations with the corresponding large
 volume, which is computationally expensive. Many studies have been
-done recently on the implementation of large N-body simulations (Las
-Damas, QPM, and others?). Besides the large volume required for the
-N-body simulations, we need many realizations to achieve the precision
-required for those measurements.
+done recently on the implementation of large N-body simulations \cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S}.
+Besides the large volume required for the N-body simulations, we need
+many realizations to achieve the precision required for those measurements.
 
 There are several reasons for why we need large number of N-body simulations.
 One is to understand and to calibrate systematics caused by non-linear
@@ -81,31 +81,32 @@ times to obtain a smooth directly estimated covariance matrix, there
 have been several efforts to obtain a smooth covariance matrix mainly
 in two directions. One approach is to estimate a covariance matrix
 from theory or by fitting to a modified form of the Gaussian covariance
-matrix (\textcolor{red}{citations...}). There are many different methods
-to estimate, but a peculiarity common to all the methods included
-in this approach requires some assumptions to compute the covariance
-matrix. Those assumptions often prevent those covariance matrices
-from properly accounting the effects due to non-linear gravitational
-evolution such as non-gaussianities and non-localities.
+matrix \cite{2005MNRAS.362..505C,2006MNRAS.371.1188H,2008MNRAS.389..766P,2009MNRAS.396...19N,2010MNRAS.401.2148P,2011MNRAS.415.2876B,2012JCAP...04..019D,2012MNRAS.427.2146X}.
+There are many different methods to estimate, but a peculiarity common
+to all the methods included in this approach requires some assumptions
+to compute the covariance matrix. Those assumptions often prevent
+those covariance matrices from properly accounting the effects due
+to non-linear gravitational evolution such as non-gaussianities and
+non-localities.
 
 Other approach is generating enough number of galaxy mocks by using
 2nd Order Perturbation Theory (2LPT) and computing a covariance matrix
-estimation directly (\textcolor{red}{Scoccimarro and Sheth 2002, Manera
-et al. 2012, Pinocchio?}). Using 2LPT makes generation of galaxy mocks
-significantly faster than the full N-body simulations, because 2LPT
-allows us to compute final positions of particles only with their
-initial positions without any steps in-between. The aim of our method
-is the same as this approach in the sense that we want to shorten
-computational time to generate those mocks. The problem of using 2LPT
-is that those simulations cannot capture non-linear gravitational
-evolution at the level of precision required to resolve halos accurately
-and therefore this approach requires to tune halo definitions (i.e.,
-the linking length for the Friends-of-Friends (FOF) algorithm) and
-halo masses. Also, it is hard to resolve small halos in this approach,
-and therefore galaxies which reside in those small halos are placed
-on randomly selected dark matter particles in the mocks. It is, however,
-important to keep relatively high mass resolution to understand the
-systematics caused by non-linear gravitational evolution.
+estimation directly \cite{2002MNRAS.329..629S,2014arXiv1401.4171M,2013MNRAS.428.1036M}.
+Using 2LPT makes generation of galaxy mocks significantly faster than
+the full N-body simulations, because 2LPT allows us to compute final
+positions of particles only with their initial positions without any
+steps in-between. The aim of our method is the same as this approach
+in the sense that we want to shorten computational time to generate
+those mocks. The problem of using 2LPT is that those simulations cannot
+capture non-linear gravitational evolution at the level of precision
+required to resolve halos accurately and therefore this approach requires
+to tune halo definitions (i.e., the linking length for the Friends-of-Friends
+(FOF) algorithm) and halo masses. Also, it is hard to resolve small
+halos in this approach, and therefore galaxies which reside in those
+small halos are placed on randomly selected dark matter particles
+in the mocks. It is, however, important to keep relatively high mass
+resolution to understand the systematics caused by non-linear gravitational
+evolution.
 
 Our N-body simulations are consist of two components: a long time
 step for solving the PM force and a set of short range sub-cycle steps
@@ -116,9 +117,10 @@ resolution to correctly describe the large scale distribution of galaxies.
 In the following, we first briefly describe the mechanism of our approximated
 N-body simulations. In Section 3, we test and compare our method to
 the full N-body simulation and explain how we calibrate our samples.
-In Section 4, we populate halos in our samples with galaxies and compute
-correlation functions based on BOSS Data Release 9/11(?) geometry,
-and compare it with the observed correlation function.
+In Section 4 and 5, we build a ight cone output and populate halos
+in our samples with galaxies and compute correlation functions based
+on BOSS Data Release \textcolor{red}{9/11(?) geometry}, and compare
+it with the observed correlation function.
 
 
 \section{HACC}
@@ -575,9 +577,7 @@ steps at $z=0.15$.}
 
 Those free parameters $\alpha$ and $\beta$ can be described as a
 function of redshift. For the case of the 300/2 simulation as an example,
-we find best fit parameters shown below (\textcolor{red}{any examples
-or plots for here? How can I tell the readers that this mass adjustment
-is successful more quantitatively?}):
+we find best fit parameters shown below:
 
 \begin{equation}
 \alpha(z)=0.123z+0.052,
@@ -791,7 +791,7 @@ steps:
 1) populate halos with galaxies through the HOD functional form,
 
 2) give positions and velocities to the galaxies assuming an NFW profile
-(\textcolor{red}{Navarro, Frenk \& White 1996}).
+\cite{1996ApJ...462..563N}.
 
 The HOD functional form gives probabilities for the number of central
 and satellite galaxies based on mass of halos which host those galaxies
@@ -829,7 +829,7 @@ parameter. The distance $r$ from the center of the halo is given
 by the probability based on the NFW profile. There have been several
 studies how to describe the concentration parameter $c$ as a function
 of halo mass and redshift (\textcolor{red}{citations}). In this paper,
-we used the formula presented in \textcolor{red}{Klypin et al. 2010}:
+we used the formula presented in \cite{2011ApJ...740..102K}: 
 \begin{equation}
 c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
 \end{equation}
@@ -855,9 +855,9 @@ inside the halo.
 
 Now, we generate galaxy mocks from the light cone outputs and the
 static snapshots at $z=0.55$. In Figure \ref{fig:xis}, we compare
-the correlations function $\xi(s)$ with the one in \textcolor{red}{Anderson
-et al. (2013)}\textcolor{black}{, where $s$ is the redshift-space
-coordinate. Here, we use the following HOD parameters:}
+the correlations function $\xi(s)$ with the one in \textcolor{black}{\cite{2013arXiv1303.4666A},
+where $s$ is the redshift-space coordinate. Here, we use the following
+HOD parameters:}
 
 \textcolor{black}{$M_{cut}=12.9$, }
 
@@ -909,7 +909,7 @@ the 450/5 simulation) and the approximated simulations on halo bias
 is within 1\textasciitilde{}2\% after the mass adjustment. In Section
 4, we generate galaxy mocks from the sample of the 300/2 simulation
 at $z=0.55$ in order to compare our result with the correlation function
-appeared in \citet{2013arXiv1303.4666A}. The overall agreement on
+appeared in \cite{2013arXiv1303.4666A}. The overall agreement on
 the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$ is
 well within the error in the measurement.
 

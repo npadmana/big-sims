@@ -1,0 +1,856 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass paper
+\begin_preamble
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+%Make my life significantly easier
+
+\global\long\def\bd{{\bm{\delta}}}
+\end_preamble
+\options usenatbib
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding latin9
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+List of concentration
+\end_layout
+
+\begin_layout Standard
+From Klypin et al.
+ 2011, the concentration at 
+\begin_inset Formula $z=0.0$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{equation}
+c(M_{vir})=9.60(\frac{M_{vir}}{10^{12}h^{-1}M_{\odot}})^{-0.075}
+\end{equation}
+
+\end_inset
+
+and the result is approximated as
+\begin_inset Formula 
+\begin{equation}
+c(M_{vir},z)=c_{0}(z)(\frac{M_{vir}}{10^{12}h^{-1}M_{\odot}})^{-0.075}[1+(M_{vir}/M_{0}(z))^{0.26}],\label{eq:klypin2}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $c_{0}(z)$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{0}(z)$
+\end_inset
+
+ are two free parameters shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:klypin"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In Klypin et al.
+ 2011, they mentioned some concentrations from other papers...
+\end_layout
+
+\begin_layout Standard
+1) Maccio et al.
+ 2008:
+\begin_inset Formula $c(M_{vir})=8.41(M_{vir}/10^{12}h^{-1}M_{\odot})^{-0.108}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2)Neto et al.
+ 2007: 
+\begin_inset Formula $c_{200}=7.75(M_{200}/10^{12}h^{-1}M_{\odot})^{-0.11}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+From Duffy et al.
+ 2008,
+\begin_inset Formula 
+\begin{equation}
+c=A(M/M_{pivot})^{B}(1+z)^{C},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $M_{pivot}=10^{12}h^{-1}M_{\odot}$
+\end_inset
+
+ and other parameters are shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:duffy"
+
+\end_inset
+
+ for both full and relaxed halos.
+\end_layout
+
+\begin_layout Standard
+From Prada et al.
+ 2012,
+\begin_inset Formula 
+\begin{equation}
+c(M,z)=B_{0}(x)C(\sigma').
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sigma'=B_{1}(x)\sigma(M,x),
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+C(\sigma')=A[(\sigma'/b)^{c}+1]exp(d/\sigma'^{2}),
+\]
+
+\end_inset
+
+where A=2.881,b=1.257,c=1.022,d=0.060.
+ Also, 
+\begin_inset Formula $x=(\Omega_{\Lambda,0}/\Omega_{m,0})^{1/3}/(1+z)$
+\end_inset
+
+.
+ The approximations for 
+\begin_inset Formula $B_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $B_{1}$
+\end_inset
+
+ are
+\begin_inset Formula 
+\[
+B_{0}(x)=c_{min}(x)/c_{min}(1.393),
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+B_{1}(x)=\sigma_{min}^{-1}(x)/\sigma_{min}^{-1}(1.393),
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+c_{min}(x)=c_{0}+(c_{1}-c_{0})[\frac{1}{\pi}arctan[\alpha(x-x_{0})+\frac{1}{2}],
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sigma_{min}^{-1}(x)=\sigma_{0}^{-1}+(\sigma_{1}^{-1}-\sigma_{0}^{-1})[\frac{1}{\pi}arctan[\beta(x-x_{1})+\frac{1}{2}],
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $c_{0}=3.681$
+\end_inset
+
+, 
+\begin_inset Formula $c_{1}=5.033$
+\end_inset
+
+, 
+\begin_inset Formula $\alpha=6.948$
+\end_inset
+
+, 
+\begin_inset Formula $x_{0}=0.424$
+\end_inset
+
+, and 
+\begin_inset Formula $\sigma_{0}^{-1}=1.047$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma_{1}^{-1}=1.646$
+\end_inset
+
+, 
+\begin_inset Formula $\beta=7.386$
+\end_inset
+
+, 
+\begin_inset Formula $x_{1}=0.526$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+From Bullock et al.
+ 2001, they use 
+\begin_inset Formula 
+\begin{equation}
+c_{200}=\frac{c_{0}}{1+z}(\frac{M}{M_{0}})^{-\beta},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\beta\sim0.1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+From Zhao et al.
+ 2008,
+\begin_inset Formula 
+\begin{equation}
+c(M,t)=4[1+(\frac{t}{3.75t_{0.04}(M,t)})^{8.4}]^{1/8},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $t_{0.04}(M,t)$
+\end_inset
+
+ is the time at which the main progenitor of the halo had gained 4% of its
+ final mass 
+\begin_inset Formula $M$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $c_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $c_{min}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c(
+\begin_inset Formula $10^{12}h^{-1}M_{\odot}$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.5\times10^{17}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.45
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.5\times10^{15}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.67
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $6.8\times10^{13}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:klypin"
+
+\end_inset
+
+ Table for Eqn.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:klypin2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sample
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+redshift
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+full
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.96
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.091
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+full
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0-2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7.85
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.081
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.71
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+relaxed
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.23
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.089
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+relaxed
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0-2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.23
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.090
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.69
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:duffy"
+
+\end_inset
+
+Table for Duffy et al.
+ 2008
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

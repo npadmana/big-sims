@@ -14,7 +14,8 @@
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
 \usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
- \linenumbers
+\usepackage{astrobib_mnras2e}
+\linenumbers
 \end_preamble
 \options usenatbib
 \use_default_options false
@@ -108,7 +109,14 @@ c Instrument (MS-DESI).
  to be generated from N-body simulations with the corresponding large volume,
  which is computationally expensive.
  Many studies have been done recently on the implementation of large N-body
- simulations (Las Damas, QPM, and others?).
+ simulations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S"
+
+\end_inset
+
+.
  Besides the large volume required for the N-body simulations, we need many
  realizations to achieve the precision required for those measurements.
 \end_layout
@@ -126,11 +134,14 @@ There are several reasons for why we need large number of N-body simulations.
  to obtain a smooth directly estimated covariance matrix, there have been
  several efforts to obtain a smooth covariance matrix mainly in two directions.
  One approach is to estimate a covariance matrix from theory or by fitting
- to a modified form of the Gaussian covariance matrix (
-\color red
-citations...
-\color inherit
-).
+ to a modified form of the Gaussian covariance matrix 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2005MNRAS.362..505C,2006MNRAS.371.1188H,2008MNRAS.389..766P,2009MNRAS.396...19N,2010MNRAS.401.2148P,2011MNRAS.415.2876B,2012JCAP...04..019D,2012MNRAS.427.2146X"
+
+\end_inset
+
+.
  There are many different methods to estimate, but a peculiarity common
  to all the methods included in this approach requires some assumptions
  to compute the covariance matrix.
@@ -142,12 +153,14 @@ citations...
 \begin_layout Standard
 Other approach is generating enough number of galaxy mocks by using 2nd
  Order Perturbation Theory (2LPT) and computing a covariance matrix estimation
- directly (
-\color red
-Scoccimarro and Sheth 2002, Manera et al.
- 2012, Pinocchio?
-\color inherit
-).
+ directly 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2002MNRAS.329..629S,2014arXiv1401.4171M,2013MNRAS.428.1036M"
+
+\end_inset
+
+.
  Using 2LPT makes generation of galaxy mocks significantly faster than the
  full N-body simulations, because 2LPT allows us to compute final positions
  of particles only with their initial positions without any steps in-between.
@@ -179,9 +192,13 @@ In the following, we first briefly describe the mechanism of our approximated
  N-body simulations.
  In Section 3, we test and compare our method to the full N-body simulation
  and explain how we calibrate our samples.
- In Section 4, we populate halos in our samples with galaxies and compute
- correlation functions based on BOSS Data Release 9/11(?) geometry, and
- compare it with the observed correlation function.
+ In Section 4 and 5, we build a ight cone output and populate halos in our
+ samples with galaxies and compute correlation functions based on BOSS Data
+ Release 
+\color red
+9/11(?) geometry
+\color inherit
+, and compare it with the observed correlation function.
 \end_layout
 
 \begin_layout Section
@@ -1684,12 +1701,7 @@ Those free parameters
 
  can be described as a function of redshift.
  For the case of the 300/2 simulation as an example, we find best fit parameters
- shown below (
-\color red
-any examples or plots for here? How can I tell the readers that this mass
- adjustment is successful more quantitatively?
-\color inherit
-):
+ shown below:
 \end_layout
 
 \begin_layout Standard
@@ -2418,11 +2430,14 @@ To generate galaxy mock catalogs, we need to go through the following steps:
 
 \begin_layout Standard
 2) give positions and velocities to the galaxies assuming an NFW profile
- (
-\color red
-Navarro, Frenk & White 1996
-\color inherit
-).
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "1996ApJ...462..563N"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2548,10 +2563,12 @@ citations
 \color inherit
 ).
  In this paper, we used the formula presented in 
-\color red
-Klypin et al.
- 2010
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...740..102K"
+
+\end_inset
+
 : 
 \begin_inset Formula 
 \begin{equation}
@@ -2626,10 +2643,14 @@ reference "fig:xis"
 \end_inset
 
  with the one in 
-\color red
-Anderson et al.
- (2013)
 \color black
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1303.4666A"
+
+\end_inset
+
 , where 
 \begin_inset Formula $s$
 \end_inset
@@ -2812,15 +2833,9 @@ In this paper, we study how reducing the number of time steps in the N-body
 
  in order to compare our result with the correlation function appeared in
  
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-citet{2013arXiv1303.4666A}
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1303.4666A"
 
 \end_inset
 

@@ -14,7 +14,8 @@
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
 \usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
- \linenumbers
+\usepackage{astrobib_mnras2e}
+\linenumbers
 \end_preamble
 \options usenatbib
 \use_default_options false
@@ -108,7 +109,14 @@ c Instrument (MS-DESI).
  to be generated from N-body simulations with the corresponding large volume,
  which is computationally expensive.
  Many studies have been done recently on the implementation of large N-body
- simulations (Las Damas, QPM, and others?).
+ simulations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M"
+
+\end_inset
+
+.
  Besides the large volume required for the N-body simulations, we need many
  realizations to achieve the precision required for those measurements.
 \end_layout
@@ -126,11 +134,14 @@ There are several reasons for why we need large number of N-body simulations.
  to obtain a smooth directly estimated covariance matrix, there have been
  several efforts to obtain a smooth covariance matrix mainly in two directions.
  One approach is to estimate a covariance matrix from theory or by fitting
- to a modified form of the Gaussian covariance matrix (
-\color red
-citations...
-\color inherit
-).
+ to a modified form of the Gaussian covariance matrix 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2005MNRAS.362..505C,2006MNRAS.371.1188H,2008MNRAS.389..766P,2009MNRAS.396...19N,2010MNRAS.401.2148P,2011MNRAS.415.2876B,2012JCAP...04..019D,2012MNRAS.427.2146X"
+
+\end_inset
+
+.
  There are many different methods to estimate, but a peculiarity common
  to all the methods included in this approach requires some assumptions
  to compute the covariance matrix.
@@ -2680,6 +2691,18 @@ Anderson et al.
 
 .
  
+\end_layout
+
+\begin_layout Standard
+Note that we fit the average number density of galaxies to that of Anderson
+ et al.
+ 2013 as shown in 
+\color red
+Figure XX
+\color inherit
+.
+ In order to fit the number density, we randomly select galaxies after populatin
+g halos through HOD.
 \end_layout
 
 \begin_layout Standard
