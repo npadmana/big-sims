@@ -2252,11 +2252,11 @@ name "fig:Histograms-of-distance"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/crossPower_shift_z0.15to0.25.eps
+	filename ../Plots/crossPower_shift_ratio.eps
 	width 50col%
 
 \end_inset
@@ -2274,77 +2274,7 @@ name "fig:power-lightcone"
 
 \end_inset
 
-Ratio of halo-matter cross pow
-\color black
-er spectra with respect to matter auto power spectra at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- .
- We compare the original power spectra at 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- (blue dashed line) and 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- (blue line) to the power spectra for the halos shifted from 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- to 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- (red dashed line).
- The plot shows that the power spectra after shifting agrees well with the
- power spectra at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and preserves the statistical property.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/crossPower_shift_ratio.eps
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-This is the alternative plot for Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:power-lightcone"
-
-\end_inset
-
-.
- In this figure, we use the halo matter cross power spectra at 
+In this figure, we use the halo matter cross power spectra at 
 \begin_inset Formula $z=0.25$
 \end_inset
 
