@@ -794,19 +794,41 @@ in both plots}}
 
 
 \section{THE BOSS SIMULATIONS}
-\begin{itemize}
-\item Simulation Parameters: Nikhil 
-\end{itemize}
-describe box size, masses, geometry etc. Show that we can fit in two
-BOSS volumes per box. Also, mention that we decide to use the 300/2
-simulations (as an example here).
 
-By rotating our coordinate systems, we can fit in two BOSS volumes
-per box as shown in Figure X. For this specific case, we use Euler
-angles of XXX to define the rotation matrix $R$. We cut out a first
-BOSS volume with $\vec{x}_{old}$ and then define a new coordinate
-system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$, where
-$R$ is the Euler rotation matrix: 
+As a concrete implementation of the approach discussed above, we construct
+catalogs designed to mock the Baryon Oscillation Spectroscopic Survey
+(BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}\textcolor{red}{Is
+this the one?}), part of the SDSS-III project (\cite{2011AJ....142...72E}\textcolor{red}{Is
+this the one?}), is a spectroscopic survey that aims to make percent
+level distance measurements using the baryon acoustic oscillation
+technique. The low redshift (z < 0.7) distance measurements use two
+galaxy samples : the LOWZ (z < 0.45) and CMASS (z < 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}\textcolor{red}{Are
+those the ones?}). We focus on the CMASS sample below; however, the
+same halo catalogs are useful for the LOWZ sample as well.
+
+We choose a simulation volume large enough to build a full-sky mock
+BOSS catalog. Since the CMASS sample extends to $z\sim0.7$, we choose
+a simulation side of $4000h^{-1}{\rm Mpc}$, corresponding to a comoving
+distance to $z\sim0.8$ from the center of the box; Fig. ???? shows
+the BOSS CMASS redshift distribution as a function of redshift and
+comoving distance (assuming our fiducial cosmology). Our simulations
+are run with $4000^{3}$ particles, corresponding to a particle mass
+of \textcolor{red}{?????}. The characteristic halo mass for BOSS galaxies
+corresponds to $10^{13}M_{\odot}$, which we resolve with \textcolor{red}{????}
+particles. We keep all halos down to \textcolor{red}{???} particles
+corresponding to a halo mass of \textcolor{red}{????}. The simulations
+are started at \textcolor{red}{\$z=????\$} with Zel'dovich initial
+conditions and are stopped at $z=0.15$ with simulation outputs every
+\textcolor{red}{\$\textbackslash{}Delta z=???\$}. At each of these
+steps, we store \textcolor{red}{??????}.
+
+The BOSS angular geometry is split into two regions : one in the North
+Galactic Cap and one in the South Galactic Cap (Fig.???). Since we
+generate full-sky mocks, it is straightforward to embed two full non-overlapping
+BOSS surveys in a single mock realization (Fig \ref{fig:boss-geom}).
+We cut out a first BOSS volume with $\vec{x}_{old}$ and then define
+a new coordinate system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$,
+where $R$ is the Euler rotation matrix: 
 \[
 R=\left(\begin{array}{ccc}
 \cos\alpha{\rm cos}\gamma-{\rm sin}\alpha{\rm cos}\beta{\rm sin}\gamma & -{\rm sin\alpha{\rm cos\gamma}-{\rm cos\alpha{\rm cos\beta}{\rm sin}\gamma}} & {\rm sin\beta sin\gamma}\\
@@ -816,7 +838,8 @@ R=\left(\begin{array}{ccc}
 \]
 where $\alpha$, $\beta$, $\gamma$ are the Euler angles which we
 rotate the Cartesian coordinates by the angles $\alpha$, $\beta$,
-$\gamma$ about the z-, x-, z-axis respectively.
+$\gamma$ about the z-, x-, z-axis respectively. We use $\alpha=1.35717$,
+$\beta=1.67761$, $\gamma=1.64619$ for Fig \ref{fig:boss-geom}.
 
 \begin{figure}
 \includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/boss_geom}

@@ -2411,26 +2411,130 @@ comment for the plots? *will make the y-axis labels consistent for real
 THE BOSS SIMULATIONS
 \end_layout
 
-\begin_layout Itemize
-Simulation Parameters: Nikhil 
-\end_layout
-
 \begin_layout Standard
-describe box size, masses, geometry etc.
- Show that we can fit in two BOSS volumes per box.
- Also, mention that we decide to use the 300/2 simulations (as an example
- here).
-\end_layout
+As a concrete implementation of the approach discussed above, we construct
+ catalogs designed to mock the Baryon Oscillation Spectroscopic Survey (BOSS)
+ galaxy samples.
+ BOSS (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013AJ....145...10D"
 
-\begin_layout Standard
-By rotating our coordinate systems, we can fit in two BOSS volumes per box
- as shown in Figure X.
- For this specific case, we use Euler angles of XXX to define the rotation
- matrix 
-\begin_inset Formula $R$
 \end_inset
 
+
+\color red
+Is this the one?
+\color inherit
+), part of the SDSS-III project (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011AJ....142...72E"
+
+\end_inset
+
+
+\color red
+Is this the one?
+\color inherit
+), is a spectroscopic survey that aims to make percent level distance measuremen
+ts using the baryon acoustic oscillation technique.
+ The low redshift (z < 0.7) distance measurements use two galaxy samples
+ : the LOWZ (z < 0.45) and CMASS (z < 0.7) samples (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2014MNRAS.441...24A,2014MNRAS.440.2222T"
+
+\end_inset
+
+
+\color red
+Are those the ones?
+\color inherit
+).
+ We focus on the CMASS sample below; however, the same halo catalogs are
+ useful for the LOWZ sample as well.
+\end_layout
+
+\begin_layout Standard
+We choose a simulation volume large enough to build a full-sky mock BOSS
+ catalog.
+ Since the CMASS sample extends to 
+\begin_inset Formula $z\sim0.7$
+\end_inset
+
+, we choose a simulation side of 
+\begin_inset Formula $4000h^{-1}{\rm Mpc}$
+\end_inset
+
+, corresponding to a comoving distance to 
+\begin_inset Formula $z\sim0.8$
+\end_inset
+
+ from the center of the box; Fig.
+ ???? shows the BOSS CMASS redshift distribution as a function of redshift
+ and comoving distance (assuming our fiducial cosmology).
+ Our simulations are run with 
+\begin_inset Formula $4000^{3}$
+\end_inset
+
+ particles, corresponding to a particle mass of 
+\color red
+?????
+\color inherit
 .
+ The characteristic halo mass for BOSS galaxies corresponds to 
+\begin_inset Formula $10^{13}M_{\odot}$
+\end_inset
+
+, which we resolve with 
+\color red
+????
+\color inherit
+ particles.
+ We keep all halos down to 
+\color red
+???
+\color inherit
+ particles corresponding to a halo mass of 
+\color red
+????
+\color inherit
+.
+ The simulations are started at 
+\color red
+$z=????$
+\color inherit
+ with Zel'dovich initial conditions and are stopped at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ with simulation outputs every 
+\color red
+$
+\backslash
+Delta z=???$
+\color inherit
+.
+ At each of these steps, we store 
+\color red
+??????
+\color inherit
+.
+\end_layout
+
+\begin_layout Standard
+The BOSS angular geometry is split into two regions : one in the North Galactic
+ Cap and one in the South Galactic Cap (Fig.???).
+ Since we generate full-sky mocks, it is straightforward to embed two full
+ non-overlapping BOSS surveys in a single mock realization (Fig 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:boss-geom"
+
+\end_inset
+
+).
  We cut out a first BOSS volume with 
 \begin_inset Formula $\vec{x}_{old}$
 \end_inset
@@ -2485,6 +2589,26 @@ where
 \end_inset
 
  about the z-, x-, z-axis respectively.
+ We use 
+\begin_inset Formula $\alpha=1.35717$
+\end_inset
+
+, 
+\begin_inset Formula $\beta=1.67761$
+\end_inset
+
+, 
+\begin_inset Formula $\gamma=1.64619$
+\end_inset
+
+ for Fig 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:boss-geom"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
