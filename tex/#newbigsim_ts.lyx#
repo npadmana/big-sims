@@ -180,7 +180,7 @@ key "2002MNRAS.329..629S,2014arXiv1401.4171M,2013MNRAS.428.1036M"
 
 \begin_layout Standard
 One of the simplest adjustments to an N-body simulation is to adjust the
- length of each individual timestep.
+ length of each individual time step.
  This is the approach taken in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -196,7 +196,7 @@ key "2013MNRAS.428.1036M,2014arXiv1401.4171M"
 \end_inset
 
  are an extreme version of this.
- These works have focused on relatively small numbers of timesteps, accurately
+ These works have focused on relatively small numbers of time steps, accurately
  capturing the large scale density field, but losing information on small
  scales.
  While such approaches are invaluable for generating the large numbers of
@@ -227,13 +227,13 @@ In the following, we first briefly describe the mechanism of our approximated
  N-body simulations.
  In Section 3, we test and compare our method to the full N-body simulation
  and explain how we calibrate our samples.
- In Section 4 and 5, we build a ight cone output and populate halos in our
- samples with galaxies and compute correlation functions based on BOSS Data
- Release 11, and compare it with the observed correlation function.
+ In Section 4 and 5, we build a light cone output and populate halos in
+ our samples with galaxies and compute correlation functions based on BOSS
+ Data Release 11, and compare it with the observed correlation function.
 \end_layout
 
 \begin_layout Standard
-All simulations and calculations in this paper assum a 
+All simulations and calculations in this paper assume a 
 \begin_inset Formula $\Lambda$
 \end_inset
 
@@ -778,7 +778,7 @@ d map
 
 .
  Since the long range force varies relatively slowly, we construct a single
- time-step map by subcycling 
+ time-step map by sub cycling 
 \begin_inset Formula $M_{sr}$
 \end_inset
 
@@ -1360,7 +1360,7 @@ name "fig:HaloProperty_step"
 
 A comparison of the positions [left] and velocities [right] of halos matched
  across simulations with different time steps.
- As always, the referenec simulation is 450/5 shile the colors correspond
+ As always, the reference simulation is 450/5 shile the colors correspond
  to 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
  From left to right, we compared halo position and velocity respectively.
 
@@ -2188,16 +2188,18 @@ reference "fig:power-lightcone2"
 
  test this in both real and redshift space; in redshift space, we assume
  the velocity of the object is unchanged between the snapshots.
- We see that the agreement in real space is whitin 1% even for the case
- of shifting for 
+ 
+\color red
+We see that the agreement in real space is within 1% even for the case of
+ shifting for 
 \begin_inset Formula $\Delta z=0.25$
 \end_inset
 
-, while the discrepancy increases larger 
+, while the discrepancy increases more rapidly for larger 
 \begin_inset Formula $\Delta z$
 \end_inset
 
-
+ in redshift space.
 \end_layout
 
 \begin_layout Standard
@@ -2336,7 +2338,7 @@ In this figure, we use the halo matter cross power spectra at
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2367,7 +2369,32 @@ name "fig:power-lightcone2"
 
 \end_inset
 
+Ratio of halo matter cross power spectra in real space [left] and in redshift
+ space [right] after shifting the position of the halos from the redshift
+ labeled in the plots to 
+\begin_inset Formula $z=0.15$
+\end_inset
 
+.
+ The denominator is the cross power spectra at 
+\begin_inset Formula $z=0.15,$
+\end_inset
+
+where we use the halo density field in real space and redshift space respectivel
+y.
+ For all cases, we use the DM density field in real space at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ 
+\color red
+comment for the plots? *will make the y-axis labels consistent for real
+ and redshift spaces & make 
+\begin_inset Formula $\Delta z$
+\end_inset
+
+ consistent in both plots
 \end_layout
 
 \end_inset
@@ -2597,11 +2624,14 @@ where
 \begin_inset Formula $M<\kappa M_{cut}$
 \end_inset
 
- and halos do not host satellite galaxies without a central galaxy (
-\color red
-citations from LOWZ
-\color inherit
-).
+ and halos do not host satellite galaxies without a central galaxy 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2005ApJ...633..791Z"
+
+\end_inset
+
+.
  The total number of galaxies hosted by each halo is a sum of the number
  of central and satellite galaxies.
  Eqs 
@@ -2644,7 +2674,7 @@ where
 \begin_inset Formula $\rho_{s}$
 \end_inset
 
- is the density at the charactarstic scale 
+ is the density at the characteristic scale 
 \begin_inset Formula $r_{s}=R_{vir}/c$
 \end_inset
 

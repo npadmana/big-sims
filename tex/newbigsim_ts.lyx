@@ -2625,9 +2625,12 @@ where
 \end_inset
 
  and halos do not host satellite galaxies without a central galaxy (
-\color red
-citations from LOWZ
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2005ApJ...633..791Z"
+
+\end_inset
+
 ).
  The total number of galaxies hosted by each halo is a sum of the number
  of central and satellite galaxies.
@@ -2648,8 +2651,15 @@ reference "eq:Nsat"
  are not the only possible functional form for the HOD, and it is trivial
  to change this.
  However, these forms reproduce the clustering of the BOSS galaxies (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...728..126W"
+
+\end_inset
+
+ 
 \color red
-citations
+and others?
 \color inherit
 ) and we use them in what follows.
  
