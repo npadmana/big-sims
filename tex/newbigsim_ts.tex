@@ -797,21 +797,21 @@ in both plots}}
 
 As a concrete implementation of the approach discussed above, we construct
 catalogs designed to mock the Baryon Oscillation Spectroscopic Survey
-(BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}\textcolor{red}{Is
-this the one?}), part of the SDSS-III project (\cite{2011AJ....142...72E}\textcolor{red}{Is
-this the one?}), is a spectroscopic survey that aims to make percent
-level distance measurements using the baryon acoustic oscillation
-technique. The low redshift (z < 0.7) distance measurements use two
-galaxy samples : the LOWZ (z < 0.45) and CMASS (z < 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}\textcolor{red}{Are
-those the ones?}). We focus on the CMASS sample below; however, the
-same halo catalogs are useful for the LOWZ sample as well.
+(BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}), part of
+the SDSS-III project (\cite{2011AJ....142...72E}), is a spectroscopic
+survey that aims to make percent level distance measurements using
+the baryon acoustic oscillation technique. The low redshift (z < 0.7)
+distance measurements use two galaxy samples : the LOWZ (z < 0.45)
+and CMASS (z < 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
+We focus on the CMASS sample below; however, the same halo catalogs
+are useful for the LOWZ sample as well.
 
 We choose a simulation volume large enough to build a full-sky mock
 BOSS catalog. Since the CMASS sample extends to $z\sim0.7$, we choose
 a simulation side of $4000h^{-1}{\rm Mpc}$, corresponding to a comoving
-distance to $z\sim0.8$ from the center of the box; Fig. ???? shows
-the BOSS CMASS redshift distribution as a function of redshift and
-comoving distance (assuming our fiducial cosmology). Our simulations
+distance to $z\sim0.8$ from the center of the box; Fig. \ref{fig:boss-geom}
+shows the BOSS CMASS redshift distribution as a function of redshift
+and comoving distance (assuming our fiducial cosmology). Our simulations
 are run with $4000^{3}$ particles, corresponding to a particle mass
 of \textcolor{red}{?????}. The characteristic halo mass for BOSS galaxies
 corresponds to $10^{13}M_{\odot}$, which we resolve with \textcolor{red}{????}
@@ -897,9 +897,13 @@ symmetric NFW profile:
 \end{equation}
 where $\rho_{s}$ is the density at the characteristic scale $r_{s}=R_{vir}/c$
 , $R_{vir}$ is the virial radius for the halo and $c$ determines
-how centrally concentrated the profile is. There are several measurements
-of the dependence of the concentration parameter $c$ on mass and
-redshift (\textcolor{red}{citations}). We adopt the form in \cite{2011ApJ...740..102K}:
+how centrally concentrated the profile is. \textcolor{red}{$R_{vir}$
+is computed from $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$,
+where $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
+and $\rho_{cris}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$} ($c$ is the speed
+of light here).There are several measurements of the dependence of
+the concentration parameter $c$ on mass and redshift (\textcolor{red}{citations}).
+We adopt the form in \cite{2011ApJ...740..102K}: 
 \begin{equation}
 c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
 \end{equation}

@@ -1241,7 +1241,7 @@ reference "fig:HaloProperty_step"
 placement t
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1329,7 +1329,7 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2422,10 +2422,6 @@ key "2013AJ....145...10D"
 
 \end_inset
 
-
-\color red
-Is this the one?
-\color inherit
 ), part of the SDSS-III project (
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2433,10 +2429,6 @@ key "2011AJ....142...72E"
 
 \end_inset
 
-
-\color red
-Is this the one?
-\color inherit
 ), is a spectroscopic survey that aims to make percent level distance measuremen
 ts using the baryon acoustic oscillation technique.
  The low redshift (z < 0.7) distance measurements use two galaxy samples
@@ -2447,10 +2439,6 @@ key "2014MNRAS.441...24A,2014MNRAS.440.2222T"
 
 \end_inset
 
-
-\color red
-Are those the ones?
-\color inherit
 ).
  We focus on the CMASS sample below; however, the same halo catalogs are
  useful for the LOWZ sample as well.
@@ -2472,8 +2460,15 @@ We choose a simulation volume large enough to build a full-sky mock BOSS
 \end_inset
 
  from the center of the box; Fig.
- ???? shows the BOSS CMASS redshift distribution as a function of redshift
- and comoving distance (assuming our fiducial cosmology).
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:boss-geom"
+
+\end_inset
+
+ shows the BOSS CMASS redshift distribution as a function of redshift and
+ comoving distance (assuming our fiducial cosmology).
  Our simulations are run with 
 \begin_inset Formula $4000^{3}$
 \end_inset
@@ -2527,8 +2522,7 @@ Delta z=???$
 The BOSS angular geometry is split into two regions : one in the North Galactic
  Cap and one in the South Galactic Cap (Fig.???).
  Since we generate full-sky mocks, it is straightforward to embed two full
- non-overlapping BOSS surveys in a single mock realization (Fig.
- 
+ non-overlapping BOSS surveys in a single mock realization (Fig 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -2599,10 +2593,17 @@ where
 \end_inset
 
 , 
-\begin_inset Formula $\gamma=$
+\begin_inset Formula $\gamma=1.64619$
 \end_inset
 
+ for Fig 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:boss-geom"
 
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2812,6 +2813,18 @@ where
 \end_inset
 
  determines how centrally concentrated the profile is.
+ 
+\begin_inset Formula $R_{vir}$
+\end_inset
+
+ is computed from 
+\begin_inset Formula $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$
+\end_inset
+
+, where 
+\begin_inset Formula $\Delta_{h}$
+\end_inset
+
  There are several measurements of the dependence of the concentration parameter
  
 \begin_inset Formula $c$
