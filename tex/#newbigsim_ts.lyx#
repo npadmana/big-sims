@@ -961,19 +961,21 @@ We also checked how the number of matched halos is changed as a function
 \begin_inset Float figure
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/scatterMass_256_300_2_z0.15.eps
-	width 50col%
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/testDB_mass_300_2_z0.15.pdf
+	lyxscale 50
+	width 46.5col%
 
 \end_inset
 
  
 \begin_inset Graphics
-	filename ../Plots/testDB_nonDB_300_2_z0.15.eps
-	width 50col%
+	filename ../Plots/testDB_nonDB_300_2_z0.15.pdf
+	lyxscale 50
+	width 53.5col%
 
 \end_inset
 
@@ -982,15 +984,17 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/testDB_DB_numPartCut_300_2_z0.15.eps
-	width 50col%
+	filename ../Plots/testDB_DB_numPartCut_300_2_z0.15.pdf
+	lyxscale 40
+	width 46.5text%
 
 \end_inset
 
  
 \begin_inset Graphics
-	filename ../Plots/testDB_sum_mass_f0.5_300_2_z0.15.eps
-	width 50col%
+	filename ../Plots/testDB_sum_mass_f0.5_300_2_z0.15.pdf
+	lyxscale 60
+	width 53.5col%
 
 \end_inset
 
@@ -1060,11 +1064,11 @@ multiply-booked
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/unmatchHalo2_content_300_2_z0.15.eps
+	filename ../Plots/unmatchHalo2_content_300_2_z0.15.pdf
 	width 50col%
 
 \end_inset
@@ -1241,7 +1245,7 @@ reference "fig:HaloProperty_step"
 placement t
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1329,18 +1333,18 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/histogram_distance_z0.15.eps
+	filename ../Plots/histogram_distance_z0.15.pdf
 	width 50col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/histogram_velocity_z0.15.eps
+	filename ../Plots/histogram_velocity_z0.15.pdf
 	width 50col%
 
 \end_inset
@@ -1784,14 +1788,14 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/haloRatioNum256_z0.15.eps
+	filename ../Plots/haloRatioNum256_z0.15.pdf
 	width 50col%
 
 \end_inset
 
  
 \begin_inset Graphics
-	filename ../Plots/haloRatioNum256_tweak_z0.15.eps
+	filename ../Plots/haloRatioNum256_tweak_z0.15.pdf
 	width 50col%
 
 \end_inset
@@ -1953,14 +1957,14 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.eps
+	filename ../Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
 	width 45col%
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ../Plots/crossMatter_tweak256_redshift_z0.15.eps
+	filename ../Plots/crossMatter_tweak256_redshift_z0.15.pdf
 	lyxscale 90
 	width 45col%
 
@@ -2210,7 +2214,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/hist_dist_z0.25to0.15.eps
+	filename ../Plots/hist_dist_z0.25to0.15.pdf
 	width 50col%
 
 \end_inset
@@ -2282,7 +2286,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio.png
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting1.pdf
 	lyxscale 50
 	width 50col%
 
@@ -2342,7 +2346,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting2.png
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting_r_z0.15.pdf
 	lyxscale 50
 	width 45col%
 
@@ -2350,7 +2354,7 @@ status collapsed
 
 
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting_s.png
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting_s_z0.15.pdf
 	lyxscale 50
 	width 45col%
 
@@ -2399,6 +2403,90 @@ comment for the plots? *will make the y-axis labels consistent for real
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_velMag1.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_velMag2.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms for velocities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/hist_velAngular.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms for velocity angles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2814,6 +2902,8 @@ where
 
  determines how centrally concentrated the profile is.
  
+\color red
+
 \begin_inset Formula $R_{vir}$
 \end_inset
 
@@ -2822,11 +2912,21 @@ where
 \end_inset
 
 , where 
-\begin_inset Formula $\Delta_{h}$
+\begin_inset Formula $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
 \end_inset
 
- There are several measurements of the dependence of the concentration parameter
- 
+ and 
+\begin_inset Formula $\rho_{cris}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$
+\end_inset
+
+
+\color inherit
+ (
+\begin_inset Formula $c$
+\end_inset
+
+ is the speed of light here).There are several measurements of the dependence
+ of the concentration parameter 
 \begin_inset Formula $c$
 \end_inset
 
@@ -2990,14 +3090,6 @@ The correlation function computed from our sample mocks fits to the correlation
 
 ), our BAO peak is more smoothed out than the one in Anderson et al.
  2013.
-\end_layout
-
-\begin_layout Standard
-*need to put an explanation how I compute 
-\begin_inset Formula $R_{vir}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
