@@ -965,7 +965,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/testDB_mass_300_2_z0.15.pdf
+	filename ../Plots/testDB_mass_300_2_z0.15.pdf
 	lyxscale 50
 	width 46.5col%
 
@@ -1064,7 +1064,7 @@ multiply-booked
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1100,18 +1100,7 @@ below XXX particles
  the halos do not have enough fraction of the same particles).
  The cyan line is for the halos eliminated because multiple halos correspond
  to one halo.
- *
-\color red
-will add true mass function and for the case & f=0.25 and 0.75 (which is a
- fraction of matched particles in halos to consider as 
-\begin_inset Quotes eld
-\end_inset
-
-matched
-\begin_inset Quotes erd
-\end_inset
-
- halos)
+ 
 \end_layout
 
 \end_inset
@@ -1245,7 +1234,7 @@ reference "fig:HaloProperty_step"
 placement t
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1333,7 +1322,7 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1784,7 +1773,7 @@ reference "fig:massFn_step"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1953,7 +1942,7 @@ reference "fig:HaloProperty_step"
 placement p
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2210,7 +2199,7 @@ We see that the agreement in real space is within 1% even for the case of
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2286,7 +2275,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio.png
+	filename ../Plots/shifting1.pdf
 	lyxscale 50
 	width 50col%
 
@@ -2346,7 +2335,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting2.png
+	filename ../Plots/shifting_r_z0.15.pdf
 	lyxscale 50
 	width 45col%
 
@@ -2354,7 +2343,7 @@ status open
 
 
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/shifting_s.png
+	filename ../Plots/shifting_s_z0.15.pdf
 	lyxscale 50
 	width 45col%
 
@@ -2403,6 +2392,86 @@ comment for the plots? *will make the y-axis labels consistent for real
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/hist_velMag1.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Plots/hist_velMag1_expFac.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms for velocities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/hist_velAngular.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Histograms for velocity angles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2608,17 +2677,20 @@ reference "fig:boss-geom"
 \end_inset
 
 .
+ 
+\color red
+*Give actual numbers
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/boss_geom.png
+	filename ../Plots/boss_geom.png
 	lyxscale 50
 	width 50col%
 
@@ -3028,7 +3100,7 @@ The correlation function computed from our sample mocks fits to the correlation
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics

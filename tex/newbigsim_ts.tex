@@ -174,7 +174,7 @@ in Fig.~\ref{simpic}.
 
 %FIXME --- Make sure correctly set up
 \begin{figure}
-\centering \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/zoom_in}
+\centering \includegraphics[width=0.5\columnwidth,bb = 0 0 200 100, draft, type=eps]{../Plots/zoom_in.eps}
 \caption{HACC result: Zoom-in visualization of the density field in a 1.1 trillion
 particle, 4.2~Gpc box size simulation with HACC on 32 BG/Q racks.
 This figure illustrates the global dynamic range covered by the simulation,
@@ -213,7 +213,7 @@ posed by future architectures.
 
 %FIXME --- Make sure correctly set up
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/overload}
+\includegraphics[width=0.5\columnwidth,bb = 0 0 200 100, draft, type=eps]{../Plots/overload.eps}
 \caption{ Overloading in a 2-D domain decomposition: A node holds particles
 within its domain (green) and particle copies out to a given distance
 from its boundary (red, in blue square). Copies held by neighboring
@@ -424,11 +424,11 @@ how the number of matched halos is changed as a function of redshift,
 and we observed that redshift does not affect to the matching algorithm.}
 
 \begin{figure*}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/scatterMass_256_300_2_z0\lyxdot 15}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_nonDB_300_2_z0\lyxdot 15}
+\includegraphics[width=0.465\columnwidth]{\lyxdot \lyxdot /Plots/testDB_mass_300_2_z0\lyxdot 15}
+\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_nonDB_300_2_z0\lyxdot 15}
 
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
+\includegraphics[width=0.465\textwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
+\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-scatter1}Comparison of halo masses matching the 450/5
 simulation (x-axis) to the 300/2 simulation (y-axis) at $z=0.15$.
@@ -456,10 +456,7 @@ As one might expect, this is only significant at low masses (\textcolor{red}{bel
 XXX particles}). The red line shows halos eliminated because of the
 matching threshold (i.e., the halos do not have enough fraction of
 the same particles). The cyan line is for the halos eliminated because
-multiple halos correspond to one halo. {*}\textcolor{red}{will add
-true mass function and for the case \& f=0.25 and 0.75 (which is a
-fraction of matched particles in halos to consider as ``matched''
-halos)}}
+multiple halos correspond to one halo. }
 \end{figure}
 
 
@@ -765,7 +762,7 @@ after the shifting. \label{fig:Histograms-of-distance}}
 
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/crossPower_shift_ratio}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting1}
 
 \caption{\label{fig:power-lightcone}In this figure, we use the halo matter
 cross power spectra at $z=0.25$ and $z=0.7$ as a denominator. The
@@ -778,7 +775,7 @@ the distribution of halos statistically.}
 
 
 \begin{figure}
-\includegraphics[width=0.45\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/shifting2}\includegraphics[width=0.45\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/shifting_s}
+\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/shifting_r_z0\lyxdot 15}\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/shifting_s_z0\lyxdot 15}
 
 \caption{\label{fig:power-lightcone2}Ratio of halo matter cross power spectra
 in real space {[}left{]} and in redshift space {[}right{]} after shifting
@@ -789,6 +786,22 @@ For all cases, we use the DM density field in real space at $z=0.15$.
 \textcolor{red}{comment for the plots? {*}will make the y-axis labels
 consistent for real and redshift spaces \& make $\Delta z$ consistent
 in both plots}}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velMag1}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velMag1_expFac}
+
+\caption{Histograms for velocities}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velAngular}
+
+\caption{Histograms for velocity angles}
+
+
 \end{figure}
 
 
@@ -840,9 +853,10 @@ where $\alpha$, $\beta$, $\gamma$ are the Euler angles which we
 rotate the Cartesian coordinates by the angles $\alpha$, $\beta$,
 $\gamma$ about the z-, x-, z-axis respectively. We use $\alpha=1.35717$,
 $\beta=1.67761$, $\gamma=1.64619$ for Fig \ref{fig:boss-geom}.
+\textcolor{red}{{*}Give actual numbers}
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/boss_geom}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/boss_geom}
 
 \caption{\label{fig:boss-geom}Demonstrating how we fit two non-overlapping
 BOSS volumes into the same simulation box. The blue region is the
@@ -941,8 +955,6 @@ on the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$.
 Due to the large smoothing scale (i.e., the grid size used to compute
 $\xi(s)$ is about $8h^{-1}{\rm Mpc}$), our BAO peak is more smoothed
 out than the one in Anderson et al. 2013.}
-
-{*}need to put an explanation how I compute $R_{vir}$.
 
 {*}haven't made a plot for n(z), which is Figure XX in the text.
 
