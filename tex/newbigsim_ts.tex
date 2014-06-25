@@ -5,6 +5,7 @@
 \usepackage[a4paper]{geometry}
 \geometry{verbose}
 \usepackage{color}
+\usepackage{float}
 \usepackage{graphicx}
 
 \makeatletter
@@ -146,45 +147,29 @@ cosmology with \textcolor{red}{parameters XXX}.
 
 \section{HACC}
 
-The HACC framework arose from the early realization that development
-of a future large-scale computational framework must be fully cognizant
-of coming changes in computational architectures. It is descended
-from an approach developed for the heterogeneous architecture of Roadrunner~\cite{mc3,pope10},
-the first computer to break the petaflop barrier. HACC is designed
-with great flexibility in mind (combining MPI with a variety of more
-local programming models, e.g., OpenCL, OpenMP) and is easily adaptable
-to different platforms. Currently, it is implemented on Cell-accelerated
-hardware, conventional and GPU-enhanced clusters (via OpenCL), on
-the IBM Blue Gene architecture (using OpenMP), and is running on prototype
-Intel MIC/Xeon Phi hardware. HACC is the first, and currently the
-only large-scale cosmology code suite world-wide, that can run at
-scale (and beyond) on all available supercomputer architectures. Figure~\ref{hacc_scale}
-shows the scaling on the entire IBM BG/Q Sequoia up to 1,572,864 cores
-with an equal number of MPI ranks, attaining 13.94 PFlops at 69.2\%
-of peak and 90\% parallel efficiency -- this is the highest performance
-yet attained by a science code on any computer; for details, see Ref.~\cite{habib12}.
+All simulations in this paper were carried out using the HACC (Hardware/Hybrid
+Accelerated Cosmology Code) framework. HACC provides an advanced,
+architecture-agile, extreme-scale N-body capability targeted to cosmological
+simulations. It is descended from an approach originally developed
+for the heterogeneous architecture of Roadrunner~\cite{mc3,pope10},
+the first computer to break the petaflop performance barrier.
+
+The HACC architecture is designed with great flexibility in mind (combining
+MPI with a variety of more local programming models, e.g., OpenCL,
+OpenMP) and is easily adaptable to different platforms. Currently,
+it is implemented on Cell-accelerated hardware, conventional and GPU-enhanced
+clusters (via OpenCL), on the IBM Blue Gene architecture (using OpenMP),
+and is running on prototype Intel MIC/Xeon Phi hardware. HACC is the
+first, and currently the only large-scale cosmology code suite world-wide,
+that can run at full scale on all available supercomputer architectures,
+at very high performance levels. HACC has demonstrated scaling on
+the entire IBM BG/Q Sequoia system up to 1,572,864 cores with an equal
+number of MPI ranks, attaining 13.94 PFlops at 69.2\% of peak and
+90\% parallel efficiency (for details, see Ref.~\cite{habib12}).
 Examples of science results obtained using HACC include 64-billion
 particle runs for baryon acoustic oscillations predictions for the
 BOSS Lyman-$\alpha$ forest~\cite{boss_bao} and high-statistics
 predictions for the halo profiles of massive clusters~\cite{conc_hacc}.
-Currently, a very large 1.1 trillion particle simulation is being
-carried out on the BG/Q system Mira at Argonne. A nested snapshot
-at an early output time ($z\sim3$) from this simulation is shown
-in Fig.~\ref{simpic}.
-
-%FIXME --- Make sure correctly set up
-\begin{figure}
-\centering \includegraphics[width=0.5\columnwidth,bb = 0 0 200 100, draft, type=eps]{../Plots/zoom_in.eps}
-\caption{HACC result: Zoom-in visualization of the density field in a 1.1 trillion
-particle, 4.2~Gpc box size simulation with HACC on 32 BG/Q racks.
-This figure illustrates the global dynamic range covered by the simulation,
-$\sim10^{6}$, although the finer details are not resolved by the
-visualization.}
-
-
-\label{simpic} 
-\end{figure}
-
 
 HACC uses a hybrid parallel algorithmic structure, splitting the force
 calculation into a specially designed grid-based long/medium range
@@ -194,116 +179,31 @@ combined with particle caching allows the short-range solvers to be
 `hot-swappable' on-node; they are blind to the parallel implementation
 of the long-range solver. The short-range solvers can use direct particle-particle
 interactions, i.e., a P$^{3}$M algorithm~\cite{hockney}, as on
-Roadrunner or Titan, or use tree methods as on the IBM BG/Q and Cray
-XE6 systems (TreePM algorithm). The availability of multiple algorithms
-within the HACC framework allows us to carry out careful error analyses,
-for example, the P$^{3}$M and the TreePM versions agree to within
-$0.1\%$ for the nonlinear power spectrum test in the code comparison
-suite of Ref.~\cite{heitmann05}.
-
-The HACC philosophy is that, as a general rule, both particle and
-grid methods are difficult to implement as global solutions: For physics
-and implementation reasons, grid-based techniques are better suited
-to larger length scales, with particle methods having the opposite
-property. This suggests that the higher `top' levels of code organization
-should be grid-based, interacting with particle information at a lower
-level of the computational hierarchy. The design ideas underlying
-HACC give us a very important head start in tackling the challenges
-posed by future architectures.
-
-%FIXME --- Make sure correctly set up
-\begin{figure}
-\includegraphics[width=0.5\columnwidth,bb = 0 0 200 100, draft, type=eps]{../Plots/overload.eps}
-\caption{ Overloading in a 2-D domain decomposition: A node holds particles
-within its domain (green) and particle copies out to a given distance
-from its boundary (red, in blue square). Copies held by neighboring
-nodes form a mirrored particle cache.}
-
-
-\label{overload} 
-\end{figure}
-
-
-\noindent On heterogeneous systems such as Roadrunner, or Titan at
-Oak Ridge, HACC has the following layout: At the top level, the medium/long
-range force is handled by a special low-noise, high accuracy, FFT-based
-method that operates at the CPU layer. Depending on the memory balance
-between the CPU and the accelerator (Cell or GPU), we can choose to
-specify two different modes, (i) grids held on the CPU and particles
-on the accelerator, or (ii) a streaming paradigm with grid and particle
-information primarily resident in CPU memory with computations streamed
-through the accelerator. In both cases, the local force solve is a
-direct particle-particle interaction, i.e., the whole is a P$^{3}$M
-code~\cite{hockney} with hardware acceleration, albeit an unconventional
-implementation based on high-order spectral methods. The acceleration
-leads to a speed-up of 50-100 times over conventional processors.
-For a many-core system, the top layer of the code remains the same,
-but the short-range solver changes to a tree-based algorithm which
-is much better suited to the Blue Gene and Intel MIC architectures.
-
-Our strategy simultaneously overcomes two problems: (i) how to switch
-short-range solvers easily, and (ii) overcome the communication bottleneck
-between the CPU and accelerator layers, or the analog for a many-core
-system (on-node vs. off-node communication). We drastically reduce
-the particle communication by using a mirrored particle cache, termed
-`particle overloading', implemented on top of our 3-D domain decomposition
-(see Fig.~\ref{overload}). The point of overloading -- loosely analogous
-to ghost regions in mesh-based codes -- is to allow exact medium/long-range
-force calculations with no communication of particle information and
-high-accuracy local force calculations with relatively sparse refreshes
-of the overloading zone (for details, see Ref.~\cite{mc3}). The
-second advantage of overloading is that it frees the local force solver
-from handling communication tasks, which are taken care of by the
-long/medium-range force framework. Thus new `on-node' local methods
-can be plugged in with no extra work and guaranteed scalability.
-
-Conventional particle-mesh codes use a mixture of spatial filtering/differencing
-and spectral techniques; the resulting complicated communication templates
-can be problematic, particularly at the accelerator or many-core processor
-level. To combat this, HACC uses digital filtering and differencing
-in the spectral domain, allowing a simple spatial deposition technique,
-Cloud-In-Cell (CIC) to be used. Combined with particle overloading,
-this can reduce all communication to a negligible overhead, except
-that in the parallel FFT, which lives only at the top level. A new
-2-D domain decomposed (pencils instead of slabs) FFT has been implemented
-to guarantee good scaling properties. The code design leads to ideal
-scaling properties of HACC up to very large number of processors,
-with exascale requirements already designed in to the algorithms.
-Full-machine scaling has been demonstrated on Roadrunner's Open Science
-phase, when MC$^{3}$ (the HACC precursor) was the only code to run
-across the full machine, on Mira and Sequoia (Cf. Fig.~\ref{hacc_scale}),
-and on Titan.
-
-HACC has been ported to all the DOE Leadership class platforms; the
-choice of the local force algorithm strongly depends on the architecture;
-for an accelerated system (local) $N^{2}$ methods are favorable since
-`compute is free' but complicated data structures are to be avoided,
-while for CPU-based systems, tree algorithms are a superior choice.
-HACC currently supports three production variants: (i) the Cell-accelerated
-P$^{3}$M code on Cerrillos (a smaller, open version of Roadrunner);
-(ii) a GPU-accelerated P$^{3}$M version with an OpenCL implementation
-on OLCF's Titan; (iii) a TreePM version for many-core machines, e.g.,
-ANL's Blue Gene/Q, Mira and NERSC's Hopper.
+(Cell or GPU) accelerated systems, or use tree methods on conventional
+or many-core architectures. (This was the case for the simulations
+reported here.) In all cases, the time-stepping scheme is based on
+a symplectic method with (adaptive) sub-cycling of the short-range
+force. The availability of multiple algorithms within the HACC framework
+allows us to carry out careful error analyses, for example, the P$^{3}$M
+and the TreePM versions agree to within $0.1\%$ for the nonlinear
+power spectrum test in the code comparison suite of Ref.~\cite{heitmann05}.
 
 An important feature of the work proposed here is the ability to carry
 out error-controlled approximate simulations at high throughput. In
 order to understand how we implement this, some details of the HACC
-time-stepping algorithm are now provided. HACC uses a symplectic scheme
-with sub-cycling of the short-range force. The basic idea is not to
-finite-difference the equations of motion, but to view evolution as
-a symplectic map on phase space, written in the exponentiated form
-familiar from Lie methods: $\zeta(t)=\exp(-t{\bf {H}})\zeta(0)$ where,
-$\zeta$ is a phase-space vector $({\bf x},{\bf v})$, $H$ is the
-Hamiltonian, and the operator, ${\bf {H}}=[H,~]_{P}$, denotes the
-action of taking the Poisson bracket with the Hamiltonian. Suppose
-that the Hamiltonian can be written as the sum of two parts; then
-by using the Campbell-Baker-Hausdorff (CBH) theorem we can build an
-integrator for the time evolution due to that Hamiltonian. Repeated
-application of the CBH formula can be used to show that 
+time-stepping algorithm are now provided. Evolution is viewed as a
+symplectic map on phase space: $\zeta(t)=\exp(-t{\bf {H}})\zeta(0)$
+where, $\zeta$ is a phase-space vector $({\bf x},{\bf v})$, $H$
+is the (self-consistent) Hamiltonian, and the operator, ${\bf {H}}=[H,~]_{P}$,
+denotes the action of taking the Poisson bracket with the Hamiltonian.
+Suppose that the Hamiltonian can be written as the sum of two parts;
+then by using the Campbell-Baker-Hausdorff (CBH) series we can build
+an integrator for the time evolution; repeated application of the
+CBH formula yields 
 \[
-\exp(-t({\bf {H}}_{1}+{\bf {H}}_{2}))=\exp(-(t/2){\bf {H}}_{1})\exp(-t{\bf {H}}_{2})\exp(-(t/2){\bf {H}}_{1})+O(t^{3})
+\exp(-t({\bf {H}}_{1}+{\bf {H}}_{2}))=\exp(-(t/2){\bf {H}}_{1})\exp(-t{\bf {H}}_{2})\exp(-(t/2){\bf {H}}_{1})+O(t^{3}),
 \]
-is a second order symplectic integrator. In the basic PM application,
+a second order symplectic integrator. In the basic PM application,
 the Hamiltonian $H_{1}$ is the free particle (kinetic) piece while
 $H_{2}$ is the one-particle effective potential; corresponding respectively
 to the `stream' and `kick' maps $M_{1}=\exp(-t{\bf {H}}_{1})$ and
@@ -320,7 +220,7 @@ contains the kinetic and particle-particle force interaction (with
 an associated map $M_{sr}$), whereas, $H_{2}=H_{lr}$ is just the
 long range force, corresponding to the map $M_{lr}$. Since the long
 range force varies relatively slowly, we construct a single time-step
-map by sub cycling $M_{sr}$: $M_{full}(t)=M_{lr}(t/2)(M_{sr}(t/n_{c}))^{n_{c}}M_{lr}(t/2),$
+map by sub-cycling $M_{sr}$: $M_{full}(t)=M_{lr}(t/2)(M_{sr}(t/n_{c}))^{n_{c}}M_{lr}(t/2)$,
 the total map being a usual second-order symplectic integrator. This
 corresponds to a KSK step, where the S is not an exact stream step,
 but has enough $M_{sr}$ steps composed together to obtain the required
@@ -328,177 +228,232 @@ accuracy. (We take care that the time-dependence in the self-consistent
 potential is treated correctly.) As discussed later below, we will
 use the flexibility in the sub-cycling as a way of reducing the number
 of time steps such that the loss of accuracy only affects the resolution
-at very small scales, which are not of interest in the current set
-of simulations.
+at very small scales, which, as discussed previously, are not of interest
+in the current set of simulations.
 
 
 \section{Convergence Test: Selection of the minimal time steps}
 
 In this section, we examine how reducing the number of time steps
-affects on halo properties (i.e., halo mass, position, and velocity)
-as well as observables such as halo mass functions and halo bias.\textcolor{black}{{}
-In order to quantitatively evaluate different time-stepping schemes,
-we run a set of convergence tests using smaller simulation boxes.
-We scale down these volumes to $(256h^{-1}{\rm Mpc})^{3}$ with $256^{3}$
-particles with the same particle mass as the simulations with $(4000h^{-1}{\rm Mpc})^{3}$
-. The number of time steps were chosen as 450/5, 300/3, 300/2, 150/3,
-150/2, where the first number indicates the number of long time steps
-and the second number the number of short time steps for each long
-time step. To evaluate different time-stepping schemes, we first compare
-the properties (masses, positions, and velocities) of the individual
-halos themselves by matching halos in one sample to halos in another.
-Following to that, we compare statistical descriptions provided by
-the mass functions and power spectra. We found that differences on
-halo properties do not significantly affect on those statistical observables.
-Based on a number of convergence tests, the 300/2 simulation became
-the final target, sufficient to resolve positions and masses of halos
-reliably. }
+affects halo properties (i.e., halo mass, position, and velocity),
+as well as observables such as halo mass functions and halo bias.
+In order to quantitatively evaluate different time-stepping options,
+we run a set of convergence tests with down-scaled simulation boxes,
+using simulation volumes of size $(256h^{-1}{\rm Mpc})^{3}$ and $256^{3}$
+particles. These runs have the same particle mass as the main $(4000h^{-1}{\rm Mpc})^{3}$
+volume simulations.
+
+Time-stepping convergence was studied using the following time step
+options: 450/5, 300/3, 300/2, 150/3, and 150/2, where the first number
+indicates the number of long time steps and the second number the
+number of short sub-time steps for each long time step. To evaluate
+the different time-stepping options, we first compare the properties
+(masses, positions, and velocities) of individual halos by matching
+halos in one simulation run to halos in another, using identical initial
+conditions, and with adaptive time-stepping switched off. Following
+this, we compare statistical descriptions such as halo mass functions
+and density power spectra. We found that, for the purpose of the work
+presented in this paper, differences in halo properties do not significantly
+affect the statistical observables. Based on a number of convergence
+tests, the 300/2 time-stepping option was found sufficient to resolve
+the positions and masses of halos reliably.
 
 
 \subsection{Matching }
 
-Here, we compare halo properties by matching halos in different samples
-one by one. We first show our algorithm for identifying the corresponding
-halos in two different samples and then compare halo mass, position,
-and velocity for those matched halos. From the quantitative comparison,
-we find that the samples generated from the simulations with 300 global
-steps have much less scatter for the baseline of the sample of the
-450/5 simulation than the samples with 150 global steps. In addition
-to that, we see that the differences between sub-cycles are almost
+In order to compare compare detailed halo properties we need to match
+individual halos across different runs. We first discuss the algorithm
+used for identifying the corresponding halos in the two cases and
+then compare halo mass, position, and velocity for the matched halos.
+From this quantitative comparison, we find that the simulations with
+300 global time steps have significantly less scatter in the measured
+quantities, compared to the baseline determined by the 450/5 simulation,
+than do the samples with 150 global steps. In addition, we find that
+the differences between the different sub-cycling choices are almost
 negligible.
 
 
 \subsubsection{Algorithm}
 
-Since our simulations all start with the same initial conditions,
-we match halos in different simulations by matching their particle
-content. Given a halo in simulation A, we consider the halos in simulation
-B with the corresponding particles. Given this list of possible matches,
-we match to the halo with the largest number of common particles.
-To avoid spurious matches, we also require that the fraction of common
-particles (relative to simulation A) exceeds a threshold. As an example
-to illustrate how this matching algorithm works, we use the samples
-from the 300/2 simulation and the 450/5 simulation. We adopt a threshold
-of 50\% as our default choice. In Figure \ref{fig:mass-content},
-we demonstrate the unmatched fraction increases with increasing threshold
-and decreasing halo mass. 
+All the simulations start with the same particle initial conditions,
+therefore we match halos in different runs by matching their particle
+content, using individual particle identification. Given a halo in
+simulation A, we consider halos in simulation B that between them
+hold all the particles belonging to the halo in simulation A. Given
+this list of possible matches, we choose the run B halo with the largest
+number of common particles with the reference halo in run A. To avoid
+spurious matches, we also require that the fraction of common particles
+(relative to simulation A) exceeds a given threshold. To illustrate
+how this matching algorithm works, we use the samples from the 300/2
+simulation and the 450/5 simulation, and adopt a threshold of 50\%
+as our default choice. (Figure \ref{fig:mass-content} demonstrates
+that the unmatched fraction increases with increasing threshold and
+decreasing halo mass.)
 
-Since the above matching algorithm is unidirectional, multiple halos
-in the sample A might be matched to a single halo in the sample B;
-this happens 1 to 2\% of the time with a matching threshold of 50\%.
-We refer to these as multiply-booked halos in what follows. Figure
-\ref{fig:mass-scatter1} compares halo masses matching the 450/5 simulation
-to the 300/2 simulation for the case of multiply-booked halos and
-the rest. The top left panel shows a mass scatter for all the matched
-halos between those two simulations, while the top right panel shows
-a mass scatter onl\textcolor{black}{y for the non multiply-booked
-halos}. The bottom panels show a mass scatter for the case of multiply-booked
-halos. The bottom left panel shows a mass scatter for individual multiply-booked
-halos, while we plots a summed halo mass for those corresponding halos
-in the bottom right panel. As shown in the top left panel, there are
-low-mass halos in the 450/5 simulation corresponding to high-mass
-halos in the 300/2 simulation. The same trend is observed for the
-case of multiply-booked halos, but not for the non multiply-booked
-halos. Furthermore, those disagreement for halo masses between the
-two simulations are resolved by adding the corresponding halo masses.
-This implies that there are multiple halos in the 450/5 simulation
-which are merged into one halo in the 300/2 simulation.
+The matching algorithm described above is unidirectional, hence multiple
+halos in run A may have particles resident in a single halo in run
+B; in our simulations, this happens at the 1-2\% level, adopting a
+particle matching threshold of 50\%. We refer to these cases as `multiply-booked'
+halos. Figure~\ref{fig:mass-scatter1} compares halo masses matching
+the 450/5 simulation to the 300/2 simulation for the case of multiply-booked
+halos as well as the rest. The top left panel shows the mass scatter
+for all the matched halos between the two simulations, while the top
+right panel shows the mass scatter only for the non multiply-booked
+halos. The bottom panels show the mass scatter for the case of multiply-booked
+halos only. The bottom left panel shows the mass scatter for individual
+multiply-booked halos, while the bottom right panel plots the summed
+halo mass for the corresponding halos. The overall behavior represented
+in Figure~\ref{fig:mass-scatter1} is straightforward to interpret.
 
-Figure \ref{fig:mass-content} shows the number densities of the unmatched
-halos in the 450/5 simulation matching to the 300/2 simulation at
-$z=0.15$. There are three reasons that halos are considered as unmatched.
-First, if particles forming a halo in the sample A do not form a halo
-in the sample B (i.e., halos in the samples do not share common particles),
-we consider them as unmatched. Second, if the fraction of common particles
-over the total number of particles in each halo is less than 50\%,
-we eliminate halos for the case of spurious matching. At last for
-the case of multiply-booked halos, we remove all but the one with
-the largest number of common particles. We showed each unmatched number
-density as a function of halo mass. We only find unmatched halos on
-low-mass regions for the reason that the halos do not have any common
-particles. This is because there are some low-mass halos which are
-identified in one sample but not in another sample due to the way
-the FOF algorithm define halos. As shown, most of unmatched halos
-are due to the threshold criterion. \textcolor{black}{We also checked
-how the number of matched halos is changed as a function of redshift,
-and we observed that redshift does not affect to the matching algorithm.}
-
-\begin{figure*}
+\begin{figure}[h]
 \includegraphics[width=0.465\columnwidth]{\lyxdot \lyxdot /Plots/testDB_mass_300_2_z0\lyxdot 15}
 \includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_nonDB_300_2_z0\lyxdot 15}
 
 \includegraphics[width=0.465\textwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
 \includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
 
-\caption{\label{fig:mass-scatter1}Comparison of halo masses matching the 450/5
-simulation (x-axis) to the 300/2 simulation (y-axis) at $z=0.15$.
-Panels correspond to halos with different matching criteria: all the
-matched halos (top left), matched halos having one-to-one correspondence
-(top right), matched halos not having one-to-one correspondence called
-``multiply-booked'' halos (bottom left), and the ``multiply-booked''
-halos whose corresponding halo masses are added (bottom right). Those
-panels imply that large mass difference between the 450/5 simulation
-and the 300/2 simulation shown in the top left panel is mainly because
-those ``multiply-booked'' halos in the 450/5 simulation are merged
-into one halo in the 300/2 simulation due to larger time steps.}
-\end{figure*}
+\caption{\label{fig:mass-scatter1}Distribution of halo masses comparing matched
+halos in the 450/5 simulation (x-axis) to the 300/2 simulation (y-axis)
+at $z=0.15$. Panels correspond to halos with different matching criteria
+imposed: all the matched halos (top left), the vast majority of matched
+halos having one-to-one correspondence (top right), matched halos
+not having one-to-one correspondence called ``multiply-booked''
+halos (bottom left), and the ``multiply-booked'' halos whose corresponding
+halo masses are added (bottom right). The results shown in these panels
+imply that the low-mass scatter between the 450/5 simulation and the
+300/2 simulation shown in the top left panel arises when``multiply-booked''
+halos in the 450/5 simulation are merged into one halo in the 300/2
+simulation due to an effectively worse resolution in this case.}
+\end{figure}
 
 
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
+As the top left panel shows, there are low-mass halos in the 450/5
+simulation corresponding to high-mass halos in the 300/2 simulation.
+The same trend is observed for the case of multiply-booked halos (bottom
+left panel), but not for the non multiply-booked halos (top right).
+Furthermore, the disagreement for halo masses between the two simulations
+are resolved by adding the corresponding halo masses. This implies
+that there are multiple halos in the 450/5 simulation which are merged
+into one halo in the 300/2 simulation. The smaller number of time
+steps in the 300/2 simulations reduces substructure and as well as
+the compactness of the halos in the 450/5 simulation. Thus, for a
+small fraction of halos in the 450/5 simulation, individual halos
+can be merged into a single halo in the 300/2 simulation.
 
-\caption{\label{fig:mass-content} Itemization of unmatched halos shown as
-cumulative number densities of the unmatched halos from each procedure
-in the matching algorithm. The solid line is the total number density
-of the unmatched halos. The green line shows halos with no counterpart
-- none of the particles were identified as belonging to any halo.
-As one might expect, this is only significant at low masses (\textcolor{red}{below
-XXX particles}). The red line shows halos eliminated because of the
-matching threshold (i.e., the halos do not have enough fraction of
-the same particles). The cyan line is for the halos eliminated because
-multiple halos correspond to one halo. }
+Figure \ref{fig:mass-content} shows the number densities of the unmatched
+halos in the 450/5 simulation when compared to the 300/2 simulation
+at $z=0.15$. There are three reasons that halos can turn up as unmatched.
+In the first case, particles forming a halo in simulation A may not
+form a component of a halo in simulation B (no common particles).
+Second, if the fraction of common particles over the total number
+of particles in each halo is less than the threshold of 50\%, these
+halos will be eliminated from the matching set. Finally, for the case
+of multiply-booked halos, we remove all but the one with the largest
+number of common particles. In Figure \ref{fig:mass-content}, we
+show each type of unmatched number density as a function of halo mass.
+The first case occurs only for low halo masses, where low effective
+resolution in a simulation can lead to halo drop out (halos are too
+'fuzzy' to meet the FOF overdensity criterion), and falls off steeply
+with rising halo mass. Most of the unmatched halos arise due to their
+not passing the threshold criterion. The loss of matching due to multiple-booking
+follows the trend of the below-threshold case, but at a reduced level.
+We have checked that the trends discussed here are not affected by
+redshift.
+
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content2_300_2_z0\lyxdot 15}
+
+\caption{\label{fig:mass-content} Itemization of unmatched halos (from the
+450/5 and 300/2 simulations at $z=0.15$) shown as cumulative number
+densities of the unmatched halos arising from each procedure in the
+matching algorithm. The solid blue line is the total number density
+of the unmatched halos. The dashed green line shows halos with no
+counterpart -- none of the particles were identified as belonging
+to a halo in the comparison simulation; this is significant only at
+low halo mass. The dashed red line shows halos eliminated because
+of not meeting the matching threshold (i.e., the halos do not have
+enough of a fraction of the same particles). The dashed cyan line
+is for the halos eliminated because multiple halos correspond to one
+halo. }
 \end{figure}
 
 
 
 \subsubsection{Halo Properties}
 
-Here, we compare halo properties (i.e., halo mass, position, and velocity)
-for halos matched to those in the 450/5 simulation. Since we are interested
-in correctly describing the large-scale distribution of galaxies and
-it requires to correctly locate dark matter halos in the simulation
-with correct estimation of halo masses, it is crucial to know how
-reducing the number of time steps affects on halo properties systematically.
+We now compare halo properties (i.e., halo mass, position, and velocity)
+for the 300/2 halos that were successfully matched to those in the
+450/5 simulation. We are interested in correctly describing the large-scale
+distribution of galaxies; in the current context, this requires that
+dark matter halo locations and masses be estimated sufficiently accurately.
+Therefore, it is essential to systematically investigate the effect
+of reducing the number of time steps on halo properties.
+
 The comparison of halo mass for different time-stepping schemes to
 the 450/5 simulation at $z=0.15$ is shown in Figure \ref{fig:HaloProperty_mass}.
 We take all the matched halos whose masses are between $10^{12.5}{\rm M_{\odot}}$
 to $10^{13.0}{\rm M_{\odot}}$, $10^{13.0}{\rm M_{\odot}}$ to $10^{13.5}{\rm M_{\odot}}$,
 and $10^{13.5}{\rm M_{\odot}}$ to $10^{14.0}{\rm M_{\odot}}$, and
-compute their means and the standard deviations for ${\rm log_{10}(M/M_{450/5})}$,
+compute their means and standard deviations for ${\rm log_{10}(M/M_{450/5})}$,
 where $M_{450/5}$ is a halo mass for the 450/5 simulation and $M$
 corresponds to a halo in the samples generated with different time-stepping
 schemes. Figure \ref{fig:HaloProperty_mass} shows that halos generated
 from the simulations with small number of time steps have systematically
-lower masses than those in the 450/5 simulation. This is partly because
-we use the same linking length for the FOF algorithm to define halos
-for all the simulations. Since reducing the number of time steps results
-in an approximation to the true dynamics of dark matter fields, halos
-in the 450/5 simulation tend to have tighter and denser structure
-(\textcolor{red}{show the snapshot?}). So, using the same linking
-length will miss connecting some particles in the simulations with
-small number of time steps and will result in smaller halos than the
-corresponding halo in the 450/5 simulation. The panels in Figure \ref{fig:HaloProperty_step},
-from left to right, show the comparison of halo position and velocity
-for the matched halos at $z=0.15$. As shown, the 150 global steps
-have more scatter in the halo positions and the means d\textcolor{black}{iffer
-for} the velocity difference. For the 300 global steps, the results
-are significantly improved and the center position is matched in these
-cases to better than 200 kpc. As is clear from Figure \ref{fig:HaloProperty_step},
-the difference between 3 and 2 sub-cycles is negligible on halo properties.
-Note that we observe the same trend in halo properties discussed here
-at different redshifts.
+lower FOF masses than those in the 450/5 simulation. (The same linking
+length ($b=0.168$) is used in the FOF algorithm to define halos for
+all the simulations.) As stated earlier, reducing the number of time
+steps produces halos with less substructure and a more diffuse distribution
+of mass, thus in a direct one-on-one halo comparison, one expects
+the FOF mass to be highest in the 450/5 simulation, as borne out in
+the data. 
 
-\begin{figure}[t]
+\textcolor{blue}{NOTE: We should show an example halo from the simulations
+to make this point explicit.}
+
+Figure~\ref{fig:HaloProperty_step} shows the differences in positions
+(left panel) and velocities (right panel) along x-axis for the matched
+halos at $z=0.15$. The simulations with a smaller number of global
+time steps (150) display significantly more scatter; they also show
+a small bias in the speed. With 300 global time steps, the results
+are significantly improved; the velocity bias is almost entirely removed
+and the scatter is sigificantly reduced. The standard deviation in
+the differences in halo distances is matched in these cases to better
+than $200h^{-1}{\rm kpc}$. \textcolor{red}{The dashed lines represent
+the result from the simulations, while the solid lines are the Gaussian
+fits, where the values for amplitude, expected value and variance
+are shown in Table X. Figure \ref{fig:HaloProperty_step} shows that
+the distribution of the differences in positions and velocities are
+almost Gaussian (if I find that the distribution fits to Gaussian
+perfectly by separating into different masses I will write about it).}
+As is clear from Figure \ref{fig:HaloProperty_step}, the difference
+between 3 and 2 sub-cycles is negligible on halo properties. Note
+that we observe the same trend in halo properties discussed here at
+different redshifts and along different axes. 
+
+\textcolor{blue}{NOTE: These distribution should be done with each
+component separately, distances and speeds don't really give you what
+you want. Rewrite this paragraph when the distributions are available.--Done
+(by Tomomi)}
+
+\textcolor{blue}{Note: There needs to be a short concluding discussion
+of the halo matching across the 450/5 and 300/2 simulations stating
+the actual halo numbers and why we are happy with using the 300/2
+simulations up to this point.}
+
+\textcolor{red}{As shown in Figure \ref{fig:mass-content}, the fraction
+of unmatched halos in the 300/2 simulation to the 450/5 simulation
+is less than 5\% on most of halo mass ranges, which implies that the
+300/2 simulation has almost the same number of halos as in the 450/5
+simulation. Furthermore, Figure \ref{fig:mass-scatter1} shows that
+the halo masses in the 450/5 and 300/2 simulations have linear relation
+with the slope being one. So, most of halos in the 300/2 simulation
+have the same mass as the ones in the 450/5 simulaion. Since the number
+of sub-cylces do not affect to halo positions and velosities as shown
+in Figure \ref{fig:HaloProperty_step}, the 300/2 timestep is our
+choice to save the simulation time while keeping the halo properties
+almost identical to the 450/5 simulation.}
+
+\begin{figure}[h]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/massSlice_z0\lyxdot 15}
 
 \caption{\label{fig:HaloProperty_mass}Comparison of halo mass for matched
@@ -512,24 +467,62 @@ a halo mass for the 450/5 simulation and $M$ is for the simulations
 with different number of time steps corresponding to different colors
 in the plot. The x-positions of the points have been displaced to
 avoid overlapping the error bars. This plot shows that halo masses
-become systematically smaller for the case of small number of time
+become systematically smaller for the case of smaller numbers of time
 steps than those in the 450/5 simulation. }
 \end{figure}
 
 
-\begin{figure*}[t]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_distance_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_velocity_z0\lyxdot 15}
+\begin{figure}[h]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_x_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_vx_z0\lyxdot 15}
 
 \caption{\label{fig:HaloProperty_step}A comparison of the positions {[}left{]}
 and velocities {[}right{]} of halos matched across simulations with
 different time steps. As always, the reference simulation is 450/5
-shile the colors correspond to 300/3 (blue), 300/2 (green), 150/3
+while the colors correspond to 300/3 (blue), 300/2 (green), 150/3
 (red), and 150/2 (cyan). From left to right, we compared halo position
 and velocity respectively.\textcolor{blue}{{} }\textcolor{black}{The
 agreement with 300 time steps is very good, with a negligible difference
 from the number of sub-cycles. }\textcolor{red}{{*}Is the unit for
 the velocity {[}km/s{]} or with any h's? (Ask Salman and Katrin)}}
-\end{figure*}
+\end{figure}
+
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+ & $A$ & $\mu$ & $\sigma$\tabularnewline
+\hline 
+\hline 
+300/3 & 3377.2 & 0.0 & 0.0715\tabularnewline
+\hline 
+300/2 & 2937.2 & 0.0 & 0.0781\tabularnewline
+\hline 
+150/3 & 1280.9 & 0.0 & 0.1709\tabularnewline
+\hline 
+150/2 & 1077.4 & 0.0 & 0.1783\tabularnewline
+\hline 
+\end{tabular} %
+\begin{tabular}{|c|c|c|c|}
+\hline 
+ & $A$ & $\mu$ & $\sigma$\tabularnewline
+\hline 
+\hline 
+300/3 & 3461.5 & -3.138 & 11.527\tabularnewline
+\hline 
+300/2 & 1975.8 & -3.105 & 12.780\tabularnewline
+\hline 
+150/3 & 1975.0 & -15.660 & 17.955\tabularnewline
+\hline 
+150/2 & 1667.7 & -15.821 & 18.592\tabularnewline
+\hline 
+\end{tabular}
+
+\caption{Values for amplitude $A$, expected value $\mu$, variance $\sigma$
+in Gaussian fits shown in Figure \ref{fig:HaloProperty_step} for
+the positions {[}right{]} and velocities {[}left{]} across simulations
+with different time steps. Note that we specifically fit the distribution
+of position differences with the expected value 0.}
+\end{table}
 
 
 
@@ -540,7 +533,7 @@ that halos generated by the de-tuned simulations have systematically
 lower masses than the halos in the 450/5 simulation. This suggests
 the necessity of adjusting halo masses for those cases to the halo
 masses in the 450/5 simulation. In the following, we describe how
-we do a mass adjustment and show the resulted observables including
+we do a mass adjustment and show the resulting observables including
 mass functions and power spectra.
 
 
@@ -549,20 +542,21 @@ mass functions and power spectra.
 To calibrate halo masses for the simulations with the reduced number
 of time steps, we first take all the matched halos between the 450/5
 simulation and the de-tuned simulations and compute means for each
-mass bin. The reason we only take the matched halos is because our
-purpose of mass adjustment here is to correct systematic mass differences
-for the halos which are theoretically identical in different samples.
-After computing the means for each mass bin, we fit those means to
-a functional shown below so that $M_{re}$ becomes close to the average
-halo masses for the 450/5 simulation:
+mass bin. We consider only the matched halos is because the aim of
+the mass adjustment is to correct systematic mass differences for
+the halos that are theoretically identical in the different runs.
+After computing the means for each mass bin, we fit them to a functional
+form that brings the reassigned halo mass, $M_{re}$, close to the
+average halo mass for the 450/5 simulation. For our simulations, we
+find that the following simple form suffices for this task:
 
 \begin{equation}
 M_{re}=M(1.0+\alpha(M/10^{12.0}[{\rm M_{\odot}])^{\beta},}\label{eq:mass_adjust}
 \end{equation}
-where $M_{re}$ is a reassigned halo mass, $M$ is an original halo
-mass, $\alpha$ and $\beta$ are free parameters. Corresponding $\alpha$
-and $\beta$ for the simulations with different number of time steps
-at $z=0.15$ are listed on Table \ref{tab:free_param1}.
+where $M_{re}$ is the reassigned halo mass, $M$ is the original
+halo mass, and $\alpha$ and $\beta$ are free parameters. The $\alpha$
+and $\beta$ values for the simulations with different numbers of
+time steps are listed in Table \ref{tab:free_param1} (at $z=0.15$).
 
 \begin{table}
 \begin{tabular}{|c|c|c|}
@@ -580,15 +574,15 @@ at $z=0.15$ are listed on Table \ref{tab:free_param1}.
 \hline 
 \end{tabular}
 
-\caption{\label{tab:free_param1}Corresponding $\alpha$ and $\beta$ in Eq.
-\ref{eq:mass_adjust} for the samples with different number of time
-steps at $z=0.15$.}
+\caption{\label{tab:free_param1}The mass reassignment parameters $\alpha$
+and $\beta$ of Eq.~\ref{eq:mass_adjust} for simulations run with
+different numbers of time steps (the results are shown at $z=0.15$).}
 \end{table}
 
 
-Those free parameters $\alpha$ and $\beta$ can be described as a
-function of redshift. For the case of the 300/2 simulation as an example,
-we find best fit parameters shown below:
+The best-fit parameters $\alpha$ and $\beta$ are functions of redshift.
+For the case of the 300/2 simulation, we find best fit parameters
+shown below:
 
 \begin{equation}
 \alpha(z)=0.123z+0.052,
@@ -598,6 +592,12 @@ and
 \beta(z)=-0.154z-0.447.
 \end{equation}
 
+
+\textcolor{blue}{NOTE: What other redshift values were used here to
+determine these fits? What is the overall accuracy to which M\_re
+now matches the halo masses for the 450/5 run?}
+
+\textcolor{blue}{NOTE: STOP}
 
 
 \subsubsection{Observables}
@@ -620,7 +620,7 @@ on halo masses greater than $10^{13.0}{\rm M_{\odot}}$. For the simulations
 with the 300 global time steps, mass adjustment is especially effective
 on small halo masses.
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/haloRatioNum256_z0\lyxdot 15}
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/haloRatioNum256_tweak_z0\lyxdot 15}
 
@@ -674,7 +674,7 @@ For the simulations with the 300 global time steps, overall agreements
 with the 450/5 simulation are almost 1\% on any scales in both real-space
 and redshift-space.
 
-\begin{figure*}[p]
+\begin{figure}[H]
 \includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_m450_tweak_softMcut13\lyxdot 0_s0\lyxdot 5_z0\lyxdot 15}\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_tweak256_redshift_z0\lyxdot 15}
 
 \caption{\label{fig:crossMater_step} Ratio of halo-matter cross pow\textcolor{black}{er
@@ -688,7 +688,7 @@ cross power spectra for the simulations with 150 global steps on small
 scales is mainly due to the systematically small velocities, as shown
 in Figure \ref{fig:HaloProperty_step}. Note that the halos are selected
 based on the soft mass-cut method with $M_{cut}=13.0$ and $\sigma=0.5$.}}
-\end{figure*}
+\end{figure}
 
 
 As a conclusion through several convergence tests shown in this section,
@@ -724,8 +724,25 @@ halos which exist at both redshifts by matching halo particle profiles,
 which is the same method described in Section 3.1. Figure \ref{fig:Histograms-of-distance}
 is the histograms of distances for the matched halos at $z=0.25$
 and $z=0.15$ before and after shifting. After shifting halos, we
-see that the mean distance between corresponding halos becomes closer
-and the scatter decreases. This result holds at all redshifts examined. 
+see that the mean distance between corresponding halos decreases from
+$0.4h^{-1}{\rm Mpc}$to $0.1h^{-1}{\rm Mpc}$ and the standard deviation
+shrinks from $0.2h^{-1}{\rm Mpc}$ to $0.1h^{-1}{\rm Mpc}$. This
+result holds at all redshifts examined. 
+
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_x_z0\lyxdot 25to0\lyxdot 15}
+
+\caption{The histogram shown in blue is that of the distances between the position
+of the halos at $z=0.25$ and where they have moved to in the simulation
+at $z=0.15$. The histogram shown in green is that of the distances
+between the positions of the halos at $z=0.15,$ and the positions
+that would be predicted by shifting the positions from the $z=0.25$
+simulation assuming the peculiar velocity was constant between the
+snapshots (described in Eq. \ref{eq:lightcone}). The plot shows that
+the distances between the halos at different redshifts become smaller
+after the shifting. \label{fig:Histograms-of-distance}}
+\end{figure}
+
 
 Additionally, we compare the change in halo bias due to shifting.
 Figure \ref{fig:power-lightcone} shows the ratios of halo matter
@@ -744,24 +761,18 @@ space; in redshift space, we assume the velocity of the object is
 unchanged between the snapshots. \textcolor{red}{We see that the agreement
 in real space is within 1\% even for the case of shifting for $\Delta z=0.25$,
 while the discrepancy increases more rapidly for larger $\Delta z$
-in redshift space.}
+in redshift space. In order to understand the cause of rapid discrepancy
+of the power spectra in redshift-space, we further investigate the
+distribution of velocity differences at different redshifts shown
+in Figure \ref{fig:nz_halo}. We compare original velocities computed
+from the simulations in the right panel, while we multiply those velocity
+by the expansion factor $a(z)$ in the left panel. By scaling with
+the expansion factor, the velocity differences at different redshifts
+become smaller. Figure XX shows the power spectra recomputed with
+the velocity multiplied by the ratio of $a(z)/a(z=0.15)$, where $z$
+is the redshift of the simulation. XXX}
 
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_z0\lyxdot 25to0\lyxdot 15}
-
-\caption{The histogram shown in blue is that of the distances between the position
-of the halos at $z=0.25$ and where they have moved to in the simulation
-at $z=0.15$. The histogram shown in green is that of the distances
-between the positions of the halos at $z=0.15,$ and the positions
-that would be predicted by shifting the positions from the $z=0.25$
-simulation assuming the peculiar velocity was constant between the
-snapshots (described in Eq. \ref{eq:lightcone}). The plot shows that
-the distances between the halos at different redshifts become smaller
-after the shifting. \label{fig:Histograms-of-distance}}
-\end{figure}
-
-
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting1}
 
 \caption{\label{fig:power-lightcone}In this figure, we use the halo matter
@@ -774,8 +785,8 @@ the distribution of halos statistically.}
 \end{figure}
 
 
-\begin{figure}
-\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/shifting_r_z0\lyxdot 15}\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/shifting_s_z0\lyxdot 15}
+\begin{figure}[H]
+\includegraphics[width=1\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/test}
 
 \caption{\label{fig:power-lightcone2}Ratio of halo matter cross power spectra
 in real space {[}left{]} and in redshift space {[}right{]} after shifting
@@ -783,25 +794,55 @@ the position of the halos from the redshift labeled in the plots to
 $z=0.15$. The denominator is the cross power spectra at $z=0.15,$where
 we use the halo density field in real space and redshift space respectively.
 For all cases, we use the DM density field in real space at $z=0.15$.
-\textcolor{red}{comment for the plots? {*}will make the y-axis labels
-consistent for real and redshift spaces \& make $\Delta z$ consistent
-in both plots}}
+\textcolor{red}{I could not fix the x-label for the left panel:(}}
 \end{figure}
 
 
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velMag1}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velMag1_expFac}
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_vx}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_vx_expFac}
 
-\caption{Histograms for velocities}
+\caption{\label{fig:vel_hist_expFac}Comparisons of the velocities of halos
+matched across simulations at different redshifts to the one at $z=0.15$.
+From left to right, we compare original halo velocities and the velocities
+multiplied by the expansion factor $a(z)$. As shown, the scatter
+in the velocity differences decreases in the right panel. This indicates
+that the change in velocities at different redshifts is largely affected
+by the expansion of the Universe.}
 \end{figure}
 
 
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_velAngular}
+\textcolor{red}{Finally, we compare halo number densities $n(z)$
+as a function of redshift from the simulation at $z=0.55$ and the
+lightcone output shown in Figure \ref{fig:nz_halo}. As expected,
+$n(z)$ at $z=0.55$ is constant across redshift, while $n(z)$ from
+the lightcone output decreases as redshift is larger. Figure \ref{fig:xi_halo}
+shows correlation functions computed from the halos used in Figure
+\ref{fig:xi_halo}. Even though $n(z)$ from two different outputs
+are different, the correlation functions do not show any difference
+in both real-space and redshift-space.}
 
-\caption{Histograms for velocity angles}
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/nz_halo}
+
+\caption{\label{fig:nz_halo}A comparison of halo number densities as a function
+of redshift from the simulation at $z=0.55$ {[}blue{]} and the lightcone
+output stitched every $\Delta z=0.05$ simulation {[}green{]}. We
+use halos whose masses are greater than $10^{13.0}{\rm M_{\odot}}$.}
 
 
+\end{figure}
+
+
+\begin{figure}[H]
+\includegraphics[width=1\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/xi_halo}
+
+\caption{\label{fig:xi_halo}Comparisons of halo correlation functions in real-space
+{[}left{]} and redshift-space {[}right{]}. We use halos whose masses
+are greater than $10^{13.0}{\rm M_{\odot}}$ from $z=0.4$ to $z=0.7$.
+The blue lines are the correlation functions computed from the simulation
+at $z=0.55$, while the green lines are from the lightcone output.
+Even though $n(z)$ is different as shown in Figure \ref{fig:nz_halo},
+the correlation functions show almost no difference.}
 \end{figure}
 
 
@@ -841,19 +882,15 @@ generate full-sky mocks, it is straightforward to embed two full non-overlapping
 BOSS surveys in a single mock realization (Fig \ref{fig:boss-geom}).
 We cut out a first BOSS volume with $\vec{x}_{old}$ and then define
 a new coordinate system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$,
-where $R$ is the Euler rotation matrix: 
+where $R$ is the Euler rotation matrix for Fig \ref{fig:boss-geom}:
 \[
 R=\left(\begin{array}{ccc}
-\cos\alpha{\rm cos}\gamma-{\rm sin}\alpha{\rm cos}\beta{\rm sin}\gamma & -{\rm sin\alpha{\rm cos\gamma}-{\rm cos\alpha{\rm cos\beta}{\rm sin}\gamma}} & {\rm sin\beta sin\gamma}\\
-{\rm {\rm sin}\alpha cos\beta}{\rm cos\gamma}+{\rm cos\alpha{\rm sin\gamma}} & {\rm cos}\alpha{\rm cos}\beta{\rm cos\gamma-\sin\alpha}\sin\gamma & -{\rm sin\beta cos\gamma}\\
-{\rm sin\alpha{\rm sin\beta}} & {\rm cos\alpha\sin\beta} & {\rm cos\beta}
-\end{array}\right),
+0.088 & 0.096 & 0.991\\
+0.219 & -0.973 & 0.075\\
+0.972 & 0.211 & -0.107
+\end{array}\right).
 \]
-where $\alpha$, $\beta$, $\gamma$ are the Euler angles which we
-rotate the Cartesian coordinates by the angles $\alpha$, $\beta$,
-$\gamma$ about the z-, x-, z-axis respectively. We use $\alpha=1.35717$,
-$\beta=1.67761$, $\gamma=1.64619$ for Fig \ref{fig:boss-geom}.
-\textcolor{red}{{*}Give actual numbers}
+
 
 \begin{figure}
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/boss_geom}
@@ -900,8 +937,8 @@ number of galaxies hosted by each halo is a sum of the number of central
 and satellite galaxies. Eqs \ref{eq:Ncen} and \ref{eq:Nsat} are
 not the only possible functional form for the HOD, and it is trivial
 to change this. However, these forms reproduce the clustering of the
-BOSS galaxies (\cite{2011ApJ...728..126W} \textcolor{red}{and others?})
-and we use them in what follows. 
+BOSS galaxies (\cite{2011ApJ...728..126W}) and we use them in what
+follows. 
 
 We place the central galaxies at the center, with a velocity equal
 to the halo velocity. We distribute satellite galaxies with an spherically
@@ -941,35 +978,48 @@ We generate galaxy mocks from the static snapshots at $z=0.55$. In
 Figure \ref{fig:xis}, we compare the correlations function $\xi(s)$
 with the one in \textcolor{black}{\cite{2013arXiv1303.4666A}, where
 $s$ is the redshift-space coordinate. Here, we use the following
-HOD parameters, $M_{cut}=12.9$, $M_{1}=14.05$,} $\alpha=0.9$,\textcolor{black}{{}
-$\kappa=1.13$, $\sigma=0.74$. }
+HOD parameters, $M_{cut}=12.9$, ,} $\alpha=1.013$,\textcolor{black}{{}
+$\kappa=1.0$, $\sigma=0.85$. }
 
 Note that we fit the average number density of galaxies to that of
-Anderson et al. 2013 as shown in \textcolor{red}{Figure XX}. In order
-to fit the number density, we randomly select galaxies after populating
-halos through HOD.
+\cite{2013arXiv1303.4666A} as shown in\textcolor{black}{{} Figure }\ref{fig:nz_gal}.
+In order to fit the number density, we randomly select galaxies after
+populating halos through HOD.
 
 \textcolor{black}{The correlation function computed from our sample
-mocks fits to the correlation function in Anderson et al. 2013 well
-on the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$.
-Due to the large smoothing scale (i.e., the grid size used to compute
-$\xi(s)$ is about $8h^{-1}{\rm Mpc}$), our BAO peak is more smoothed
-out than the one in Anderson et al. 2013.}
-
-{*}haven't made a plot for n(z), which is Figure XX in the text.
-
-{*}will compute $\chi^{2}$ for $\xi$.
+mocks fits to the correlation function in \cite{2013arXiv1303.4666A}
+well on the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$
+shown in Figure \ref{fig:xis}. }\textcolor{red}{We compute $\chi^{2}$
+for monopoles and quadrupoles separately for the correlation functions
+from the simulation at $z=0.55$. We obtain $\chi^{2}=35.46$ for
+monopole and $\chi^{2}=26.65$ for quadrupole. Note that we compute
+$\chi^{2}$ with the covariance matrices where $s\in[48.,200.]$.
+{*}need to do the same thing for the lightcone output...also vary
+the range for s and recompute full covariancec matrix.}
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xis_obs_wError}
+\includegraphics[width=0.5\columnwidth]{/Users/old_ts485/Dropbox/big-sims/Plots/nz_dr11_1}
 
-\caption{\label{fig:xis}Correlation function monopoles $\xi(s)$ of the mocks
-(green) and of the CMASS galaxy measured in \textcolor{red}{\citet{2013arXiv1303.4666A}}
-(blue) at $z=0.55$. The BAO peak of the mock correlation function
-is smoothed due to the wide window function. {*}Need to recompute
-the correlation function with a pair counting code (right now, the
-correlation function shown in the plot is computed with the periodic
-boundary condition).}
+\caption{\label{fig:nz_gal}A comparison of galaxy number densities before
+fitting to DR11 {[}dashed lines{]} and after {[}solid lines{]}. The
+blue solid line is $n(z)$ from DR11 (North) in \cite{2013arXiv1303.4666A}.
+The green and red lines are from the mocks at $z=0.55$ and the lightcone
+output respectively. The HOD parameters used to generate the mock
+catalogs can be found in text.}
+
+
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi0_obs}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi2_obs}
+
+\caption{\label{fig:xis}Correlation function monopoles $\xi^{(0)}(s)$ {[}left{]}
+and quadrupoles $\xi^{(2)}(s)$ {[}right{]} of the mocks (green) and
+DR11 in \textcolor{red}{\citet{2013arXiv1303.4666A}} (blue) at $z=0.55$.
+The HOD parameters used to generate the mock catalogs can be found
+in text. \textcolor{red}{{*}need to add xi computed from lightcone
+output.}}
 \end{figure}
 
 
@@ -978,23 +1028,78 @@ boundary condition).}
 
 In this paper, we study how reducing the number of time steps in the
 N-body simulations affects halo properties and statistical observables
-computed from the mocks generated by those approximated N-body simulations.
-Through several convergence tests described in Section 3, we find
-that systematic differences on halo properties due to the approximated
-gravitational dynamics give little effects on statistical observables.
-Especially, the agreement between the full N-body simulation (i.e.,
-the 450/5 simulation) and the approximated simulations on halo bias
-is within 1\textasciitilde{}2\% after the mass adjustment. In Section
-4, we generate galaxy mocks from the sample of the 300/2 simulation
-at $z=0.55$ in order to compare our result with the correlation function
-appeared in \cite{2013arXiv1303.4666A}. The overall agreement on
-the scale between $30h^{-1}{\rm Mpc}$ and $80h^{-1}{\rm Mpc}$ is
-well within the error in the measurement.
+such as galaxy correlation functions. Through several convergence
+tests described in Section 3, we find that systematic differences
+on halo properties due to the approximated gravitational dynamics
+give little effects on statistical observables. Especially, the agreement
+between the full N-body simulation (i.e., the 450/5 simulation) and
+the approximated simulations on halo bias is within 1\textasciitilde{}2\%
+after the mass adjustment. In Section 4, we show how to construct
+an output with smooth redshift distribution (i.e., lightcone). In
+Section 5, we generate galaxy mocks from the sample of the 300/2 simulation
+at $z=0.55$ and the lightcone output in order to compare our result
+with the correlation function appeared in \cite{2013arXiv1303.4666A}.
+The overall agreement on the scale between $30h^{-1}{\rm Mpc}$ and
+$80h^{-1}{\rm Mpc}$ is well within the error in the measurement.
 
 From the results we show in this paper, we conclude that the approximated
 N-body simulations can capture necessary physics to the current and
 future galaxy spectroscopic surveys and will be effective enough to
 achieve the precision required to those surveys.
+
+1/ Present the results of the time step increases : We present a quantitative
+study of the impact of time step sizes on the halo and matter density
+fields. Our code has two adjustable time stepping parameters - a global
+time step and a number of sub-cycles (equivalent to a particle-particle
+or tree force solve) to track that particle trajectories on small
+scales (probably needs to be reworked slightly). We consider cases
+where we increase the length of each time step by factors of 1.5 and
+3 respectively, as well as reducing the number of sub-cycles. Our
+fiducial choice is to use ... , resulting in a reduction of the simulation
+run time by ???. We summarize the key results below : (a) The halo
+masses tend to be underestimated in these cases, as one might expect
+because ... . However, this trend may be calibrated with smaller simulations
+and corrected, recovering the halo masses to <>\%. The halo mass function
+is correctly recovered to <> for masses > <>. (a) The halo velocities
+and positions are recovered to better than <> with a scatter of <>.
+(a) The clustering of these halos is correctly recovered to better
+than ??\% on scales below k < ???. (a) We find that the number of
+sub-cycles makes almost no difference to any of our final results.
+
+2/ Present the results of the light cone analysis : We also consider
+the redshift sampling required to construct light cone outputs. In
+real space, we find that moving halos over a \textbackslash{}Delta
+z interval (at z=0.15) (is this the correct way to say this, or should
+it be eg. \textbackslash{}delta t/age of Universe -- which I don't
+think we hold constant) correctly recovers their positions to within
+<>. The power spectra are correctly recovered to better than... for
+k < ???. This worsens in redshift space to ...
+
+We suggest shifting over redshift intervals no larger than..... Our
+fiducial choice is ....
+
+3/ Compare our approach to previous work
+
+The biggest difference here is with LPT based approaches -- point
+out differences. Point out that we are closer to the full N-body approach
+but that we can gain significant time savings (and therefore run more
+simulations) if our goal is to focus on large scales. These can be
+done however controlling systematic effects.
+
+4/ Present the BOSS simulations: As a representative example of our
+method, we build a set of mock BOSS simulations. We have constructed
+a set of <> mocks matching the CMASS galaxy sample.... <say a little
+more here -- 2 complete North and South mocks per box, that we match
+the large scale clustering.. > All the simulations (halo catalogs
+etc) will be released with the publication of this paper. These simulations
+are ideal for calibrating systematic errors, testing out full analysis
+pipelines. These will be presented in future papers.
+
+5/ Future simulations :
+
+A short description here -- what we're running, where we got the time
+from. Don't get into too many details, just point out highlights.
+I'd crib from ALCC proposal here.
 
 
 \section*{Acknowledgement}
