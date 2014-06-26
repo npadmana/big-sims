@@ -956,7 +956,7 @@ reference "fig:HaloProperty_step"
  The simulations with a smaller number of global time steps (150) display
  significantly more scatter; they also show a small bias in the speed.
  With 300 global time steps, the results are significantly improved; the
- velocity bias is almost entirely removed and the scatter is sigificantly
+ velocity bias is almost entirely removed and the scatter is significantly
  reduced.
  The standard deviation in the differences in halo distances is matched
  in these cases to better than 
@@ -1033,8 +1033,8 @@ reference "fig:mass-scatter1"
  shows that the halo masses in the 450/5 and 300/2 simulations have linear
  relation with the slope being one.
  So, most of halos in the 300/2 simulation have the same mass as the ones
- in the 450/5 simulaion.
- Since the number of sub-cylces do not affect to halo positions and velosities
+ in the 450/5 simulation.
+ Since the number of sub-cycles do not affect to halo positions and velocities
  as shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1042,7 +1042,7 @@ reference "fig:HaloProperty_step"
 
 \end_inset
 
-, the 300/2 timestep is our choice to save the simulation time while keeping
+, the 300/2 time step is our choice to save the simulation time while keeping
  the halo properties almost identical to the 450/5 simulation.
 \end_layout
 
@@ -2872,7 +2872,7 @@ reference "fig:xi_halo"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2930,11 +2930,11 @@ A comparison of halo number densities as a function of redshift from the
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/xi_halo.pdf
+	filename ../Plots/xi_halo.pdf
 	width 100col%
 
 \end_inset
@@ -3162,7 +3162,7 @@ R=\left(\begin{array}{ccc}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3561,7 +3561,9 @@ reference "fig:xis"
 \end_inset
 
 .
- We compute 
+ 
+\color red
+We compute 
 \begin_inset Formula $\chi^{2}$
 \end_inset
 
@@ -3571,6 +3573,26 @@ reference "fig:xis"
 \end_inset
 
 .
+ We obtain 
+\begin_inset Formula $\chi^{2}=35.46$
+\end_inset
+
+ for monopole and 
+\begin_inset Formula $\chi^{2}=26.65$
+\end_inset
+
+ for quadrupole.
+ Note that we compute 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ with the covariance matrices where 
+\begin_inset Formula $s\in[48.,200.]$
+\end_inset
+
+.
+ *need to do the same thing for the lightcone output...also vary the range
+ for s and recompute full covariance matrix.
 \end_layout
 
 \begin_layout Standard
@@ -3581,7 +3603,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/nz_dr11_1.pdf
+	filename ../Plots/nz_dr11_1.pdf
 	lyxscale 50
 	width 50col%
 
@@ -3640,7 +3662,7 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
