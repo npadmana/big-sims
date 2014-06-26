@@ -956,7 +956,7 @@ reference "fig:HaloProperty_step"
  The simulations with a smaller number of global time steps (150) display
  significantly more scatter; they also show a small bias in the speed.
  With 300 global time steps, the results are significantly improved; the
- velocity bias is almost entirely removed and the scatter is sigificantly
+ velocity bias is almost entirely removed and the scatter is significantly
  reduced.
  The standard deviation in the differences in halo distances is matched
  in these cases to better than 
@@ -1033,8 +1033,8 @@ reference "fig:mass-scatter1"
  shows that the halo masses in the 450/5 and 300/2 simulations have linear
  relation with the slope being one.
  So, most of halos in the 300/2 simulation have the same mass as the ones
- in the 450/5 simulaion.
- Since the number of sub-cylces do not affect to halo positions and velosities
+ in the 450/5 simulation.
+ Since the number of sub-cycles do not affect to halo positions and velocities
  as shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1042,7 +1042,7 @@ reference "fig:HaloProperty_step"
 
 \end_inset
 
-, the 300/2 timestep is our choice to save the simulation time while keeping
+, the 300/2 time step is our choice to save the simulation time while keeping
  the halo properties almost identical to the 450/5 simulation.
 \end_layout
 
@@ -3592,7 +3592,7 @@ We compute
 
 .
  *need to do the same thing for the lightcone output...also vary the range
- for s and recompute full covariancec matrix.
+ for s and recompute full covariance matrix.
 \end_layout
 
 \begin_layout Standard
