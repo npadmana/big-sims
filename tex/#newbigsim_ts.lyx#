@@ -620,7 +620,7 @@ reference "fig:mass-scatter1"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1182,8 +1182,6 @@ A comparison of the positions [left] and velocities [right] of halos matched
 The agreement with 300 time steps is very good, with a negligible difference
  from the number of sub-cycles.
  
-\color red
-*Is the unit for the velocity [km/s] or with any h's? (Ask Salman and Katrin)
 \end_layout
 
 \end_inset
@@ -2006,20 +2004,6 @@ and
 
 \end_layout
 
-\begin_layout Standard
-
-\color blue
-NOTE: What other redshift values were used here to determine these fits?
- What is the overall accuracy to which M_re now matches the halo masses
- for the 450/5 run?
-\end_layout
-
-\begin_layout Standard
-
-\color blue
-NOTE: STOP
-\end_layout
-
 \begin_layout Subsubsection
 Observables
 \end_layout
@@ -2569,8 +2553,9 @@ reference "fig:power-lightcone"
 \end_layout
 
 \begin_layout Standard
-A parameter when building light cones by stitching static snapshots together
- is how large 
+A parameter when building 
+\color black
+light cones by stitching static snapshots together is how large 
 \begin_inset Formula $\Delta z$
 \end_inset
 
@@ -2584,10 +2569,8 @@ reference "fig:power-lightcone2"
 
  test this in both real and redshift space; in redshift space, we assume
  the velocity of the object is unchanged between the snapshots.
- 
-\color red
-We see that the agreement in real space is within 1% even for the case of
- shifting for 
+ We see that the agreement in real space is within 1% even for the case
+ of shifting for 
 \begin_inset Formula $\Delta z=0.25$
 \end_inset
 
@@ -2601,7 +2584,7 @@ We see that the agreement in real space is within 1% even for the case of
  differences at different redshifts shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:nz_halo"
+reference "fig:vel_hist_expFac"
 
 \end_inset
 
@@ -2614,8 +2597,15 @@ reference "fig:nz_halo"
  in the left panel.
  By scaling with the expansion factor, the velocity differences at different
  redshifts become smaller.
- Figure XX shows the power spectra recomputed with the velocity multiplied
- by the ratio of 
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:shift-expFac"
+
+\end_inset
+
+ shows the power spectra recomputed with the velocity multiplied by the
+ ratio of 
 \begin_inset Formula $a(z)/a(z=0.15)$
 \end_inset
 
@@ -2624,7 +2614,12 @@ reference "fig:nz_halo"
 \end_inset
 
  is the redshift of the simulation.
- XXX
+ The clustering in redshift-space is improved siginificantly that the overall
+ agreement becomes within 1% on k < 
+\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2632,7 +2627,7 @@ reference "fig:nz_halo"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2693,11 +2688,11 @@ In this figure, we use the halo matter cross power spectra at
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/test.pdf
+	filename ../Plots/test.pdf
 	width 100col%
 
 \end_inset
@@ -2753,7 +2748,7 @@ I could not fix the x-label for the left panel:(
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2813,70 +2808,15 @@ Comparisons of the velocities of halos matched across simulations at different
 \end_layout
 
 \begin_layout Standard
-
-\color red
-Finally, we compare halo number densities 
-\begin_inset Formula $n(z)$
-\end_inset
-
- as a function of redshift from the simulation at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
- and the lightcone output shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:nz_halo"
-
-\end_inset
-
-.
- As expected, 
-\begin_inset Formula $n(z)$
-\end_inset
-
- at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
- is constant across redshift, while 
-\begin_inset Formula $n(z)$
-\end_inset
-
- from the lightcone output decreases as redshift is larger.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:xi_halo"
-
-\end_inset
-
- shows correlation functions computed from the halos used in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:xi_halo"
-
-\end_inset
-
-.
- Even though 
-\begin_inset Formula $n(z)$
-\end_inset
-
- from two different outputs are different, the correlation functions do
- not show any difference in both real-space and redshift-space.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /Users/old_ts485/Dropbox/big-sims/Plots/nz_halo.pdf
+	filename ../Plots/shifting_s_expFac_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2890,105 +2830,44 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:nz_halo"
+name "fig:shift-expFac"
 
 \end_inset
 
-A comparison of halo number densities as a function of redshift from the
- simulation at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
- [blue] and the lightcone output stitched every 
-\begin_inset Formula $\Delta z=0.05$
-\end_inset
-
- simulation [green].
- We use halos whose masses are greater than 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/xi_halo.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:xi_halo"
-
-\end_inset
-
-Comparisons of halo correlation functions in real-space [left] and redshift-spac
-e [right].
- We use halos whose masses are greater than 
-\begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
-\end_inset
-
- from 
-\begin_inset Formula $z=0.4$
-\end_inset
-
- to 
-\begin_inset Formula $z=0.7$
-\end_inset
-
-.
- The blue lines are the correlation functions computed from the simulation
- at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
-, while the green lines are from the lightcone output.
- Even though 
-\begin_inset Formula $n(z)$
-\end_inset
-
- is different as shown in Figure 
+Ratio of halo matter cross power spectra in redshift space as shown in Figure
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:nz_halo"
+reference "fig:power-lightcone2"
 
 \end_inset
 
-, the correlation functions show almost no difference.
+.
+ The only difference is that here we use the velocity field multiplied by
+ th ratio of the expansion factor 
+\begin_inset Formula $a(z)/a(z=0.15)$
+\end_inset
+
+ (where z is the redshift shown in the figure) to compute the halo positions
+ in redshift-space.
+ The denominator is the cross power spectra at 
+\begin_inset Formula $z=0.15,$
+\end_inset
+
+where we use the halo density field in redshift space.
+ For all cases, we use the DM density field in real space at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -3064,9 +2943,9 @@ reference "fig:boss-geom"
 \end_inset
 
  particles, corresponding to a particle mass of 
-\color red
-?????
-\color inherit
+\begin_inset Formula $10^{11}{\rm M_{\odot}}$
+\end_inset
+
 .
  The characteristic halo mass for BOSS galaxies corresponds to 
 \begin_inset Formula $10^{13}M_{\odot}$
@@ -3074,12 +2953,12 @@ reference "fig:boss-geom"
 
 , which we resolve with 
 \color red
-????
+100
 \color inherit
  particles.
  We keep all halos down to 
 \color red
-???
+40
 \color inherit
  particles corresponding to a halo mass of 
 \color red
@@ -3162,7 +3041,7 @@ R=\left(\begin{array}{ccc}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3348,7 +3227,9 @@ where
 \begin_inset Formula $\rho_{s}$
 \end_inset
 
- is the density at the characteristic scale 
+ is the density at the char
+\color black
+acteristic scale 
 \begin_inset Formula $r_{s}=R_{vir}/c$
 \end_inset
 
@@ -3362,8 +3243,6 @@ where
 
  determines how centrally concentrated the profile is.
  
-\color red
-
 \begin_inset Formula $R_{vir}$
 \end_inset
 
@@ -3561,38 +3440,34 @@ reference "fig:xis"
 \end_inset
 
 .
- 
-\color red
-We compute 
+ We compute 
 \begin_inset Formula $\chi^{2}$
 \end_inset
 
- for monopoles and quadrupoles separately for the correlation functions
- from the simulation at 
+ for monopoles and quadrupoles from the simulation at 
 \begin_inset Formula $z=0.55$
 \end_inset
 
-.
+ and the light cone output.
  We obtain 
-\begin_inset Formula $\chi^{2}=35.46$
+\begin_inset Formula $\chi^{2}=23.4$
 \end_inset
 
- for monopole and 
-\begin_inset Formula $\chi^{2}=26.65$
+ for the simulation at 
+\begin_inset Formula $z=0.55$
 \end_inset
 
- for quadrupole.
- Note that we compute 
-\begin_inset Formula $\chi^{2}$
+ and 
+\begin_inset Formula $\chi^{2}=25.0$
 \end_inset
 
- with the covariance matrices where 
-\begin_inset Formula $s\in[48.,200.]$
+ for the light cone output.
+ The degree of freedom here is 14 where 
+\begin_inset Formula $s\in[30h^{-1}{\rm Mpc},78h^{-1}{\rm Mpc}]$
 \end_inset
 
 .
- *need to do the same thing for the lightcone output...also vary the range
- for s and recompute full covariance matrix.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3603,7 +3478,15 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/nz_dr11_1.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/nz_dr11_N.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/nz_dr11_S.pdf
 	lyxscale 50
 	width 50col%
 
@@ -3662,7 +3545,7 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3725,8 +3608,6 @@ citet{2013arXiv1303.4666A}
 .
  The HOD parameters used to generate the mock catalogs can be found in text.
  
-\color red
-*need to add xi computed from lightcone output.
 \end_layout
 
 \end_inset
@@ -3744,129 +3625,142 @@ Discussion and Summary
 \end_layout
 
 \begin_layout Standard
-In this paper, we study how reducing the number of time steps in the N-body
- simulations affects halo properties and statistical observables such as
- galaxy correlation functions.
- Through several convergence tests described in Section 3, we find that
- systematic differences on halo properties due to the approximated gravitational
- dynamics give little effects on statistical observables.
- Especially, the agreement between the full N-body simulation (i.e., the 450/5
- simulation) and the approximated simulations on halo bias is within 1~2%
- after the mass adjustment.
- In Section 4, we show how to construct an output with smooth redshift distribut
-ion (i.e., lightcone).
- In Section 5, we generate galaxy mocks from the sample of the 300/2 simulation
- at 
-\begin_inset Formula $z=0.55$
+We present a quantitative study of the impact of time step sizes on the
+ halo and matter density fields.
+ Our code has two adjustable time stepping parameters - a global time step
+ and a number of sub-cycles (responsible for a particle-particle interactions)
+ to track that particle trajectories on small scales.
+ We consider cases where we increase the length of each time step by factors
+ of 1.5 and 3 respectively, as well as reducing the number of sub-cycles.
+ Our fiducial choice is to use using 300 global time steps and 2 sub-cycles
+ (increasing the length of the global time step by a factor of 1.5 and that
+ of the sub-cycles by a factor of 2.5), resulting in a reduction of the simulatio
+n run time by 4 times less.
+ We summarize the key results below: 
+\end_layout
+
+\begin_layout Standard
+(a) The halo masses tend to be underestimated in these cases, as one might
+ expect because reducing the number of time steps produces halos with less
+ substructure and a more diffuse distribution of mass.
+ However, this trend may be calibrated with smaller simulations and corrected,
+ recovering the halo masses to 98%.
+ The halo mass function is correctly recovered fully for masses above 
+\begin_inset Formula $10^{12.8}{\rm M_{\odot}}$
 \end_inset
 
- and the lightcone output in order to compare our result with the correlation
- function appeared in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2013arXiv1303.4666A"
+ .
+ 
+\end_layout
 
-\end_inset
-
-.
- The overall agreement on the scale between 
-\begin_inset Formula $30h^{-1}{\rm Mpc}$
+\begin_layout Standard
+(b) 
+\color black
+The halo velocities and positions are recovered with a scatter of 
+\begin_inset Formula $0.08[h^{-1}{\rm Mpc}]$
 \end_inset
 
  and 
-\begin_inset Formula $80h^{-1}{\rm Mpc}$
+\begin_inset Formula $12.8[{\rm km/s}]$
 \end_inset
 
- is well within the error in the measurement.
+ respectively for the simulation of our fiducial choice.
+ 
 \end_layout
 
 \begin_layout Standard
-From the results we show in this paper, we conclude that the approximated
- N-body simulations can capture necessary physics to the current and future
- galaxy spectroscopic surveys and will be effective enough to achieve the
- precision required to those surveys.
+(c) The clustering of these halos is correctly recovered to better than
+ 1% on scales below k < 
+\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+\end_inset
+
+ in real-space and k < 
+\begin_inset Formula $0.5[h{\rm Mpc^{-1}}]$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-1/ Present the results of the time step increases : We present a quantitative
- study of the impact of time step sizes on the halo and matter density fields.
- Our code has two adjustable time stepping parameters - a global time step
- and a number of sub-cycles (equivalent to a particle-particle or tree force
- solve) to track that particle trajectories on small scales (probably needs
- to be reworked slightly).
- We consider cases where we increase the length of each time step by factors
- of 1.5 and 3 respectively, as well as reducing the number of sub-cycles.
- Our fiducial choice is to use ...
- , resulting in a reduction of the simulation run time by ???.
- We summarize the key results below : (a) The halo masses tend to be underestima
-ted in these cases, as one might expect because ...
- .
- However, this trend may be calibrated with smaller simulations and corrected,
- recovering the halo masses to <>%.
- The halo mass function is correctly recovered to <> for masses > <>.
- (a) The halo velocities and positions are recovered to better than <> with
- a scatter of <>.
- (a) The clustering of these halos is correctly recovered to better than
- ??% on scales below k < ???.
- (a) We find that the number of sub-cycles makes almost no difference to
+(d) We find that the number of sub-cycles makes almost no difference to
  any of our final results.
 \end_layout
 
 \begin_layout Standard
-2/ Present the results of the light cone analysis : We also consider the
- redshift sampling required to construct light cone outputs.
- In real space, we find that moving halos over a 
-\backslash
-Delta z interval (at z=0.15) (is this the correct way to say this, or should
- it be eg.
+We also consider the redshift sampling required to construct light cone
+ outputs.
  
-\backslash
-delta t/age of Universe -- which I don't think we hold constant) correctly
- recovers their positions to within <>.
- The power spectra are correctly recovered to better than...
- for k < ???.
- This worsens in redshift space to ...
+\color black
+In real space, we find that moving halos over a 
+\begin_inset Formula $\Delta z=0.1$
+\end_inset
+
+ interval correctly recovers their positions from a scatter of 
+\begin_inset Formula $0.25[h^{-1}{\rm Mpc}]$
+\end_inset
+
+ to 
+\begin_inset Formula $0.09[h^{-1}{\rm Mpc}]$
+\end_inset
+
+.
+ The power spectra are correctly recovered to better than 1% for k < 
+\begin_inset Formula $0.5[h{\rm Mpc^{-1}]}$
+\end_inset
+
+ for 
+\begin_inset Formula $\Delta z=0.25$
+\end_inset
+
+.
+ This worsens in redshift space to 2% up to k < 
+\begin_inset Formula $0.2[h{\rm Mpc^{-1}]}$
+\end_inset
+
+.
+ The agreement is, however, improved to 1% for k < 
+\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+\end_inset
+
+ by using the velocity scaled by the expansion factor 
+\begin_inset Formula $a(z)$
+\end_inset
+
+.
+ Our fiducial choice to construct light cone outputs is 
+\begin_inset Formula $\Delta z=0.05$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-We suggest shifting over redshift intervals no larger than.....
- Our fiducial choice is ....
-\end_layout
 
-\begin_layout Standard
-3/ Compare our approach to previous work
-\end_layout
-
-\begin_layout Standard
-The biggest difference here is with LPT based approaches -- point out difference
-s.
- Point out that we are closer to the full N-body approach but that we can
- gain significant time savings (and therefore run more simulations) if our
- goal is to focus on large scales.
+\color black
+The biggest difference here with LPT based approaches is the number of time
+ steps and the short-range solvers using particle-particle interactions.
+ Our approach is closer to the full N-body simulation, but we can gain significa
+nt time savings if our goal is to focus on large scales.
  These can be done however controlling systematic effects.
 \end_layout
 
 \begin_layout Standard
-4/ Present the BOSS simulations: As a representative example of our method,
- we build a set of mock BOSS simulations.
- We have constructed a set of <> mocks matching the CMASS galaxy sample....
- <say a little more here -- 2 complete North and South mocks per box, that
- we match the large scale clustering..
- > All the simulations (halo catalogs etc) will be released with the publication
- of this paper.
+As a representative example of our method, we build a set of mock BOSS simulatio
+ns.
+ We have constructed a set of 8 mocks matching the CMASS galaxy sample:
+ 2 complete North and South mocks per box for four boxes.
+ All the simulations will be released with the publication of this paper.
  These simulations are ideal for calibrating systematic errors, testing
  out full analysis pipelines.
  These will be presented in future papers.
 \end_layout
 
 \begin_layout Standard
-5/ Future simulations :
-\end_layout
 
-\begin_layout Standard
+\color red
 A short description here -- what we're running, where we got the time from.
  Don't get into too many details, just point out highlights.
- I'd crib from ALCC proposal here.
+ I'd grab from ALCC proposal here.
 \end_layout
 
 \begin_layout Section*
