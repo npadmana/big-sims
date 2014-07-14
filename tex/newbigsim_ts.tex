@@ -48,10 +48,18 @@ Steve Rangel}
 
 \abstract{We introduce and test an approximate scheme for generating mock catalogs
 for large-scale structure measurements in galaxy surveys, specializing
-in this work to the Baryon Oscillation Spectroscopic Survey. things
-to add later...A brief description of the approximation scheme, tests
-and the accuracy we reach, and some comments about the timings of
-the tests and the BOSS samples.}
+in this work to the Baryon Oscillation Spectroscopic Survey. Our N-body
+simulations are consist of two components: a long time step for sloving
+the PM force and a set of short range sub-cycle steps for a direct
+particle-particle interactions. One of our goals is reducing the number
+of time steps while keeping halo structure accurately. We quantitatively
+evaluate the effects of reducing the number of time steps on halo
+properties and found that we can reduce the simulation run time by
+4 times less. We recover the halo masses to 98\% and the clustering
+of halos less than 1\% on k < $1[h{\rm Mpc^{-1}]}$ in real-space.
+We also show how to build light cone outputs with smooth redshift
+distribution and how we can recover redshift-space by using velocity
+field scaled by the expansion factor.}
 
 \maketitle
 
@@ -69,45 +77,6 @@ volume, which is computationally expensive. Many studies have been
 done recently on the implementation of large N-body simulations \cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S}.
 Besides the large volume required for the N-body simulations, we need
 many realizations to achieve the precision required for those measurements.
-
-There are several reasons for why we need large number of N-body simulations.
-One is to understand and to calibrate systematics caused by non-linear
-gravitational evolution and galaxy formation. Since those systematics
-are cosmology dependent, ideally we want to generate galaxy mocks
-from N-body simulations with various cosmologies. Another reason is
-to reduce noise for a covariance matrix estimation. Even when 50 realizations
-are used, the directly estimated covariance matrix is still noisy.
-Since it is unrealistic to run N-body simulations enough number of
-times to obtain a smooth directly estimated covariance matrix, there
-have been several efforts to obtain a smooth covariance matrix mainly
-in two directions. One approach is to estimate a covariance matrix
-from theory or by fitting to a modified form of the Gaussian covariance
-matrix \cite{2005MNRAS.362..505C,2006MNRAS.371.1188H,2008MNRAS.389..766P,2009MNRAS.396...19N,2010MNRAS.401.2148P,2011MNRAS.415.2876B,2012JCAP...04..019D,2012MNRAS.427.2146X}.
-There are many different methods to estimate, but a peculiarity common
-to all the methods included in this approach requires some assumptions
-to compute the covariance matrix. Those assumptions often prevent
-those covariance matrices from properly accounting the effects due
-to non-linear gravitational evolution such as non-gaussianities and
-non-localities.
-
-Other approach is generating enough number of galaxy mocks by using
-2nd Order Perturbation Theory (2LPT) and computing a covariance matrix
-estimation directly \cite{2002MNRAS.329..629S,2014arXiv1401.4171M,2013MNRAS.428.1036M}.
-Using 2LPT makes generation of galaxy mocks significantly faster than
-the full N-body simulations, because 2LPT allows us to compute final
-positions of particles only with their initial positions without any
-steps in-between. The aim of our method is the same as this approach
-in the sense that we want to shorten computational time to generate
-those mocks. The problem of using 2LPT is that those simulations cannot
-capture non-linear gravitational evolution at the level of precision
-required to resolve halos accurately and therefore this approach requires
-to tune halo definitions (i.e., the linking length for the Friends-of-Friends
-(FOF) algorithm) and halo masses. Also, it is hard to resolve small
-halos in this approach, and therefore galaxies which reside in those
-small halos are placed on randomly selected dark matter particles
-in the mocks. It is, however, important to keep relatively high mass
-resolution to understand the systematics caused by non-linear gravitational
-evolution.
 
 One of the simplest adjustments to an N-body simulation is to adjust
 the length of each individual time step. This is the approach taken
@@ -361,7 +330,7 @@ We have checked that the trends discussed here are not affected by
 redshift.
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content2_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-content} Itemization of unmatched halos (from the
 450/5 and 300/2 simulations at $z=0.15$) shown as cumulative number
@@ -1054,9 +1023,10 @@ of this paper. These simulations are ideal for calibrating systematic
 errors, testing out full analysis pipelines. These will be presented
 in future papers.
 
-\textcolor{red}{A short description here -- what we're running, where
-we got the time from. Don't get into too many details, just point
-out highlights. I'd grab from ALCC proposal here.}
+We will generate the simulation suite with the volume of $(4h^{-1}{\rm Gpc})^{3}$
+with 68 billion particles each for 5 different cosmological models.
+All the simulation will be run at Argonne National Laboratory. \textcolor{red}{(I
+was not sure how much detail I should put here...)}
 
 
 \section*{Acknowledgement}

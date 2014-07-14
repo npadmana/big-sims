@@ -89,9 +89,23 @@ Tomomi Sunayama, Nikhil Padmanabhan, Katrin Heitmann, Salman Habib, Steve
 We introduce and test an approximate scheme for generating mock catalogs
  for large-scale structure measurements in galaxy surveys, specializing
  in this work to the Baryon Oscillation Spectroscopic Survey.
- things to add later...A brief description of the approximation scheme, tests
- and the accuracy we reach, and some comments about the timings of the tests
- and the BOSS samples.
+ Our N-body simulations are consist of two components: a long time step
+ for sloving the PM force and a set of short range sub-cycle steps for a
+ direct particle-particle interactions.
+ One of our goals is reducing the number of time steps while keeping halo
+ structure accurately.
+ We quantitatively evaluate the effects of reducing the number of time steps
+ on halo properties and found that we can reduce the simulation run time
+ by 4 times less.
+ We recover the halo masses to 98% and the clustering of halos less than
+ 1% on k < 
+\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+\end_inset
+
+ in real-space.
+ We also show how to build light cone outputs with smooth redshift distribution
+ and how we can recover redshift-space by using velocity field scaled by
+ the expansion factor.
 \end_layout
 
 \begin_layout Section
@@ -119,63 +133,6 @@ key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..
 .
  Besides the large volume required for the N-body simulations, we need many
  realizations to achieve the precision required for those measurements.
-\end_layout
-
-\begin_layout Standard
-There are several reasons for why we need large number of N-body simulations.
- One is to understand and to calibrate systematics caused by non-linear
- gravitational evolution and galaxy formation.
- Since those systematics are cosmology dependent, ideally we want to generate
- galaxy mocks from N-body simulations with various cosmologies.
- Another reason is to reduce noise for a covariance matrix estimation.
- Even when 50 realizations are used, the directly estimated covariance matrix
- is still noisy.
- Since it is unrealistic to run N-body simulations enough number of times
- to obtain a smooth directly estimated covariance matrix, there have been
- several efforts to obtain a smooth covariance matrix mainly in two directions.
- One approach is to estimate a covariance matrix from theory or by fitting
- to a modified form of the Gaussian covariance matrix 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2005MNRAS.362..505C,2006MNRAS.371.1188H,2008MNRAS.389..766P,2009MNRAS.396...19N,2010MNRAS.401.2148P,2011MNRAS.415.2876B,2012JCAP...04..019D,2012MNRAS.427.2146X"
-
-\end_inset
-
-.
- There are many different methods to estimate, but a peculiarity common
- to all the methods included in this approach requires some assumptions
- to compute the covariance matrix.
- Those assumptions often prevent those covariance matrices from properly
- accounting the effects due to non-linear gravitational evolution such as
- non-gaussianities and non-localities.
-\end_layout
-
-\begin_layout Standard
-Other approach is generating enough number of galaxy mocks by using 2nd
- Order Perturbation Theory (2LPT) and computing a covariance matrix estimation
- directly 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2002MNRAS.329..629S,2014arXiv1401.4171M,2013MNRAS.428.1036M"
-
-\end_inset
-
-.
- Using 2LPT makes generation of galaxy mocks significantly faster than the
- full N-body simulations, because 2LPT allows us to compute final positions
- of particles only with their initial positions without any steps in-between.
- The aim of our method is the same as this approach in the sense that we
- want to shorten computational time to generate those mocks.
- The problem of using 2LPT is that those simulations cannot capture non-linear
- gravitational evolution at the level of precision required to resolve halos
- accurately and therefore this approach requires to tune halo definitions
- (i.e., the linking length for the Friends-of-Friends (FOF) algorithm) and
- halo masses.
- Also, it is hard to resolve small halos in this approach, and therefore
- galaxies which reside in those small halos are placed on randomly selected
- dark matter particles in the mocks.
- It is, however, important to keep relatively high mass resolution to understand
- the systematics caused by non-linear gravitational evolution.
 \end_layout
 
 \begin_layout Standard
@@ -781,19 +738,11 @@ eshold case, but at a reduced level.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/unmatchHalo2_content_300_2_z0.15.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../Plots/unmatchHalo2_content2_300_2_z0.15.pdf
 	lyxscale 50
 	width 50col%
 
@@ -963,10 +912,10 @@ reference "fig:HaloProperty_step"
 \begin_inset Formula $200h^{-1}{\rm kpc}$
 \end_inset
 
+
+\color black
 .
- 
-\color red
-The dashed lines represent the result from the simulations, while the solid
+ The dashed lines represent the result from the simulations, while the solid
  lines are the Gaussian fits, where the values for amplitude, expected value
  and variance are shown in Table X.
  Figure 
@@ -977,8 +926,7 @@ reference "fig:HaloProperty_step"
 \end_inset
 
  shows that the distribution of the differences in positions and velocities
- are almost Gaussian (if I find that the distribution fits to Gaussian perfectly
- by separating into different masses I will write about it).
+ are almost Gaussian.
 
 \color inherit
  As is clear from Figure 
@@ -1012,7 +960,7 @@ Note: There needs to be a short concluding discussion of the halo matching
 
 \begin_layout Standard
 
-\color red
+\color black
 As shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1047,6 +995,8 @@ reference "fig:HaloProperty_step"
 \end_layout
 
 \begin_layout Standard
+
+\color black
 \begin_inset Float figure
 placement h
 wide false
@@ -1054,6 +1004,8 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\color black
 \begin_inset Graphics
 	filename ../Plots/massSlice_z0.15.pdf
 	width 50col%
@@ -1064,6 +1016,8 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\color black
 \begin_inset Caption
 
 \begin_layout Plain Layout
@@ -2239,7 +2193,7 @@ reference "fig:HaloProperty_step"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2924,7 +2878,9 @@ We choose a simulation volume large enough to build a full-sky mock BOSS
 \begin_inset Formula $4000h^{-1}{\rm Mpc}$
 \end_inset
 
-, corresponding to a comoving distance to 
+,
+\color black
+ corresponding to a comoving distance to 
 \begin_inset Formula $z\sim0.8$
 \end_inset
 
@@ -2951,19 +2907,13 @@ reference "fig:boss-geom"
 \begin_inset Formula $10^{13}M_{\odot}$
 \end_inset
 
-, which we resolve with 
-\color red
-100
+, which we resolve with 100 particles.
+ We keep all halos down to 40 particles co
 \color inherit
- particles.
- We keep all halos down to 
-\color red
-40
-\color inherit
- particles corresponding to a halo mass of 
-\color red
-????
-\color inherit
+rresponding to a halo mass of 
+\begin_inset Formula $10^{12.6}{\rm M_{\odot}}$
+\end_inset
+
 .
  The simulations are started at 
 \color red
@@ -2974,11 +2924,9 @@ $z=????$
 \end_inset
 
  with simulation outputs every 
-\color red
-$
-\backslash
-Delta z=???$
-\color inherit
+\begin_inset Formula $\Delta z=0.05$
+\end_inset
+
 .
  At each of these steps, we store 
 \color red
@@ -3270,9 +3218,12 @@ acteristic scale
 \end_inset
 
  on mass and redshift (
-\color red
-citations
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2008JCAP...08..006M,2008MNRAS.390L..64D,2010arXiv1005.0411C,2011ApJ...740..102K,2013ApJ...766...32B,2001MNRAS.321..559B"
+
+\end_inset
+
 ).
  We adopt the form in 
 \begin_inset CommandInset citation
@@ -3474,7 +3425,7 @@ reference "fig:xis"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3545,7 +3496,7 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3756,11 +3707,15 @@ ns.
 \end_layout
 
 \begin_layout Standard
+We will generate the simulation suite with the volume of 
+\begin_inset Formula $(4h^{-1}{\rm Gpc})^{3}$
+\end_inset
 
+ with 68 billion particles each for 5 different cosmological models.
+ All the simulation will be run at Argonne National Laboratory.
+ 
 \color red
-A short description here -- what we're running, where we got the time from.
- Don't get into too many details, just point out highlights.
- I'd grab from ALCC proposal here.
+(I was not sure how much detail I should put here...)
 \end_layout
 
 \begin_layout Section*
