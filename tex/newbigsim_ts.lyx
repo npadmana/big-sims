@@ -86,26 +86,44 @@ Tomomi Sunayama, Nikhil Padmanabhan, Katrin Heitmann, Salman Habib, Steve
 \end_layout
 
 \begin_layout Abstract
-We introduce and test an approximate scheme for generating mock catalogs
- for large-scale structure measurements in galaxy surveys, specializing
- in this work to the Baryon Oscillation Spectroscopic Survey.
- Our N-body simulations are consist of two components: a long time step
- for sloving the PM force and a set of short range sub-cycle steps for a
- direct particle-particle interactions.
- One of our goals is reducing the number of time steps while keeping halo
- structure accurately.
- We quantitatively evaluate the effects of reducing the number of time steps
- on halo properties and found that we can reduce the simulation run time
- by 4 times less.
- We recover the halo masses to 98% and the clustering of halos less than
- 1% on k < 
-\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+Precision large scale structure measurements require large numbers of mock
+ catalogs of high fidelity to accurately assess the levels of systematic
+ effects.
+ We introduce and test an approximate scheme for generating mock catalogs
+ rapidly.
+ Our aim here is to reproduce the large scale structure and the gross properties
+ of dark matter halos with high accuracy while sacrificing the details of
+ the internal structures of halos for speed.
+ Our N-body code splits the evolution into global time steps for the long
+ range force interleaved with a number of sub-cycles for the short range
+ forces.
+ By adjusting both of these, we demonstrate recover the large scale probes
+ we consider, including individual halo masses to better than 2% and the
+ power spectrum to 
+\begin_inset Formula $k=1h^{-1}{\rm Mpc}$
 \end_inset
 
- in real-space.
- We also show how to build light cone outputs with smooth redshift distribution
- and how we can recover redshift-space by using velocity field scaled by
- the expansion factor.
+ to better than 1%, while requireing a factor of 4 less CPU time.
+ We also test the redshift spacing of outputs required to generate light
+ cone outputs.
+ We find that 
+\begin_inset Formula $\Delta z=0.05$
+\end_inset
+
+ outputs allow us to interpolate particle positions and velocities with
+ sufficient accuracy to reproduce the real and redshift space power spectra
+ to better than 1% (out to 
+\begin_inset Formula $k=1h^{-1}{\rm Mpc}$
+\end_inset
+
+).
+ Even with redshift spacing as large as 
+\begin_inset Formula $\Delta z=0.25$
+\end_inset
+
+, these errors only degrade on less than 2% in both real and redshift spaces.
+ As a demonstration of these ideas, we generate a suit of simulations matched
+ to the Baryon Oscillation Spectroscopic sample.
 \end_layout
 
 \begin_layout Section
@@ -126,7 +144,7 @@ c Instrument (MS-DESI).
  simulations 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S"
+key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C"
 
 \end_inset
 
@@ -158,11 +176,7 @@ key "2013MNRAS.428.1036M,2014arXiv1401.4171M"
  scales.
  While such approaches are invaluable for generating the large numbers of
  simulations required to build sample covariance matrices, it is harder
- to quantify the impact of the loss of accuracy on systematic tests [
-\color red
-rephrase somewhat
-\color inherit
-].
+ to quantify the impact of the loss of accuracy on systematic tests.
  Our N-body simulations are consist of two components: a long time step
  for solving the PM force and a set of short range sub-cycle steps for a
  direct particle-particle interaction.
@@ -171,8 +185,8 @@ rephrase somewhat
  distribution of galaxies.
  Our first goal in this paper is to work at a different end of the spectrum
  : we aim to accurately reproduce the details of the halo density field
- on large (k < ???, r>???) scales, sacrificing the small scale structure
- with large time steps.
+ on large scales, sacrificing the small scale structure with large time
+ steps.
  Our second goal, is to build a suite of simulations and related mock catalogs
  suitable for the Baryon Oscillation Spectroscopic Survey galaxy samples.
  These both serve as a demonstration of our approach, but will be useful
@@ -195,9 +209,29 @@ All simulations and calculations in this paper assume a
 \end_inset
 
 CDM cosmology with 
-\color red
-parameters XXX
-\color inherit
+\begin_inset Formula $\Omega_{m}=0.25$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega_{\Lambda}=0.75$
+\end_inset
+
+, 
+\begin_inset Formula $\Omega_{b}h^{2}=0.0224$
+\end_inset
+
+, 
+\begin_inset Formula $n_{s}=0.97$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma_{8}=0.8$
+\end_inset
+
+ and 
+\begin_inset Formula $h=0.72$
+\end_inset
+
 .
 \end_layout
 
@@ -738,7 +772,7 @@ eshold case, but at a reduced level.
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -878,13 +912,6 @@ reference "fig:HaloProperty_mass"
 \end_layout
 
 \begin_layout Standard
-
-\color blue
-NOTE: We should show an example halo from the simulations to make this point
- explicit.
-\end_layout
-
-\begin_layout Standard
 Figure
 \begin_inset space ~
 \end_inset
@@ -917,7 +944,14 @@ reference "fig:HaloProperty_step"
 .
  The dashed lines represent the result from the simulations, while the solid
  lines are the Gaussian fits, where the values for amplitude, expected value
- and variance are shown in Table X.
+ and variance are shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:amplitude"
+
+\end_inset
+
+.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -940,22 +974,6 @@ reference "fig:HaloProperty_step"
  Note that we observe the same trend in halo properties discussed here at
  different redshifts and along different axes.
  
-\end_layout
-
-\begin_layout Standard
-
-\color blue
-NOTE: These distribution should be done with each component separately,
- distances and speeds don't really give you what you want.
- Rewrite this paragraph when the distributions are available.--Done (by Tomomi)
-\end_layout
-
-\begin_layout Standard
-
-\color blue
-Note: There needs to be a short concluding discussion of the halo matching
- across the 450/5 and 300/2 simulations stating the actual halo numbers
- and why we are happy with using the 300/2 simulations up to this point.
 \end_layout
 
 \begin_layout Standard
@@ -1583,6 +1601,12 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:amplitude"
+
+\end_inset
+
 Values for amplitude 
 \begin_inset Formula $A$
 \end_inset
@@ -2006,7 +2030,7 @@ reference "fig:massFn_step"
  We compare the results before and after mass adjustment (left and right
  panels respectively).
  While the mass functions from the 250/3 and 150/2 simulations are suppressed
- more than10% on all mass ranges before mass adjustment, they are significantly
+ more than 10% on all mass ranges before mass adjustment, they are significantly
  improved after mass adjustment, especially on halo masses greater than
  
 \begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
@@ -2193,7 +2217,7 @@ reference "fig:HaloProperty_step"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2569,8 +2593,8 @@ reference "fig:shift-expFac"
 
  is the redshift of the simulation.
  The clustering in redshift-space is improved siginificantly that the overall
- agreement becomes within 1% on k < 
-\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+ agreement becomes within 1% on 
+\begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
 
 .
@@ -2581,7 +2605,7 @@ reference "fig:shift-expFac"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2646,8 +2670,17 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/test.pdf
-	width 100col%
+	filename ../Plots/test1.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/test2.pdf
+	lyxscale 50
+	width 50col%
 
 \end_inset
 
@@ -2683,8 +2716,6 @@ y.
 
 .
  
-\color red
-I could not fix the x-label for the left panel:(
 \end_layout
 
 \end_inset
@@ -2854,8 +2885,19 @@ key "2011AJ....142...72E"
 
 ), is a spectroscopic survey that aims to make percent level distance measuremen
 ts using the baryon acoustic oscillation technique.
- The low redshift (z < 0.7) distance measurements use two galaxy samples
- : the LOWZ (z < 0.45) and CMASS (z < 0.7) samples (
+ The low redshift (
+\begin_inset Formula $z<0.7$
+\end_inset
+
+) distance measurements use two galaxy samples : the LOWZ (
+\begin_inset Formula $z<0.45$
+\end_inset
+
+) and CMASS (
+\begin_inset Formula $z<0.7$
+\end_inset
+
+) samples (
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2014MNRAS.441...24A,2014MNRAS.440.2222T"
@@ -2937,9 +2979,18 @@ $z=????$
 
 \begin_layout Standard
 The BOSS angular geometry is split into two regions : one in the North Galactic
- Cap and one in the South Galactic Cap (Fig.???).
+ Cap and one in the South Galactic Cap (Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:boss-geom"
+
+\end_inset
+
+).
  Since we generate full-sky mocks, it is straightforward to embed two full
- non-overlapping BOSS surveys in a single mock realization (Fig 
+ non-overlapping BOSS surveys in a single mock realization (Fig.
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -2963,7 +3014,8 @@ reference "fig:boss-geom"
 \begin_inset Formula $R$
 \end_inset
 
- is the Euler rotation matrix for Fig 
+ is the Euler rotation matrix for Fig.
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -3021,10 +3073,6 @@ Demonstrating how we fit two non-overlapping BOSS volumes into the same
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3203,7 +3251,7 @@ acteristic scale
 \end_inset
 
  and 
-\begin_inset Formula $\rho_{cris}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$
+\begin_inset Formula $\rho_{crit}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$
 \end_inset
 
 
@@ -3212,19 +3260,7 @@ acteristic scale
 \begin_inset Formula $c$
 \end_inset
 
- is the speed of light here).There are several measurements of the dependence
- of the concentration parameter 
-\begin_inset Formula $c$
-\end_inset
-
- on mass and redshift (
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2008JCAP...08..006M,2008MNRAS.390L..64D,2010arXiv1005.0411C,2011ApJ...740..102K,2013ApJ...766...32B,2001MNRAS.321..559B"
-
-\end_inset
-
-).
+ is the speed of light here).
  We adopt the form in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3253,6 +3289,8 @@ where
 \end_inset
 
 .
+ There have been several studies about conecntration, those different expression
+s on concentration do not make difference for our purpose.
 \end_layout
 
 \begin_layout Standard
@@ -3425,7 +3463,7 @@ reference "fig:xis"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3483,10 +3521,6 @@ key "2013arXiv1303.4666A"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -3496,7 +3530,7 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3621,12 +3655,12 @@ The halo velocities and positions are recovered with a scatter of
 
 \begin_layout Standard
 (c) The clustering of these halos is correctly recovered to better than
- 1% on scales below k < 
-\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+ 1% on scales below 
+\begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
 
- in real-space and k < 
-\begin_inset Formula $0.5[h{\rm Mpc^{-1}}]$
+ in real-space and 
+\begin_inset Formula $k<0.5[h{\rm Mpc^{-1}}]$
 \end_inset
 
 .
@@ -3655,8 +3689,8 @@ In real space, we find that moving halos over a
 \end_inset
 
 .
- The power spectra are correctly recovered to better than 1% for k < 
-\begin_inset Formula $0.5[h{\rm Mpc^{-1}]}$
+ The power spectra are correctly recovered to better than 1% for 
+\begin_inset Formula $k<0.5[h{\rm Mpc^{-1}]}$
 \end_inset
 
  for 
@@ -3664,13 +3698,13 @@ In real space, we find that moving halos over a
 \end_inset
 
 .
- This worsens in redshift space to 2% up to k < 
-\begin_inset Formula $0.2[h{\rm Mpc^{-1}]}$
+ This worsens in redshift space to 2% up to 
+\begin_inset Formula $k<0.2[h{\rm Mpc^{-1}]}$
 \end_inset
 
 .
- The agreement is, however, improved to 1% for k < 
-\begin_inset Formula $1[h{\rm Mpc^{-1}]}$
+ The agreement is, however, improved to 1% for 
+\begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
 
  by using the velocity scaled by the expansion factor 
@@ -3711,11 +3745,15 @@ We will generate the simulation suite with the volume of
 \begin_inset Formula $(4h^{-1}{\rm Gpc})^{3}$
 \end_inset
 
- with 68 billion particles each for 5 different cosmological models.
- All the simulation will be run at Argonne National Laboratory.
- 
-\color red
-(I was not sure how much detail I should put here...)
+ with 68 billion particles each for 5 different cosmological models centered
+ at WMAP and Planck cosmologies with varied 
+\begin_inset Formula $\sigma_{8}$
+\end_inset
+
+.
+ Those simulations can be used to test for systematics as a function of
+ cosmology and halo properties.
+ These will be presented in future publications.
 \end_layout
 
 \begin_layout Section*

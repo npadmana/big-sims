@@ -47,20 +47,27 @@ Survey: An Approximate N-Body approach}
 Steve Rangel}
 
 
-\abstract{We introduce and test an approximate scheme for generating mock catalogs
-for large-scale structure measurements in galaxy surveys, specializing
-in this work to the Baryon Oscillation Spectroscopic Survey. Our N-body
-simulations are consist of two components: a long time step for sloving
-the PM force and a set of short range sub-cycle steps for a direct
-particle-particle interactions. One of our goals is reducing the number
-of time steps while keeping halo structure accurately. We quantitatively
-evaluate the effects of reducing the number of time steps on halo
-properties and found that we can reduce the simulation run time by
-4 times less. We recover the halo masses to 98\% and the clustering
-of halos less than 1\% on k < $1[h{\rm Mpc^{-1}]}$ in real-space.
-We also show how to build light cone outputs with smooth redshift
-distribution and how we can recover redshift-space by using velocity
-field scaled by the expansion factor.}
+\abstract{Precision large scale structure measurements require large numbers
+of mock catalogs of high fidelity to accurately assess the levels
+of systematic effects. We introduce and test an approximate scheme
+for generating mock catalogs rapidly. Our aim here is to reproduce
+the large scale structure and the gross properties of dark matter
+halos with high accuracy while sacrificing the details of the internal
+structures of halos for speed. Our N-body code splits the evolution
+into global time steps for the long range force interleaved with a number of sub-cycles for
+the short range forces. By adjusting both of these, we demonstrate
+recover the large scale probes we consider, including individual halo
+masses to better than 2\% and the power spectrum to $k=1h^{-1}{\rm Mpc}$
+to better than 1\%, while requireing a factor of 4 less CPU time.
+We also test the redshift spacing of outputs required to generate
+light cone outputs. We find that $\Delta z=0.05$ outputs allow us
+to interpolate particle positions and velocities with sufficient accuracy
+to reproduce the real and redshift space power spectra to better than
+1\% (out to $k=1h^{-1}{\rm Mpc}$). Even with redshift spacing as
+large as $\Delta z=0.25$, these errors only degrade on less than
+2\% in both real and redshift spaces. As a demonstration of these
+ideas, we generate a suit of simulations matched to the Baryon Oscillation
+Spectroscopic sample.}
 
 \maketitle
 
@@ -75,7 +82,7 @@ covered by those current and future spectroscopic galaxy surveys get
 larger, galaxy mocks necessary to the cosmological analysis also have
 to be generated from N-body simulations with the corresponding large
 volume, which is computationally expensive. Many studies have been
-done recently on the implementation of large N-body simulations \cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S}.
+done recently on the implementation of large N-body simulations \cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
 Besides the large volume required for the N-body simulations, we need
 many realizations to achieve the precision required for those measurements.
 
@@ -88,20 +95,20 @@ small numbers of time steps, accurately capturing the large scale
 density field, but losing information on small scales. While such
 approaches are invaluable for generating the large numbers of simulations
 required to build sample covariance matrices, it is harder to quantify
-the impact of the loss of accuracy on systematic tests {[}\textcolor{red}{rephrase
-somewhat}{]}. Our N-body simulations are consist of two components:
-a long time step for solving the PM force and a set of short range
-sub-cycle steps for a direct particle-particle interaction. The idea
-behind is reducing the number of both time steps as much as we can
-preserve enough mass resolution to correctly describe the large scale
-distribution of galaxies. Our first goal in this paper is to work
-at a different end of the spectrum : we aim to accurately reproduce
-the details of the halo density field on large (k < ???, r>???) scales,
-sacrificing the small scale structure with large time steps. Our second
-goal, is to build a suite of simulations and related mock catalogs
-suitable for the Baryon Oscillation Spectroscopic Survey galaxy samples.
-These both serve as a demonstration of our approach, but will be useful
-for evaluating systematic errors in these surveys.
+the impact of the loss of accuracy on systematic tests. Our N-body
+simulations are consist of two components: a long time step for solving
+the PM force and a set of short range sub-cycle steps for a direct
+particle-particle interaction. The idea behind is reducing the number
+of both time steps as much as we can preserve enough mass resolution
+to correctly describe the large scale distribution of galaxies. Our
+first goal in this paper is to work at a different end of the spectrum
+: we aim to accurately reproduce the details of the halo density field
+on large scales, sacrificing the small scale structure with large
+time steps. Our second goal, is to build a suite of simulations and
+related mock catalogs suitable for the Baryon Oscillation Spectroscopic
+Survey galaxy samples. These both serve as a demonstration of our
+approach, but will be useful for evaluating systematic errors in these
+surveys.
 
 In the following, we first briefly describe the mechanism of our approximated
 N-body simulations. In Section 3, we test and compare our method to
@@ -111,8 +118,10 @@ in our samples with galaxies and compute correlation functions based
 on BOSS Data Release 11, and compare it with the observed correlation
 function.
 
+
 All simulations and calculations in this paper assume a $\Lambda$CDM
-cosmology with \textcolor{red}{parameters XXX}.
+cosmology with $\Omega_{m}=0.25$, $\Omega_{\Lambda}=0.75$, $\Omega_{b}h^{2}=0.0224$,
+$n_{s}=0.97$, $\sigma_{8}=0.8$ and $h=0.72$.
 
 
 \section{HACC}
@@ -735,7 +744,7 @@ differences at different redshifts become smaller. Figure \ref{fig:shift-expFac}
 shows the power spectra recomputed with the velocity multiplied by
 the ratio of $a(z)/a(z=0.15)$, where $z$ is the redshift of the
 simulation. The clustering in redshift-space is improved siginificantly
-that the overall agreement becomes within 1\% on k < $1[h{\rm Mpc^{-1}]}$.}
+that the overall agreement becomes within 1\% on k \< $1[h{\rm Mpc^{-1}]}$.}
 
 \begin{figure}[H]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting1}
@@ -751,7 +760,7 @@ the distribution of halos statistically.}
 
 
 \begin{figure}[H]
-\includegraphics[width=1\columnwidth]{\lyxdot \lyxdot /Plots/test}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/test1}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/test2}
 
 \caption{\label{fig:power-lightcone2}Ratio of halo matter cross power spectra
 in real space {[}left{]} and in redshift space {[}right{]} after shifting
@@ -800,9 +809,9 @@ catalogs designed to mock the Baryon Oscillation Spectroscopic Survey
 (BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}), part of
 the SDSS-III project (\cite{2011AJ....142...72E}), is a spectroscopic
 survey that aims to make percent level distance measurements using
-the baryon acoustic oscillation technique. The low redshift (z < 0.7)
-distance measurements use two galaxy samples : the LOWZ (z < 0.45)
-and CMASS (z < 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
+the baryon acoustic oscillation technique. The low redshift (z \> 0.7)
+distance measurements use two galaxy samples : the LOWZ (z \> 0.45)
+and CMASS (z \> 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
 We focus on the CMASS sample below; however, the same halo catalogs
 are useful for the LOWZ sample as well.
 
@@ -897,13 +906,13 @@ halo and $c$ determines how centrally concentrated the profile is.
 $R_{vir}$ is computed from $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$,
 where $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
 and $\rho_{cris}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$} ($c$ is the speed
-of light here).There are several measurements of the dependence of
-the concentration parameter $c$ on mass and redshift (\cite{2008JCAP...08..006M,2008MNRAS.390L..64D,2010arXiv1005.0411C,2011ApJ...740..102K,2013ApJ...766...32B,2001MNRAS.321..559B}).
-We adopt the form in \cite{2011ApJ...740..102K}: 
+of light here).We adopt the form in \cite{2011ApJ...740..102K}:
 \begin{equation}
 c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
 \end{equation}
-where $c_{0}=9.60$, $M_{0}=10^{12}$, and $\beta=0.75$.
+where $c_{0}=9.60$, $M_{0}=10^{12}$, and $\beta=0.75$. There have
+been several studies about conecntration, those different expressions
+on concentration do not make difference for our purpose.
 
 The velocities of the satellite galaxies are the sum of their host
 halo velocity and a random virial component. This random component
@@ -993,8 +1002,8 @@ with a scatter of $0.08[h^{-1}{\rm Mpc}]$ and $12.8[{\rm km/s}]$
 respectively for the simulation of our fiducial choice. }
 
 (c) The clustering of these halos is correctly recovered to better
-than 1\% on scales below k < $1[h{\rm Mpc^{-1}]}$ in real-space and
-k < $0.5[h{\rm Mpc^{-1}}]$.
+than 1\% on scales below k \> $1[h{\rm Mpc^{-1}]}$ in real-space and
+k \> $0.5[h{\rm Mpc^{-1}}]$.
 
 (d) We find that the number of sub-cycles makes almost no difference
 to any of our final results.
@@ -1004,9 +1013,9 @@ cone outputs. \textcolor{black}{In real space, we find that moving
 halos over a $\Delta z=0.1$ interval correctly recovers their positions
 from a scatter of $0.25[h^{-1}{\rm Mpc}]$ to $0.09[h^{-1}{\rm Mpc}]$.
 The power spectra are correctly recovered to better than 1\% for k
-< $0.5[h{\rm Mpc^{-1}]}$ for $\Delta z=0.25$. This worsens in redshift
-space to 2\% up to k < $0.2[h{\rm Mpc^{-1}]}$. The agreement is,
-however, improved to 1\% for k < $1[h{\rm Mpc^{-1}]}$ by using the
+\> $0.5[h{\rm Mpc^{-1}]}$ for $\Delta z=0.25$. This worsens in redshift
+space to 2\% up to k \> $0.2[h{\rm Mpc^{-1}]}$. The agreement is,
+however, improved to 1\% for k \> $1[h{\rm Mpc^{-1}]}$ by using the
 velocity scaled by the expansion factor $a(z)$. Our fiducial choice
 to construct light cone outputs is $\Delta z=0.05$.}
 
@@ -1025,9 +1034,11 @@ errors, testing out full analysis pipelines. These will be presented
 in future papers.
 
 We will generate the simulation suite with the volume of $(4h^{-1}{\rm Gpc})^{3}$
-with 68 billion particles each for 5 different cosmological models.
-All the simulation will be run at Argonne National Laboratory. \textcolor{red}{(I
-was not sure how much detail I should put here...)}
+with 68 billion particles each for 5 different cosmological models
+centered at WMAP and Planck cosmologies with varied $\sigma_{8}$.
+Those simulations can be used to test for systematics as a function
+of cosmology and halo properties. These will be presented in future
+publications.
 
 
 \section*{Acknowledgement}
