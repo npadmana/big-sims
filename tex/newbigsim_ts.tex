@@ -15,7 +15,6 @@
 \providecommand{\tabularnewline}{\\}
 %% A simple dot to overcome graphicx limitations
 \newcommand{\lyxdot}{.}
-\newcommand{\mdash}{---}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -43,8 +42,9 @@
 Survey: An Approximate N-Body approach}
 
 
-\author{Tomomi Sunayama, Nikhil Padmanabhan, Katrin Heitmann, Salman Habib,
-Steve Rangel}
+\author{Tomomi Sunayama\textsuperscript{a}, Nikhil Padmanabhan\textsuperscript{a},
+Katrin Heitmann\textsuperscript{b}, Salman Habib\textsuperscript{b},
+Steve Rangel\textsuperscript{b,c}}
 
 
 \abstract{Precision large scale structure measurements require large numbers
@@ -54,20 +54,29 @@ for generating mock catalogs rapidly. Our aim here is to reproduce
 the large scale structure and the gross properties of dark matter
 halos with high accuracy while sacrificing the details of the internal
 structures of halos for speed. Our N-body code splits the evolution
-into global time steps for the long range force interleaved with a number of sub-cycles for
-the short range forces. By adjusting both of these, we demonstrate
-recover the large scale probes we consider, including individual halo
-masses to better than 2\% and the power spectrum to $k=1h^{-1}{\rm Mpc}$
-to better than 1\%, while requireing a factor of 4 less CPU time.
-We also test the redshift spacing of outputs required to generate
-light cone outputs. We find that $\Delta z=0.05$ outputs allow us
-to interpolate particle positions and velocities with sufficient accuracy
-to reproduce the real and redshift space power spectra to better than
-1\% (out to $k=1h^{-1}{\rm Mpc}$). Even with redshift spacing as
-large as $\Delta z=0.25$, these errors only degrade on less than
-2\% in both real and redshift spaces. As a demonstration of these
-ideas, we generate a suit of simulations matched to the Baryon Oscillation
-Spectroscopic sample.}
+into global time steps for the long range force interleaved with a
+number of sub-cycles for the short range forces. By adjusting both
+of these, we demonstrate recover the large scale probes we consider,
+including individual halo masses to better than 2\% and the power
+spectrum to $k=1h^{-1}{\rm Mpc}$ to better than 1\%, while requireing
+a factor of 4 less CPU time. We also test the redshift spacing of
+outputs required to generate light cone outputs. We find that $\Delta z=0.05$
+outputs allow us to interpolate particle positions and velocities
+with sufficient accuracy to reproduce the real and redshift space
+power spectra to better than 1\% (out to $k=1h^{-1}{\rm Mpc}$). Even
+with redshift spacing as large as $\Delta z=0.25$, these errors only
+degrade on less than 2\% in both real and redshift spaces. As a demonstration
+of these ideas, we generate a suit of simulations matched to the Baryon
+Oscillation Spectroscopic sample.}
+
+
+\affiliation{\textsuperscript{a}Yale University, New Haven, CT}
+
+
+\affiliation{\textsuperscript{b }Argonne National Laboratory, Lemont, IL}
+
+
+\affiliation{\textsuperscript{c }Northwestern University, Evanston, IL}
 
 \maketitle
 
@@ -117,7 +126,6 @@ In Section 4 and 5, we build a light cone output and populate halos
 in our samples with galaxies and compute correlation functions based
 on BOSS Data Release 11, and compare it with the observed correlation
 function.
-
 
 All simulations and calculations in this paper assume a $\Lambda$CDM
 cosmology with $\Omega_{m}=0.25$, $\Omega_{\Lambda}=0.75$, $\Omega_{b}h^{2}=0.0224$,
@@ -386,9 +394,6 @@ of mass, thus in a direct one-on-one halo comparison, one expects
 the FOF mass to be highest in the 450/5 simulation, as borne out in
 the data. 
 
-\textcolor{blue}{NOTE: We should show an example halo from the simulations
-to make this point explicit.}
-
 Figure~\ref{fig:HaloProperty_step} shows the differences in positions
 (left panel) and velocities (right panel) along x-axis for the matched
 halos at $z=0.15$. The simulations with a smaller number of global
@@ -400,22 +405,12 @@ the differences in halo distances is matched in these cases to better
 than $200h^{-1}{\rm kpc}$\textcolor{black}{. The dashed lines represent
 the result from the simulations, while the solid lines are the Gaussian
 fits, where the values for amplitude, expected value and variance
-are shown in Table X. Figure \ref{fig:HaloProperty_step} shows that
-the distribution of the differences in positions and velocities are
-almost Gaussian.} As is clear from Figure \ref{fig:HaloProperty_step},
+are shown in Table \ref{tab:amplitude}. Figure \ref{fig:HaloProperty_step}
+shows that the distribution of the differences in positions and velocities
+are almost Gaussian.} As is clear from Figure \ref{fig:HaloProperty_step},
 the difference between 3 and 2 sub-cycles is negligible on halo properties.
 Note that we observe the same trend in halo properties discussed here
 at different redshifts and along different axes. 
-
-\textcolor{blue}{NOTE: These distribution should be done with each
-component separately, distances and speeds don't really give you what
-you want. Rewrite this paragraph when the distributions are available.--Done
-(by Tomomi)}
-
-\textcolor{blue}{Note: There needs to be a short concluding discussion
-of the halo matching across the 450/5 and 300/2 simulations stating
-the actual halo numbers and why we are happy with using the 300/2
-simulations up to this point.}
 
 \textcolor{black}{As shown in Figure \ref{fig:mass-content}, the
 fraction of unmatched halos in the 300/2 simulation to the 450/5 simulation
@@ -495,9 +490,9 @@ from the number of sub-cycles. }}
 \hline 
 \end{tabular}
 
-\caption{Values for amplitude $A$, expected value $\mu$, variance $\sigma$
-in Gaussian fits shown in Figure \ref{fig:HaloProperty_step} for
-the positions {[}right{]} and velocities {[}left{]} across simulations
+\caption{\label{tab:amplitude}Values for amplitude $A$, expected value $\mu$,
+variance $\sigma$ in Gaussian fits shown in Figure \ref{fig:HaloProperty_step}
+for the positions {[}right{]} and velocities {[}left{]} across simulations
 with different time steps. Note that we specifically fit the distribution
 of position differences with the expected value 0.}
 \end{table}
@@ -586,7 +581,7 @@ function for the 450/5 simulation and $n(>M)$ is a cumulative mass
 function for different time steps shown in different colors. We compare
 the results before and after mass adjustment (left and right panels
 respectively). While the mass functions from the 250/3 and 150/2 simulations
-are suppressed more than10\% on all mass ranges before mass adjustment,
+are suppressed more than 10\% on all mass ranges before mass adjustment,
 they are significantly improved after mass adjustment, especially
 on halo masses greater than $10^{13.0}{\rm M_{\odot}}$. For the simulations
 with the 300 global time steps, mass adjustment is especially effective
@@ -744,7 +739,7 @@ differences at different redshifts become smaller. Figure \ref{fig:shift-expFac}
 shows the power spectra recomputed with the velocity multiplied by
 the ratio of $a(z)/a(z=0.15)$, where $z$ is the redshift of the
 simulation. The clustering in redshift-space is improved siginificantly
-that the overall agreement becomes within 1\% on k \< $1[h{\rm Mpc^{-1}]}$.}
+that the overall agreement becomes within 1\% on $k<1[h{\rm Mpc^{-1}]}$.}
 
 \begin{figure}[H]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting1}
@@ -767,8 +762,7 @@ in real space {[}left{]} and in redshift space {[}right{]} after shifting
 the position of the halos from the redshift labeled in the plots to
 $z=0.15$. The denominator is the cross power spectra at $z=0.15,$where
 we use the halo density field in real space and redshift space respectively.
-For all cases, we use the DM density field in real space at $z=0.15$.
-\textcolor{red}{I could not fix the x-label for the left panel:(}}
+For all cases, we use the DM density field in real space at $z=0.15$. }
 \end{figure}
 
 
@@ -809,9 +803,9 @@ catalogs designed to mock the Baryon Oscillation Spectroscopic Survey
 (BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}), part of
 the SDSS-III project (\cite{2011AJ....142...72E}), is a spectroscopic
 survey that aims to make percent level distance measurements using
-the baryon acoustic oscillation technique. The low redshift (z \> 0.7)
-distance measurements use two galaxy samples : the LOWZ (z \> 0.45)
-and CMASS (z \> 0.7) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
+the baryon acoustic oscillation technique. The low redshift ($z<0.7$)
+distance measurements use two galaxy samples : the LOWZ ($z<0.45$)
+and CMASS ($z<0.7$) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
 We focus on the CMASS sample below; however, the same halo catalogs
 are useful for the LOWZ sample as well.
 
@@ -826,17 +820,17 @@ to a particle mass of $10^{11}{\rm M_{\odot}}$. The characteristic
 halo mass for BOSS galaxies corresponds to $10^{13}M_{\odot}$, which
 we resolve with 100 particles. We keep all halos down to 40 particles
 co}rresponding to a halo mass of $10^{12.6}{\rm M_{\odot}}$. The
-simulations are started at \textcolor{red}{\$z=????\$} with Zel'dovich
+simulations are started at \textcolor{red}{$z=200$} with Zel'dovich
 initial conditions and are stopped at $z=0.15$ with simulation outputs
-every $\Delta z=0.05$. At each of these steps, we store \textcolor{red}{??????}.
+every $\Delta z=0.05$. At each of these steps, we store XXX.
 
 The BOSS angular geometry is split into two regions : one in the North
-Galactic Cap and one in the South Galactic Cap (Fig.???). Since we
-generate full-sky mocks, it is straightforward to embed two full non-overlapping
-BOSS surveys in a single mock realization (Fig \ref{fig:boss-geom}).
-We cut out a first BOSS volume with $\vec{x}_{old}$ and then define
-a new coordinate system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$,
-where $R$ is the Euler rotation matrix for Fig \ref{fig:boss-geom}:
+Galactic Cap and one in the South Galactic Cap (Fig. \ref{fig:boss-geom}).
+Since we generate full-sky mocks, it is straightforward to embed two
+full non-overlapping BOSS surveys in a single mock realization (Fig.
+\ref{fig:boss-geom}). We cut out a first BOSS volume with $\vec{x}_{old}$
+and then define a new coordinate system $\vec{x}_{new}$ such as $\vec{x}_{new}=R\vec{x}_{old}$,
+where $R$ is the Euler rotation matrix for Fig. \ref{fig:boss-geom}:
 \[
 R=\left(\begin{array}{ccc}
 0.088 & 0.096 & 0.991\\
@@ -854,8 +848,6 @@ BOSS volumes into the same simulation box. The blue region is the
 BOSS survey footprint in equatorial coordinates, while the red region
 is the same region rotated using the rotation matrix given in the
 text.}
-
-
 \end{figure}
 
 
@@ -905,12 +897,12 @@ scale $r_{s}=R_{vir}/c$ , $R_{vir}$ is the virial radius for the
 halo and $c$ determines how centrally concentrated the profile is.
 $R_{vir}$ is computed from $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$,
 where $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
-and $\rho_{cris}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$} ($c$ is the speed
-of light here).We adopt the form in \cite{2011ApJ...740..102K}:
+and $\rho_{crit}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$} ($c$ is the speed
+of light here). We adopt the form in \cite{2011ApJ...740..102K}:
 \begin{equation}
-c(M,z)=\frac{c_{0}}{1+z}(M-M_{0})^{-\beta},
+c(M,z)=\frac{c_{0}}{1+z}(M/M_{0})^{-\beta},
 \end{equation}
-where $c_{0}=9.60$, $M_{0}=10^{12}$, and $\beta=0.75$. There have
+where $c_{0}=9.60$, $M_{0}=10^{12}$, and $\beta=0.075$. There have
 been several studies about conecntration, those different expressions
 on concentration do not make difference for our purpose.
 
@@ -931,7 +923,7 @@ determine the direction randomly with equal probability.
 We generate galaxy mocks from the static snapshots at $z=0.55$. In
 Figure \ref{fig:xis}, we compare the correlations function $\xi(s)$
 with the one in \textcolor{black}{\cite{2013arXiv1303.4666A}, where
-$s$ is the redshift-space coordinate. Here, we use the following
+$s$ is the separation in redshift-space. Here, we use the following
 HOD parameters, $M_{cut}=12.9$, ,} $\alpha=1.013$,\textcolor{black}{{}
 $\kappa=1.0$, $\sigma=0.85$. }
 
@@ -950,7 +942,7 @@ and $\chi^{2}=25.0$ for the light cone output. The degree of freedom
 here is 14 where $s\in[30h^{-1}{\rm Mpc},78h^{-1}{\rm Mpc}]$. }
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{../Plots/nz_dr11_N}\includegraphics[width=0.5\columnwidth]{../Plots/nz_dr11_S}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/nz_dr11_N}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/nz_dr11_S}
 
 \caption{\label{fig:nz_gal}A comparison of galaxy number densities before
 fitting to DR11 {[}dashed lines{]} and after {[}solid lines{]}. The
@@ -958,8 +950,6 @@ blue solid line is $n(z)$ from DR11 (North) in \cite{2013arXiv1303.4666A}.
 The green and red lines are from the mocks at $z=0.55$ and the lightcone
 output respectively. The HOD parameters used to generate the mock
 catalogs can be found in text.}
-
-
 \end{figure}
 
 
@@ -975,69 +965,72 @@ in text. }
 
 
 
-\section{Discussion and Summary}
+\section{Discussion}
 
-We present a quantitative study of the impact of time step sizes on
-the halo and matter density fields. Our code has two adjustable time
-stepping parameters - a global time step and a number of sub-cycles
-(responsible for a particle-particle interactions) to track that particle
-trajectories on small scales. We consider cases where we increase
-the length of each time step by factors of 1.5 and 3 respectively,
-as well as reducing the number of sub-cycles. Our fiducial choice
-is to use using 300 global time steps and 2 sub-cycles (increasing
-the length of the global time step by a factor of 1.5 and that of
-the sub-cycles by a factor of 2.5), resulting in a reduction of the
-simulation run time by 4 times less. We summarize the key results
-below: 
+Precision required for current and future galaxy spectroscopic surveys
+to test the expansion and structure formation histories of the Universe
+requires an accurate understanding of systematic effects. In this
+paper we have presented a quantitative study of the impact of time
+step sizes on the halo and matter density fields. Our code has two
+adjustable time stepping parameters - a global time step and a number
+of sub-cycles (responsible for a particle-particle interactions) to
+track that particle trajectories on small scales. We consider cases
+where we increase the length of each time step by factors of 1.5 and
+3 respectively, as well as reducing the number of sub-cycles. Our
+fiducial choice is to use using 300 global time steps corresponding
+to $\Delta a(z)=0.003$ and 2 sub-cycles (increasing the length of
+the global time step by a factor of 1.5 and that of the sub-cycles
+by a factor of 2.5), resulting in a reduction of the simulation run
+time by 4 times less. We keep the mass resolution constant; the results
+here are based on a particle mass of $5.3\times10^{10}h{\rm M_{\odot}}$.We
+summarize the key results below: 
 
 (a) The halo masses tend to be underestimated in these cases, as one
 might expect because reducing the number of time steps produces halos
 with less substructure and a more diffuse distribution of mass. However,
 this trend may be calibrated with smaller simulations and corrected,
 recovering the halo masses to 98\%. The halo mass function is correctly
-recovered fully for masses above $10^{12.8}{\rm M_{\odot}}$ . 
+recovered fully for masses above $10^{12.7}h^{-1}{\rm M_{\odot}}$
+corresponding to 100 particles. Note that we run the halo finder with
+identical parameters as in the full resolution runs. It may however
+be possible to get similar results by changing the parameters of the
+halo finder, as was done in \cite{2013MNRAS.428.1036M}.
 
-(b) \textcolor{black}{The halo velocities and positions are recovered
+(b) \textcolor{black}{The halo positions and velocities are recovered
 with a scatter of $0.08[h^{-1}{\rm Mpc}]$ and $12.8[{\rm km/s}]$
 respectively for the simulation of our fiducial choice. }
 
 (c) The clustering of these halos is correctly recovered to better
-than 1\% on scales below k \> $1[h{\rm Mpc^{-1}]}$ in real-space and
-k \> $0.5[h{\rm Mpc^{-1}}]$.
+than 1\% on scales below $k<1[h{\rm Mpc^{-1}]}$ in real-space and
+$k<0.5[h{\rm Mpc^{-1}}]$.
 
 (d) We find that the number of sub-cycles makes almost no difference
 to any of our final results.
 
-We also consider the redshift sampling required to construct light
-cone outputs. \textcolor{black}{In real space, we find that moving
-halos over a $\Delta z=0.1$ interval correctly recovers their positions
-from a scatter of $0.25[h^{-1}{\rm Mpc}]$ to $0.09[h^{-1}{\rm Mpc}]$.
-The power spectra are correctly recovered to better than 1\% for k
-\> $0.5[h{\rm Mpc^{-1}]}$ for $\Delta z=0.25$. This worsens in redshift
-space to 2\% up to k \> $0.2[h{\rm Mpc^{-1}]}$. The agreement is,
-however, improved to 1\% for k \> $1[h{\rm Mpc^{-1}]}$ by using the
-velocity scaled by the expansion factor $a(z)$. Our fiducial choice
-to construct light cone outputs is $\Delta z=0.05$.}
+\textcolor{black}{We also consider the redshift sampling required
+to construct light cone outputs. We first compare the distances for
+the halos at different redshifts before and after shifting their positions
+from one redshift to the another. Moving halos over a $\Delta z=0.1$
+interval correctly reduecs the standard deviation of those distances
+from $0.25[h^{-1}{\rm Mpc}]$ to}\textcolor{red}{{} }\textcolor{black}{$0.09[h^{-1}{\rm Mpc}]$.
+Moreover, the power spectra are correctly recovered to better than
+1\% for $k<0.5[h{\rm Mpc^{-1}]}$ for $\Delta z=0.25$. This worsens
+in redshift space to 2\% up to $k<0.2[h{\rm Mpc^{-1}]}$.}\textcolor{red}{{}
+}\textcolor{black}{The agreement is, however, improved to 1\% for
+$k<1[h{\rm Mpc^{-1}]}$ by using the velocity scaled by the relative
+scale factor between the snapshot and the true redshift. Our fiducial
+choice to construct light cone outputs is $\Delta z=0.05$.}
 
-\textcolor{black}{The biggest difference here with LPT based approaches
-is the number of time steps and the short-range solvers using particle-particle
-interactions. Our approach is closer to the full N-body simulation,
-but we can gain significant time savings if our goal is to focus on
-large scales. These can be done however controlling systematic effects.}
-
-As a representative example of our method, we build a set of mock
-BOSS simulations. We have constructed a set of 8 mocks matching the
-CMASS galaxy sample: 2 complete North and South mocks per box for
-four boxes. All the simulations will be released with the publication
-of this paper. These simulations are ideal for calibrating systematic
-errors, testing out full analysis pipelines. These will be presented
-in future papers.
-
-We will generate the simulation suite with the volume of $(4h^{-1}{\rm Gpc})^{3}$
-with 68 billion particles each for 5 different cosmological models
-centered at WMAP and Planck cosmologies with varied $\sigma_{8}$.
-Those simulations can be used to test for systematics as a function
-of cosmology and halo properties. These will be presented in future
+This work is a natural extension of the approaches described in \cite{2014MNRAS.439L..21K,2014MNRAS.437.2594W,2014arXiv1409.1124C,2013MNRAS.428.1036M,2014arXiv1401.4171M}.
+The primary goal for those papers was to generate the large numbers
+of simulations required for estimating covariance matrices. We quantify,
+in detail, the impact of size of the time step on large scale observables;
+our suite of simulations are better designed for testing for systematic
+errors in theory and analysis techniques. As a proof of principle,
+we present a set of eight full BOSS (both North and South Galactic
+caps simultaneously) simulations. The time savings presented in this
+paper allowed to extend this to 50 simulations, across a range of
+cosmologies. These results from these will be presented in future
 publications.
 
 

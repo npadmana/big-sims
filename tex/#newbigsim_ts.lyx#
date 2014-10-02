@@ -3775,30 +3775,36 @@ The halo positions and velocities are recovered with a scatter of
 
 \begin_layout Standard
 
-\color black
+\color red
 We also consider the redshift sampling required to construct light cone
  outputs.
- We first compare the distances for the halos at different redshifts before
- and after shifting their positions from one redshift to the another.
- Moving halos over a 
-\begin_inset Formula $\Delta z=0.1$
-\end_inset
-
- interval correctly reduecs the standard deviation of those distances from
+ 
+\color inherit
+We first compare the distances for the halos at different redshift before
+ and after shifting their positions
+\color red
+ from one redshift to the another.
+ The standard deviation of those distances in real-space was reduced from
  
 \begin_inset Formula $0.25[h^{-1}{\rm Mpc}]$
 \end_inset
 
- to
-\color red
- 
-\color black
-
+ to 
 \begin_inset Formula $0.09[h^{-1}{\rm Mpc}]$
 \end_inset
 
+ by moving halos over a 
+\begin_inset Formula $\Delta z=0.1$
+\end_inset
+
+ interval
+\color black
 .
- Moreover, the power spectra are correctly recovered to better than 1% for
+ Moving halos over a 
+\begin_inset Formula $\\Delt$
+\end_inset
+
+Moreover, the power spectra are correctly recovered to better than 1% for
  
 \begin_inset Formula $k<0.5[h{\rm Mpc^{-1}]}$
 \end_inset
