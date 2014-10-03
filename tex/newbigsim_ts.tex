@@ -30,9 +30,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
-\usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
+\global\long\def\bd{{\bm{\delta}}}
 \usepackage{astrobib_mnras2e}
-\linenumbers
+
+\bibliographystyle{JHEP}
 
 \makeatother
 
@@ -77,6 +78,14 @@ Oscillation Spectroscopic sample.}
 
 
 \affiliation{\textsuperscript{c }Northwestern University, Evanston, IL}
+
+
+\emailAdd{tomomi.sunayama@yale.edu, nikhil.padmanabhan@yale.edu,heitmann@anl.gov,
+habib@anl.gov,steverangel@u.northwestern.edu }
+
+
+\keywords{cosmology; large-scale structure of Universe, cosmological parameters,
+galaxies; halos, statistics}
 
 \maketitle
 
@@ -392,7 +401,7 @@ all the simulations.) As stated earlier, reducing the number of time
 steps produces halos with less substructure and a more diffuse distribution
 of mass, thus in a direct one-on-one halo comparison, one expects
 the FOF mass to be highest in the 450/5 simulation, as borne out in
-the data. 
+the data.
 
 Figure~\ref{fig:HaloProperty_step} shows the differences in positions
 (left panel) and velocities (right panel) along x-axis for the matched
@@ -410,7 +419,7 @@ shows that the distribution of the differences in positions and velocities
 are almost Gaussian.} As is clear from Figure \ref{fig:HaloProperty_step},
 the difference between 3 and 2 sub-cycles is negligible on halo properties.
 Note that we observe the same trend in halo properties discussed here
-at different redshifts and along different axes. 
+at different redshifts and along different axes.
 
 \textcolor{black}{As shown in Figure \ref{fig:mass-content}, the
 fraction of unmatched halos in the 300/2 simulation to the 450/5 simulation
@@ -425,7 +434,7 @@ as shown in Figure \ref{fig:HaloProperty_step}, the 300/2 time step
 is our choice to save the simulation time while keeping the halo properties
 almost identical to the 450/5 simulation.}
 
-\textcolor{black}{}
+ 
 \begin{figure}[h]
 \textcolor{black}{\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/massSlice_z0\lyxdot 15}}
 
@@ -443,6 +452,8 @@ avoid overlapping the error bars. This plot shows that halo masses
 become systematically smaller for the case of smaller numbers of time
 steps than those in the 450/5 simulation. }
 }
+
+ 
 \end{figure}
 
 
@@ -463,30 +474,30 @@ from the number of sub-cycles. }}
 \begin{table}
 \begin{tabular}{|c|c|c|c|}
 \hline 
- & $A$ & $\mu$ & $\sigma$\tabularnewline
+ & $A$  & $\mu$  & $\sigma$\tabularnewline
 \hline 
 \hline 
-300/3 & 3377.2 & 0.0 & 0.0715\tabularnewline
+300/3  & 3377.2  & 0.0  & 0.0715\tabularnewline
 \hline 
-300/2 & 2937.2 & 0.0 & 0.0781\tabularnewline
+300/2  & 2937.2  & 0.0  & 0.0781\tabularnewline
 \hline 
-150/3 & 1280.9 & 0.0 & 0.1709\tabularnewline
+150/3  & 1280.9  & 0.0  & 0.1709\tabularnewline
 \hline 
-150/2 & 1077.4 & 0.0 & 0.1783\tabularnewline
+150/2  & 1077.4  & 0.0  & 0.1783\tabularnewline
 \hline 
-\end{tabular} %
+\end{tabular}%
 \begin{tabular}{|c|c|c|c|}
 \hline 
- & $A$ & $\mu$ & $\sigma$\tabularnewline
+ & $A$  & $\mu$  & $\sigma$\tabularnewline
 \hline 
 \hline 
-300/3 & 3461.5 & -3.138 & 11.527\tabularnewline
+300/3  & 3461.5  & -3.138  & 11.527\tabularnewline
 \hline 
-300/2 & 1975.8 & -3.105 & 12.780\tabularnewline
+300/2  & 1975.8  & -3.105  & 12.780\tabularnewline
 \hline 
-150/3 & 1975.0 & -15.660 & 17.955\tabularnewline
+150/3  & 1975.0  & -15.660  & 17.955\tabularnewline
 \hline 
-150/2 & 1667.7 & -15.821 & 18.592\tabularnewline
+150/2  & 1667.7  & -15.821  & 18.592\tabularnewline
 \hline 
 \end{tabular}
 
@@ -621,7 +632,7 @@ bias between the 450/5 simulation and the simulations with other time-steps.
 To select halos, we apply the soft-mass cut method using the probability
 given by }
 
-\textcolor{black}{
+\textcolor{black}{{} 
 \begin{equation}
 <N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
 \end{equation}
@@ -673,7 +684,7 @@ $z=0.8$ to $z=0.15$ separated constantly in redshift by $\Delta z=0.1$.
 The light cone is constructed with the spherical shells. Each shell
 is centered at the redshift of each snapshot and has a redshift width
 of 0.1. In each shell, we move halo positions by using peculiar velocities
-to shift them into their light cone positions:
+to shift them into their light cone positions: 
 \begin{equation}
 \vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
 \end{equation}
@@ -694,7 +705,7 @@ and $z=0.15$ before and after shifting. After shifting halos, we
 see that the mean distance between corresponding halos decreases from
 $0.4h^{-1}{\rm Mpc}$to $0.1h^{-1}{\rm Mpc}$ and the standard deviation
 shrinks from $0.2h^{-1}{\rm Mpc}$ to $0.1h^{-1}{\rm Mpc}$. This
-result holds at all redshifts examined. 
+result holds at all redshifts examined.
 
 \begin{figure}[H]
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_x_z0\lyxdot 25to0\lyxdot 15}
@@ -719,7 +730,7 @@ down the halo bias to the one at $z=0.25$. The agreement between
 the original power spectrum at $z=0.25$ and the shifted power spectrum
 is 99.8\% up to 1$h{\rm Mpc^{-1}}$. Figure \ref{fig:power-lightcone}
 shows that spatial distribution of the halos is shifted to the expected
-distribution statistically. 
+distribution statistically.
 
 A parameter when building \textcolor{black}{light cones by stitching
 static snapshots together is how large $\Delta z$ can be between
@@ -790,8 +801,6 @@ the redshift shown in the figure) to compute the halo positions in
 redshift-space. The denominator is the cross power spectra at $z=0.15,$where
 we use the halo density field in redshift space. For all cases, we
 use the DM density field in real space at $z=0.15$.}
-
-
 \end{figure}
 
 
@@ -811,16 +820,16 @@ are useful for the LOWZ sample as well.
 
 We choose a simulation volume large enough to build a full-sky mock
 BOSS catalog. Since the CMASS sample extends to $z\sim0.7$, we choose
-a simulation side of $4000h^{-1}{\rm Mpc}$,\textcolor{black}{{} corresponding
-to a comoving distance to $z\sim0.8$ from the center of the box;
-Fig. \ref{fig:boss-geom} shows the BOSS CMASS redshift distribution
-as a function of redshift and comoving distance (assuming our fiducial
-cosmology). Our simulations are run with $4000^{3}$ particles, corresponding
-to a particle mass of $10^{11}{\rm M_{\odot}}$. The characteristic
-halo mass for BOSS galaxies corresponds to $10^{13}M_{\odot}$, which
-we resolve with 100 particles. We keep all halos down to 40 particles
-co}rresponding to a halo mass of $10^{12.6}{\rm M_{\odot}}$. The
-simulations are started at \textcolor{red}{$z=200$} with Zel'dovich
+a simulation side of $4000h^{-1}{\rm Mpc}$,\textcolor{black}{{}
+corresponding to a comoving distance to $z\sim0.8$ from the center
+of the box; Fig. \ref{fig:boss-geom} shows the BOSS CMASS redshift
+distribution as a function of redshift and comoving distance (assuming
+our fiducial cosmology). Our simulations are run with $4000^{3}$
+particles, corresponding to a particle mass of $10^{11}{\rm M_{\odot}}$.
+The characteristic halo mass for BOSS galaxies corresponds to $10^{13}M_{\odot}$,
+which we resolve with 100 particles. We keep all halos down to 40
+particles co}rresponding to a halo mass of $10^{12.6}{\rm M_{\odot}}$.
+The simulations are started at \textcolor{red}{$z=200$} with Zel'dovich
 initial conditions and are stopped at $z=0.15$ with simulation outputs
 every $\Delta z=0.05$. At each of these steps, we store XXX.
 
@@ -884,7 +893,7 @@ and satellite galaxies. Eqs \ref{eq:Ncen} and \ref{eq:Nsat} are
 not the only possible functional form for the HOD, and it is trivial
 to change this. However, these forms reproduce the clustering of the
 BOSS galaxies (\cite{2011ApJ...728..126W}) and we use them in what
-follows. 
+follows.
 
 We place the central galaxies at the center, with a velocity equal
 to the halo velocity. We distribute satellite galaxies with an spherically
@@ -918,7 +927,7 @@ We draw a Gaussian distribution with zero mean and variance in Eq.
 for the satellite galaxies. Here, we assume that satellite galaxies
 are randomly moving inside the host halos. So, we give the radial
 component of this random motion from the Gaussian distribution and
-determine the direction randomly with equal probability. 
+determine the direction randomly with equal probability.
 
 We generate galaxy mocks from the static snapshots at $z=0.55$. In
 Figure \ref{fig:xis}, we compare the correlations function $\xi(s)$
@@ -928,9 +937,9 @@ HOD parameters, $M_{cut}=12.9$, ,} $\alpha=1.013$,\textcolor{black}{{}
 $\kappa=1.0$, $\sigma=0.85$. }
 
 Note that we fit the average number density of galaxies to that of
-\cite{2013arXiv1303.4666A} as shown in\textcolor{black}{{} Figure }\ref{fig:nz_gal}.
-In order to fit the number density, we randomly select galaxies after
-populating halos through HOD.
+\cite{2013arXiv1303.4666A} as shown in\textcolor{black}{{} Figure
+}\ref{fig:nz_gal}. In order to fit the number density, we randomly
+select galaxies after populating halos through HOD.
 
 \textcolor{black}{The correlation function computed from our sample
 mocks fits to the correlation function in \cite{2013arXiv1303.4666A}
@@ -958,9 +967,8 @@ catalogs can be found in text.}
 
 \caption{\label{fig:xis}Correlation function monopoles $\xi^{(0)}(s)$ {[}left{]}
 and quadrupoles $\xi^{(2)}(s)$ {[}right{]} of the mocks (green) and
-DR11 in \textcolor{red}{\citet{2013arXiv1303.4666A}} (blue) at $z=0.55$.
-The HOD parameters used to generate the mock catalogs can be found
-in text. }
+DR11 in \cite{2013MNRAS.428.1036M}(blue) at $z=0.55$. The HOD parameters
+used to generate the mock catalogs can be found in text.}
 \end{figure}
 
 
@@ -983,7 +991,7 @@ the global time step by a factor of 1.5 and that of the sub-cycles
 by a factor of 2.5), resulting in a reduction of the simulation run
 time by 4 times less. We keep the mass resolution constant; the results
 here are based on a particle mass of $5.3\times10^{10}h{\rm M_{\odot}}$.We
-summarize the key results below: 
+summarize the key results below:
 
 (a) The halo masses tend to be underestimated in these cases, as one
 might expect because reducing the number of time steps produces halos
@@ -1036,7 +1044,13 @@ publications.
 
 \section*{Acknowledgement}
 
-\bibliographystyle{plainnat}
+TS and NP are supported by a DOE Early Career Grant. This work was
+supported in part by the facilities and staff of the Yale University
+Faculty of Arts and Sciences High Performance Computing Center, and
+by resources at the National Energy Research Scientific Computing
+Center. TS would like to thank Andrew Szymakowski for useful discussions.
+
+\bibliographystyle{JHEP}
 \bibliography{bigsims}
 
 \end{document}

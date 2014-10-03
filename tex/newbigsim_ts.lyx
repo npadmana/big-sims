@@ -13,9 +13,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
-\usepackage{lineno}\global\long\def\bd{{\bm{\delta}}}
+\global\long\def\bd{{\bm{\delta}}}
 \usepackage{astrobib_mnras2e}
-\linenumbers
+
+\bibliographystyle{JHEP}
 \end_preamble
 \options usenatbib
 \use_default_options false
@@ -204,6 +205,16 @@ c
 \end_inset
 
 Northwestern University, Evanston, IL
+\end_layout
+
+\begin_layout Email
+tomomi.sunayama@yale.edu, nikhil.padmanabhan@yale.edu,heitmann@anl.gov, habib@anl.gov,
+steverangel@u.northwestern.edu 
+\end_layout
+
+\begin_layout Keywords
+cosmology; large-scale structure of Universe, cosmological parameters, galaxies;
+ halos, statistics
 \end_layout
 
 \begin_layout Section
@@ -691,12 +702,11 @@ reference "fig:mass-scatter1"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/testDB_mass_300_2_z0.15.pdf
-	lyxscale 50
 	width 46.5col%
 
 \end_inset
@@ -704,7 +714,6 @@ status collapsed
  
 \begin_inset Graphics
 	filename ../Plots/testDB_nonDB_300_2_z0.15.pdf
-	lyxscale 50
 	width 53.5col%
 
 \end_inset
@@ -715,7 +724,6 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/testDB_DB_numPartCut_300_2_z0.15.pdf
-	lyxscale 40
 	width 46.5text%
 
 \end_inset
@@ -723,7 +731,6 @@ status collapsed
  
 \begin_inset Graphics
 	filename ../Plots/testDB_sum_mass_f0.5_300_2_z0.15.pdf
-	lyxscale 60
 	width 53.5col%
 
 \end_inset
@@ -852,12 +859,11 @@ eshold case, but at a reduced level.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/unmatchHalo2_content_300_2_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -988,7 +994,6 @@ reference "fig:HaloProperty_mass"
  less substructure and a more diffuse distribution of mass, thus in a direct
  one-on-one halo comparison, one expects the FOF mass to be highest in the
  450/5 simulation, as borne out in the data.
- 
 \end_layout
 
 \begin_layout Standard
@@ -1053,7 +1058,6 @@ reference "fig:HaloProperty_step"
 , the difference between 3 and 2 sub-cycles is negligible on halo properties.
  Note that we observe the same trend in halo properties discussed here at
  different redshifts and along different axes.
- 
 \end_layout
 
 \begin_layout Standard
@@ -1093,13 +1097,12 @@ reference "fig:HaloProperty_step"
 \end_layout
 
 \begin_layout Standard
-
-\color black
+ 
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1181,6 +1184,10 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 
 \end_layout
 
+\begin_layout Plain Layout
+ 
+\end_layout
+
 \end_inset
 
 
@@ -1191,12 +1198,11 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/histogram_x_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -1204,7 +1210,6 @@ status collapsed
 
 \begin_inset Graphics
 	filename ../Plots/histogram_vx_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -1227,8 +1232,18 @@ A comparison of the positions [left] and velocities [right] of halos matched
  As always, the reference simulation is 450/5 while the colors correspond
  to 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
  From left to right, we compared halo position and velocity respectively.
-
 \color blue
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
  
 \color black
 The agreement with 300 time steps is very good, with a negligible difference
@@ -1250,7 +1265,7 @@ The agreement with 300 time steps is very good, with a negligible difference
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -1261,7 +1276,7 @@ status collapsed
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1270,31 +1285,31 @@ status collapsed
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $A$
 \end_inset
 
-
+ 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $\mu$
 \end_inset
 
-
+ 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1308,34 +1323,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-3377.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3377.2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1346,34 +1361,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-2937.2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2937.2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1384,34 +1399,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1280.9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1280.9 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1422,34 +1437,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1077.4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1077.4 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1463,7 +1478,7 @@ status collapsed
 
 \end_inset
 
- 
+
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="4">
 <features tabularvalignment="middle">
@@ -1472,7 +1487,7 @@ status collapsed
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1481,31 +1496,31 @@ status collapsed
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $A$
 \end_inset
 
-
+ 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $\mu$
 \end_inset
 
-
+ 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1519,34 +1534,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-3461.5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--3.138
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/3 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3461.5 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-3.138 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1557,34 +1572,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1975.8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--3.105
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300/2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1975.8 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-3.105 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1595,34 +1610,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1975.0
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--15.660
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/3 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1975.0 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-15.660 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1633,34 +1648,34 @@ status collapsed
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1667.7
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--15.821
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+150/2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1667.7 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-15.821 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1815,7 +1830,7 @@ reference "tab:free_param1"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2126,12 +2141,11 @@ reference "fig:massFn_step"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/haloRatioNum256_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2139,7 +2153,6 @@ status collapsed
  
 \begin_inset Graphics
 	filename ../Plots/haloRatioNum256_tweak_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2249,6 +2262,7 @@ s equivalent to the ratio of halo bias between the 450/5 simulation and
 \begin_layout Standard
 
 \color black
+ 
 \begin_inset Formula 
 \begin{equation}
 <N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
@@ -2297,12 +2311,11 @@ reference "fig:HaloProperty_step"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
-	lyxscale 50
 	width 45col%
 
 \end_inset
@@ -2310,7 +2323,6 @@ status collapsed
 
 \begin_inset Graphics
 	filename ../Plots/crossMatter_tweak256_redshift_z0.15.pdf
-	lyxscale 50
 	width 45col%
 
 \end_inset
@@ -2407,7 +2419,7 @@ We build a light cone from snapshots whose redshift range is from
  Each shell is centered at the redshift of each snapshot and has a redshift
  width of 0.1.
  In each shell, we move halo positions by using peculiar velocities to shift
- them into their light cone positions:
+ them into their light cone positions: 
 \begin_inset Formula 
 \begin{equation}
 \vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
@@ -2485,7 +2497,6 @@ to
 
 .
  This result holds at all redshifts examined.
- 
 \end_layout
 
 \begin_layout Standard
@@ -2607,7 +2618,6 @@ reference "fig:power-lightcone"
 
  shows that spatial distribution of the halos is shifted to the expected
  distribution statistically.
- 
 \end_layout
 
 \begin_layout Standard
@@ -2689,8 +2699,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/shifting1.pdf
-	lyxscale 50
+	filename ../Plots/shifting1.png
 	width 50col%
 
 \end_inset
@@ -2751,7 +2760,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/test1.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2759,7 +2767,6 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/test2.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2818,7 +2825,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/hist_vx.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2826,7 +2832,6 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/hist_vx_expFac.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2881,7 +2886,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/shifting_s_expFac_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2929,10 +2933,6 @@ where we use the halo density field in redshift space.
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3002,6 +3002,17 @@ We choose a simulation volume large enough to build a full-sky mock BOSS
 
 ,
 \color black
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
  corresponding to a comoving distance to 
 \begin_inset Formula $z\sim0.8$
 \end_inset
@@ -3121,12 +3132,11 @@ R=\left(\begin{array}{ccc}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/boss_geom.png
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3284,7 +3294,6 @@ key "2011ApJ...728..126W"
 \end_inset
 
 ) and we use them in what follows.
- 
 \end_layout
 
 \begin_layout Standard
@@ -3400,7 +3409,6 @@ reference "eq:variance"
  host halos.
  So, we give the radial component of this random motion from the Gaussian
  distribution and determine the direction randomly with equal probability.
- 
 \end_layout
 
 \begin_layout Standard
@@ -3446,6 +3454,17 @@ key "2013arXiv1303.4666A"
 
 ,
 \color black
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
  
 \begin_inset Formula $\kappa=1.0$
 \end_inset
@@ -3468,6 +3487,17 @@ key "2013arXiv1303.4666A"
 
  as shown in
 \color black
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
  Figure 
 \color inherit
 
@@ -3548,7 +3578,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/nz_dr11_N.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3556,7 +3585,6 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/nz_dr11_S.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3610,12 +3638,11 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/xi0_obs.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3623,7 +3650,6 @@ status collapsed
 
 \begin_inset Graphics
 	filename ../Plots/xi2_obs.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3650,29 +3676,18 @@ Correlation function monopoles
 \end_inset
 
  [right] of the mocks (green) and DR11 in 
-\color red
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-citet{2013arXiv1303.4666A}
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013MNRAS.428.1036M"
 
 \end_inset
 
-
-\color inherit
- (blue) at 
+(blue) at 
 \begin_inset Formula $z=0.55$
 \end_inset
 
 .
  The HOD parameters used to generate the mock catalogs can be found in text.
- 
 \end_layout
 
 \end_inset
@@ -3713,7 +3728,7 @@ Precision required for current and future galaxy spectroscopic surveys to
 \begin_inset Formula $5.3\times10^{10}h{\rm M_{\odot}}$
 \end_inset
 
-.We summarize the key results below: 
+.We summarize the key results below:
 \end_layout
 
 \begin_layout Standard
@@ -3856,10 +3871,18 @@ Acknowledgement
 \end_layout
 
 \begin_layout Standard
+TS and NP are supported by a DOE Early Career Grant.
+ This work was supported in part by the facilities and staff of the Yale
+ University Faculty of Arts and Sciences High Performance Computing Center,
+ and by resources at the National Energy Research Scientific Computing Center.
+ TS would like to thank Andrew Szymakowski for useful discussions.
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "bigsims"
-options "plainnat"
+options "JHEP"
 
 \end_inset
 
