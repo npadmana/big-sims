@@ -137,8 +137,8 @@ on BOSS Data Release 11, and compare it with the observed correlation
 function.
 
 All simulations and calculations in this paper assume a $\Lambda$CDM
-cosmology with $\Omega_{m}=0.25$, $\Omega_{\Lambda}=0.75$, $\Omega_{b}h^{2}=0.0224$,
-$n_{s}=0.97$, $\sigma_{8}=0.8$ and $h=0.72$.
+cosmology with $\Omega_{m}=0.2648$, $\Omega_{\Lambda}=0.7352$, $\Omega_{b}h^{2}=0.02258$,
+$n_{s}=0.963$, $\sigma_{8}=0.8$ and $h=0.71$.
 
 
 \section{HACC}
@@ -147,7 +147,7 @@ All simulations in this paper were carried out using the HACC (Hardware/Hybrid
 Accelerated Cosmology Code) framework. HACC provides an advanced,
 architecture-agile, extreme-scale N-body capability targeted to cosmological
 simulations. It is descended from an approach originally developed
-for the heterogeneous architecture of Roadrunner~\cite{mc3,pope10},
+for the heterogeneous architecture of Roadrunner \cite{1742-6596-180-1-012019,Pope:2010:AU:1845737.1845828},
 the first computer to break the petaflop performance barrier.
 
 The HACC architecture is designed with great flexibility in mind (combining
@@ -161,11 +161,11 @@ that can run at full scale on all available supercomputer architectures,
 at very high performance levels. HACC has demonstrated scaling on
 the entire IBM BG/Q Sequoia system up to 1,572,864 cores with an equal
 number of MPI ranks, attaining 13.94 PFlops at 69.2\% of peak and
-90\% parallel efficiency (for details, see Ref.~\cite{habib12}).
+90\% parallel efficiency (for details, see Ref.\cite{2012arXiv1211.4864H}).
 Examples of science results obtained using HACC include 64-billion
 particle runs for baryon acoustic oscillations predictions for the
-BOSS Lyman-$\alpha$ forest~\cite{boss_bao} and high-statistics
-predictions for the halo profiles of massive clusters~\cite{conc_hacc}.
+BOSS Lyman-$\alpha$ forest \cite{2010ApJ...713..383W} and high-statistics
+predictions for the halo profiles of massive clusters \cite{2013ApJ...766...32B}.
 
 HACC uses a hybrid parallel algorithmic structure, splitting the force
 calculation into a specially designed grid-based long/medium range
@@ -174,15 +174,15 @@ and an architecture-specific short-range solver. Modular code design
 combined with particle caching allows the short-range solvers to be
 `hot-swappable' on-node; they are blind to the parallel implementation
 of the long-range solver. The short-range solvers can use direct particle-particle
-interactions, i.e., a P$^{3}$M algorithm~\cite{hockney}, as on
-(Cell or GPU) accelerated systems, or use tree methods on conventional
+interactions, i.e., a P$^{3}$M algorithm \cite{1988csup.book.....H},
+as on (Cell or GPU) accelerated systems, or use tree methods on conventional
 or many-core architectures. (This was the case for the simulations
 reported here.) In all cases, the time-stepping scheme is based on
 a symplectic method with (adaptive) sub-cycling of the short-range
 force. The availability of multiple algorithms within the HACC framework
 allows us to carry out careful error analyses, for example, the P$^{3}$M
 and the TreePM versions agree to within $0.1\%$ for the nonlinear
-power spectrum test in the code comparison suite of Ref.~\cite{heitmann05}.
+power spectrum test in the code comparison suite of Ref. \cite{2005ApJS..160...28H}.
 
 An important feature of the work proposed here is the ability to carry
 out error-controlled approximate simulations at high throughput. In
@@ -990,7 +990,7 @@ to $\Delta a(z)=0.003$ and 2 sub-cycles (increasing the length of
 the global time step by a factor of 1.5 and that of the sub-cycles
 by a factor of 2.5), resulting in a reduction of the simulation run
 time by 4 times less. We keep the mass resolution constant; the results
-here are based on a particle mass of $5.3\times10^{10}h{\rm M_{\odot}}$.We
+here are based on a particle mass of $6.86\times10^{10}h{\rm M_{\odot}}$.We
 summarize the key results below:
 
 (a) The halo masses tend to be underestimated in these cases, as one
@@ -1049,6 +1049,11 @@ supported in part by the facilities and staff of the Yale University
 Faculty of Arts and Sciences High Performance Computing Center, and
 by resources at the National Energy Research Scientific Computing
 Center. TS would like to thank Andrew Szymakowski for useful discussions.
+This research used resources of the National Energy Research Scientific
+Computing Center, a DOE Office of Science User Facility supported
+by the Office of Science of the U.S. Department of Energy under Contract
+No. DE-AC02-05CH11231. Argonne National Laboratory's work was supported
+under U.S. Department of Energy contract DE-AC02-06CH11357.
 
 \bibliographystyle{JHEP}
 \bibliography{bigsims}
