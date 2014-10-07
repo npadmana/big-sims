@@ -228,31 +228,23 @@ at very small scales, which, as discussed previously, are not of interest
 in the current set of simulations.
 
 
-\section{Convergence Test: Selection of the minimal time steps}
+\section{The Impact of time steps}
 
 In this section, we examine how reducing the number of time steps
-affects halo properties (i.e., halo mass, position, and velocity),
-as well as observables such as halo mass functions and halo bias.
-In order to quantitatively evaluate different time-stepping options,
-we run a set of convergence tests with down-scaled simulation boxes,
-using simulation volumes of size $(256h^{-1}{\rm Mpc})^{3}$ and $256^{3}$
+affects individual halo properties (i.e., halo masses, positions, and velocities),
+as well as aggregate statistics like the mass function and spatial clustering.
+We run a set of convergence tests
+of size $(256h^{-1}{\rm Mpc})^{3}$ with $256^{3}$
 particles. These runs have the same particle mass as the main $(4000h^{-1}{\rm Mpc})^{3}$
-volume simulations.
-
-Time-stepping convergence was studied using the following time step
-options: 450/5, 300/3, 300/2, 150/3, and 150/2, where the first number
-indicates the number of long time steps and the second number the
-number of short sub-time steps for each long time step. To evaluate
-the different time-stepping options, we first compare the properties
-(masses, positions, and velocities) of individual halos by matching
-halos in one simulation run to halos in another, using identical initial
-conditions, and with adaptive time-stepping switched off. Following
-this, we compare statistical descriptions such as halo mass functions
-and density power spectra. We found that, for the purpose of the work
-presented in this paper, differences in halo properties do not significantly
-affect the statistical observables. Based on a number of convergence
-tests, the 300/2 time-stepping option was found sufficient to resolve
-the positions and masses of halos reliably.
+volume simulations. We run these with the following
+time steps : 450/5, 300/3, 300/2, 150/3 and 150/2 where the first number is the number of long
+time-steps, while the second is the number of subcycles. The 450/5 case has
+been independently verified to give fully converged results and is the baseline
+against which we compare all other results. Each simulation is started from the
+same initial conditions and evolved down to z=0.15 (CHECK). We demonstrate that
+the 300/2 case, corresponding to $\Delta a \approx 0.003$ (CHECK) reproduces
+the full resolution simulation for all the large scale properties we consider,
+and is our choice for the mocks presented in Sec.5.
 
 
 \subsection{Matching }
