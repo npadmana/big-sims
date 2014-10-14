@@ -131,44 +131,57 @@ b,c
 \end_layout
 
 \begin_layout Abstract
-Precision large scale structure measurements require large numbers of mock
- catalogs of high fidelity to accurately assess the levels of systematic
- effects.
- We introduce and test an approximate scheme for generating mock catalogs
- rapidly.
- Our aim here is to reproduce the large scale structure and the gross properties
- of dark matter halos with high accuracy while sacrificing the details of
- the internal structures of halos for speed.
- Our N-body code splits the evolution into global time steps for the long
- range force interleaved with a number of sub-cycles for the short range
- forces.
- By adjusting both of these, we demonstrate recover the large scale probes
- we consider, including individual halo masses to better than 2% and the
- power spectrum to 
-\begin_inset Formula $k=1h^{-1}{\rm Mpc}$
+Precision measurements of the large scale structure of the Universe require
+ large numbers of high fidelity mock catalogs to accurately assess, and
+ account for, the presence of systematic effects.
+ We introduce and test a scheme for generating mock catalogs rapidly using
+ suitably derated N-body simulations.
+ Our aim is to reproduce the large scale structure and the gross properties
+ of dark matter halos with high accuracy, while sacrificing the details
+ of the halo's internal structure.
+ By adjusting global and local time-steps in an N-body code, we demonstrate
+ recovery of the relevant large scale probes, including individual halo
+ masses, to better than 
+\begin_inset Formula $2\%$
 \end_inset
 
- to better than 1%, while requireing a factor of 4 less CPU time.
- We also test the redshift spacing of outputs required to generate light
- cone outputs.
- We find that 
-\begin_inset Formula $\Delta z=0.05$
+ and the power spectrum to 
+\begin_inset Formula $k=1h{\rm Mpc^{-1}}$
 \end_inset
 
- outputs allow us to interpolate particle positions and velocities with
- sufficient accuracy to reproduce the real and redshift space power spectra
- to better than 1% (out to 
-\begin_inset Formula $k=1h^{-1}{\rm Mpc}$
+, to better than 
+\begin_inset Formula $1\%$
+\end_inset
+
+, while requiring a factor of 4 less CPU time.
+ To reduce the number of output snapshots, we also test the redshift spacing
+ of outputs required to generate simulated light cones.
+ We find that outputs separated by 
+\begin_inset Formula $\Delta0.05$
+\end_inset
+
+ allow us to interpolate particle positions and velocities with sufficient
+ accuracy to reproduce the real and redshift space power spectra to better
+ than 
+\begin_inset Formula $1\%$
+\end_inset
+
+ (out to 
+\begin_inset Formula $k=1h{\rm Mpc^{-1}}$
 \end_inset
 
 ).
- Even with redshift spacing as large as 
+ Even with a redshift spacing as large as 
 \begin_inset Formula $\Delta z=0.25$
 \end_inset
 
-, these errors only degrade on less than 2% in both real and redshift spaces.
- As a demonstration of these ideas, we generate a suit of simulations matched
- to the Baryon Oscillation Spectroscopic sample.
+, these errors only degrade to less than 
+\begin_inset Formula $2\%$
+\end_inset
+
+ in both real and redshift space.
+ As a practical demonstration of these ideas, we generate a suit of simulations
+ matched to the Baryon Oscillation Spectroscopic Survey (BOSS).
 \end_layout
 
 \begin_layout Affiliation
@@ -222,76 +235,138 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Recently, the necessity and the demand for the large number of large N-body
- simulations have been increased in astronomy due to the precision required
- for measurements to understand cosmic acceleration, like the Baryon Oscillation
- Spectroscopic Survey (BOSS) and the proposed Mid Scale-Dark Energy Spectroscopi
-c Instrument (MS-DESI).
- As the area covered by those current and future spectroscopic galaxy surveys
- get larger, galaxy mocks necessary to the cosmological analysis also have
- to be generated from N-body simulations with the corresponding large volume,
- which is computationally expensive.
- Many studies have been done recently on the implementation of large N-body
- simulations 
+Large-volume spectroscopic surveys of the Universe have revolutionized our
+ knowledge of structure formation and have established unprecedented levels
+ of statistical error in measuring various aspects of galaxy clustering.
+ Because of the demands on precision and accuracy imposed by observational
+ campaigns that seek to investigate the nature of cosmic acceleration, the
+ requirements on synthetic or mock catalogs designed to test and validate
+ survey methodologies, have also become very severe.
+ For many applications, such as to the Baryon Oscillation Spectroscopic
+ Survey (BOSS)
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
-key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C"
+key "2013AJ....145...10D"
+
+\end_inset
+
+ and the near-future Dark Energy Spectroscopic Instrument (DESI) project,
+ a large number of high-precision mock catalogs are needed.
+ In order to encompass the survey volume, such catalogs can only be created
+ by running large-volume, computationally expensive, N-body simulations.
+ A large number of simulations -- with varying cosmological paramaters --
+ may be required in order to assess systematic effects and to estimate error
+ covariances.
+ Motivated by these considerations, a number of recent studies have investigated
+ methods designed to produce mock catalogs with reduced accuracy, but much
+ higher throughput compared to the full N-body simulations
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2002ApJ...564....8M,   2002MNRAS.331..587M, 2008MNRAS.391..435F, 2013AN....334..691R,   2013arXiv1312.2013C, 2013JCAP...06..036T, 2014MNRAS.437.2594W,   2013MNRAS.433.2389M, 2001A&A...367...18H, 2009ApJ...701..945S,   2014MNRAS.439L..21K, 2014arXiv1409.1124C"
 
 \end_inset
 
 .
- Besides the large volume required for the N-body simulations, we need many
- realizations to achieve the precision required for those measurements.
+ Many of these efforts have focused on error covariances, which allow for
+ significantly degraded error tolerances.
+ Here, we are concerned with the task of generating mock catalogs at levels
+ of error control that are similar to the level at which different N-body
+ codes might deviate, in other words, we seek to maintain close to state
+ of the art error tolerances in the quantities relevant for generating mock
+ catalogs.
+ The aim is to keep these error tolerances lower than the level of statistical
+ error in the actual observations.
 \end_layout
 
 \begin_layout Standard
-One of the simplest adjustments to an N-body simulation is to adjust the
- length of each individual time step.
- This is the approach taken in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2014MNRAS.437.2594W,2013JCAP...06..036T"
-
+The simplest way to generate approximate density fields is to use analytic
+ approximations such as Lagrangian perturbation theory followed by prescriptions
+ to put in halos in a way that better matches results from N-body simulations
+\begin_inset space ~
 \end_inset
 
-; indeed, the 2LPT mock simulations of 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013MNRAS.428.1036M,2014arXiv1401.4171M"
 
 \end_inset
 
- are an extreme version of this.
- These works have focused on relatively small numbers of time steps, accurately
- capturing the large scale density field, but losing information on small
- scales.
- While such approaches are invaluable for generating the large numbers of
- simulations required to build sample covariance matrices, it is harder
- to quantify the impact of the loss of accuracy on systematic tests.
- Our N-body simulations are consist of two components: a long time step
- for solving the PM force and a set of short range sub-cycle steps for a
- direct particle-particle interaction.
- The idea behind is reducing the number of both time steps as much as we
- can preserve enough mass resolution to correctly describe the large scale
- distribution of galaxies.
- Our first goal in this paper is to work at a different end of the spectrum
- : we aim to accurately reproduce the details of the halo density field
- on large scales, sacrificing the small scale structure with large time
- steps.
- Our second goal, is to build a suite of simulations and related mock catalogs
- suitable for the Baryon Oscillation Spectroscopic Survey galaxy samples.
- These both serve as a demonstration of our approach, but will be useful
- for evaluating systematic errors in these surveys.
+, or simply to run lower resolution N-body codes with a small number of
+ time-steps
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013JCAP...06..036T"
+
+\end_inset
+
+, or a combination of the two approaches
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2014MNRAS.437.2594W"
+
+\end_inset
+
+.
+ These methods are successful in capturing the large-scale density field
+ but lose information at small scales.
+ Because of their speed, they can be used to produce large numbers of simulation
+s required to build sample covariance matrices, at error levels ranging
+ from 
+\begin_inset Formula $5-10\%$
+\end_inset
+
+ (depending on the quantities being predicted).
+ It is difficult to estimate, however, what the loss of accuracy implies
+ for tests of systematic errors, which may need to be modeled at the 
+\begin_inset Formula $\sim1\%$
+\end_inset
+
+ level.
 \end_layout
 
 \begin_layout Standard
-In the following, we first briefly describe the mechanism of our approximated
- N-body simulations.
- In Section 3, we test and compare our method to the full N-body simulation
- and explain how we calibrate our samples.
- In Section 4 and 5, we build a light cone output and populate halos in
- our samples with galaxies and compute correlation functions based on BOSS
- Data Release 11, and compare it with the observed correlation function.
+The approach we take here is to reduce the small-scale accuracy of a high-resolu
+tion N-body code by coarsening its temporal resolution.
+ In the present case, the time-stepping consists of two components, (i)
+ a long time step for solving for evolution under the long-range particle-mesh
+ (PM) force, and (ii) a set of underlying sub-cycled time steps for a short-rang
+e particle-particle interaction, computed either via a tree-based algorithm,
+ or by direct particle-particle force evaluations.
+ The idea is to reduce the number of both types of time steps while preserving
+ enough accuracy to correctly describe the large scale distribution of galaxies,
+ as modeled by a halo occupation distribution (HOD) approach.
+ Our first goal in this paper is, therefore, to accurately reproduce the
+ details of the halo density field on large scales, sacrificing small scale
+ structure information.
+ Our second goal is to build a set of simulations and related mock catalogs
+ suitable for BOSS analyses.
+\end_layout
+
+\begin_layout Standard
+In the following, we first briefly describe the methodology behind relaxing
+ the resolution of the N-body simulations.
+ In Section 3, we test and compare our method against results from the full
+ N-body simulation and explain how we calibrate our samples.
+ In Sections 4 and 5, we build a light cone output, populate halos in our
+ samples with galaxies, and compute correlation functions based on BOSS
+ Data Release 11.
 \end_layout
 
 \begin_layout Standard
@@ -339,7 +414,7 @@ All simulations in this paper were carried out using the HACC (Hardware/Hybrid
  architecture of Roadrunner 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "1742-6596-180-1-012019,Pope:2010:AU:1845737.1845828"
+key "1742-6596-180-1-012019, Pope:2010:AU:1845737.1845828"
 
 \end_inset
 
@@ -347,18 +422,12 @@ key "1742-6596-180-1-012019,Pope:2010:AU:1845737.1845828"
 \end_layout
 
 \begin_layout Standard
-The HACC architecture is designed with great flexibility in mind (combining
- MPI with a variety of more local programming models, e.g., OpenCL, OpenMP)
- and is easily adaptable to different platforms.
- Currently, it is implemented on Cell-accelerated hardware, conventional
- and GPU-enhanced clusters (via OpenCL), on the IBM Blue Gene architecture
- (using OpenMP), and is running on prototype Intel MIC/Xeon Phi hardware.
- HACC is the first, and currently the only large-scale cosmology code suite
- world-wide, that can run at full scale on all available supercomputer architect
-ures, at very high performance levels.
+HACC's flexible code architecture combines MPI with a variety of more local
+ programming models, (e.g., OpenCL, OpenMP) and is easily adaptable to different
+ platforms.
  HACC has demonstrated scaling on the entire IBM BG/Q Sequoia system up
  to 1,572,864 cores with an equal number of MPI ranks, attaining 13.94 PFlops
- at 69.2% of peak and 90% parallel efficiency (for details, see 
+ at 69.2% of peak and 90% parallel efficiency (for details, see Ref.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2012arXiv1211.4864H"
@@ -371,25 +440,34 @@ key "2012arXiv1211.4864H"
 \begin_inset Formula $\alpha$
 \end_inset
 
- forest
+ forest 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2010ApJ...713..383W"
+
+\end_inset
+
+, high-statistics predictions for the halo profiles of massive clusters
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013ApJ...766...32B"
+
+\end_inset
+
+, and 0.5 and 1.1
+\begin_inset space ~
+\end_inset
+
+trillion particle runs at high mass resolution.
+ A recent overview of the HACC framework can be found in Ref.
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "boss_bao"
-
-\end_inset
-
- and high-statistics predictions for the halo profiles of massive clusters
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "conc_hacc"
+key "hacc_2014"
 
 \end_inset
 
@@ -398,9 +476,9 @@ key "conc_hacc"
 
 \begin_layout Standard
 HACC uses a hybrid parallel algorithmic structure, splitting the force calculati
-on into a specially designed grid-based long/medium range spectral particle-mesh
- (PM) component that is common to all architectures, and an architecture-specifi
-c short-range solver.
+on into a specially designed grid-based long/medium range spectral PM component
+ that is common to all computer architectures, and an architecture-specific
+ short-range solver.
  Modular code design combined with particle caching allows the short-range
  solvers to be `hot-swappable' on-node; they are blind to the parallel implement
 ation of the long-range solver.
@@ -409,14 +487,10 @@ ation of the long-range solver.
 \begin_inset Formula $^{3}$
 \end_inset
 
-M algorithm
-\begin_inset space ~
-\end_inset
-
-
+M algorithm 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "hockney"
+key "1988csup.book.....H"
 
 \end_inset
 
@@ -441,7 +515,7 @@ M and the TreePM versions agree to within
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "heitmann05"
+key "2005ApJS..160...28H"
 
 \end_inset
 
@@ -449,8 +523,9 @@ key "heitmann05"
 \end_layout
 
 \begin_layout Standard
-An important feature of the work proposed here is the ability to carry out
- error-controlled approximate simulations at high throughput.
+As already discussed, an important feature of the work presented here is
+ the ability to carry out error-controlled approximate simulations at high
+ throughput.
  In order to understand how we implement this, some details of the HACC
  time-stepping algorithm are now provided.
  Evolution is viewed as a symplectic map on phase space: 
@@ -552,7 +627,11 @@ d map
 
  steps composed together to obtain the required accuracy.
  (We take care that the time-dependence in the self-consistent potential
- is treated correctly.) As discussed later below, we will use the flexibility
+ is treated correctly; HACC uses the scale factor, 
+\begin_inset Formula $a$
+\end_inset
+
+, as the time variable.) As discussed later below, we will use the flexibility
  in the sub-cycling as a way of reducing the number of time steps such that
  the loss of accuracy only affects the resolution at very small scales,
  which, as discussed previously, are not of interest in the current set
@@ -560,20 +639,19 @@ d map
 \end_layout
 
 \begin_layout Section
-Convergence Test: Selection of the minimal time steps
+Time Step Tuning
 \end_layout
 
 \begin_layout Standard
-In this section, we examine how reducing the number of time steps affects
- halo properties (i.e., halo mass, position, and velocity), as well as observables
- such as halo mass functions and halo bias.
- In order to quantitatively evaluate different time-stepping options, we
- run a set of convergence tests with down-scaled simulation boxes, using
- simulation volumes of size 
+In this section, we systematically examine how reducing the number of time
+ steps affects individual halo properties (i.e., halo masses, positions, and
+ velocities), as well as aggregate statistics like the mass function and
+ spatial clustering.
+ We run a set of convergence tests with boxes of size 
 \begin_inset Formula $(256h^{-1}{\rm Mpc})^{3}$
 \end_inset
 
- and 
+ with 
 \begin_inset Formula $256^{3}$
 \end_inset
 
@@ -583,23 +661,27 @@ In this section, we examine how reducing the number of time steps affects
 \end_inset
 
  volume simulations.
-\end_layout
+ We run these with the following time step options : 450/5, 300/3, 300/2,
+ 150/3 and 150/2 where the first number is the number of long time-steps,
+ while the second is the number of subcycles.
+ The 450/5 case has been independently verified to give fully converged
+ results and is the baseline against which we compare all other results.
+ Each simulation is started from the same initial conditions and evolved
+ down to 
+\begin_inset Formula $z=0.15$
+\end_inset
 
-\begin_layout Standard
-Time-stepping convergence was studied using the following time step options:
- 450/5, 300/3, 300/2, 150/3, and 150/2, where the first number indicates
- the number of long time steps and the second number the number of short
- sub-time steps for each long time step.
- To evaluate the different time-stepping options, we first compare the propertie
-s (masses, positions, and velocities) of individual halos by matching halos
- in one simulation run to halos in another, using identical initial conditions,
- and with adaptive time-stepping switched off.
- Following this, we compare statistical descriptions such as halo mass functions
- and density power spectra.
- We found that, for the purpose of the work presented in this paper, differences
- in halo properties do not significantly affect the statistical observables.
- Based on a number of convergence tests, the 300/2 time-stepping option
- was found sufficient to resolve the positions and masses of halos reliably.
+.
+ We demonstrate that the 300/2 case, corresponding to 
+\begin_inset Formula $\Delta a\approx0.003$
+\end_inset
+
+ reproduces the full resolution simulation for all the large scale properties
+ we consider, and is our choice for the mocks presented in Sec.
+\begin_inset space ~
+\end_inset
+
+5.
 \end_layout
 
 \begin_layout Subsection
@@ -607,8 +689,9 @@ Matching
 \end_layout
 
 \begin_layout Standard
-In order to compare compare detailed halo properties we need to match individual
- halos across different runs.
+In order to compare detailed halo properties we need to match individual
+ halos across different runs (reference vs.
+ run under test).
  We first discuss the algorithm used for identifying the corresponding halos
  in the two cases and then compare halo mass, position, and velocity for
  the matched halos.
@@ -625,11 +708,12 @@ Algorithm
 \end_layout
 
 \begin_layout Standard
-All the simulations start with the same particle initial conditions, therefore
- we match halos in different runs by matching their particle content, using
- individual particle identification.
- Given a halo in simulation A, we consider halos in simulation B that between
- them hold all the particles belonging to the halo in simulation A.
+All simulations share the same particle initial conditions, allowing us
+ to match halos in different runs by matching their individual particle
+ content.
+ Given a halo in simulation A, we consider all halos in simulation B that
+ between them hold all the particles belonging to the halo in simulation
+ A.
  Given this list of possible matches, we choose the run B halo with the
  largest number of common particles with the reference halo in run A.
  To avoid spurious matches, we also require that the fraction of common
@@ -646,6 +730,62 @@ reference "fig:mass-content"
 
  demonstrates that the unmatched fraction increases with increasing threshold
  and decreasing halo mass.)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/unmatchHalo2_content_300_2_z0.15.pdf
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mass-content"
+
+\end_inset
+
+ Itemization of unmatched halos (from the 450/5 and 300/2 simulations at
+ 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+) shown as cumulative number densities of the unmatched halos arising from
+ each procedure in the matching algorithm.
+ The solid blue line is the total number density of the unmatched halos.
+ The dashed green line shows halos with no counterpart -- none of the particles
+ were identified as belonging to a halo in the comparison simulation; this
+ is significant only at low halo mass.
+ The dashed red line shows halos eliminated because of not meeting the matching
+ threshold (i.e., the halos do not have enough of a fraction of the same particles
+).
+ The dashed cyan line is for the halos eliminated because multiple halos
+ correspond to one halo (see text).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -666,7 +806,7 @@ reference "fig:mass-scatter1"
 \end_inset
 
  compares halo masses matching the 450/5 simulation to the 300/2 simulation
- for the case of multiply-booked halos as well as the rest.
+ for the case of multiply-booked halos, as well as the rest.
  The top left panel shows the mass scatter for all the matched halos between
  the two simulations, while the top right panel shows the mass scatter only
  for the non multiply-booked halos.
@@ -694,7 +834,7 @@ reference "fig:mass-scatter1"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -757,15 +897,8 @@ multiply-booked
 \begin_inset Quotes erd
 \end_inset
 
- halos (bottom left), and the 
-\begin_inset Quotes eld
-\end_inset
-
-multiply-booked
-\begin_inset Quotes erd
-\end_inset
-
- halos whose corresponding halo masses are added (bottom right).
+ halos (bottom left), and the multiply-booked halos whose corresponding
+ halo masses are added (bottom right).
  The results shown in these panels imply that the low-mass scatter between
  the 450/5 simulation and the 300/2 simulation shown in the top left panel
  arises when
@@ -794,13 +927,13 @@ multiply-booked
 As the top left panel shows, there are low-mass halos in the 450/5 simulation
  corresponding to high-mass halos in the 300/2 simulation.
  The same trend is observed for the case of multiply-booked halos (bottom
- left panel), but not for the non multiply-booked halos (top right).
+ left panel), but not for the non-multiply-booked halos (top right).
  Furthermore, the disagreement for halo masses between the two simulations
  are resolved by adding the corresponding halo masses.
  This implies that there are multiple halos in the 450/5 simulation which
  are merged into one halo in the 300/2 simulation.
  The smaller number of time steps in the 300/2 simulations reduces substructure
- and as well as the compactness of the halos in the 450/5 simulation.
+ as well as the compactness of the halos compared to the 450/5 simulation.
  Thus, for a small fraction of halos in the 450/5 simulation, individual
  halos can be merged into a single halo in the 300/2 simulation.
 \end_layout
@@ -846,74 +979,17 @@ eshold case, but at a reduced level.
  We have checked that the trends discussed here are not affected by redshift.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/unmatchHalo2_content_300_2_z0.15.pdf
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:mass-content"
-
-\end_inset
-
- Itemization of unmatched halos (from the 450/5 and 300/2 simulations at
- 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-) shown as cumulative number densities of the unmatched halos arising from
- each procedure in the matching algorithm.
- The solid blue line is the total number density of the unmatched halos.
- The dashed green line shows halos with no counterpart -- none of the particles
- were identified as belonging to a halo in the comparison simulation; this
- is significant only at low halo mass.
- The dashed red line shows halos eliminated because of not meeting the matching
- threshold (i.e., the halos do not have enough of a fraction of the same particles
-).
- The dashed cyan line is for the halos eliminated because multiple halos
- correspond to one halo.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Halo Properties
 \end_layout
 
 \begin_layout Standard
-We now compare halo properties (i.e., halo mass, position, and velocity) for
- the 300/2 halos that were successfully matched to those in the 450/5 simulation.
+We now systematically compare halo properties (i.e., halo mass, position,
+ and velocity) for halos in the lower resolution runs that were successfully
+ matched to those in the 450/5 simulation.
  We are interested in correctly describing the large-scale distribution
- of galaxies; in the current context, this requires that dark matter halo
- locations and masses be estimated sufficiently accurately.
- Therefore, it is essential to systematically investigate the effect of
- reducing the number of time steps on halo properties.
+ of galaxies using an HOD approach; this requires that only the dark matter
+ halo locations and masses be estimated sufficiently accurately.
 \end_layout
 
 \begin_layout Standard
@@ -982,119 +1058,26 @@ reference "fig:HaloProperty_mass"
 \end_inset
 
 ) is used in the FOF algorithm to define halos for all the simulations.)
- As stated earlier, reducing the number of time steps produces halos with
- less substructure and a more diffuse distribution of mass, thus in a direct
- one-on-one halo comparison, one expects the FOF mass to be highest in the
- 450/5 simulation, as borne out in the data.
-\end_layout
-
-\begin_layout Standard
-Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloProperty_step"
-
-\end_inset
-
- shows the differences in positions (left panel) and velocities (right panel)
- along x-axis for the matched halos at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- The simulations with a smaller number of global time steps (150) display
- significantly more scatter; they also show a small bias in the speed.
- With 300 global time steps, the results are significantly improved; the
- velocity bias is almost entirely removed and the scatter is significantly
- reduced.
- The standard deviation in the differences in halo distances is matched
- in these cases to better than 
-\begin_inset Formula $200h^{-1}{\rm kpc}$
-\end_inset
-
-
-\color black
-.
- The dashed lines represent the result from the simulations, while the solid
- lines are the Gaussian fits, where the values for amplitude, expected value
- and variance are shown in Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:amplitude"
-
-\end_inset
-
-.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloProperty_step"
-
-\end_inset
-
- shows that the distribution of the differences in positions and velocities
- are almost Gaussian.
-
-\color inherit
- As is clear from Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloProperty_step"
-
-\end_inset
-
-, the difference between 3 and 2 sub-cycles is negligible on halo properties.
- Note that we observe the same trend in halo properties discussed here at
- different redshifts and along different axes.
+ Under these circumstances, the FOF mass is highest in the 450/5 simulation,
+ decreasing systematically with increase in loss of temporal resolution.
 \end_layout
 
 \begin_layout Standard
 
-\color black
-As shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:mass-content"
-
-\end_inset
-
-, the fraction of unmatched halos in the 300/2 simulation to the 450/5 simulatio
-n is less than 5% on most of halo mass ranges, which implies that the 300/2
- simulation has almost the same number of halos as in the 450/5 simulation.
- Furthermore, Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:mass-scatter1"
-
-\end_inset
-
- shows that the halo masses in the 450/5 and 300/2 simulations have linear
- relation with the slope being one.
- So, most of halos in the 300/2 simulation have the same mass as the ones
- in the 450/5 simulation.
- Since the number of sub-cycles do not affect to halo positions and velocities
- as shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:HaloProperty_step"
-
-\end_inset
-
-, the 300/2 time step is our choice to save the simulation time while keeping
- the halo properties almost identical to the 450/5 simulation.
+\color red
+NOTE: because FOF masses come from particles within an isodensity contour,
+ it is not obvious that making the resolution worse will actually reduce
+ the mass -- it can even increase the mass, depending on the circumstances
+ (see Bhattacharya et al.
+ arXiv:1005.2239, the Appendix)
 \end_layout
 
 \begin_layout Standard
- 
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -1120,8 +1103,12 @@ name "fig:HaloProperty_mass"
 
 \end_inset
 
-Comparison of halo mass for matched halos between the 450/5 simulation and
- other time-stepping schemes at 
+Comparison of halo mass (FOF, 
+\begin_inset Formula $b=0.168$
+\end_inset
+
+) for matched halos between the 450/5 simulation and coarsened time-stepping
+ schemes at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
@@ -1164,20 +1151,13 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 
  is for the simulations with different number of time steps corresponding
  to different colors in the plot.
- The x-positions of the points have been displaced to avoid overlapping
- the error bars.
- This plot shows that halo masses become systematically smaller for the
- case of smaller numbers of time steps than those in the 450/5 simulation.
- 
+ The x-positions have been displaced to avoid overlapping the error bars.
+ Halo masses decrease systematically as the time resolution is coarsened.
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
- 
 \end_layout
 
 \end_inset
@@ -1186,15 +1166,103 @@ Comparison of halo mass for matched halos between the 450/5 simulation and
 \end_layout
 
 \begin_layout Standard
+Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+ shows the differences in positions (left panel) and velocities (right panel)
+ for the matched halos at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ Simulations with a smaller number of global time steps (150) display significan
+tly more scatter; they also show a small bias in the speed.
+ With 300 global time steps, the results are much improved; the velocity
+ bias is almost entirely removed and the scatter is significantly reduced.
+ The standard deviation in the differences in halo distances is matched
+ is better than 
+\begin_inset Formula $200h^{-1}{\rm kpc}$
+\end_inset
+
+ in these cases.
+ 
+\color black
+The distributions are very close to Gaussian.
+ 
+\color inherit
+As is clear from Figure
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+, the difference between 3 and 2 sub-cycles is insignificant for our purposes.
+ We observe the same trend in halo properties discussed here at different
+ redshifts.
+\end_layout
+
+\begin_layout Standard
+As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-content"
+
+\end_inset
+
+, the fraction of unmatched halos in the 300/2 simulation to the 450/5 simulatio
+n is less than 
+\begin_inset Formula $5\%$
+\end_inset
+
+ on most of halo mass ranges, which implies that the 300/2 simulation has
+ almost the same number of halos as in the 450/5 simulation.
+ Furthermore, Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
+
+\end_inset
+
+ shows that the halo masses in the 450/5 and 300/2 simulations have linear
+ relation with the slope being one.
+ So, most of halos in the 300/2 simulation have the same mass as the ones
+ in the 450/5 simulation.
+ Since the number of sub-cycles do not affect to halo positions and velocities
+ as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:HaloProperty_step"
+
+\end_inset
+
+, the 300/2 time step is our choice to save the simulation time while keeping
+ the halo properties almost identical to the 450/5 simulation.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/histogram_x_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -1202,6 +1270,7 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/histogram_vx_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -1219,28 +1288,11 @@ name "fig:HaloProperty_step"
 
 \end_inset
 
-A comparison of the positions [left] and velocities [right] of halos matched
+Comparison of the positions (left) and velocities (right) of halos matched
  across simulations with different time steps.
- As always, the reference simulation is 450/5 while the colors correspond
- to 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
- From left to right, we compared halo position and velocity respectively.
-\color blue
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
- 
-\color black
-The agreement with 300 time steps is very good, with a negligible difference
- from the number of sub-cycles.
- 
+ The reference simulation is 450/5 while the colors correspond to 300/3
+ (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
+ The dashed lines are Gaussian fits.
 \end_layout
 
 \end_inset
@@ -1254,510 +1306,79 @@ The agreement with 300 time steps is very good, with a negligible difference
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $A$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mu$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\sigma$
+The results shown in Figures
+\begin_inset space ~
 \end_inset
 
 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-3377.2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0715
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-2937.2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0781
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1280.9 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.1709
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1077.4 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.0 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.1783
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-content"
 
 \end_inset
 
-
-\begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $A$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mu$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\sigma$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-3461.5 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--3.138 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-11.527
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-300/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1975.8 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--3.105 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-12.780
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/3 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1975.0 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--15.660 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-17.955
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150/2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1667.7 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--15.821 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-18.592
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mass-scatter1"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:amplitude"
-
-\end_inset
-
-Values for amplitude 
-\begin_inset Formula $A$
-\end_inset
-
-, expected value 
-\begin_inset Formula $\mu$
-\end_inset
-
-, variance 
-\begin_inset Formula $\sigma$
-\end_inset
-
- in Gaussian fits shown in Figure 
+, and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:HaloProperty_step"
 
 \end_inset
 
- for the positions [right] and velocities [left] across simulations with
- different time steps.
- Note that we specifically fit the distribution of position differences
- with the expected value 0.
-\end_layout
-
+, show that the the 300/2 option has a low ratio of unmatched halos (less
+ than 
+\begin_inset Formula $5\%$
 \end_inset
 
-
-\end_layout
-
+), excellent halo mass correlation to the 450/5 simulation (the small mass
+ bias can be easily corrected as described below), and sufficiently small
+ scatter in halo position.
+ This time-stepping option is therefore a good candidate for generating
+ mock catalogs efficiently, while maintaining high accuracies.
+ In terms of the time savings alone, this will result in an increased capacity
+ to generate high quality catalogs by a factor of four, which is quite significa
+nt.
+ We will consider memory and storage savings further below in Section
+\begin_inset space ~
 \end_inset
 
-
+4.
 \end_layout
 
-\begin_layout Subsection
-Mass Adjustment
+\begin_layout Subsubsection
+Halo Mass Adjustment and Resulting Observables
 \end_layout
 
 \begin_layout Standard
-In the previous subsection, Figure 
+Halos generated by the de-tuned simulations have systematically lower masses
+ than the halos in the 450/5 simulation as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:HaloProperty_mass"
 
 \end_inset
 
- shows that halos generated by the de-tuned simulations have systematically
- lower masses than the halos in the 450/5 simulation.
- This suggests the necessity of adjusting halo masses for those cases to
- the halo masses in the 450/5 simulation.
- In the following, we describe how we do a mass adjustment and show the
- resulting observables including mass functions and power spectra.
-\end_layout
-
-\begin_layout Subsubsection
-Method
+.
+ In the following, we describe how to implement a systematic mass correction
+ by matching to the 450/5 results; we also display the resulting observables
+ including mass functions and power spectra.
 \end_layout
 
 \begin_layout Standard
-To calibrate halo masses for the simulations with the reduced number of
- time steps, we first take all the matched halos between the 450/5 simulation
- and the de-tuned simulations and compute means for each mass bin.
- We consider only the matched halos is because the aim of the mass adjustment
+To undertake the mass calibration, we first take all the matched halos between
+ the 450/5 simulation and the de-tuned simulations and compute means for
+ each mass bin.
+ We consider only the matched halos because the aim of the mass adjustment
  is to correct systematic mass differences for the halos that are theoretically
  identical in the different runs.
  After computing the means for each mass bin, we fit them to a functional
@@ -1816,13 +1437,31 @@ reference "tab:free_param1"
 \end_inset
 
 ).
+ The best-fit parameters 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ are functions of redshift.
+ For the case of the 300/2 simulation, the best fit parameters are 
+\begin_inset Formula $\alpha(z)=0.123z+0.052$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta(z)=-0.154z-0.447$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -1999,7 +1638,7 @@ name "tab:free_param1"
 
 \end_inset
 
-The mass reassignment parameters 
+Mass reassignment parameters 
 \begin_inset Formula $\alpha$
 \end_inset
 
@@ -2037,62 +1676,23 @@ reference "eq:mass_adjust"
 \end_layout
 
 \begin_layout Standard
-The best-fit parameters 
-\begin_inset Formula $\alpha$
-\end_inset
-
- and 
-\begin_inset Formula $\beta$
-\end_inset
-
- are functions of redshift.
- For the case of the 300/2 simulation, we find best fit parameters shown
- below:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\alpha(z)=0.123z+0.052,
-\end{equation}
-
-\end_inset
-
-and 
-\begin_inset Formula 
-\begin{equation}
-\beta(z)=-0.154z-0.447.
-\end{equation}
-
+Given the mass corrections, we now compute mass functions using the results
+ from the different time-stepping schemes, as shown in Figure
+\begin_inset space ~
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsubsection
-Observables
-\end_layout
-
-\begin_layout Standard
-Now, we show mass functions and power spectra for the different simulations
- after applying the mass adjustment.
-\end_layout
-
-\begin_layout Standard
-We first compute mass functions from outputs of different time-stepping
- schemes, as shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:massFn_step"
 
 \end_inset
 
-, where we compare simulations with reduced number of time steps to the
- 450/5 simulation at 
+, where we use the 450/5 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
-.
+ as the reference.
  In Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2112,20 +1712,17 @@ reference "fig:massFn_step"
 \begin_inset Formula $n(>M)$
 \end_inset
 
- is a cumulative mass function for different time steps shown in different
- colors.
- We compare the results before and after mass adjustment (left and right
- panels respectively).
+ is a cumulative mass function for the other cases.
+ We compare the results before and after mass adjustment.
  While the mass functions from the 250/3 and 150/2 simulations are suppressed
- more than 10% on all mass ranges before mass adjustment, they are significantly
- improved after mass adjustment, especially on halo masses greater than
- 
+ by more than 10% on all mass ranges before correction, they are significantly
+ improved afterwards, especially for halo masses greater than 
 \begin_inset Formula $10^{13.0}{\rm M_{\odot}}$
 \end_inset
 
 .
- For the simulations with the 300 global time steps, mass adjustment is
- especially effective on small halo masses.
+ For simulations with 300 global time steps, the mass adjustment is especially
+ effective at small halo masses.
 \end_layout
 
 \begin_layout Standard
@@ -2133,11 +1730,12 @@ reference "fig:massFn_step"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/haloRatioNum256_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2145,6 +1743,7 @@ status open
  
 \begin_inset Graphics
 	filename ../Plots/haloRatioNum256_tweak_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2162,16 +1761,16 @@ name "fig:massFn_step"
 
 \end_inset
 
- Comparison of cumulative mass functions in different simulations taking
+Comparison of cumulative mass functions in different simulations taking
  the 450/5 simulation as a reference.
- Lines, from top to bottom, correspond to the simulation with different
- time steps, 300/3 (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan)
- respectively.
- The left panel shows the cumulative mass functions before adjusting masses
- (as described in the text), while the right panel is after.
- These plots demonstrate that a simple mass recalibration allows one to
- successfully recover the mass functions, even in the extreme case of the
- 150/2 simulation, which differed by more than 10% (on all mass scales).
+ Lines, from top to bottom, correspond to the time stepping choices, 300/3
+ (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan) respectively.
+ The left panel shows the cumulative mass functions for unadjusted masses
+ (as described in the text), while the right panel shows the post-correction
+ results.
+ A simple mass recalibration allows one to successfully recover the mass
+ functions, even in the extreme case of the 150/2 simulation, for which
+ the original result differed by more than 10% (on all mass scales).
  
 \end_layout
 
@@ -2186,8 +1785,12 @@ name "fig:massFn_step"
 \end_layout
 
 \begin_layout Standard
-The next measure of interest is halo-matter cross power spectra between
- halo and matter density fields, as shown in Figure 
+We next compute the halo-matter cross power spectra between halo and matter
+ density fields in both real and redshift space, as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:crossMater_step"
@@ -2195,14 +1798,7 @@ reference "fig:crossMater_step"
 \end_inset
 
 .
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
- shows the ratio 
+ This figure shows the ratio 
 \begin_inset Formula $P_{hm}/P_{hm,450/5}$
 \end_inset
 
@@ -2218,24 +1814,7 @@ reference "fig:crossMater_step"
 \begin_inset Formula $P_{hm}$
 \end_inset
 
- is the cross power spectrum for other time steps corresponding to different
- colors, as labeled in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
-.
- We use the real-space halo density field for the left panel and the redshift-sp
-ace halo densities for the right panel in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:crossMater_step"
-
-\end_inset
-
-.
+ is the cross power spectrum for other time steps.
  For the dark matter density field, we use the output of the 450/5 simulation
  for all the halo samples.
  Note that the dark matter density fields are in real-space for both cases.
@@ -2243,21 +1822,13 @@ reference "fig:crossMater_step"
 \begin_inset Formula $P_{hm}/P_{hm,450/5}$
 \end_inset
 
- in real-space i
-\color black
-s equivalent to the ratio of halo bias between the 450/5 simulation and
- the simulations with other time-steps.
+ in real-space is equivalent to the ratio of halo bias between the 450/5
+ simulation and the simulations with other time-steps.
  To select halos, we apply the soft-mass cut method using the probability
  given by 
-\end_layout
-
-\begin_layout Standard
-
-\color black
- 
 \begin_inset Formula 
 \begin{equation}
-<N_{halo}(M)>=\frac{1}{2}{\rm erfc}(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}),
+\langle N_{halo}(M)\rangle=\frac{1}{2}{\rm erfc}\left(\frac{{\rm log(M_{cut}/}M)}{\sqrt{2}\sigma}\right),
 \end{equation}
 
 \end_inset
@@ -2271,21 +1842,21 @@ where we set
 \end_inset
 
 .
- This probability has a similar form to the halo occupation distribution
- (hereafter, HOD) technique so that the probability gradually becomes one
- as increasing halo mass.
- We use this method to avoid noise from halos scattering across sharp boundaries
- on halo mass.
-
-\color inherit
- Note that the errors calculated here are not due to sample variance, because
- we generate 10 samples from one full sample by using the soft-mass cut
- method.
- We see that, as we decrease the number of time steps, the ratio of the
- cross power spectra increases, especially in redshift-space, we observe
- large deviations from one on small scales for the 150/2 and 150/3 simulations.
+ This probability has a similar form to the HOD technique so that the probabilit
+y gradually becomes one as halo mass increases.
+ We use this method to avoid noise from halos scattering across sharp halo
+ mass boundaries.
+ The errors calculated here are not due to sample variance as we generate
+ 10 samples from one full sample with the soft-mass cut method.
+ The results show that as the time stepping is coarsened, the ratio of the
+ cross power spectra increases, especially in redshift-space, where we observe
+ large deviations from unity on small scales for the 150/2 and 150/3 simulations.
  This is due to the overall smaller halo velocities for those simulations,
- which is shown in Figure 
+ as shown in Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:HaloProperty_step"
@@ -2293,9 +1864,11 @@ reference "fig:HaloProperty_step"
 \end_inset
 
 .
- For the simulations with the 300 global time steps, overall agreements
- with the 450/5 simulation are almost 1% on any scales in both real-space
+ For the simulations with the 300 global time steps, overall agreement with
+ the 450/5 simulation is almost at the 1% level on any scale in both real-space
  and redshift-space.
+ Based on these convergence tests, we conclude that the 300/2 option meets
+ the error requirements.
 \end_layout
 
 \begin_layout Standard
@@ -2303,11 +1876,12 @@ reference "fig:HaloProperty_step"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/crossMatter_m450_tweak_softMcut13.0_s0.5_z0.15.pdf
+	lyxscale 50
 	width 45col%
 
 \end_inset
@@ -2315,6 +1889,7 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/crossMatter_tweak256_redshift_z0.15.pdf
+	lyxscale 50
 	width 45col%
 
 \end_inset
@@ -2332,22 +1907,20 @@ name "fig:crossMater_step"
 
 \end_inset
 
- Ratio of halo-matter cross pow
-\color black
-er spectra as a function of time steps with respect to the 450/5 simulation
- at 
+ Ratio of halo-matter cross power spectra as a function of time steps with
+ respect to the 450/5 simulation at 
 \begin_inset Formula $z=0.15$
 \end_inset
 
 .
  We use the real-space halo density field for the left panel and the redshift-sp
-ace halo density field for the right panel, while the dark matter density
- fields used here are in real-space for both cases.
+ace halo density field for the right panel; the dark matter density fields
+ used here are in real-space for both cases.
  The left panel shows that agreements with the 450/5 simulation are all
  within 2%.
  In the right panel, the large discrepancy of the cross power spectra for
  the simulations with 150 global steps on small scales is mainly due to
- the systematically small velocities, as shown in Figure 
+ the systematically small velocities shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:HaloProperty_step"
@@ -2377,24 +1950,15 @@ reference "fig:HaloProperty_step"
 
 \end_layout
 
-\begin_layout Standard
-As a conclusion through several convergence tests shown in this section,
- we find that the observables such as mass functions and power spectra are
- not affected by the differences on halo properties as much as those systematic
- differe
-\color black
-nces.
- Based on the results in this section, we concluded that the 300/2 simulation
- gives sufficient resolution for halos.
- 
-\end_layout
-
 \begin_layout Section
 Constructing Light Cones
 \end_layout
 
 \begin_layout Standard
-We build a light cone from snapshots whose redshift range is from 
+Once the simulations are run at the chosen time-stepping settings, the next
+ step is to construct light-cone outputs.
+ Here, we build light cones from snapshots whose redshift range is from
+ 
 \begin_inset Formula $z=0.8$
 \end_inset
 
@@ -2402,16 +1966,15 @@ We build a light cone from snapshots whose redshift range is from
 \begin_inset Formula $z=0.15$
 \end_inset
 
- separated constantly in redshift by 
+, with a constant redshift separation of 
 \begin_inset Formula $\Delta z=0.1$
 \end_inset
 
 .
- The light cone is constructed with the spherical shells.
- Each shell is centered at the redshift of each snapshot and has a redshift
- width of 0.1.
- In each shell, we move halo positions by using peculiar velocities to shift
- them into their light cone positions: 
+ The light cone is constructed using spherical shells, each shell is centered
+ at the redshift of each snapshot, and has a redshift width of 0.1.
+ In each shell, we displace the halo positions by using their peculiar velocitie
+s in order to shift to light cone positions:
 \begin_inset Formula 
 \begin{equation}
 \vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
@@ -2496,11 +2059,12 @@ to
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/hist_dist_x_z0.25to0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2565,17 +2129,21 @@ name "fig:Histograms-of-distance"
 \end_layout
 
 \begin_layout Standard
-Additionally, we compare the change in halo bias due to shifting.
- Figure 
+As an additional check, we compare the affect on halo bias due to shifting.
+ Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:power-lightcone"
 
 \end_inset
 
- shows the ratios of halo matter cross power spectra over an auto matter
+ shows the ratios of the halo matter cross power spectra to an auto matter
  power spectrum at 
-\begin_inset Formula $z=0.15$
+\begin_inset Formula $z=0.25$
 \end_inset
 
 .
@@ -2591,31 +2159,88 @@ reference "fig:power-lightcone"
 \begin_inset Formula $z=0.25$
 \end_inset
 
-.
+ (an analogous test is shown for redshifts 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+).
  The agreement between the original power spectrum at 
 \begin_inset Formula $z=0.25$
 \end_inset
 
- and the shifted power spectrum is 99.8% up to 1
-\begin_inset Formula $h{\rm Mpc^{-1}}$
+ and the shifted power spectrum is 99.8% up to 
+\begin_inset Formula $k=1h{\rm Mpc^{-1}}$
 \end_inset
 
 .
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:power-lightcone"
+ This demonstrates that the spatial distribution of the halos is statistically
+ correct across the scales of interest.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/shifting1.png
+	width 50col%
 
 \end_inset
 
- shows that spatial distribution of the halos is shifted to the expected
- distribution statistically.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:power-lightcone"
+
+\end_inset
+
+In this figure, we use the halo matter cross power spectra at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.7$
+\end_inset
+
+ as a denominator.
+ The dashed lines show the ratio with the cross power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ respectively before shifting, and the solid lines are the ratio after shifting
+ halo positions.
+ It indicates that shifting the positions of halos from one redshift to
+ the another preserves the distribution of halos statistically.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-A parameter when building 
-\color black
-light cones by stitching static snapshots together is how large 
+A parameter when building light cones by stitching static snapshots together
+ is how large 
 \begin_inset Formula $\Delta z$
 \end_inset
 
@@ -2683,63 +2308,9 @@ reference "fig:shift-expFac"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/shifting1.png
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:power-lightcone"
-
-\end_inset
-
-In this figure, we use the halo matter cross power spectra at 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.7$
-\end_inset
-
- as a denominator.
- The dashed lines show the ratio with the cross power spectra at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.8$
-\end_inset
-
- respectively before shifting, and the solid lines are the ratio after shifting
- halo positions.
- It indicates that shifting the positions of halos from one redshift to
- the another preserves the distribution of halos statistically.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\color red
+NOTE: velocity scaling with scale factor ratio needs to be justified --
 \end_layout
 
 \begin_layout Standard
@@ -2747,11 +2318,12 @@ In this figure, we use the halo matter cross power spectra at
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/test1.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2759,6 +2331,7 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/test2.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2812,11 +2385,12 @@ y.
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/hist_vx.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2824,6 +2398,7 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/hist_vx_expFac.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2873,11 +2448,12 @@ Comparisons of the velocities of halos matched across simulations at different
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/shifting_s_expFac_z0.15.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2934,13 +2510,12 @@ where we use the halo density field in redshift space.
 \end_layout
 
 \begin_layout Section
-THE BOSS SIMULATIONS
+BOSS Mock Catalogs
 \end_layout
 
 \begin_layout Standard
 As a concrete implementation of the approach discussed above, we construct
- catalogs designed to mock the Baryon Oscillation Spectroscopic Survey (BOSS)
- galaxy samples.
+ catalogs designed to mock BOSS galaxy samples.
  BOSS (
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2992,25 +2567,15 @@ We choose a simulation volume large enough to build a full-sky mock BOSS
 \begin_inset Formula $4000h^{-1}{\rm Mpc}$
 \end_inset
 
-,
-\color black
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
- corresponding to a comoving distance to 
+, corresponding to a comoving distance to 
 \begin_inset Formula $z\sim0.8$
 \end_inset
 
  from the center of the box; Fig.
- 
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -3033,9 +2598,8 @@ reference "fig:boss-geom"
 \end_inset
 
 , which we resolve with 100 particles.
- We keep all halos down to 40 particles co
-\color inherit
-rresponding to a halo mass of 
+ We keep all halos down to 40 particles corresponding to a halo mass of
+ 
 \begin_inset Formula $10^{12.6}{\rm M_{\odot}}$
 \end_inset
 
@@ -3057,13 +2621,28 @@ rresponding to a halo mass of
 \end_inset
 
 .
- At each of these steps, we store XXX.
+ At each of these steps, we store 
+\color red
+XXX
+\color inherit
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+NOTE: complete final sentence -> This is for Salman and Katrin to fill the
+ details.
 \end_layout
 
 \begin_layout Standard
 The BOSS angular geometry is split into two regions : one in the North Galactic
- Cap and one in the South Galactic Cap (Fig.
- 
+ Cap and one in the South Galactic Cap (Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -3072,8 +2651,11 @@ reference "fig:boss-geom"
 
 ).
  Since we generate full-sky mocks, it is straightforward to embed two full
- non-overlapping BOSS surveys in a single mock realization (Fig.
- 
+ non-overlapping BOSS surveys in a single mock realization (Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
@@ -3089,7 +2671,7 @@ reference "fig:boss-geom"
 \begin_inset Formula $\vec{x}_{new}$
 \end_inset
 
- such as 
+ such that 
 \begin_inset Formula $\vec{x}_{new}=R\vec{x}_{old}$
 \end_inset
 
@@ -3097,15 +2679,18 @@ reference "fig:boss-geom"
 \begin_inset Formula $R$
 \end_inset
 
- is the Euler rotation matrix for Fig.
- 
+ is the Euler rotation matrix for Figure
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:boss-geom"
 
 \end_inset
 
-: 
+:
 \begin_inset Formula 
 \[
 R=\left(\begin{array}{ccc}
@@ -3124,7 +2709,7 @@ R=\left(\begin{array}{ccc}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3146,8 +2731,7 @@ name "fig:boss-geom"
 
 \end_inset
 
-Demonstrating how we fit two non-overlapping BOSS volumes into the same
- simulation box.
+Fitting two non-overlapping BOSS volumes into the same simulation box.
  The blue region is the BOSS survey footprint in equatorial coordinates,
  while the red region is the same region rotated using the rotation matrix
  given in the text.
@@ -3168,16 +2752,13 @@ Building the Galaxy Catalog
 \end_layout
 
 \begin_layout Standard
-To generate galaxy mock catalogs, we need to go through the following steps:
-\end_layout
+To generate the galaxy mock catalogs, we proceed in two steps, 1) populate
+ halos with galaxies using an HOD approach, 2) assign positions and velocities
+ to the galaxies assuming an NFW profile
+\begin_inset space ~
+\end_inset
 
-\begin_layout Standard
-1) populate halos with galaxies through the HOD functional form,
-\end_layout
 
-\begin_layout Standard
-2) give positions and velocities to the galaxies assuming an NFW profile
- 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "1996ApJ...462..563N"
@@ -3185,12 +2766,9 @@ key "1996ApJ...462..563N"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The HOD functional form gives probabilities for the number of central and
- satellite galaxies based on mass of halos which host those galaxies with
- five free parameters.
+ The HOD functional form (based on a number of free parameters, 5 in our
+ case) provides probabilities for the number of central and satellite galaxies
+ based on the masses of halos that host those galaxies.
  A halo hosts a central galaxy with probability 
 \begin_inset Formula $N_{cen}(M)$
 \end_inset
@@ -3252,17 +2830,25 @@ where
 \begin_inset Formula $M<\kappa M_{cut}$
 \end_inset
 
- and halos do not host satellite galaxies without a central galaxy (
+ and halos do not host satellite galaxies without a central galaxy
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2005ApJ...633..791Z"
 
 \end_inset
 
-).
+.
  The total number of galaxies hosted by each halo is a sum of the number
  of central and satellite galaxies.
- Eqs 
+ Equations
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Ncen"
@@ -3278,21 +2864,25 @@ reference "eq:Nsat"
 
  are not the only possible functional form for the HOD, and it is trivial
  to change this.
- However, these forms reproduce the clustering of the BOSS galaxies (
+ However, these forms are known to successfully reproduce the clustering
+ of the BOSS galaxies
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2011ApJ...728..126W"
 
 \end_inset
 
-) and we use them in what follows.
+ and are therefore a convenient choice.
 \end_layout
 
 \begin_layout Standard
-We place the central galaxies at the center, with a velocity equal to the
- halo velocity.
- We distribute satellite galaxies with an spherically symmetric NFW profile:
- 
+Central galaxies are given a velocity equal to the halo velocity; satellite
+ galaxies are distributed around them with a spherically symmetric NFW profile
+ specified by: 
 \begin_inset Formula 
 \begin{equation}
 \rho(r)=\frac{4\rho_{s}}{\frac{cr}{R_{vir}}(1+\frac{cr}{R_{vir}})^{2}},
@@ -3342,42 +2932,23 @@ acteristic scale
 \end_inset
 
  is the speed of light here).
- We adopt the form in 
+ 
+\color red
+We use a cosmic emulator 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "2011ApJ...740..102K"
+key "2013ApJ...768..123K"
 
 \end_inset
 
-: 
-\begin_inset Formula 
-\begin{equation}
-c(M,z)=\frac{c_{0}}{1+z}(M/M_{0})^{-\beta},
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $c_{0}=9.60$
-\end_inset
-
-, 
-\begin_inset Formula $M_{0}=10^{12}$
-\end_inset
-
-, and 
-\begin_inset Formula $\beta=0.075$
-\end_inset
-
-.
- There have been several studies about conecntration, those different expression
-s on concentration do not make difference for our purpose.
+ to generate a table of concentration-mass relation for halos at each redshift
+ with the given cosmology.
 \end_layout
 
 \begin_layout Standard
 The velocities of the satellite galaxies are the sum of their host halo
  velocity and a random virial component.
- This random component are given as follows:
+ This random component is given by
 \end_layout
 
 \begin_layout Standard
@@ -3399,8 +2970,7 @@ reference "eq:variance"
  to give each component of an internal velocity for the satellite galaxies.
  Here, we assume that satellite galaxies are randomly moving inside the
  host halos.
- So, we give the radial component of this random motion from the Gaussian
- distribution and determine the direction randomly with equal probability.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3446,17 +3016,6 @@ key "2013arXiv1303.4666A"
 
 ,
 \color black
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
  
 \begin_inset Formula $\kappa=1.0$
 \end_inset
@@ -3470,45 +3029,42 @@ status collapsed
 \end_layout
 
 \begin_layout Standard
-Note that we fit the average number density of galaxies to that of 
+We subsample to match the redshift selection function of Ref.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013arXiv1303.4666A"
 
 \end_inset
 
- as shown in
-\color black
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
+.
  Figure 
-\color inherit
-
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:nz_gal"
 
 \end_inset
 
-.
- In order to fit the number density, we randomly select galaxies after populatin
-g halos through HOD.
+ shows before and after subsampling for BOSS CMASS North Galactic Cap.
+ 
 \end_layout
 
 \begin_layout Standard
 
-\color black
-The correlation function computed from our sample mocks fits to the correlation
- function in 
+\color red
+NOTE: not clear at all what is being done here; what do the dashed lines
+ in Fig.
+ 13 mean? Should we even show Fig.
+ 13?
+\end_layout
+
+\begin_layout Standard
+The correlation function computed from our sample mocks agrees with the
+ correlation function in Ref.
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013arXiv1303.4666A"
@@ -3558,7 +3114,14 @@ reference "fig:xis"
 \end_inset
 
 .
- 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+NOTE: better and more complete discussion of the results is needed here;
+ how well do our mock results compare with those obtained by other people?
+ why is the chi^2 a relevant test here?
 \end_layout
 
 \begin_layout Standard
@@ -3570,13 +3133,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/nz_dr11_N.pdf
-	width 50col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../Plots/nz_dr11_S.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3594,13 +3151,17 @@ name "fig:nz_gal"
 
 \end_inset
 
-A comparison of galaxy number densities before fitting to DR11 [dashed lines]
- and after [solid lines].
+A comparison of galaxy number densities before fitting to DR11 (dashed lines)
+ and after (solid lines).
  The blue solid line is 
 \begin_inset Formula $n(z)$
 \end_inset
 
- from DR11 (North) in 
+ from DR11 (North) in Ref.
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013arXiv1303.4666A"
@@ -3627,6 +3188,12 @@ key "2013arXiv1303.4666A"
 \end_layout
 
 \begin_layout Standard
+
+\color red
+NOTE: not clear what the point of this figure is
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -3635,6 +3202,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/xi0_obs.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3642,6 +3210,7 @@ status open
 
 \begin_inset Graphics
 	filename ../Plots/xi2_obs.pdf
+	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -3663,18 +3232,22 @@ Correlation function monopoles
 \begin_inset Formula $\xi^{(0)}(s)$
 \end_inset
 
- [left] and quadrupoles 
+ (left) and quadrupoles 
 \begin_inset Formula $\xi^{(2)}(s)$
 \end_inset
 
- [right] of the mocks (green) and DR11 in 
+ (right) of the mocks (green) and DR11 in Ref.
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013MNRAS.428.1036M"
 
 \end_inset
 
-(blue) at 
+ (blue) at 
 \begin_inset Formula $z=0.55$
 \end_inset
 
@@ -3690,6 +3263,12 @@ key "2013MNRAS.428.1036M"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+NOTE: need a better discussion of these results in the text
 \end_layout
 
 \begin_layout Section
