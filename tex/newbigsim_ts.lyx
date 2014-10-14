@@ -258,7 +258,7 @@ key "2013AJ....145...10D"
  a large number of high-precision mock catalogs are needed.
  In order to encompass the survey volume, such catalogs can only be created
  by running large-volume, computationally expensive, N-body simulations.
- A large number of simulations -- with varying cosmological paramaters --
+ A large number of simulations -- with varying cosmological parameters --
  may be required in order to assess systematic effects and to estimate error
  covariances.
  Motivated by these considerations, a number of recent studies have investigated
@@ -2299,7 +2299,7 @@ reference "fig:shift-expFac"
 \end_inset
 
  is the redshift of the simulation.
- The clustering in redshift-space is improved siginificantly that the overall
+ The clustering in redshift-space is improved significantly that the overall
  agreement becomes within 1% on 
 \begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
@@ -2481,7 +2481,7 @@ reference "fig:power-lightcone2"
 
 .
  The only difference is that here we use the velocity field multiplied by
- th ratio of the expansion factor 
+ the ratio of the expansion factor 
 \begin_inset Formula $a(z)/a(z=0.15)$
 \end_inset
 
@@ -3372,7 +3372,7 @@ We also consider the redshift sampling required to construct light cone
 \begin_inset Formula $\Delta z=0.1$
 \end_inset
 
- interval correctly reduecs the standard deviation of those distances from
+ interval correctly reduces the standard deviation of those distances from
  
 \begin_inset Formula $0.25[h^{-1}{\rm Mpc}]$
 \end_inset
