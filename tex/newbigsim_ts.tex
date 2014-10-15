@@ -91,32 +91,52 @@ galaxies; halos, statistics}
 
 \section{Introduction}
 
-Large-volume spectroscopic surveys of the Universe have revolutionized
-our knowledge of structure formation and have established unprecedented
-levels of statistical error in measuring various aspects of galaxy
-clustering. Because of the demands on precision and accuracy imposed
-by observational campaigns that seek to investigate the nature of
-cosmic acceleration, the requirements on synthetic or mock catalogs
-designed to test and validate survey methodologies, have also become
-very severe. For many applications, such as to the Baryon Oscillation
-Spectroscopic Survey (BOSS)~\cite{2013AJ....145...10D} and the near-future
-Dark Energy Spectroscopic Instrument (DESI) project, a large number
-of high-precision mock catalogs are needed. In order to encompass
-the survey volume, such catalogs can only be created by running large-volume,
-computationally expensive, N-body simulations. A large number of simulations
--- with varying cosmological parameters -- may be required in order
-to assess systematic effects and to estimate error covariances. Motivated
+Large-volume spectroscopic surveys of the Universe (CITE SDSS, WiggleZ, BOSS)
+are revolutionizing our understanding of cosmology and structure formation.
+Based on these successes, a new generation of surveys (CITE DESI, Euclid, 
+WFIRST) is being planned that will improve our constraints by an order
+of magnitude (or more). This unprecedented improvement in statistical 
+precision places stringent demands on the theoretical modeling and 
+analysis techniques; simulations will play an essential in meeting these 
+requirements. 
+
+One of the challenges for simulations are the varied roles they play, 
+and the different requirements these impose on the simulations. 
+At one extreme, simulations are necessary for generating sample covariances 
+for the data and measurements. This typically requires very large 
+volumes to simulate entire surveys thousands of times, but have lower accuracy 
+requirements. 
+Motivated
 by these considerations, a number of recent studies have investigated
 methods designed to produce mock catalogs with reduced accuracy, but
-much higher throughput compared to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
-Many of these efforts have focused on error covariances, which allow
-for significantly degraded error tolerances. Here, we are concerned
-with the task of generating mock catalogs at levels of error control
-that are similar to the level at which different N-body codes might
-deviate, in other words, we seek to maintain close to state of the
-art error tolerances in the quantities relevant for generating mock
-catalogs. The aim is to keep these error tolerances lower than the
-level of statistical error in the actual observations.
+much higher throughput compared to the full N-body
+simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,
+2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,
+2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
+An open question still is the effect of changing the input cosmology used
+to generate the covariance matrix on cosmological inferences, and how 
+best to implement such variations. More recently, the impact of super-survey
+modes (modes outside the survey volume) on inferred errors has 
+been shown to be potentially larger than previously appreciated (CITES??) 
+and is an area of active study.
+
+At the other extreme, simulations are crucial for calibrating the theoretical
+models used to fit the data. Examples here are quantifying shifts in the
+baryon acoustic oscillation distance scale due to nonlinear evolution
+and galaxy bias (CITES), or templates used to fit the full shape of the 
+correlation function. For such applications, one ideally requires 
+high fidelity simulations. The volume requirements are significantly 
+reduced from that for covariance matrices, but still need to much larger
+than survey volumes to keep systematic errors below statistical errors.
+
+An intermediate application are the generation of mock catalogs that capture
+the observational characteristics of surveys (eg. geometry, selection 
+effects). The importance of these cannot be underestimated, since the effects
+of many observational systematics can only be quantitatively estimated 
+by simulating them. These issues will get progressively more important
+for the next generations of surveys which will move away from highly 
+complete and pure samples that have mostly been used for cosmological studies 
+to date.
 
 The simplest way to generate approximate density fields is to use
 analytic approximations such as Lagrangian perturbation theory followed
@@ -143,23 +163,101 @@ either via a tree-based algorithm, or by direct particle-particle
 force evaluations. The idea is to reduce the number of both types
 of time steps while preserving enough accuracy to correctly describe
 the large scale distribution of galaxies, as modeled by a halo occupation
-distribution (HOD) approach. Our first goal in this paper is, therefore,
-to accurately reproduce the details of the halo density field on large
-scales, sacrificing small scale structure information. Our second
-goal is to build a set of simulations and related mock catalogs suitable
-for BOSS analyses.
+distribution (HOD) approach. 
+Our first goal in this paper is, therefore, to quantitatively understand
+the impact of the temporal resolution on the halo density field and
+how best to 
+accurately reproduce the details of the halo density field on large
+scales, sacrificing small scale structure information. 
+This allows to generate a suite of large volume simulations, spanning
+a range of cosmologies. This paper presents the details of these simulations
+and outlines future applications.
 
-In the following, we first briefly describe the methodology behind
-relaxing the resolution of the N-body simulations. In Section 3, we
-test and compare our method against results from the full N-body simulation
-and explain how we calibrate our samples. In Sections 4 and 5, we
-build a light cone output, populate halos in our samples with galaxies,
-and compute correlation functions based on BOSS Data Release 11.
+This paper is organized as follows. Sec.~2 briefly describes the Hardware/Hybrid
+Accelerated Cosmology Code (HACC) N-body framework we use to generate our
+simulations, focusing on the flexibility in the time-stepping that we exploit here. 
+Sec.~3 presents a sequence of convergence tests where we evaluate the effects
+of time-stepping on the halo density field. Sec.~4 discusses interpolating between
+saved time steps, necessary for constructing light-cone outputs. Sec.~5 presents
+an example application of these simulations : generating mock catalogs that 
+match the BOSS galaxy sample. (NOTE : Can we put in another simple application?) 
+We conclude in Sec.~6 by outlining possible future directions.
 
 All simulations and calculations in this paper assume a $\Lambda$CDM
 cosmology with $\Omega_{m}=0.2648$, $\Omega_{\Lambda}=0.7352$, $\Omega_{b}h^{2}=0.02258$,
 $n_{s}=0.963$, $\sigma_{8}=0.8$ and $h=0.71$.
 
+%%\section{Introduction}
+%%
+%%Large-volume spectroscopic surveys of the Universe have revolutionized
+%%our knowledge of structure formation and have established unprecedented
+%%levels of statistical error in measuring various aspects of galaxy
+%%clustering. Because of the demands on precision and accuracy imposed
+%%by observational campaigns that seek to investigate the nature of
+%%cosmic acceleration, the requirements on synthetic or mock catalogs
+%%designed to test and validate survey methodologies, have also become
+%%very severe. For many applications, such as to the Baryon Oscillation
+%%Spectroscopic Survey (BOSS)~\cite{2013AJ....145...10D} and the near-future
+%%Dark Energy Spectroscopic Instrument (DESI) project, a large number
+%%of high-precision mock catalogs are needed. In order to encompass
+%%the survey volume, such catalogs can only be created by running large-volume,
+%%computationally expensive, N-body simulations. A large number of simulations
+%%-- with varying cosmological parameters -- may be required in order
+%%to assess systematic effects and to estimate error covariances. Motivated
+%%by these considerations, a number of recent studies have investigated
+%%methods designed to produce mock catalogs with reduced accuracy, but
+%%much higher throughput compared to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
+%%Many of these efforts have focused on error covariances, which allow
+%%for significantly degraded error tolerances. Here, we are concerned
+%%with the task of generating mock catalogs at levels of error control
+%%that are similar to the level at which different N-body codes might
+%%deviate, in other words, we seek to maintain close to state of the
+%%art error tolerances in the quantities relevant for generating mock
+%%catalogs. The aim is to keep these error tolerances lower than the
+%%level of statistical error in the actual observations.
+%%
+%%The simplest way to generate approximate density fields is to use
+%%analytic approximations such as Lagrangian perturbation theory followed
+%%by prescriptions to put in halos in a way that better matches results
+%%from N-body simulations~\cite{2013MNRAS.428.1036M,2014arXiv1401.4171M},
+%%or simply to run lower resolution N-body codes with a small number
+%%of time-steps~\cite{2013JCAP...06..036T}, or a combination of the
+%%two approaches~\cite{2014MNRAS.437.2594W}. These methods are successful
+%%in capturing the large-scale density field but lose information at
+%%small scales. Because of their speed, they can be used to produce
+%%large numbers of simulations required to build sample covariance matrices,
+%%at error levels ranging from $5-10\%$ (depending on the quantities
+%%being predicted). It is difficult to estimate, however, what the loss
+%%of accuracy implies for tests of systematic errors, which may need
+%%to be modeled at the $\sim1\%$ level.
+%%
+%%The approach we take here is to reduce the small-scale accuracy of
+%%a high-resolution N-body code by coarsening its temporal resolution.
+%%In the present case, the time-stepping consists of two components,
+%%(i) a long time step for solving for evolution under the long-range
+%%particle-mesh (PM) force, and (ii) a set of underlying sub-cycled
+%%time steps for a short-range particle-particle interaction, computed
+%%either via a tree-based algorithm, or by direct particle-particle
+%%force evaluations. The idea is to reduce the number of both types
+%%of time steps while preserving enough accuracy to correctly describe
+%%the large scale distribution of galaxies, as modeled by a halo occupation
+%%distribution (HOD) approach. Our first goal in this paper is, therefore,
+%%to accurately reproduce the details of the halo density field on large
+%%scales, sacrificing small scale structure information. Our second
+%%goal is to build a set of simulations and related mock catalogs suitable
+%%for BOSS analyses.
+%%
+%%In the following, we first briefly describe the methodology behind
+%%relaxing the resolution of the N-body simulations. In Section 3, we
+%%test and compare our method against results from the full N-body simulation
+%%and explain how we calibrate our samples. In Sections 4 and 5, we
+%%build a light cone output, populate halos in our samples with galaxies,
+%%and compute correlation functions based on BOSS Data Release 11.
+%%
+%%All simulations and calculations in this paper assume a $\Lambda$CDM
+%%cosmology with $\Omega_{m}=0.2648$, $\Omega_{\Lambda}=0.7352$, $\Omega_{b}h^{2}=0.02258$,
+%%$n_{s}=0.963$, $\sigma_{8}=0.8$ and $h=0.71$.
+%%
 
 \section{HACC}
 
