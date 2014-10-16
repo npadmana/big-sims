@@ -1031,7 +1031,7 @@ reference "fig:HaloProperty_mass"
 \end_inset
 
 , and compute their means and standard deviations for 
-\begin_inset Formula ${\rm log_{10}(M/M_{450/5})}$
+\begin_inset Formula ${\rm M/M_{450/5}}$
 \end_inset
 
 , where 
@@ -1063,21 +1063,11 @@ reference "fig:HaloProperty_mass"
 \end_layout
 
 \begin_layout Standard
-
-\color red
-NOTE: because FOF masses come from particles within an isodensity contour,
- it is not obvious that making the resolution worse will actually reduce
- the mass -- it can even increase the mass, depending on the circumstances
- (see Bhattacharya et al.
- arXiv:1005.2239, the Appendix)
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1138,7 +1128,7 @@ Comparison of halo mass (FOF,
 \end_inset
 
 , and compute the mean and the standard deviation for 
-\begin_inset Formula ${\rm log_{10}(M/M_{450/5})}$
+\begin_inset Formula ${\rm M/M_{450/5}}$
 \end_inset
 
  where 
@@ -1184,7 +1174,7 @@ reference "fig:HaloProperty_step"
 
 .
  Simulations with a smaller number of global time steps (150) display significan
-tly more scatter; they also show a small bias in the speed.
+tly more scatter; they also show a small bias in the velocity.
  With 300 global time steps, the results are much improved; the velocity
  bias is almost entirely removed and the scatter is significantly reduced.
  The standard deviation in the differences in halo distances is matched
@@ -1192,7 +1182,21 @@ tly more scatter; they also show a small bias in the speed.
 \begin_inset Formula $200h^{-1}{\rm kpc}$
 \end_inset
 
- in these cases.
+ in these cases, and better than 
+\begin_inset Formula $50{\rm km/s}$
+\end_inset
+
+ in velocities.
+ 
+\color red
+As a reference, the standard deviation of velocities for the full resolution
+ simulation (450/5) is about 
+\begin_inset Formula $300{\rm km/s}$
+\end_inset
+
+.
+
+\color inherit
  
 \color black
 The distributions are very close to Gaussian.
@@ -1461,7 +1465,7 @@ reference "tab:free_param1"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2059,7 +2063,7 @@ to
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2274,12 +2278,10 @@ reference "fig:vel_hist_expFac"
 \end_inset
 
 .
- We compare original velocities computed from the simulations in the right
- panel, while we multiply those velocity by the expansion factor 
-\begin_inset Formula $a(z)$
-\end_inset
-
- in the left panel.
+ 
+\color red
+We compare original velocities computed from the simulations in the right
+ panel, while we interpolate in the left panel.
  By scaling with the expansion factor, the velocity differences at different
  redshifts become smaller.
  Figure 
@@ -2308,17 +2310,11 @@ reference "fig:shift-expFac"
 \end_layout
 
 \begin_layout Standard
-
-\color red
-NOTE: velocity scaling with scale factor ratio needs to be justified --
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2385,7 +2381,7 @@ y.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2448,7 +2444,7 @@ Comparisons of the velocities of halos matched across simulations at different
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3048,21 +3044,8 @@ reference "fig:nz_gal"
 \end_inset
 
  shows before and after subsampling for BOSS CMASS North Galactic Cap.
- 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: not clear at all what is being done here; what do the dashed lines
- in Fig.
- 13 mean? Should we even show Fig.
- 13?
-\end_layout
-
-\begin_layout Standard
-The correlation function computed from our sample mocks agrees with the
- correlation function in Ref.
+ After subsampling, we compute correlation functions from our sample mocks.
+ Those correlation functions agree with the correlation function in Ref.
 \begin_inset space ~
 \end_inset
 
@@ -3089,48 +3072,14 @@ reference "fig:xis"
 \end_inset
 
 .
- We compute 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
- for monopoles and quadrupoles from the simulation at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
- and the light cone output.
- We obtain 
-\begin_inset Formula $\chi^{2}=23.4$
-\end_inset
-
- for the simulation at 
-\begin_inset Formula $z=0.55$
-\end_inset
-
- and 
-\begin_inset Formula $\chi^{2}=25.0$
-\end_inset
-
- for the light cone output.
- The degree of freedom here is 14 where 
-\begin_inset Formula $s\in[30h^{-1}{\rm Mpc},78h^{-1}{\rm Mpc}]$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: better and more complete discussion of the results is needed here;
- how well do our mock results compare with those obtained by other people?
- why is the chi^2 a relevant test here?
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3153,8 +3102,10 @@ name "fig:nz_gal"
 
 \end_inset
 
-A comparison of galaxy number densities before fitting to DR11 (dashed lines)
- and after (solid lines).
+
+\color red
+A comparison of galaxy number densities before fitting to DR11 redshift
+ selection function (dashed lines) and after (solid lines).
  The blue solid line is 
 \begin_inset Formula $n(z)$
 \end_inset
@@ -3190,16 +3141,10 @@ key "2013arXiv1303.4666A"
 \end_layout
 
 \begin_layout Standard
-
-\color red
-NOTE: not clear what the point of this figure is
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3265,12 +3210,6 @@ key "2013MNRAS.428.1036M"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: need a better discussion of these results in the text
 \end_layout
 
 \begin_layout Section
