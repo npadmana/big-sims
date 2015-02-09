@@ -970,8 +970,8 @@ reference "fig:mass-content"
 , we show each type of unmatched number density as a function of halo mass.
  The first case occurs only for low halo masses, where low effective resolution
  in a simulation can lead to halo drop out (halos are too 'fuzzy' to meet
- the FOF overdensity criterion), and falls off steeply with rising halo
- mass.
+ the Friends-of-Friends (FOF) overdensity criterion), and falls off steeply
+ with rising halo mass.
  Most of the unmatched halos arise due to their not passing the threshold
  criterion.
  The loss of matching due to multiple-booking follows the trend of the below-thr
@@ -2449,7 +2449,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/shifting_s_expFac_z0.15.pdf
-	lyxscale 50
 	width 50col%
 
 \end_inset
@@ -2616,20 +2615,28 @@ reference "fig:boss-geom"
 \begin_inset Formula $\Delta z=0.05$
 \end_inset
 
-.
- At each of these steps, we store 
-\color red
-XXX
-\color inherit
+ starting from 
+\begin_inset Formula $z=4.0$
+\end_inset
+
 .
  
-\end_layout
-
-\begin_layout Standard
-
 \color red
-NOTE: complete final sentence -> This is for Salman and Katrin to fill the
- details.
+At each of these steps, we store central positions, mean velocities and
+ masses of FOF halos with the linking length 
+\begin_inset Formula $b=0.168$
+\end_inset
+
+ and 40 particles minimum, and 
+\begin_inset Formula $1\%$
+\end_inset
+
+ of halo particles with minimum of 5 particles per halo and 
+\begin_inset Formula $1\%$
+\end_inset
+
+ of all particles randomly sampled.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3144,7 +3151,7 @@ key "2013arXiv1303.4666A"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3374,7 +3381,15 @@ key "2014MNRAS.439L..21K,2014MNRAS.437.2594W,2014arXiv1409.1124C,2013MNRAS.428.1
  As a proof of principle, we present a set of eight full BOSS (both North
  and South Galactic caps simultaneously) simulations.
  The time savings presented in this paper allowed to extend this to 50 simulatio
-ns, across a range of cosmologies.
+ns, across a range of cosmologies 
+\color red
+centered at WMAP-7 (citation?) and Planck (citation?) with varied 
+\begin_inset Formula $\sigma_{8}$
+\end_inset
+
+
+\color inherit
+.
  These results from these will be presented in future publications.
 \end_layout
 
@@ -3387,7 +3402,7 @@ TS and NP are supported by a DOE Early Career Grant.
  This work was supported in part by the facilities and staff of the Yale
  University Faculty of Arts and Sciences High Performance Computing Center,
  and by resources at the National Energy Research Scientific Computing Center.
- TS would like to thank Andrew Szymakowski for useful discussions.
+ TS would like to thank Andrew Szymkowiak for useful discussions.
  This research used resources of the National Energy Research Scientific
  Computing Center, a DOE Office of Science User Facility supported by the
  Office of Science of the U.S.
