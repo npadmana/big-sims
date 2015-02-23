@@ -2280,36 +2280,10 @@ reference "fig:vel_hist_expFac"
 .
  
 \color red
-We compare original velocities computed from the simulations in the left
- panel, while we linearly interpolate velocities in the right panel.
- We take velocities at 
-\begin_inset Formula $z=z_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $z=z_{2}$
-\end_inset
-
- and interpolated linearly using the corresponding redshift to positions
- 
-\begin_inset Formula $z_{pos}$
-\end_inset
-
- as weights:
-\begin_inset Formula 
-\begin{equation}
-v(z=z_{pos})=v(z=z_{1})\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+v(z=z_{2})\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $z_{1}<z_{pos}<z_{2}$
-\end_inset
-
-.
- After linear interpolation, the velocity differences at different redshifts
- become smaller by XXX.
+We compare original velocities computed from the simulations in the right
+ panel, while we interpolate in the left panel.
+ By scaling with the expansion factor, the velocity differences at different
+ redshifts become smaller.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2317,14 +2291,18 @@ reference "fig:shift-expFac"
 
 \end_inset
 
- shows the power spectra recomputed with the linearly interpolated velocities,
- where 
+ shows the power spectra recomputed with the velocity multiplied by the
+ ratio of 
+\begin_inset Formula $a(z)/a(z=0.15)$
+\end_inset
+
+, where 
 \begin_inset Formula $z$
 \end_inset
 
  is the redshift of the simulation.
  The clustering in redshift-space is improved significantly that the overall
- agreement becomes within XXX% on 
+ agreement becomes within 1% on 
 \begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
 
@@ -2336,7 +2314,7 @@ reference "fig:shift-expFac"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2403,7 +2381,7 @@ y.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2466,7 +2444,7 @@ Comparisons of the velocities of halos matched across simulations at different
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2734,7 +2712,7 @@ R=\left(\begin{array}{ccc}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2999,26 +2977,49 @@ reference "eq:variance"
 \end_layout
 
 \begin_layout Standard
-
-\color red
-Now, we generate galaxy mocks from the static snapshot of halos at 
+We generate galaxy mocks from the static snapshots at 
 \begin_inset Formula $z=0.55$
 \end_inset
 
- and also from the lightcone sample described in Section 4.
- We use the following HOD parameters,
+.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:xis"
+
+\end_inset
+
+, we compare the correlations function 
+\begin_inset Formula $\xi(s)$
+\end_inset
+
+ with the one in 
+\color black
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1303.4666A"
+
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the separation in redshift-space.
+ Here, we use the following HOD parameters, 
 \begin_inset Formula $M_{cut}=12.9$
 \end_inset
 
-, 
-\begin_inset Formula $M_{1}=14.0$
-\end_inset
-
-, 
+, ,
+\color inherit
+ 
 \begin_inset Formula $\alpha=1.013$
 \end_inset
 
-, 
+,
+\color black
+ 
 \begin_inset Formula $\kappa=1.0$
 \end_inset
 
@@ -3026,19 +3027,14 @@ Now, we generate galaxy mocks from the static snapshot of halos at
 \begin_inset Formula $\sigma=0.85$
 \end_inset
 
-, to populate the halos in those samples with galaxies and assign velocities
- to the satellite galaxies in the way described above.
- Then, we compute the positions of the galaxies in redshift-space.
+.
+ 
 \end_layout
 
 \begin_layout Standard
 
 \color red
-The next step is matching the number density 
-\begin_inset Formula $n(z)$
-\end_inset
-
- from observation to the redshift selection function of Ref.
+We subsample to match the redshift selection function of Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3055,64 +3051,35 @@ reference "fig:nz_gal"
 \end_inset
 
  shows before and after subsampling for BOSS CMASS North Galactic Cap.
- The dashed lines represent the number density of the mock galaxies before
- subsampling.
- The green line represents 
-\begin_inset Formula $n(z)$
+ After subsampling, we compute correlation functions from our sample mocks.
+ Those correlation functions agree with the correlation function in Ref.
+\begin_inset space ~
 \end_inset
 
- from the mock at 
-\begin_inset Formula $z=0.55$
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1303.4666A"
+
 \end_inset
 
-, and the red line is from the lighcone sample.
- The dashed lines represent 
-\begin_inset Formula $n(z)$
+ well on the scale between 
+\begin_inset Formula $30h^{-1}{\rm Mpc}$
 \end_inset
 
- before subsamping, while the solid lines are after.
-\end_layout
+ and 
+\begin_inset Formula $80h^{-1}{\rm Mpc}$
+\end_inset
 
-\begin_layout Standard
-
-\color red
-After matching,we finally compute correlation functions for those galaxy
- mocks.
- In Figure 
+ shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:xis"
 
 \end_inset
 
-, we compare those correlation functions to the one from DR11.
- The left panel shows the monopole terms of the correlation functions, and
- the right panel is the quadrupole terms.
-\end_layout
-
-\begin_layout Standard
-
-\color red
-Q: What can we say more about this Figure?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: not clear at all what is being done here; what do the dashed lines
- in Fig.
- 13 mean? Should we even show Fig.
- 13?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: better and more complete discussion of the results is needed here;
- how well do our mock results compare with those obtained by other people?
- why is the chi
-\backslash
-textasciicircum{}2 a relevant test here?
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3178,12 +3145,6 @@ key "2013arXiv1303.4666A"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: not clear what the point of this figure is
 \end_layout
 
 \begin_layout Standard
@@ -3258,244 +3219,25 @@ key "2013MNRAS.428.1036M"
 
 \end_layout
 
-\begin_layout Standard
-
-\color red
-NOTE: need a better discussion of these results in the text
-\end_layout
-
 \begin_layout Subsection
 Testing the shift of the BAO peaks
 \end_layout
 
 \begin_layout Standard
 In order to demonstrate how we can use the HACC simulations to test various
- cosmological measurements, we investigate how the peak of the  baryon acoustic
- oscillations (hereafter, BAO) shifts by varying the HOD parameters described
- in Ref.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2011ApJ...734...94M"
-
-\end_inset
-
-.
- We first split each 
-\begin_inset Formula $(4h^{-1}{\rm Gpc)^{3}}$
-\end_inset
-
- full box into 64 cubical subboxes, whose volume is 
-\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
-\end_inset
-
- each.
- Since we have four full boxes, we have 256 subboxes in total.
- This is to compute a covariance matrix.
-\end_layout
-
-\begin_layout Standard
-For the HOD parameters, we use the same HOD parameters described in Section
- 5.1 except 
-\begin_inset Formula $M_{cut}$
-\end_inset
-
-.
- We vary 
-\begin_inset Formula $M_{cut}$
-\end_inset
-
- from 12.5 to 13.5 for every 0.2.
- Then, we compute correlation function 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- for each of 256 samples and use 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
- analysis to fit each correlation function 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- to the template correlation function 
-\begin_inset Formula $\xi_{m}(r)$
-\end_inset
-
-:
-\begin_inset Formula 
-\begin{equation}
-\xi_{{\rm HOD}}(r)=B\xi_{m}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $B$
-\end_inset
-
-, 
-\begin_inset Formula $A_{0}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{1}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{2}$
-\end_inset
-
-, and 
-\begin_inset Formula $\alpha$
-\end_inset
-
- are free parameters to fit.
- 
-\begin_inset Formula $B$
-\end_inset
-
- represents squared linear bias, and the terms with 
-\begin_inset Formula $A_{0}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{1}$
-\end_inset
-
-, and 
-\begin_inset Formula $A_{2}$
-\end_inset
-
- take care of the effects due to shot noise and non-linear evolution.
- 
-\begin_inset Formula $\alpha$
-\end_inset
-
- measures the shift of the BAO peak from its original position predicted
- by the linear perturbation theory.
- 
-\begin_inset Formula $\alpha=1$
-\end_inset
-
- implies that there is no shift of the BAO peak.
-\end_layout
-
-\begin_layout Standard
-The template correlation function is given by
-\begin_inset Formula 
-\begin{equation}
-\xi_{m}(r)=dk(P_{{\rm lin}}(k)e^{-k^{2}\Sigma^{2}}+P_{nw}(k)),
-\end{equation}
-
-\end_inset
-
-where 
-\begin_inset Formula $ $
-\end_inset
-
-
-\begin_inset Formula $P_{{\rm lin}}(k)$
-\end_inset
-
- is the linear power spectrum and 
-\begin_inset Formula $P_{nw}(k)$
-\end_inset
-
- is the no-wiggle power spectrum described in Ref.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "1998ApJ...496..605E"
-
-\end_inset
-
-, and 
-\begin_inset Formula $\Sigma$
-\end_inset
-
- is a nonlinear parameter which accounts for broadening the BAO peak due
- to non-linear evolution.
- We set 
-\begin_inset Formula $\Sigma=7h^{-1}{\rm Mpc}$
-\end_inset
-
-.
- Since all parameters are linear except 
-\begin_inset Formula $\alpha$
-\end_inset
-
-, we can find the best-fit values for those parameters analytically and
- only need to vary 
-\begin_inset Formula $\alpha$
-\end_inset
-
- to find the minimum 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
-.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:demo"
-
-\end_inset
-
- shows 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
--distribution as a function of 
-\begin_inset Formula $\alpha$
-\end_inset
-
- in the left panel and the correlation function computed by using the full
- box with 
-\begin_inset Formula $M_{cut}=12.9$
-\end_inset
-
- and the correlation function described as Eq.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:model1"
-
-\end_inset
-
- with the best-fit parameters.
- Since the covariance matrix uses the 
-\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
-\end_inset
-
- subboxes, we devide it by 64 for the full correlation function.
- We fit the correlation functions in the range of 
-\begin_inset Formula $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$
-\end_inset
-
-.
- The error bars are too small to be appeared in the plot.
+ cosmological measurements, we test how the peak of the  baryon acoustic
+ oscillations
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/alpha_bias.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../Plots/xi_hod3.pdf
-	lyxscale 50
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/chisquare.pdf
 	width 50col%
 
 \end_inset
@@ -3507,68 +3249,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:demo"
-
-\end_inset
-
-Left: An example 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
--distribution as a function of 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
-.
- We minimize 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
- by varying the 
-\begin_inset Formula $\alpha$
-\end_inset
-
- value to find a best fit parameter for each sample.
- In this case, the best-fit 
-\begin_inset Formula $\alpha$
-\end_inset
-
- is 1.003.
- The number of degree of freedom is 25.
- Right: The correlation function 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- computed from the full HOD galaxy mock (labeled as 
-\begin_inset Quotes eld
-\end_inset
-
-data
-\begin_inset Quotes erd
-\end_inset
-
-) and the template correlation function with the best-fit parameters (labeled
- as 
-\begin_inset Quotes eld
-\end_inset
-
-model
-\begin_inset Quotes erd
-\end_inset
-
-).
- We fit 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- to the template in 
-\begin_inset Formula $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$
-\end_inset
-
-.
- The error bars are too small to be appeared in the plot.
+XXX
 \end_layout
 
 \end_inset
@@ -3576,65 +3257,24 @@ model
 
 \end_layout
 
-\end_inset
-
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Standard
-After generating galaxy mocks with six different HOD parameters and fitting
- variables through 
-\begin_inset Formula $\chi^{2}$
 \end_inset
 
- analysis, we plot 
-\begin_inset Formula $\alpha$
-\end_inset
 
- as a function of bias in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:alpha"
-
-\end_inset
-
-.
- We see that the values of 
-\begin_inset Formula $\alpha$
-\end_inset
-
- increases as the linear galaxy bias increases, which is consistent with
- the result in Ref.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2011ApJ...734...94M"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Q:What do I want to say more?
-\end_layout
-
-\begin_layout Standard
-Q: When do I use Ref.X? Should I use Figure X instead of Fig.
- X? (same question for Eq.
- or Eqn.)
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../Plots/alpha_bias.pdf
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/xi_hod3.pdf
 	width 50col%
 
 \end_inset
@@ -3646,45 +3286,52 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:alpha"
-
-\end_inset
-
-Scatter in the 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
- values as a function of bias.
- Since 
-\begin_inset Formula $\alpha=1$
-\end_inset
-
- implies that the measured BAO peak is at the same scale predicted from
- the linear perturbation theory, the value of 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
- indicates how much the BAO peak is shifted.
- We see that the value of 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
- increases as the bias value increases, which agrees with the result in
- Ref.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "2011ApJ...734...94M"
-
-\end_inset
-
-.
+XXX
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/old_ts485/Dropbox/big-sims/Plots/alpha_bias.pdf
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+XXX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -3823,15 +3470,15 @@ We also consider the redshift sampling required to construct light cone
 .
 
 \color red
- The agreement is, however, improved to XXX% for 
+ 
+\color black
+The agreement is, however, improved to 1% for 
 \begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
 \end_inset
 
- by using the velocity linearly interpolated between the snapshots and the
- true redshift.
- 
-\color black
-Our fiducial choice to construct light cone outputs is 
+ by using the velocity scaled by the relative scale factor between the snapshot
+ and the true redshift.
+ Our fiducial choice to construct light cone outputs is 
 \begin_inset Formula $\Delta z=0.05$
 \end_inset
 
