@@ -14,6 +14,7 @@
 %% A simple dot to overcome graphicx limitations
 %Make my life significantly easier
 \global\long\def\bd{{\bm{\delta}}}
+
 \usepackage{astrobib_mnras2e}
 
 \bibliographystyle{JHEP}
@@ -236,14 +237,20 @@ Introduction
 
 \begin_layout Standard
 Large-volume spectroscopic surveys of the Universe (
-\color red
-CITE SDSS, WiggleZ, BOSS
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1305.5422S,2000AJ....120.1579Y,2012MNRAS.425..405B"
+
+\end_inset
+
 ) are revolutionizing our understanding of cosmology and structure formation.
  Based on these successes, a new generation of surveys (
-\color red
-CITE DESI, Euclid, WFIRST
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1308.0847L,2013arXiv1305.5422S,2011arXiv1110.3193L"
+
+\end_inset
+
 ) is being planned that will improve our constraints by an order of magnitude
  (or more).
  This unprecedented improvement in statistical precision places stringent
@@ -278,8 +285,15 @@ key "2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F, 2013AN....334.
  More recently, the impact of super-survey modes (modes outside the survey
  volume) on inferred errors has been shown to be potentially larger than
  previously appreciated 
-\color red
-(CITES??)
+\color black
+(e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013PhRvD..87l3504T"
+
+\end_inset
+
+)
 \color inherit
  and is an area of active study.
 \end_layout
@@ -289,9 +303,12 @@ At the other extreme, simulations are crucial for calibrating the theoretical
  models used to fit the data.
  Examples here are quantifying shifts in the baryon acoustic oscillation
  distance scale due to nonlinear evolution and galaxy bias (
-\color red
-CITES
-\color inherit
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2008ApJ...686...13S,2008PhRvD..77b3533C,2008PhRvD..77d3525S,2009PhRvD..80f3508P,2010ApJ...720.1650S,2012PhRvD..85j3523S"
+
+\end_inset
+
 ), or templates used to fit the full shape of the correlation function.
  For such applications, one ideally requires high fidelity simulations.
  The volume requirements are significantly reduced from that for covariance
@@ -1396,7 +1413,7 @@ reference "fig:HaloProperty_mass"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -1794,7 +1811,7 @@ reference "tab:free_param1"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2288,26 +2305,67 @@ Constructing Light Cones
 \end_layout
 
 \begin_layout Standard
-Once the simulations are run at the chosen time-stepping settings, the next
- step is to construct light-cone outputs.
- Here, we build light cones from snapshots whose redshift range is from
+One can choose to construct mock catalogs either from a single static snapshot
+ in redshift or to take the lightcone evolution of the halo and galaxy distribut
+ion into account.
+ There are two broad approaches to the latter problem.
+ The first is to incrementally build up the lightcone while the simulation
+ is running, while the second stitches together static snapshots at different
+ redshifts to construct an approximate lightcone.
+ Both methods have advantages and disadvantages.
+ Building the lightcone “on the fly” gets the redshift evolution correct
+ by construction, but requires simulation post-processing codes (like halo
+ finders) to be run concurrently with the simulation, making it nontrivial
+ to change input parameters to these analyses.
+ Using static time snapshots can be more flexible, but requires a relatively
+ dense sampling of timesteps.
+ We take this approach here; this section discusses how we interpolate between
+ different snapshots and the requirements on the time step sampling.
+ We note that these results are more broadly applicable that just for this
+ simulation suite.
+\end_layout
+
+\begin_layout Standard
+Our algorithm for constructing a lightcone is :
+\end_layout
+
+\begin_layout Enumerate
+For every snapshot, construct a spherical shell (or part thereof) with a
+ radius centered on the comoving distance to the snapshot redshift and a
+ width equal to its redshift extent.
  
-\begin_inset Formula $z=0.8$
-\end_inset
+\end_layout
 
- to 
-\begin_inset Formula $z=0.15$
-\end_inset
+\begin_layout Enumerate
+The redshifts of each halo are determined by their radial distance from
+ the origin.
+ 
+\end_layout
 
-, with a constant redshift separation of 
-\begin_inset Formula $\Delta z=0.1$
-\end_inset
+\begin_layout Enumerate
+Interpolate the position and velocity (see below) of the halo from the snapshot
+ redshift to the halo redshift.
+ Note that changing the position of the halo strictly changes its redshift,
+ but this is a small effect (
+\color red
+CHECK
+\color inherit
+).
+ 
+\end_layout
 
-.
- The light cone is constructed using spherical shells, each shell is centered
- at the redshift of each snapshot, and has a redshift width of 0.1.
- In each shell, we displace the halo positions by using their peculiar velocitie
-s in order to shift to light cone positions:
+\begin_layout Enumerate
+
+\color black
+For the case of a halo crossing its boundary of the shell, we choose the
+ halo whose distance from the boundary is closer before shifting.
+\end_layout
+
+\begin_layout Standard
+We interpolate the positions of halos using a simple linear rule : 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
 \vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
@@ -2340,11 +2398,489 @@ where
 \end_inset
 
 .
+ We test this using the calibration simulations used in the previous simulations
+, restricting ourselves to halos identified across two or more timesteps.
+ The left panel of Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lightcone_pos"
+
+\end_inset
+
+ plots the 
+\begin_inset Formula $x$
+\end_inset
+
+-component of the distance between halos identified in the 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ simulations, both before and after shifting halos from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ using the above equation.
+ The improvement is clearly visible; the scatter after shifting is half
+ of the original scatter with similar results for the other components and
+ different redshift slices.
+ The right panel of the same figure shows the ratio of the power spectrum
+ of the shifted halos to its expected value.
+ We consider shifts in redshift ranging from 
+\begin_inset Formula $\Delta z=0.05$
+\end_inset
+
+ to 
+\begin_inset Formula $\Delta z=0.25$
+\end_inset
+
+.
+ Except for the 
+\begin_inset Formula $\Delta z=0.25$
+\end_inset
+
+ case at high 
+\begin_inset Formula $k$
+\end_inset
+
+, we recover the expected power spectrum to better than 
+\begin_inset Formula $1\%$
+\end_inset
+
+ out to 
+\begin_inset Formula $k=1h{\rm Mpc}^{-1}$
+\end_inset
+
+; the accuracy is a few tenths of a percent for most cases over most of
+ that range.
+ We get similar results for shifting to different redshifts.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/hist_dist_x_z0.25to0.15.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Plots/shifting_r_z0.15.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\color black
+Left: Comparison of the 
+\begin_inset Formula $x$
+\end_inset
+
+-component of the distance before and after shifting the positions of halos
+ from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ We assume that the peculiar velocity is constant between the snapshots
+ (described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:lightcone"
+
+\end_inset
+
+) to compute the distances to shift.
+ 
+\color inherit
+The plot shows that the scatter after shifting shrinks to half of the original
+ scatter.
+
+\color black
+ Right:
+\color inherit
+ The ratio of the power spectrum of the shifted halos to its expected value.
+ We shift halos from the redshift shown in the plot (
+\begin_inset Formula $z=0.4,$
+\end_inset
+
+ 
+\begin_inset Formula $0.25$
+\end_inset
+
+, and 
+\begin_inset Formula $0.2$
+\end_inset
+
+) to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+
+\color black
+ and compute the halo-matter cross power spectra with the matter density
+ field at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ The denominator is the cross power spectra at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, which is an expected value after shifting.
+ 
+\color inherit
+The solid line shows the results after shifting, while the dashed lines
+ are before shifting.
+ We recover the expected power spectrum to better than 
+\begin_inset Formula $1\%$
+\end_inset
+
+ out to 
+\begin_inset Formula $k=1h{\rm Mpc}^{-1}$
+\end_inset
+
+
+\color black
+ for the case of 
+\begin_inset Formula $\Delta z<0.25$
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lightcone_pos"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Working in redshift space requires interpolating both the position and the
+ velocities of halos.
+ Since we do not store accelerations of halos, we simply linearly interpolate
+ the halo velocities between two redshifts, 
+\begin_inset Formula $z_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{2}$
+\end_inset
+
+ : 
+\color blue
+
+\begin_inset Formula 
+\begin{equation}
+\vec{v}|_{z=z_{pos}}=\vec{v}|_{z=z_{1}}\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+\vec{v}|_{z=z_{2}}\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
+\end{equation}
+
+\end_inset
+
+
+\color black
+where 
+\begin_inset Formula $z_{1}<z_{pos}<z_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+ is the corresponding redshift for positions.
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lightcone_vel"
+
+\end_inset
+
+ uses the redshift slices at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and 
+\begin_inset Formula $0.25$
+\end_inset
+
+ to predict the values at 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+; we recover the true velocities with a scatter of 38.8km/s, which is improved
+ from the original scatter of 57.4km/s as shown in the left panel.
+ The right panel of the same figure plots the ratio of the predicted angle-avera
+ged power spectrum to the expected value.
+ While the accuracy is degraded compared to the real space case, we still
+ recover the power spectrum to 1% out to 
+\begin_inset Formula $k=0.8h{\rm Mpc}^{-1}$
+\end_inset
+
+.
+ The fall off at large 
+\begin_inset Formula $k$
+\end_inset
+
+ is expected since the errors in the velocities introduce a random scatter
+ in the positions of the galaxies, washing out the signal on small scales.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+These results suggest using a redshift spacing of 
+\begin_inset Formula $\Delta z=0.1$
+\end_inset
+
+ or better between different simulation outputs.
+ For the simulation suite discussed in the next section, we choose to be
+ conservative and store outputs every 
+\begin_inset Formula $\Delta z=0.05$
+\end_inset
+
+ over the region on interest, corresponding to a maximum shift in redshift
+ of 
+\begin_inset Formula $0.025$
+\end_inset
+
+ (smaller than all the cases considered here).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/hist_vx.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Plots/shifting_s_interp_z0.15.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lightcone_vel"
+
+\end_inset
+
+
+\color black
+Left: Comparisons of the 
+\begin_inset Formula $x$
+\end_inset
+
+-component of velocities for the halos matched across simulations between
+ 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+.
+ The blue line shows the difference in the velocities at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+, while the green line compares the velocities linearly interpolated between
+ 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ and 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ to estimate the velocity at 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+ the original velocities at 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+.
+ Right: 
+\color inherit
+The ratio of the power spectrum of the shifted halos to its expected value
+ in redshift space.
+ We shift halos from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+
+\color black
+ and use original velocities at 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ (blue line) and the linearly interpolated velocities (green line) to define
+ redshift space.
+ The denominator is the redshift space cross power spectra at 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+, which is an expected value after shifting.
+ As a reference, the result of shifting from 
+\begin_inset Formula $z=0.25$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.2$
+\end_inset
+
+ in real space is shown as a dashed line.
+ 
+\color inherit
+We recover the expected power spectrum to better than 
+\begin_inset Formula $1\%$
+\end_inset
+
+ out to 
+\begin_inset Formula $k=0.8h{\rm Mpc}^{-1}$
+\end_inset
+
+
+\color black
+ by linearly interpolating velocities.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+Once the simulations are run at the chosen time-stepping settings, the next
+ step is to construct light-cone outputs.
+ Here, we build light cones from snapshots whose redshift range is from
+ 
+\begin_inset Formula $z=0.8$
+\end_inset
+
+ to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, with a constant redshift separation of 
+\begin_inset Formula $\Delta z=0.1$
+\end_inset
+
+.
+ The light cone is constructed using spherical shells, each shell is centered
+ at the redshift of each snapshot, and has a redshift width of 0.1.
+ In each shell, we displace the halo positions by using their peculiar velocitie
+s in order to shift to light cone positions:where 
+\begin_inset Formula $z_{snap}$
+\end_inset
+
+ is the redshift of the snapshot, 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+ is the redshift corresponding to its radial position, 
+\begin_inset Formula $\vec{v}_{pec}$
+\end_inset
+
+ is its peculiar velocity, and 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ is the time elapsed between 
+\begin_inset Formula $z_{snap}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{pos}$
+\end_inset
+
+.
  For the case of a halo crossing its boundary of the shell, we choose the
  halo whose distance from the boundary is closer before shifting.
 \end_layout
 
 \begin_layout Standard
+
+\color blue
 To evaluate how shifting affects a spatial distribution of halos, we compare
  the distances for the halos at different redshift before and after shifting
  their positions.
@@ -2353,7 +2889,7 @@ To evaluate how shifting affects a spatial distribution of halos, we compare
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Histograms-of-distance"
+reference "fig:lightcone_pos"
 
 \end_inset
 
@@ -2388,93 +2924,14 @@ to
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/hist_dist_x_z0.25to0.15.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-The histogram shown in blue is that of the distances between the position
- of the halos at 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- and where they have moved to in the simulation at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- The histogram shown in green is that of the distances between the positions
- of the halos at 
-\begin_inset Formula $z=0.15,$
-\end_inset
-
- and the positions that would be predicted by shifting the positions from
- the 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- simulation assuming the peculiar velocity was constant between the snapshots
- (described in Eq.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:lightcone"
-
-\end_inset
-
-).
- The plot shows that the distances between the halos at different redshifts
- become smaller after the shifting.
- 
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Histograms-of-distance"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+\color blue
 As an additional check, we compare the effect on halo bias due to shifting.
  Figure
 \begin_inset space ~
 \end_inset
 
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:power-lightcone"
-
-\end_inset
-
- shows the ratios of the halo matter cross power spectra to an auto matter
+X shows the ratios of the halo matter cross power spectra to an auto matter
  power spectrum at 
 \begin_inset Formula $z=0.25$
 \end_inset
@@ -2512,81 +2969,19 @@ reference "fig:power-lightcone"
 .
  This demonstrates that the spatial distribution of the halos is statistically
  correct across the scales of interest.
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/shifting1.png
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:power-lightcone"
-
-\end_inset
-
-In this figure, we use the halo matter cross power spectra at 
-\begin_inset Formula $z=0.25$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.7$
-\end_inset
-
- as a denominator.
- The dashed lines show the ratio with the cross power spectra at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and 
-\begin_inset Formula $z=0.8$
-\end_inset
-
- respectively before shifting, and the solid lines are the ratio after shifting
- halo positions.
- It indicates that shifting the positions of halos from one redshift to
- the another preserves the distribution of halos statistically.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
+
+\color blue
 A parameter when building light cones by stitching static snapshots together
  is how large 
 \begin_inset Formula $\Delta z$
 \end_inset
 
  can be between various snapshots.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:power-lightcone2"
-
-\end_inset
-
- test this in both real and redshift space; in redshift space, we assume
- the velocity of the object is unchanged between the snapshots.
+ Figure X tests this in both real and redshift space; in redshift space,
+ we assume the velocity of the object is unchanged between the snapshots.
  We see that the agreement in real space is within 1% even for the case
  of shifting for 
 \begin_inset Formula $\Delta z=0.25$
@@ -2599,17 +2994,8 @@ reference "fig:power-lightcone2"
  in redshift space.
  In order to understand the cause of rapid discrepancy of the power spectra
  in redshift-space, we further investigate the distribution of velocity
- differences at different redshifts shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:vel_hist_interp"
-
-\end_inset
-
-.
- 
-\color blue
-We compare original velocity differences between 
+ differences at different redshifts shown in Figure X.
+ We compare original velocity differences between 
 \begin_inset Formula $z=0.2$
 \end_inset
 
@@ -2617,16 +3003,16 @@ We compare original velocity differences between
 \begin_inset Formula $z=0.4,0.3,0.25$
 \end_inset
 
- in the left panel, while we linearly interpolate velocities between 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- and the redshifts in the label to compute the velocity at 
+ in the left panel, while we estimate velocities at 
 \begin_inset Formula $z=0.2$
 \end_inset
 
- in the right panel.
- We take velocities at 
+ by linearly interpolating velocities between 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+ and the redshifts labeled in the right panel.
+ In order to linearly interpolate velocities, we take velocities at 
 \begin_inset Formula $z=z_{1}$
 \end_inset
 
@@ -2634,15 +3020,14 @@ We compare original velocity differences between
 \begin_inset Formula $z=z_{2}$
 \end_inset
 
- and interpolated linearly using the corresponding redshift to positions
- 
+ and use the corresponding redshift for positions 
 \begin_inset Formula $z_{pos}$
 \end_inset
 
  as weights:
 \begin_inset Formula 
 \begin{equation}
-v(z=z_{pos})=v(z=z_{1})\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+v(z=z_{2})\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
+\vec{v}|_{z=z_{pos}}=\vec{v}|_{z=z_{1}}\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+\vec{v}|_{z=z_{2}}\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
 \end{equation}
 
 \end_inset
@@ -2652,15 +3037,12 @@ where
 \end_inset
 
 .
- In Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:vel_hist_interp"
-
+ In Figure X, we use 
+\begin_inset Formula $z_{1}=0.15$
 \end_inset
 
-, we use 
-\begin_inset Formula $z_{1}=0.15$
+, 
+\begin_inset Formula $z_{pos}=0.2$
 \end_inset
 
  and 
@@ -2669,221 +3051,27 @@ reference "fig:vel_hist_interp"
 
  labeled in the plots.
  After linear interpolation, the velocity differences at different redshifts
- become smaller by XXX.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:shift-expFac"
-
+ become smaller by factor of 1.5 for the case of 
+\begin_inset Formula $z_{2}=0.25$
 \end_inset
 
- shows the power spectra recomputed with the linearly interpolated velocities,
- where 
+ and factor of 2.6 for the case of 
+\begin_inset Formula $z_{2}=0.4$
+\end_inset
+
+ .
+ Figure X shows the power spectra recomputed with the linearly interpolated
+ velocities, where 
 \begin_inset Formula $z$
 \end_inset
 
  is the redshift of the simulation.
  The clustering in redshift-space is improved significantly that the overall
- agreement becomes within XXX% on 
-\begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
+ agreement becomes within 2% on 
+\begin_inset Formula $k<0.4[h{\rm Mpc^{-1}]}$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/test1.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../Plots/test2.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:power-lightcone2"
-
-\end_inset
-
-Ratio of halo matter cross power spectra in real space [left] and in redshift
- space [right] after shifting the position of the halos from the redshift
- labeled in the plots to 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- The denominator is the cross power spectra at 
-\begin_inset Formula $z=0.15,$
-\end_inset
-
- where we use the halo density field in real space and redshift space respective
-ly.
- For all cases, we use the DM density field in real space at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/hist_vx.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename ../Plots/hist_vx_interp.pdf
-	lyxscale 50
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:vel_hist_interp"
-
-\end_inset
-
-
-\color blue
-Comparisons of the velocities of halos matched across simulations at different
- redshifts to the one at 
-\begin_inset Formula $z=0.2$
-\end_inset
-
-.
- From left to right, we compare original halo velocities and the velocities
- linearly interpolated.
- As shown, the scatter in the velocity differences decreases in the right
- panel.
- This indicates that the change in velocities at different redshifts is
- largely affected by the expansion of the Universe.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../Plots/shifting_s_expFac_z0.15.pdf
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:shift-expFac"
-
-\end_inset
-
-
-\color blue
-Ratio of halo matter cross power spectra in redshift space as shown in Figure
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:power-lightcone2"
-
-\end_inset
-
-.
- The only difference is that here we use the velocity field multiplied by
- the ratio of the expansion factor 
-\begin_inset Formula $a(z)/a(z=0.15)$
-\end_inset
-
- (where z is the redshift shown in the figure) to compute the halo positions
- in redshift-space.
- The denominator is the cross power spectra at 
-\begin_inset Formula $z=0.2,$
-\end_inset
-
-where we use the halo density field in redshift space.
- For all cases, we use the DM density field in real space at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -2892,7 +3080,8 @@ BOSS Mock Catalogs
 
 \begin_layout Standard
 As a concrete implementation of the approach discussed above, we construct
- catalogs designed to mock BOSS galaxy samples.
+ catalogs designed to mimic the Baryon Oscillation Spectroscopic Survey
+ (hereafter, BOSS) galaxy samples.
  BOSS (
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2907,8 +3096,15 @@ key "2011AJ....142...72E"
 
 \end_inset
 
-), is a spectroscopic survey that aims to make percent level distance measuremen
-ts using the baryon acoustic oscillation technique.
+), is a spectroscopic survey that has achieved percent level distance measuremen
+ts using the baryon acoustic oscillation technique (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2014MNRAS.441...24A"
+
+\end_inset
+
+).
  The low redshift (
 \begin_inset Formula $z<0.7$
 \end_inset
@@ -2929,13 +3125,13 @@ key "2014MNRAS.441...24A,2014MNRAS.440.2222T"
 \end_inset
 
 ).
- We focus on the CMASS sample below; however, the same halo catalogs are
- useful for the LOWZ sample as well.
+ We describe the construction of the CMASS sample below.
+ The construction of the LOWZ sample is analogous, and the same simulations
+ (as different time slices) can be used in its construction.
 \end_layout
 
 \begin_layout Standard
-We choose a simulation volume large enough to build a full-sky mock BOSS
- catalog.
+We choose a simulation volume large enough to build a full-sky mock catalog.
  Since the CMASS sample extends to 
 \begin_inset Formula $z\sim0.7$
 \end_inset
@@ -2948,68 +3144,69 @@ We choose a simulation volume large enough to build a full-sky mock BOSS
 \begin_inset Formula $z\sim0.8$
 \end_inset
 
- from the center of the box; Fig.
-\begin_inset space ~
+ from the center of the box.
+ We start the simulations at 
+\begin_inset Formula $z=200$
 \end_inset
 
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:boss-geom"
-
+ using Zel’dovich initial conditions and are run down to 
+\begin_inset Formula $z=0.15$
 \end_inset
 
- shows the BOSS CMASS redshift distribution as a function of redshift and
- comoving distance (assuming our fiducial cosmology).
- Our simulations are run with 
-\begin_inset Formula $4000^{3}$
+ using the time-stepping procedure described earlier in the paper.
+ We store outputs every 
+\begin_inset Formula $\Delta z\sim0.05$
 \end_inset
 
- particles, corresponding to a particle mass of 
-\begin_inset Formula $10^{11}{\rm M_{\odot}}$
+ starting at 
+\begin_inset Formula $z\sim0.75$
+\end_inset
+
+; in addition, we store outputs uniformly spaced by 
+\begin_inset Formula $\Delta z=0.2$
+\end_inset
+
+ between 
+\begin_inset Formula $z=1$
+\end_inset
+
+ and 
+\begin_inset Formula $z=2$
+\end_inset
+
+ as well as at 
+\begin_inset Formula $z\sim2.5$
+\end_inset
+
+, 
+\begin_inset Formula $3$
+\end_inset
+
+ and 
+\begin_inset Formula $4$
 \end_inset
 
 .
- The characteristic halo mass for BOSS galaxies corresponds to 
+ The close spacing at low redshift enables us to make lightcones using the
+ method described in the previous section.
+ We run a friends-of-friends halo finder on each of the outputs with a linking
+ length of 
+\begin_inset Formula $b=0.168$
+\end_inset
+
+, keeping halos down to 40 particles, or 
+\begin_inset Formula $10^{12.6}M_{\odot}$
+\end_inset
+
+.
+ By comparison, the characteristic halo mass of the BOSS galaxies is 
 \begin_inset Formula $10^{13}M_{\odot}$
 \end_inset
 
 , which we resolve with 100 particles.
- We keep all halos down to 40 particles corresponding to a halo mass of
- 
-\begin_inset Formula $10^{12.6}{\rm M_{\odot}}$
-\end_inset
-
-.
- The simulations are started at 
-\color red
-
-\begin_inset Formula $z=200$
-\end_inset
-
-
-\color inherit
- with Zel'dovich initial conditions and are stopped at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
- with simulation outputs every 
-\begin_inset Formula $\Delta z=0.05$
-\end_inset
-
- starting from 
-\begin_inset Formula $z=4.0$
-\end_inset
-
-.
- 
-\color red
-At each of these steps, we store central positions, mean velocities and
- masses of FOF halos with the linking length 
-\begin_inset Formula $b=0.168$
-\end_inset
-
- and 40 particles minimum, and 
+ Each output store
+\color black
+s central positions, mean velocities and halo masses , and 
 \begin_inset Formula $1\%$
 \end_inset
 
@@ -3036,18 +3233,7 @@ reference "fig:boss-geom"
 
 ).
  Since we generate full-sky mocks, it is straightforward to embed two full
- non-overlapping BOSS surveys in a single mock realization (Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:boss-geom"
-
-\end_inset
-
-).
+ non-overlapping BOSS surveys in a single mock realization.
  We cut out a first BOSS volume with 
 \begin_inset Formula $\vec{x}_{old}$
 \end_inset
@@ -3064,18 +3250,7 @@ reference "fig:boss-geom"
 \begin_inset Formula $R$
 \end_inset
 
- is the Euler rotation matrix for Figure
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:boss-geom"
-
-\end_inset
-
-:
+ is the Euler rotation matrix:
 \begin_inset Formula 
 \[
 R=\left(\begin{array}{ccc}
@@ -3092,9 +3267,10 @@ R=\left(\begin{array}{ccc}
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3132,35 +3308,19 @@ Fitting two non-overlapping BOSS volumes into the same simulation box.
 
 \end_layout
 
-\begin_layout Subsection
-Building the Galaxy Catalog
-\end_layout
-
 \begin_layout Standard
-To generate the galaxy mock catalogs, we proceed in two steps, 1) populate
- halos with galaxies using an HOD approach, 2) assign positions and velocities
- to the galaxies assuming an NFW profile
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "1996ApJ...462..563N"
-
-\end_inset
-
-.
+To generate the galaxy mock catalogs, we first populate halos with galaxies
+ using a halo occupational distribution (HOD) approach.
  The HOD functional form (based on a number of free parameters, 5 in our
  case) provides probabilities for the number of central and satellite galaxies
  based on the masses of halos that host those galaxies.
  A halo hosts a central galaxy with probability 
-\begin_inset Formula $N_{cen}(M)$
+\begin_inset Formula $<N_{cen}(M)>$
 \end_inset
 
  and a number of satellite galaxies given by a Poisson distribution with
  mean 
-\begin_inset Formula $N_{sat}(M)$
+\begin_inset Formula $<N_{sat}(M)>$
 \end_inset
 
 :
@@ -3169,7 +3329,7 @@ key "1996ApJ...462..563N"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-N_{cen}(M)=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}\right],\label{eq:Ncen}
+<N_{cen}(M)>=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}\right],\label{eq:Ncen}
 \end{equation}
 
 \end_inset
@@ -3177,7 +3337,7 @@ N_{cen}(M)=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}
 and 
 \begin_inset Formula 
 \begin{equation}
-N_{sat}(M)=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},\label{eq:Nsat}
+<N_{sat}(M)>=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},\label{eq:Nsat}
 \end{equation}
 
 \end_inset
@@ -3265,12 +3425,14 @@ key "2011ApJ...728..126W"
 \end_layout
 
 \begin_layout Standard
-Central galaxies are given a velocity equal to the halo velocity; satellite
- galaxies are distributed around them with a spherically symmetric NFW profile
- specified by: 
+After assigning a number of galaxies to each halo, we distribute those galaxies
+ within the halo.
+ The central galaxy is always at the center of the halo, while the distribution
+ of satellite galaxies follow a spherically symmetric NFW profile specified
+ by: 
 \begin_inset Formula 
 \begin{equation}
-\rho(r)=\frac{4\rho_{s}}{\frac{cr}{R_{vir}}(1+\frac{cr}{R_{vir}})^{2}},
+\rho(r)=\frac{4\rho_{s}}{\frac{cr}{R_{{\rm vir}}}(1+\frac{cr}{R_{{\rm vir}}})^{2}},
 \end{equation}
 
 \end_inset
@@ -3282,44 +3444,28 @@ where
  is the density at the char
 \color black
 acteristic scale 
-\begin_inset Formula $r_{s}=R_{vir}/c$
+\begin_inset Formula $r_{s}=R_{{\rm vir}}/c$
 \end_inset
 
  , 
-\begin_inset Formula $R_{vir}$
+\begin_inset Formula $R_{{\rm vir}}$
 \end_inset
 
  is the virial radius for the halo and 
 \begin_inset Formula $c$
 \end_inset
 
- determines how centrally concentrated the profile is.
+ is the concentration parameter.
  
-\begin_inset Formula $R_{vir}$
+\begin_inset Formula $R_{{\rm vir}}$
 \end_inset
 
- is computed from 
-\begin_inset Formula $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$
-\end_inset
-
-, where 
-\begin_inset Formula $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
-\end_inset
-
- and 
-\begin_inset Formula $\rho_{crit}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$
-\end_inset
-
-
+ is the virial radius of the halo
 \color inherit
- (
-\begin_inset Formula $c$
-\end_inset
+.
 
- is the speed of light here).
- 
-\color red
-We use a cosmic emulator 
+\color black
+ We use a cosmic emulator 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "2013ApJ...768..123K"
@@ -3331,9 +3477,12 @@ key "2013ApJ...768..123K"
 \end_layout
 
 \begin_layout Standard
-The velocities of the satellite galaxies are the sum of their host halo
- velocity and a random virial component.
- This random component is given by
+The velocity of the central galaxy is equal to the host halo velocity.
+ We assume that satellite galaxies are randomly moving inside the host halos.
+ Therefore, the velocities of the satellite galaxies are the sum of their
+ host halo velocity and a random virial component.
+ For this random component, we draw a Gaussian distribution with zero mean
+ and variance given by:
 \end_layout
 
 \begin_layout Standard
@@ -3344,29 +3493,40 @@ The velocities of the satellite galaxies are the sum of their host halo
 
 \end_inset
 
-We draw a Gaussian distribution with zero mean and variance in Eq.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:variance"
 
-\end_inset
-
- to give each component of an internal velocity for the satellite galaxies.
- Here, we assume that satellite galaxies are randomly moving inside the
- host halos.
- 
 \end_layout
 
 \begin_layout Standard
-
-\color red
-Now, we generate galaxy mocks from the static snapshot of halos at 
+Following the above procedures, we generate two galaxy mocks from the simulation
+ at 
 \begin_inset Formula $z=0.55$
 \end_inset
 
- and also from the lightcone sample described in Section 4.
- We use the following HOD parameters,
+ and from the lightcone sample described in Section 4.
+ Using the simulation at 
+\begin_inset Formula $z=0.55$
+\end_inset
+
+ is the way to generate galaxy mocks described in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013MNRAS.428.1036M,2014arXiv1401.4171M"
+
+\end_inset
+
+ and used in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2014MNRAS.441...24A"
+
+\end_inset
+
+, The reason we also generate a galaxy mock from the lightcone sample is
+ to explore whether those two galaxy mocks exhibit any differences or not.
+
+\color black
+ We use the following HOD parameters, 
 \begin_inset Formula $M_{cut}=12.9$
 \end_inset
 
@@ -3386,19 +3546,21 @@ Now, we generate galaxy mocks from the static snapshot of halos at
 \begin_inset Formula $\sigma=0.85$
 \end_inset
 
-, to populate the halos in those samples with galaxies and assign velocities
- to the satellite galaxies in the way described above.
- Then, we compute the positions of the galaxies in redshift-space.
+, to populate the halos with galaxies.
+ Note that the goal here is not to completely fit to the observed DR11 correlati
+on functions, but to show that our simulations have capability to compute
+ correlation functions for BOSS.
 \end_layout
 
 \begin_layout Standard
 
-\color red
-The next step is matching the number density 
+\color black
+Once generating the galaxy mocks, the next step is matching the number density
+ 
 \begin_inset Formula $n(z)$
 \end_inset
 
- from observation to the redshift selection function of Ref.
+ to the redshift selection function of Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3407,6 +3569,7 @@ key "2013arXiv1303.4666A"
 \end_inset
 
 .
+ For each redshift bin, we randomly subsample galaxies.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3414,10 +3577,11 @@ reference "fig:nz_gal"
 
 \end_inset
 
- shows before and after subsampling for BOSS CMASS North Galactic Cap.
- The dashed lines represent the number density of the mock galaxies before
- subsampling.
- The green line represents 
+ shows redshift distributions of galaxies before and after subsampling for
+ BOSS CMASS North Galactic Cap, which correspond to dashed and solid lines
+ respectively.
+ The blue solid line is the redshift distribution of galaxies for BOSS,
+ while the green and red line represents 
 \begin_inset Formula $n(z)$
 \end_inset
 
@@ -3425,19 +3589,15 @@ reference "fig:nz_gal"
 \begin_inset Formula $z=0.55$
 \end_inset
 
-, and the red line is from the lighcone sample.
- The dashed lines represent 
-\begin_inset Formula $n(z)$
-\end_inset
-
- before subsamping, while the solid lines are after.
+ and the lightcone sample.
+ 
 \end_layout
 
 \begin_layout Standard
 
-\color red
-After matching,we finally compute correlation functions for those galaxy
- mocks.
+\color black
+After matching the redshift distribution of galaxies, we finally compute
+ correlation functions for those galaxy mocks.
  In Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3448,31 +3608,30 @@ reference "fig:xis"
 , we compare those correlation functions to the one from DR11.
  The left panel shows the monopole terms of the correlation functions, and
  the right panel is the quadrupole terms.
-\end_layout
+ We do not see siginificant differences between the galaxy mocks from the
+ simulation at 
+\begin_inset Formula $z=0.55$
+\end_inset
 
-\begin_layout Standard
+ and the lightcone sample for both monopole and quadrupole terms.
+ For the monopole terms, the mocks agree relatively well with the one from
+ DR11 on 
+\begin_inset Formula $r\in[40h^{-1}{\rm Mpc},80h^{-1}{\rm Mpc}]$
+\end_inset
 
-\color red
-Q: What can we say more about this Figure?
-\end_layout
+.
+ On the other hand, we fail to fit the quedrupole terms to the observed
+ quadrupole term from DR11 by overestimating the power, which also happens
+ in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2014MNRAS.437.2594W"
 
-\begin_layout Standard
+\end_inset
 
-\color red
-NOTE: not clear at all what is being done here; what do the dashed lines
- in Fig.
- 13 mean? Should we even show Fig.
- 13?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: better and more complete discussion of the results is needed here;
- how well do our mock results compare with those obtained by other people?
- why is the chi
-\backslash
-textasciicircum{}2 a relevant test here?
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3504,13 +3663,7 @@ name "fig:nz_gal"
 
 
 \color red
-A comparison of galaxy number densities before fitting to DR11 redshift
- selection function (dashed lines) and after (solid lines).
- The blue solid line is 
-\begin_inset Formula $n(z)$
-\end_inset
-
- from DR11 (North) in Ref.
+Normalized redshift distribution of galaxies from DR11 (North) in Ref.
 \begin_inset space ~
 \end_inset
 
@@ -3521,7 +3674,8 @@ key "2013arXiv1303.4666A"
 
 \end_inset
 
-.
+ (blue solid line), and a comparison of galaxy number densities before fitting
+ to DR11 redshift selection function (dashed lines) and after (solid lines).
  The green and red lines are from the mocks at 
 \begin_inset Formula $z=0.55$
 \end_inset
@@ -3538,12 +3692,6 @@ key "2013arXiv1303.4666A"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-NOTE: not clear what the point of this figure is
 \end_layout
 
 \begin_layout Standard
@@ -3589,7 +3737,7 @@ Correlation function monopoles
 \begin_inset Formula $\xi^{(2)}(s)$
 \end_inset
 
- (right) of the mocks (green) and DR11 in Ref.
+ (right) of the mocks (green and red) and DR11 in Ref.
 \begin_inset space ~
 \end_inset
 
@@ -3619,9 +3767,202 @@ key "2013MNRAS.428.1036M"
 \end_layout
 
 \begin_layout Standard
+One of the other applications of those mocks is to use the mock correlation
+ functions as a template function, which we discuss in detail in Section
+ 5.1, to fit to an observed correlation function.
+ As a demonstration, we fit our mock correlation functions to the one from
+ DR11.
+ We use the mock correlation function as a template shown in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:model1"
 
-\color red
-NOTE: need a better discussion of these results in the text
+\end_inset
+
+ and measure the value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, which is the scale dilation parameter measuring the relative distance
+ between observations and the fiducial model.
+ This parameter 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is related to the ratio:
+\begin_inset Formula 
+\begin{equation}
+\alpha\equiv\left(\frac{D_{{\rm V}}(z)}{r_{{\rm d}}}\right)\left(\frac{r_{{\rm d,fid}}}{D_{{\rm V}}^{{\rm fid}}(z)}\right),\label{eq:alpha_ratio}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $r_{{\rm d}}$
+\end_inset
+
+ is the projection of the sound horizon at the drag epoch and 
+\begin_inset Formula $D_{{\rm V}}\equiv\left[cz(1+z)^{2}D_{{\rm A}}(z)^{2}H^{-1}(z)\right]^{1/3}$
+\end_inset
+
+ where 
+\begin_inset Formula $D_{{\rm A}}$
+\end_inset
+
+ is the angular diameter distance and 
+\begin_inset Formula $H(z)$
+\end_inset
+
+ is the Hubble parameter.
+ The ratio 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\frac{r_{{\rm d,fid}}}{D_{{\rm V}}^{{\rm fid}}(z)}\right)$
+\end_inset
+
+ for our simulations is 13.44 at 
+\begin_inset Formula $z=0.57$
+\end_inset
+
+, while the ratio 
+\begin_inset Formula $\left(\frac{D_{{\rm V}}(z)}{r_{{\rm d}}}\right)$
+\end_inset
+
+ from DR11 is 
+\begin_inset Formula $13.91\pm0.13$
+\end_inset
+
+.
+ So, the estimated value for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is 
+\begin_inset Formula $1.025\pm0.010$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:alpha_fit"
+
+\end_inset
+
+ shows the 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ values as a function of the parameter 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ in the left panel and compares the monopole correlation function from DR11
+ and the fitted function in the right panel.
+ We obtain the value of 
+\begin_inset Formula $1.033\pm0.012$
+\end_inset
+
+, which is within 
+\begin_inset Formula $1\sigma$
+\end_inset
+
+ from the estimated value for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/xi_lightcone.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:alpha_fit"
+
+\end_inset
+
+Left: Plot of 
+\begin_inset Formula $\Delta\chi^{2}$
+\end_inset
+
+ vs.
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ for the data from DR11.
+ The dashed lines (from top to bottom) correspond to 
+\begin_inset Formula $2\sigma$
+\end_inset
+
+ and 
+\begin_inset Formula $1\sigma$
+\end_inset
+
+ for the value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ The best fit value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is 
+\begin_inset Formula $1.033\pm0.012$
+\end_inset
+
+.
+ Right: The monopole correlation functions of the data from DR11 (blue line)
+ and of the lightcone galaxy mock fitted with 
+\begin_inset Formula $\alpha=1.033$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3629,131 +3970,116 @@ Testing the shift of the BAO peaks
 \end_layout
 
 \begin_layout Standard
-We investigate how the peak of the  baryon acoustic oscillations (hereafter,
- BAO) shifts by varying the HOD parameters described in Ref.
+As a second application of this suite of simulations, we explore how the
+ baryon acoustic oscillation (hereafter BAO) changes as a function of changing
+ galaxy bias.
+ These shifts, predicted by basic perturbative arguments (e.g..
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "2011ApJ...734...94M"
+key "2008PhRvD..77b3533C,2009PhRvD..80f3508P,2012PhRvD..85j3523S"
 
 \end_inset
 
-.
- We do this in order to demonstrate how we can use the HACC simulations
- to test various cosmological measurements.
- We first split each 
-\begin_inset Formula $(4h^{-1}{\rm Gpc)^{3}}$
-\end_inset
-
- full box into 64 cubical subboxes, whose volume is 
-\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
-\end_inset
-
- each.
- Since we have four full boxes, we have 256 subboxes in total.
- We increase the number of samples to compute a covariance matrix.
+), must be calibrated at the sub percent level for future BAO experiments
+ as a function of the underlying cosmology and galaxy type.
+ Measuring these shifts requires large simulation volumes to robustly measure
+ them from under the statistical error.
+ The approximations we describe in this paper allow such large volumes to
+ be run, without sacrificing the gross details (positions, masses, velocities)
+ of the halos themselves (which, in turn, allow one to construct mock galaxy
+ populations).
+ Note that our goal here is to demonstrate the statistical power of these
+ simulations, deferring an exhaustive study to later work.
 \end_layout
 
 \begin_layout Standard
-For the HOD parameters, we use the same HOD parameters described in Section
- 5.1 except 
+In order to construct samples of different galaxy biases, we construct realizati
+ons of HODs with the same parameters as in Sec 5.1, except for 
 \begin_inset Formula $M_{cut}$
+\end_inset
+
+ which we vary from 12.5 to 14.1 in steps of 0.2.
+ The resulting nine HODs span a range of biases from 1.5 to 3.5.
+ In order to estimate the covariance matrix for galaxy correlation functions,
+ we subdivide each of our 
+\begin_inset Formula $4\times(4h^{-1}{\rm Gpc})^{3}$
+\end_inset
+
+ volumes into 
+\begin_inset Formula $4\times64=256$
+\end_inset
+
+ subvolumes.
+ For simplicity, we analyze each of these subvolumes individually, except
+ for the Mcut=13.9 and 14.1 samples where we analyze groups of 4 sub volumes
+ to reduce the noise in the measurements.
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In these cases, we scale the covariance matrix by a factor of 1/4.
+\end_layout
+
+\end_inset
+
+ We focus here on real-space measurements.
+ 
+\end_layout
+
+\begin_layout Standard
+We measure the BAO scale using the methodology in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2013arXiv1303.4666A"
+
 \end_inset
 
 .
- We vary 
-\begin_inset Formula $M_{cut}$
-\end_inset
-
- from 12.5 to 13.5 for every 0.2.
- Then, we compute correlation function 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- for each of 256 samples and use 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
- analysis to fit each correlation function 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
-\end_inset
-
- to the template correlation function 
-\begin_inset Formula $\xi_{m}(r)$
+ Specifically, we describe the observed correlation function by 
+\begin_inset Formula $\xi_{{\rm fit}}$
 \end_inset
 
 :
 \begin_inset Formula 
 \begin{equation}
-\xi_{{\rm HOD}}(r)=B\xi_{m}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
+\xi_{{\rm fit}}(r)=B\xi_{t}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
 \end{equation}
 
 \end_inset
 
 where 
+\begin_inset Formula $\xi_{t}$
+\end_inset
+
+ is a template correlation function, 
 \begin_inset Formula $B$
 \end_inset
 
-, 
-\begin_inset Formula $A_{0}$
+ is the galaxy bias squared and 
+\begin_inset Formula $A_{0,1,2}$
 \end_inset
 
-, 
-\begin_inset Formula $A_{1}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{2}$
-\end_inset
-
-, and 
-\begin_inset Formula $\alpha$
-\end_inset
-
- are free parameters to fit.
- 
-\begin_inset Formula $B$
-\end_inset
-
- represents squared linear bias, and the terms with 
-\begin_inset Formula $A_{0}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{1}$
-\end_inset
-
-, and 
-\begin_inset Formula $A_{2}$
-\end_inset
-
- take care of the effects due to shot noise and non-linear evolution.
- 
-\begin_inset Formula $\alpha$
-\end_inset
-
- measures the shift of the BAO peak from its original position predicted
- by the linear perturbation theory.
- 
-\begin_inset Formula $\alpha=1$
-\end_inset
-
- implies that there is no shift of the BAO peak.
-\end_layout
-
-\begin_layout Standard
-The template correlation function 
-\begin_inset Formula $\xi_{m}(r)$
+ represent nuisance parameters to account for shot noise, nonlinear evolution
+ of the matter density field and the mapping from matter to galaxies (
+\color red
+NEED TO FIND A BETTER PHRASE FOR THE LAST
+\color inherit
+; the galaxy distribution as a biased tracer of matter).
+ The template correlation function 
+\begin_inset Formula $\xi_{t}(r)$
 \end_inset
 
  is given by Fourier transforming 
-\begin_inset Formula $P_{m}(k)$
+\begin_inset Formula $P_{t}(k)$
 \end_inset
 
 :
 \begin_inset Formula 
 \begin{equation}
-P_{m}(r)=P_{{\rm lin}}(k)e^{-k^{2}\Sigma^{2}}+P_{nw}(k),
+P_{t}(r)=(P_{{\rm lin}}(k)-P_{nw}(k))e^{-\frac{k^{2}\Sigma^{2}}{2}}+P_{nw}(k),
 \end{equation}
 
 \end_inset
@@ -3785,25 +4111,68 @@ key "1998ApJ...496..605E"
  is a nonlinear parameter which accounts for broadening the BAO peak due
  to non-linear evolution.
  We set 
-\begin_inset Formula $\Sigma=7h^{-1}{\rm Mpc}$
+\begin_inset Formula $\Sigma=5h^{-1}{\rm Mpc}$
 \end_inset
 
 .
- Since all parameters are linear except 
+ We determine the parameters by 
+\color red
+minimizing 
+\begin_inset Formula $\chi^{2}=(\xi_{{\rm HOD}}-\xi_{{\rm fit}})^{{\rm T}}C^{-1}(\xi_{{\rm HOD}}-\xi_{{\rm fit}})$
+\end_inset
+
+ where 
+\begin_inset Formula $C^{-1}$
+\end_inset
+
+ is the inverse covariance matrix and 
+\begin_inset Formula $\xi_{{\rm HOD}}$
+\end_inset
+
+ is a correlation function which 
+\begin_inset Formula $\xi_{{\rm fit}}$
+\end_inset
+
+ is fitted to.
+
+\color inherit
+ We consider the measured correlation function from 
+\begin_inset Formula $60h^{-1}{\rm Mpc}$
+\end_inset
+
+ to 
+\begin_inset Formula $160h^{-1}{\rm Mpc}$
+\end_inset
+
+ in bins of 
+\begin_inset Formula $4h^{-1}{\rm Mpc}$
+\end_inset
+
+ for a total of 25 data points.
+ Since all parameters except 
 \begin_inset Formula $\alpha$
 \end_inset
 
-, we find the best-fit values for those parameters analytically and only
- need to vary 
+ are linear, we perform the minimization on a grid of 
 \begin_inset Formula $\alpha$
 \end_inset
 
- to find the minimum 
-\begin_inset Formula $\chi^{2}$
+ values, computing the minimum value of the other parameters directly.
+ The parameter 
+\begin_inset Formula $\alpha$
 \end_inset
 
-.
- The left panel of Figure 
+ measures the shift of the BAO peak from its original position predicted
+ by the linear perturbation theory.
+ Note that 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ implies that there is no shift of the BAO peak.
+\end_layout
+
+\begin_layout Standard
+The left panel of Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:demo"
@@ -3825,20 +4194,19 @@ reference "eq:model1"
 \end_inset
 
  with the best-fit parameters.
- Since the covariance matrix uses the 
-\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
+ The best fit value of 
+\begin_inset Formula $\alpha$
 \end_inset
 
- subboxes, we divide the covariance matrix by 64 for the full correlation
- function.
- This is because the number of modes for the full boxes is increased by
- 64 comparing to that of the subbox.
- We fit the correlation functions in the range of 
-\begin_inset Formula $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$
+ for this mock is 1.003.
+ Note that the error bars shown in the left panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:demo"
+
 \end_inset
 
-.
- The error bars are too small to be included in the plot.
+ are computed from the covariance matrix.
  The right panel of Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3851,15 +4219,19 @@ reference "fig:demo"
 \end_inset
 
  for the case of 
-\begin_inset Formula $M_{cut}12.9$
+\begin_inset Formula $M_{cut}=12.9$
 \end_inset
 
  for the 256 samples.
- The mean of 
+ The mean value of 
 \begin_inset Formula $\alpha-1$
 \end_inset
 
- is 0.006 and its standard deviation is 0.018.
+ is 
+\begin_inset Formula $0.0068\pm0.0012$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3867,7 +4239,7 @@ reference "fig:demo"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3879,7 +4251,7 @@ status open
 
 
 \begin_inset Graphics
-	filename ../Plots/alpha_hit_hod3.pdf
+	filename ../Plots/alpha_hist_hod3.pdf
 	lyxscale 50
 	width 50col%
 
@@ -3924,16 +4296,12 @@ model
 \end_inset
 
 ).
- We fit 
-\begin_inset Formula $\xi_{{\rm HOD}}(r)$
+ The best fit value of 
+\begin_inset Formula $\alpha$
 \end_inset
 
- to the template in 
-\begin_inset Formula $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$
-\end_inset
-
-.
- The error bars are too small to be included in the plot.
+ for this mock is 1.003.
+ The error bars are computed from the covariance matrix.
  Right: Distribution of the values 
 \begin_inset Formula $\alpha-1$
 \end_inset
@@ -3961,29 +4329,24 @@ model
 \end_layout
 
 \begin_layout Standard
-After generating galaxy mocks with six different HOD parameters and fitting
- variables through 
-\begin_inset Formula $\chi^{2}$
-\end_inset
-
- analysis, we plot 
-\begin_inset Formula $\alpha$
-\end_inset
-
- as a function of bias in Figure 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:alpha"
 
 \end_inset
 
-.
- We see that the values of 
-\begin_inset Formula $\alpha$
+ shows the measured shifts in the BAO scale as a function of galaxy bias,
+ for the nine HODs described above.
+ We detect the shift in the BAO scale at high significance (
+\begin_inset Formula $\sim6\sigma$
 \end_inset
 
- increases as the linear galaxy bias increases, which is consistent with
- the result in Ref.
+ for most samples) but do not detect a strong variation with the galaxy
+ bias.
+ Indeed, the shift is consistent with being constant for biases > 3.0 and
+ only increases for extremely large biases.
+ These results agree with the trends in Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3991,17 +4354,7 @@ key "2011ApJ...734...94M"
 
 \end_inset
 
-.
- The values of 
-\begin_inset Formula $\alpha$
-\end_inset
-
-, however, show a more pronounced shift in our analysis.
- This is because we use the simulations at 
-\begin_inset Formula $z=0.15$
-\end_inset
-
-, while Ref.
+, although note that the absolute values of the shifts differ since Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4009,62 +4362,44 @@ key "2011ApJ...734...94M"
 
 \end_inset
 
- use the simulations at 
+ consider samples at 
 \begin_inset Formula $z=1$
 \end_inset
 
-, which means that the nonlinear effects are much larger for our samples.
- By comparing the values of 
-\begin_inset Formula $\alpha$
+, while the results here are at 
+\begin_inset Formula $z=0.15$
 \end_inset
 
- for the same bias samples from Ref.
+.
+ We also observe that our results are roughly consistent with what one expects
+ from perturbation theory (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2008PhRvD..77b3533C,2009PhRvD..80f3508P,2012PhRvD..85j3523S"
+
+\end_inset
+
+), although we find a weaker mass dependence than what was predicted by
+ Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "2011ApJ...734...94M"
+key "2009PhRvD..80f3508P"
 
 \end_inset
 
- , we see almost 5 times larger shift 
-\color red
-in our analysis
-\color inherit
 .
 \end_layout
 
 \begin_layout Standard
 This work can be extended by using reconstruction on the sample to verify
  that it does indeed reduce these biases both in real-space and in redshift-spac
-e, comparing to the perturbation theory results, testing redshift evolution
- and cosmology dependence in the shift of the peak.
-\end_layout
-
-\begin_layout Standard
---can add error bars to the model correlation functions...
-\end_layout
-
-\begin_layout Standard
---Can you make/point me to a figure showing the histogram of alpha-1 values
- for each of the different bias cases? That would also be a nice comparison
- with the Mehta et al paper...
- (again with the caveat of z=1 vs z=0.15, although you might scale with the
- growth factor)?
-\end_layout
-
-\begin_layout Standard
---how can I compare my result with Mehta's result by using growth factor?
-\end_layout
-
-\begin_layout Standard
---any references which talk about the shift of the BAO peak as a function
- of redshifts (from simulation or perturbation theory)?->It's almost exclusively
- been done for matter.
- See the Seo et al papers for some simulation results.
- There are theory results in Eisenstein, Seo & White; Crocce & Scoccimarro;
- and Padmanabhan & White --- all that they say is that 
-\backslash
-alpha-1 scales as D^2
+e, comparing to the perturbation theory 
+\color black
+results
+\color inherit
+, testing redshift evolution and cosmology dependence in the shift of the
+ peak.
 \end_layout
 
 \begin_layout Standard
@@ -4094,27 +4429,20 @@ name "fig:alpha"
 
 \end_inset
 
-Scatter in the 
+The shift in the BAO scale as a function of galaxy bias.
+ Note that 
 \begin_inset Formula $\alpha-1$
 \end_inset
 
- values as a function of bias.
- Since 
-\begin_inset Formula $\alpha=1$
+ implies no shift in the BAO scale.
+ We detect a significant shift (
+\begin_inset Formula $\sim6\sigma$
 \end_inset
 
- implies that the measured BAO peak is at the same scale predicted from
- the linear perturbation theory, the value of 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
- indicates how much the BAO peak is shifted.
- We see that the value of 
-\begin_inset Formula $\alpha-1$
-\end_inset
-
- increases as the bias value increases, which agrees with the result in
- Ref.
+ for most cases) for all the samples we consider.
+ The shift is consistent with being constant for biases > 3.0 and only increases
+ for extremely large biases.
+ These results agree with the trends in Ref.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4123,6 +4451,19 @@ key "2011ApJ...734...94M"
 \end_inset
 
 .
+ The third point from left uses the HOD parameter of 
+\begin_inset Formula $M_{cut}=12.9$
+\end_inset
+
+, which are the same samples used in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:demo"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \end_inset
@@ -4250,23 +4591,24 @@ We also consider the redshift sampling required to construct light cone
 .
  Moreover, the power spectra are correctly recovered to better than 1% for
  
-\begin_inset Formula $k<0.5[h{\rm Mpc^{-1}]}$
+\begin_inset Formula $k<1h{\rm Mpc}^{-1}$
 \end_inset
 
  for 
-\begin_inset Formula $\Delta z=0.25$
+\begin_inset Formula $\Delta z<0.25$
 \end_inset
 
 .
- This worsens in redshift space to 2% up to 
-\begin_inset Formula $k<0.2[h{\rm Mpc^{-1}]}$
-\end_inset
-
-.
-
+ 
 \color red
- The agreement is, however, improved to XXX% for 
-\begin_inset Formula $k<1[h{\rm Mpc^{-1}]}$
+This worsens in redshift space to 2% up to 
+\begin_inset Formula $k<0.2h{\rm Mpc}^{-1}$
+\end_inset
+
+ by assuming that the change in velocity across the simulations is negligible
+ and using the original velocity to compute redshift space.
+ The agreement is, however, improved to 1% for 
+\begin_inset Formula $k<0.8h{\rm Mpc}^{-1}$
 \end_inset
 
  by using the velocity linearly interpolated between the snapshots and the
@@ -4297,16 +4639,30 @@ key "2014MNRAS.439L..21K,2014MNRAS.437.2594W,2014arXiv1409.1124C,2013MNRAS.428.1
  As a proof of principle, we present a set of eight full BOSS (both North
  and South Galactic caps simultaneously) simulations.
  The time savings presented in this paper allowed to extend this to 50 simulatio
-ns, across a range of cosmologies 
-\color red
-centered at WMAP-7 (citation?) and Planck (citation?) with varied 
+ns, across a range of cosmolog
+\color black
+ies centered at WMAP-7 (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJS..192...18K"
+
+\end_inset
+
+) and Planck (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2015arXiv150201589P"
+
+\end_inset
+
+) with varied 
 \begin_inset Formula $\sigma_{8}$
 \end_inset
 
-
-\color inherit
 .
- These results from these will be presented in future publications.
+ 
+\color inherit
+These results from these will be presented in future publications.
 \end_layout
 
 \begin_layout Section*

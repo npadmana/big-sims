@@ -1,0 +1,596 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass jcappub
+\begin_preamble
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+%Make my life significantly easier
+\global\long\def\bd{{\bm{\delta}}}
+\usepackage{astrobib_mnras2e}
+\end_preamble
+\options usenatbib
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding latin9
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Subsection
+Testing the shift of the BAO peaks
+\end_layout
+
+\begin_layout Standard
+We investigate how the peak of the  baryon acoustic oscillations (hereafter,
+ BAO) shifts by varying the HOD parameters described in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...734...94M"
+
+\end_inset
+
+.
+ We do this in order to demonstrate how we can use the HACC simulations
+ to test various cosmological measurements.
+ 
+\end_layout
+
+\begin_layout Standard
+We first split each 
+\begin_inset Formula $(4h^{-1}{\rm Gpc)^{3}}$
+\end_inset
+
+ full box into 64 cubical subboxes, whose volume is 
+\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
+\end_inset
+
+ each.
+ Since we have four full boxes, we have 256 subboxes in total.
+ We increase the number of samples to compute a covariance matrix.
+\end_layout
+
+\begin_layout Standard
+For the HOD parameters, we use the same HOD parameters described in Section
+ 5.1 except 
+\begin_inset Formula $M_{cut}$
+\end_inset
+
+.
+ We vary 
+\begin_inset Formula $M_{cut}$
+\end_inset
+
+ from 12.5 to 14.1 for every 0.2.
+ Then, we compute correlation function 
+\begin_inset Formula $\xi_{{\rm HOD}}(r)$
+\end_inset
+
+ for each of 256 samples and use 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ analysis to fit each correlation function 
+\begin_inset Formula $\xi_{{\rm HOD}}(r)$
+\end_inset
+
+ to the template correlation function 
+\begin_inset Formula $\xi_{m}(r)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\xi_{{\rm HOD}}(r)=B\xi_{m}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $B$
+\end_inset
+
+, 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{2}$
+\end_inset
+
+, and 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ are free parameters to fit.
+ 
+\begin_inset Formula $B$
+\end_inset
+
+ represents squared linear bias, and the terms with 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $A_{2}$
+\end_inset
+
+ take care of the effects due to shot noise and non-linear evolution.
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ measures the shift of the BAO peak from its original position predicted
+ by the linear perturbation theory.
+ 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ implies that there is no shift of the BAO peak.
+\end_layout
+
+\begin_layout Standard
+The template correlation function 
+\begin_inset Formula $\xi_{m}(r)$
+\end_inset
+
+ is given by Fourier transforming 
+\begin_inset Formula $P_{m}(k)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+P_{m}(r)=P_{{\rm lin}}(k)e^{-k^{2}\Sigma^{2}}+P_{nw}(k),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $ $
+\end_inset
+
+
+\begin_inset Formula $P_{{\rm lin}}(k)$
+\end_inset
+
+ is the linear power spectrum and 
+\begin_inset Formula $P_{nw}(k)$
+\end_inset
+
+ is the no-wiggle power spectrum described in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "1998ApJ...496..605E"
+
+\end_inset
+
+, and 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ is a nonlinear parameter which accounts for broadening the BAO peak due
+ to non-linear evolution.
+ We set 
+\begin_inset Formula $\Sigma=7h^{-1}{\rm Mpc}$
+\end_inset
+
+.
+ Since all parameters are linear except 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, we find the best-fit values for those parameters analytically and only
+ need to vary 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ to find the minimum 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+.
+ The left panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:demo"
+
+\end_inset
+
+ compares the correlation function computed from one of the full boxes with
+ 
+\begin_inset Formula $M_{cut}=12.9$
+\end_inset
+
+ (which corresponds to the galaxy bias of 1.81) and the model correlation
+ function described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:model1"
+
+\end_inset
+
+ with the best-fit parameters.
+ The best fit value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ for this mock is 1.003.
+ Since the covariance matrix uses the 
+\begin_inset Formula $(1h^{-1}{\rm Gpc})^{3}$
+\end_inset
+
+ subboxes, we divide the covariance matrix by 64 for the full correlation
+ function.
+ This is because the number of modes for the full boxes is increased by
+ 64 comparing to that of the subbox.
+ We fit the correlation functions in the range of 
+\begin_inset Formula $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$
+\end_inset
+
+.
+ The error bars are too small to be included in the plot.
+ The right panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:demo"
+
+\end_inset
+
+ shows the distribution of 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ for the case of 
+\begin_inset Formula $M_{cut}12.9$
+\end_inset
+
+ for the 256 samples.
+ The mean of 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ is 0.006 and the standard deviation the mean is 
+\begin_inset Formula $1.13\times10^{-3}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/xi_hod3.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../Plots/alpha_hist_hod3.pdf
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:demo"
+
+\end_inset
+
+Left: The correlation function 
+\begin_inset Formula $\xi_{{\rm HOD}}(r)$
+\end_inset
+
+ computed from the full HOD galaxy mock (labeled as 
+\begin_inset Quotes eld
+\end_inset
+
+data
+\begin_inset Quotes erd
+\end_inset
+
+) with 
+\begin_inset Formula $M_{cut}=12.9$
+\end_inset
+
+ (which corresponds to the bias value of 1.81) and the template correlation
+ function with the best-fit parameters (labeled as 
+\begin_inset Quotes eld
+\end_inset
+
+model
+\begin_inset Quotes erd
+\end_inset
+
+).
+ The best fit value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ for this mock is 1.003.
+ The error bars are too small to be included in the plot.
+ Right: Distribution of the values 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ for the case of 
+\begin_inset Formula $M_{cut}=12.9$
+\end_inset
+
+.
+ The dashed line corresponds to the mean value of 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+, which is 0.006.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After generating galaxy mocks with nine different HOD parameters and fitting
+ variables through 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ analysis, we plot 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ as a function of bias in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:alpha"
+
+\end_inset
+
+.
+ We see that the values of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ increases as the linear galaxy bias increases, which is consistent with
+ the result in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...734...94M"
+
+\end_inset
+
+.
+ The values of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, however, show a more pronounced shift in our analysis.
+ This is because we use the simulations at 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+, while Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...734...94M"
+
+\end_inset
+
+ use the simulations at 
+\begin_inset Formula $z=1$
+\end_inset
+
+, which means that the nonlinear effects are much larger for our samples.
+ By comparing the values of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ for the same bias samples from Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...734...94M"
+
+\end_inset
+
+ , we see almost 
+\begin_inset Formula $5\sigma$
+\end_inset
+
+ effect of shift 
+\color black
+in our analysis
+\color inherit
+.
+\end_layout
+
+\begin_layout Standard
+This work can be extended by using reconstruction on the sample to verify
+ that it does indeed reduce these biases both in real-space and in redshift-spac
+e, comparing to the perturbation theory 
+\color black
+results
+\color inherit
+, testing redshift evolution and cosmology dependence in the shift of the
+ peak.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../Plots/alpha_bias.pdf
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:alpha"
+
+\end_inset
+
+Scatter in the 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ values as a function of bias.
+ The third point from left uses the HOD parameter of 
+\begin_inset Formula $M_{cut}=12.9$
+\end_inset
+
+, which are the same samples used in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:demo"
+
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ implies that the measured BAO peak is at the same scale predicted from
+ the linear perturbation theory, the value of 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ indicates how much the BAO peak is shifted.
+ We see that the value of 
+\begin_inset Formula $\alpha-1$
+\end_inset
+
+ increases as the bias value increases, which agrees with the result in
+ Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJ...734...94M"
+
+\end_inset
+
+.
+ The shift is, however, much significant and almost 
+\begin_inset Formula $5\sigma$
+\end_inset
+
+ effect.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

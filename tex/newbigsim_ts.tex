@@ -1,9 +1,7 @@
-%% LyX 2.0.3 created this file.  For more info, see http://www.lyx.org/.
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[usenatbib]{article}
+\documentclass{article}
 \usepackage[latin9]{inputenc}
-\usepackage[a4paper]{geometry}
-\geometry{verbose}
 \usepackage{color}
 \usepackage{float}
 \usepackage{graphicx}
@@ -19,21 +17,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 \usepackage{jcappub}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
-%% A simple dot to overcome graphicx limitations
-%Make my life significantly easier
-\global\long\def\bd{{\bm{\delta}}}
-\usepackage{astrobib_mnras2e}
-
-\bibliographystyle{JHEP}
 
 \makeatother
 
@@ -91,32 +74,50 @@ galaxies; halos, statistics}
 
 \section{Introduction}
 
-Large-volume spectroscopic surveys of the Universe have revolutionized
-our knowledge of structure formation and have established unprecedented
-levels of statistical error in measuring various aspects of galaxy
-clustering. Because of the demands on precision and accuracy imposed
-by observational campaigns that seek to investigate the nature of
-cosmic acceleration, the requirements on synthetic or mock catalogs
-designed to test and validate survey methodologies, have also become
-very severe. For many applications, such as to the Baryon Oscillation
-Spectroscopic Survey (BOSS)~\cite{2013AJ....145...10D} and the near-future
-Dark Energy Spectroscopic Instrument (DESI) project, a large number
-of high-precision mock catalogs are needed. In order to encompass
-the survey volume, such catalogs can only be created by running large-volume,
-computationally expensive, N-body simulations. A large number of simulations
--- with varying cosmological parameters -- may be required in order
-to assess systematic effects and to estimate error covariances. Motivated
-by these considerations, a number of recent studies have investigated
-methods designed to produce mock catalogs with reduced accuracy, but
-much higher throughput compared to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
-Many of these efforts have focused on error covariances, which allow
-for significantly degraded error tolerances. Here, we are concerned
-with the task of generating mock catalogs at levels of error control
-that are similar to the level at which different N-body codes might
-deviate, in other words, we seek to maintain close to state of the
-art error tolerances in the quantities relevant for generating mock
-catalogs. The aim is to keep these error tolerances lower than the
-level of statistical error in the actual observations.
+Large-volume spectroscopic surveys of the Universe (\cite{2013arXiv1305.5422S,2000AJ....120.1579Y,2012MNRAS.425..405B})
+are revolutionizing our understanding of cosmology and structure formation.
+Based on these successes, a new generation of surveys (\cite{2013arXiv1308.0847L,2013arXiv1305.5422S,2011arXiv1110.3193L})
+is being planned that will improve our constraints by an order of
+magnitude (or more). This unprecedented improvement in statistical
+precision places stringent demands on the theoretical modeling and
+analysis techniques; simulations will play an essential in meeting
+these requirements.
+
+One of the challenges for simulations are the varied roles they play,
+and the different requirements these impose on the simulations. At
+one extreme, simulations are necessary for generating sample covariances
+for the data and measurements. This typically requires very large
+volumes to simulate entire surveys thousands of times, but have lower
+accuracy requirements. Motivated by these considerations, a number
+of recent studies have investigated methods designed to produce mock
+catalogs with reduced accuracy, but much higher throughput compared
+to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
+An open question still is the effect of changing the input cosmology
+used to generate the covariance matrix on cosmological inferences,
+and how best to implement such variations. More recently, the impact
+of super-survey modes (modes outside the survey volume) on inferred
+errors has been shown to be potentially larger than previously appreciated
+\textcolor{black}{(e.g., \cite{2013PhRvD..87l3504T})} and is an area
+of active study.
+
+At the other extreme, simulations are crucial for calibrating the
+theoretical models used to fit the data. Examples here are quantifying
+shifts in the baryon acoustic oscillation distance scale due to nonlinear
+evolution and galaxy bias (\cite{2008ApJ...686...13S,2008PhRvD..77b3533C,2008PhRvD..77d3525S,2009PhRvD..80f3508P,2010ApJ...720.1650S,2012PhRvD..85j3523S}),
+or templates used to fit the full shape of the correlation function.
+For such applications, one ideally requires high fidelity simulations.
+The volume requirements are significantly reduced from that for covariance
+matrices, but still need to much larger than survey volumes to keep
+systematic errors below statistical errors.
+
+An intermediate application are the generation of mock catalogs that
+capture the observational characteristics of surveys (eg. geometry,
+selection effects). The importance of these cannot be underestimated,
+since the effects of many observational systematics can only be quantitatively
+estimated by simulating them. These issues will get progressively
+more important for the next generations of surveys which will move
+away from highly complete and pure samples that have mostly been used
+for cosmological studies to date.
 
 The simplest way to generate approximate density fields is to use
 analytic approximations such as Lagrangian perturbation theory followed
@@ -144,17 +145,24 @@ force evaluations. The idea is to reduce the number of both types
 of time steps while preserving enough accuracy to correctly describe
 the large scale distribution of galaxies, as modeled by a halo occupation
 distribution (HOD) approach. Our first goal in this paper is, therefore,
-to accurately reproduce the details of the halo density field on large
-scales, sacrificing small scale structure information. Our second
-goal is to build a set of simulations and related mock catalogs suitable
-for BOSS analyses.
+to quantitatively understand the impact of the temporal resolution
+on the halo density field and how best to accurately reproduce the
+details of the halo density field on large scales, sacrificing small
+scale structure information. This allows to generate a suite of large
+volume simulations, spanning a range of cosmologies. This paper presents
+the details of these simulations and outlines future applications.
 
-In the following, we first briefly describe the methodology behind
-relaxing the resolution of the N-body simulations. In Section 3, we
-test and compare our method against results from the full N-body simulation
-and explain how we calibrate our samples. In Sections 4 and 5, we
-build a light cone output, populate halos in our samples with galaxies,
-and compute correlation functions based on BOSS Data Release 11.
+This paper is organized as follows. Sec.~2 briefly describes the
+Hardware/Hybrid Accelerated Cosmology Code (HACC) N-body framework
+we use to generate our simulations, focusing on the flexibility in
+the time-stepping that we exploit here. Sec.~3 presents a sequence
+of convergence tests where we evaluate the effects of time-stepping
+on the halo density field. Sec.~4 discusses interpolating between
+saved time steps, necessary for constructing light-cone outputs. Sec.~5
+presents an example application of these simulations : generating
+mock catalogs that match the BOSS galaxy sample. (NOTE : Can we put
+in another simple application?) We conclude in Sec.~6 by outlining
+possible future directions.
 
 All simulations and calculations in this paper assume a $\Lambda$CDM
 cosmology with $\Omega_{m}=0.2648$, $\Omega_{\Lambda}=0.7352$, $\Omega_{b}h^{2}=0.02258$,
@@ -163,59 +171,162 @@ $n_{s}=0.963$, $\sigma_{8}=0.8$ and $h=0.71$.
 
 \section{HACC}
 
-All simulations in this paper were carried out using the HACC (Hardware/Hybrid
-Accelerated Cosmology Code) framework. HACC provides an advanced,
-architecture-agile, extreme-scale N-body capability targeted to cosmological
-simulations. It is descended from an approach originally developed
-for the heterogeneous architecture of Roadrunner \cite{1742-6596-180-1-012019,Pope:2010:AU:1845737.1845828},
-the first computer to break the petaflop performance barrier.
+The HACC framework arose from the early realization that development
+of a future large-scale computational framework must be fully cognizant
+of coming changes in computational architectures. It is descended
+from an approach developed for the heterogeneous architecture of Roadrunner~\cite{mc3,pope10},
+the first computer to break the petaflop barrier. HACC is designed
+with great flexibility in mind (combining MPI with a variety of more
+local programming models, e.g., OpenCL, OpenMP) and is easily adaptable
+to different platforms. Currently, it is implemented on Cell-accelerated
+hardware, conventional and GPU-enhanced clusters (via OpenCL), on
+the IBM Blue Gene architecture (using OpenMP), and is running on prototype
+Intel MIC/Xeon Phi hardware. HACC is the first, and currently the
+only large-scale cosmology code suite world-wide, that can run at
+scale (and beyond) on all available supercomputer architectures. Figure~\ref{hacc_scale}
+shows the scaling on the entire IBM BG/Q Sequoia up to 1,572,864 cores
+with an equal number of MPI ranks, attaining 13.94 PFlops at 69.2\%
+of peak and 90\% parallel efficiency -- this is the highest performance
+yet attained by a science code on any computer; for details, see Ref.~\cite{habib12}.
+Examples of science results obtained using HACC include 64-billion
+particle runs for baryon acoustic oscillations predictions for the
+BOSS Lyman-$\alpha$ forest~\cite{boss_bao} and high-statistics
+predictions for the halo profiles of massive clusters~\cite{conc_hacc}.
+Currently, a very large 1.1 trillion particle simulation is being
+carried out on the BG/Q system Mira at Argonne. A nested snapshot
+at an early output time ($z\sim3$) from this simulation is shown
+in Fig.~\ref{simpic}.
 
-HACC's flexible code architecture combines MPI with a variety of more
-local programming models, (e.g., OpenCL, OpenMP) and is easily adaptable
-to different platforms. HACC has demonstrated scaling on the entire
-IBM BG/Q Sequoia system up to 1,572,864 cores with an equal number
-of MPI ranks, attaining 13.94 PFlops at 69.2\% of peak and 90\% parallel
-efficiency (for details, see Ref.\cite{2012arXiv1211.4864H}). Examples
-of science results obtained using HACC include 64-billion particle
-runs for baryon acoustic oscillations predictions for the BOSS Lyman-$\alpha$
-forest \cite{2010ApJ...713..383W}, high-statistics predictions for
-the halo profiles of massive clusters \cite{2013ApJ...766...32B},
-and 0.5 and 1.1~trillion particle runs at high mass resolution. A
-recent overview of the HACC framework can be found in Ref.~\cite{hacc_2014}.
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/zoom_in}
+\caption{HACC result: Zoom-in visualization of the density field in a 1.1 trillion
+particle, 4.2~Gpc box size simulation with HACC on 32 BG/Q racks.
+This figure illustrates the global dynamic range covered by the simulation,
+$\sim10^{6}$, although the finer details are not resolved by the
+visualization.}
+
+
+\label{simpic} 
+\end{figure}
+
 
 HACC uses a hybrid parallel algorithmic structure, splitting the force
 calculation into a specially designed grid-based long/medium range
-spectral PM component that is common to all computer architectures,
+spectral particle-mesh (PM) component that is common to all architectures,
 and an architecture-specific short-range solver. Modular code design
 combined with particle caching allows the short-range solvers to be
 `hot-swappable' on-node; they are blind to the parallel implementation
 of the long-range solver. The short-range solvers can use direct particle-particle
-interactions, i.e., a P$^{3}$M algorithm \cite{1988csup.book.....H},
-as on (Cell or GPU) accelerated systems, or use tree methods on conventional
-or many-core architectures. (This was the case for the simulations
-reported here.) In all cases, the time-stepping scheme is based on
-a symplectic method with (adaptive) sub-cycling of the short-range
-force. The availability of multiple algorithms within the HACC framework
-allows us to carry out careful error analyses, for example, the P$^{3}$M
-and the TreePM versions agree to within $0.1\%$ for the nonlinear
-power spectrum test in the code comparison suite of Ref.~\cite{2005ApJS..160...28H}.
+interactions, i.e., a P$^{3}$M algorithm~\cite{hockney}, as on
+Roadrunner or Titan, or use tree methods as on the IBM BG/Q and Cray
+XE6 systems (TreePM algorithm). The availability of multiple algorithms
+within the HACC framework allows us to carry out careful error analyses,
+for example, the P$^{3}$M and the TreePM versions agree to within
+$0.1\%$ for the nonlinear power spectrum test in the code comparison
+suite of Ref.~\cite{heitmann05}.
 
-As already discussed, an important feature of the work presented here
-is the ability to carry out error-controlled approximate simulations
-at high throughput. In order to understand how we implement this,
-some details of the HACC time-stepping algorithm are now provided.
-Evolution is viewed as a symplectic map on phase space: $\zeta(t)=\exp(-t{\bf {H}})\zeta(0)$
-where, $\zeta$ is a phase-space vector $({\bf x},{\bf v})$, $H$
-is the (self-consistent) Hamiltonian, and the operator, ${\bf {H}}=[H,~]_{P}$,
-denotes the action of taking the Poisson bracket with the Hamiltonian.
-Suppose that the Hamiltonian can be written as the sum of two parts;
-then by using the Campbell-Baker-Hausdorff (CBH) series we can build
-an integrator for the time evolution; repeated application of the
-CBH formula yields 
+The HACC philosophy is that, as a general rule, both particle and
+grid methods are difficult to implement as global solutions: For physics
+and implementation reasons, grid-based techniques are better suited
+to larger length scales, with particle methods having the opposite
+property. This suggests that the higher `top' levels of code organization
+should be grid-based, interacting with particle information at a lower
+level of the computational hierarchy. The design ideas underlying
+HACC give us a very important head start in tackling the challenges
+posed by future architectures.
+
+\begin{figure}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/overload}
+\caption{ Overloading in a 2-D domain decomposition: A node holds particles
+within its domain (green) and particle copies out to a given distance
+from its boundary (red, in blue square). Copies held by neighboring
+nodes form a mirrored particle cache.}
+
+
+\label{overload} 
+\end{figure}
+
+
+\noindent On heterogeneous systems such as Roadrunner, or Titan at
+Oak Ridge, HACC has the following layout: At the top level, the medium/long
+range force is handled by a special low-noise, high accuracy, FFT-based
+method that operates at the CPU layer. Depending on the memory balance
+between the CPU and the accelerator (Cell or GPU), we can choose to
+specify two different modes, (i) grids held on the CPU and particles
+on the accelerator, or (ii) a streaming paradigm with grid and particle
+information primarily resident in CPU memory with computations streamed
+through the accelerator. In both cases, the local force solve is a
+direct particle-particle interaction, i.e., the whole is a P$^{3}$M
+code~\cite{hockney} with hardware acceleration, albeit an unconventional
+implementation based on high-order spectral methods. The acceleration
+leads to a speed-up of 50-100 times over conventional processors.
+For a many-core system, the top layer of the code remains the same,
+but the short-range solver changes to a tree-based algorithm which
+is much better suited to the Blue Gene and Intel MIC architectures.
+
+Our strategy simultaneously overcomes two problems: (i) how to switch
+short-range solvers easily, and (ii) overcome the communication bottleneck
+between the CPU and accelerator layers, or the analog for a many-core
+system (on-node vs. off-node communication). We drastically reduce
+the particle communication by using a mirrored particle cache, termed
+`particle overloading', implemented on top of our 3-D domain decomposition
+(see Fig.~\ref{overload}). The point of overloading -- loosely analogous
+to ghost regions in mesh-based codes -- is to allow exact medium/long-range
+force calculations with no communication of particle information and
+high-accuracy local force calculations with relatively sparse refreshes
+of the overloading zone (for details, see Ref.~\cite{mc3}). The
+second advantage of overloading is that it frees the local force solver
+from handling communication tasks, which are taken care of by the
+long/medium-range force framework. Thus new `on-node' local methods
+can be plugged in with no extra work and guaranteed scalability.
+
+Conventional particle-mesh codes use a mixture of spatial filtering/differencing
+and spectral techniques; the resulting complicated communication templates
+can be problematic, particularly at the accelerator or many-core processor
+level. To combat this, HACC uses digital filtering and differencing
+in the spectral domain, allowing a simple spatial deposition technique,
+Cloud-In-Cell (CIC) to be used. Combined with particle overloading,
+this can reduce all communication to a negligible overhead, except
+that in the parallel FFT, which lives only at the top level. A new
+2-D domain decomposed (pencils instead of slabs) FFT has been implemented
+to guarantee good scaling properties. The code design leads to ideal
+scaling properties of HACC up to very large number of processors,
+with exascale requirements already designed in to the algorithms.
+Full-machine scaling has been demonstrated on Roadrunner's Open Science
+phase, when MC$^{3}$ (the HACC precursor) was the only code to run
+across the full machine, on Mira and Sequoia (Cf. Fig.~\ref{hacc_scale}),
+and on Titan.
+
+HACC has been ported to all the DOE Leadership class platforms; the
+choice of the local force algorithm strongly depends on the architecture;
+for an accelerated system (local) $N^{2}$ methods are favorable since
+`compute is free' but complicated data structures are to be avoided,
+while for CPU-based systems, tree algorithms are a superior choice.
+HACC currently supports three production variants: (i) the Cell-accelerated
+P$^{3}$M code on Cerrillos (a smaller, open version of Roadrunner);
+(ii) a GPU-accelerated P$^{3}$M version with an OpenCL implementation
+on OLCF's Titan; (iii) a TreePM version for many-core machines, e.g.,
+ANL's Blue Gene/Q, Mira and NERSC's Hopper.
+
+An important feature of the work proposed here is the ability to carry
+out error-controlled approximate simulations at high throughput. In
+order to understand how we implement this, some details of the HACC
+time-stepping algorithm are now provided. HACC uses a symplectic scheme
+with sub-cycling of the short-range force. The basic idea is not to
+finite-difference the equations of motion, but to view evolution as
+a symplectic map on phase space, written in the exponentiated form
+familiar from Lie methods: $\zeta(t)=\exp(-t{\bf {H}})\zeta(0)$ where,
+$\zeta$ is a phase-space vector $({\bf x},{\bf v})$, $H$ is the
+Hamiltonian, and the operator, ${\bf {H}}=[H,~]_{P}$, denotes the
+action of taking the Poisson bracket with the Hamiltonian. Suppose
+that the Hamiltonian can be written as the sum of two parts; then
+by using the Campbell-Baker-Hausdorff (CBH) theorem we can build an
+integrator for the time evolution due to that Hamiltonian. Repeated
+application of the CBH formula can be used to show that 
 \[
-\exp(-t({\bf {H}}_{1}+{\bf {H}}_{2}))=\exp(-(t/2){\bf {H}}_{1})\exp(-t{\bf {H}}_{2})\exp(-(t/2){\bf {H}}_{1})+O(t^{3}),
+\exp(-t({\bf {H}}_{1}+{\bf {H}}_{2}))=\exp(-(t/2){\bf {H}}_{1})\exp(-t{\bf {H}}_{2})\exp(-(t/2){\bf {H}}_{1})+O(t^{3})
 \]
-a second order symplectic integrator. In the basic PM application,
+is a second order symplectic integrator. In the basic PM application,
 the Hamiltonian $H_{1}$ is the free particle (kinetic) piece while
 $H_{2}$ is the one-particle effective potential; corresponding respectively
 to the `stream' and `kick' maps $M_{1}=\exp(-t{\bf {H}}_{1})$ and
@@ -232,17 +343,16 @@ contains the kinetic and particle-particle force interaction (with
 an associated map $M_{sr}$), whereas, $H_{2}=H_{lr}$ is just the
 long range force, corresponding to the map $M_{lr}$. Since the long
 range force varies relatively slowly, we construct a single time-step
-map by sub-cycling $M_{sr}$: $M_{full}(t)=M_{lr}(t/2)(M_{sr}(t/n_{c}))^{n_{c}}M_{lr}(t/2)$,
+map by subcycling $M_{sr}$: $M_{full}(t)=M_{lr}(t/2)(M_{sr}(t/n_{c}))^{n_{c}}M_{lr}(t/2),$
 the total map being a usual second-order symplectic integrator. This
 corresponds to a KSK step, where the S is not an exact stream step,
 but has enough $M_{sr}$ steps composed together to obtain the required
 accuracy. (We take care that the time-dependence in the self-consistent
-potential is treated correctly; HACC uses the scale factor, $a$,
-as the time variable.) As discussed later below, we will use the flexibility
-in the sub-cycling as a way of reducing the number of time steps such
-that the loss of accuracy only affects the resolution at very small
-scales, which, as discussed previously, are not of interest in the
-current set of simulations.
+potential is treated correctly.) As discussed later below, we will
+use the flexibility in the sub-cycling as a way of reducing the number
+of time steps such that the loss of accuracy only affects the resolution
+at very small scales, which are not of interest in the current set
+of simulations. 
 
 
 \section{Time Step Tuning}
@@ -296,7 +406,7 @@ demonstrates that the unmatched fraction increases with increasing
 threshold and decreasing halo mass.)
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-content} Itemization of unmatched halos (from the
 450/5 and 300/2 simulations at $z=0.15$) shown as cumulative number
@@ -329,11 +439,11 @@ halo mass for the corresponding halos. The overall behavior represented
 in Figure~\ref{fig:mass-scatter1} is straightforward to interpret.
 
 \begin{figure}[h]
-\includegraphics[width=0.465\columnwidth]{\lyxdot \lyxdot /Plots/testDB_mass_300_2_z0\lyxdot 15}
-\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_nonDB_300_2_z0\lyxdot 15}
+\includegraphics[width=0.465\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/testDB_mass_300_2_z0\lyxdot 15}
+\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/testDB_nonDB_300_2_z0\lyxdot 15}
 
-\includegraphics[width=0.465\textwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
-\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
+\includegraphics[width=0.465\textwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
+\includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
 
 \caption{\label{fig:mass-scatter1}Distribution of halo masses comparing matched
 halos in the 450/5 simulation (x-axis) to the 300/2 simulation (y-axis)
@@ -410,7 +520,7 @@ in the 450/5 simulation, decreasing systematically with increase in
 loss of temporal resolution.
 
 \begin{figure}[h]
-\textcolor{black}{\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/massSlice_z0\lyxdot 15}}
+\textcolor{black}{\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/massSlice_z0\lyxdot 15}}
 
 \textcolor{black}{\caption{\label{fig:HaloProperty_mass}Comparison of halo mass (FOF, $b=0.168$)
 for matched halos between the 450/5 simulation and coarsened time-stepping
@@ -458,7 +568,7 @@ save the simulation time while keeping the halo properties almost
 identical to the 450/5 simulation.
 
 \begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_x_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/histogram_vx_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/histogram_x_z0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/histogram_vx_z0\lyxdot 15}
 
 \caption{\label{fig:HaloProperty_step}Comparison of the positions (left) and
 velocities (right) of halos matched across simulations with different
@@ -546,8 +656,8 @@ For simulations with 300 global time steps, the mass adjustment is
 especially effective at small halo masses.
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/haloRatioNum256_z0\lyxdot 15}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/haloRatioNum256_tweak_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/haloRatioNum256_z0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/haloRatioNum256_tweak_z0\lyxdot 15}
 
 \caption{\label{fig:massFn_step}Comparison of cumulative mass functions in
 different simulations taking the 450/5 simulation as a reference.
@@ -594,7 +704,7 @@ in both real-space and redshift-space. Based on these convergence
 tests, we conclude that the 300/2 option meets the error requirements.
 
 \begin{figure}[H]
-\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_m450_tweak_softMcut13\lyxdot 0_s0\lyxdot 5_z0\lyxdot 15}\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Plots/crossMatter_tweak256_redshift_z0\lyxdot 15}
+\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/crossMatter_m450_tweak_softMcut13\lyxdot 0_s0\lyxdot 5_z0\lyxdot 15}\includegraphics[width=0.45\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/crossMatter_tweak256_redshift_z0\lyxdot 15}
 
 \caption{\label{fig:crossMater_step} Ratio of halo-matter cross power spectra
 as a function of time steps with respect to the 450/5 simulation at
@@ -613,135 +723,131 @@ on the soft mass-cut method with $M_{cut}=13.0$ and $\sigma=0.5$.}
 
 \section{Constructing Light Cones}
 
-Once the simulations are run at the chosen time-stepping settings,
-the next step is to construct light-cone outputs. Here, we build light
-cones from snapshots whose redshift range is from $z=0.8$ to $z=0.15$,
-with a constant redshift separation of $\Delta z=0.1$. The light
-cone is constructed using spherical shells, each shell is centered
-at the redshift of each snapshot, and has a redshift width of 0.1.
-In each shell, we displace the halo positions by using their peculiar
-velocities in order to shift to light cone positions:
+One can choose to construct mock catalogs either from a single static
+snapshot in redshift or to take the lightcone evolution of the halo
+and galaxy distribution into account. There are two broad approaches
+to the latter problem. The first is to incrementally build up the
+lightcone while the simulation is running, while the second stitches
+together static snapshots at different redshifts to construct an approximate
+lightcone. Both methods have advantages and disadvantages. Building
+the lightcone \textquotedblleft{}on the fly\textquotedblright{} gets
+the redshift evolution correct by construction, but requires simulation
+post-processing codes (like halo finders) to be run concurrently with
+the simulation, making it nontrivial to change input parameters to
+these analyses. Using static time snapshots can be more flexible,
+but requires a relatively dense sampling of timesteps. We take this
+approach here; this section discusses how we interpolate between different
+snapshots and the requirements on the time step sampling. We note
+that these results are more broadly applicable that just for this
+simulation suite.
+
+Our algorithm for constructing a lightcone is :
+\begin{enumerate}
+\item For every snapshot, construct a spherical shell (or part thereof)
+with a radius centered on the comoving distance to the snapshot redshift
+and a width equal to its redshift extent. 
+\item The redshifts of each halo are determined by their radial distance
+from the origin. 
+\item Interpolate the position and velocity (see below) of the halo from
+the snapshot redshift to the halo redshift. Note that changing the
+position of the halo strictly changes its redshift, but this is a
+small effect. 
+\item \textcolor{black}{For the case of a halo crossing its boundary of
+the shell, we choose the halo whose distance from the boundary is
+closer before shifting.}
+\end{enumerate}
+We interpolate the positions of halos using a simple linear rule : 
+
 \begin{equation}
 \vec{x}|_{z=z_{pos}}=\vec{x}|_{z=z_{snap}}+\vec{v}_{pec}|_{z=z_{snap}}\Delta t,\label{eq:lightcone}
 \end{equation}
 where $z_{snap}$ is the redshift of the snapshot, $z_{pos}$ is the
 redshift corresponding to its radial position, $\vec{v}_{pec}$ is
 its peculiar velocity, and $\Delta t$ is the time elapsed between
-$z_{snap}$ and $z_{pos}$. For the case of a halo crossing its boundary
-of the shell, we choose the halo whose distance from the boundary
-is closer before shifting.
-
-To evaluate how shifting affects a spatial distribution of halos,
-we compare the distances for the halos at different redshift before
-and after shifting their positions. For the comparison, we use the
-halos which exist at both redshifts by matching halo particle profiles,
-which is the same method described in Section 3.1. Figure \ref{fig:Histograms-of-distance}
-is the histograms of distances for the matched halos at $z=0.25$
-and $z=0.15$ before and after shifting. After shifting halos, we
-see that the mean distance between corresponding halos decreases from
-$0.4h^{-1}{\rm Mpc}$to $0.1h^{-1}{\rm Mpc}$ and the standard deviation
-shrinks from $0.2h^{-1}{\rm Mpc}$ to $0.1h^{-1}{\rm Mpc}$. This
-result holds at all redshifts examined.
+$z_{snap}$ and $z_{pos}$. We test this using the calibration simulations
+used in the previous simulations, restricting ourselves to halos identified
+across two or more timesteps. The left panel of Fig. \ref{fig:lightcone_pos}
+plots the $x$-component of the distance between halos identified
+in the $z=0.25$ and $z=0.15$ simulations, both before and after
+shifting halos from $z=0.25$ to $z=0.15$ using the above equation.
+The improvement is clearly visible; the scatter after shifting is
+half of the original scatter with similar results for the other components
+and different redshift slices. The right panel of the same figure
+shows the ratio of the power spectrum of the shifted halos to its
+expected value. We consider shifts in redshift ranging from $\Delta z=0.05$
+to $\Delta z=0.25$. Except for the $\Delta z=0.25$ case at high
+$k$, we recover the expected power spectrum to better than $1\%$
+out to $k=1h{\rm Mpc}^{-1}$; the accuracy is a few tenths of a percent
+for most cases over most of that range. We get similar results for
+shifting to different redshifts.
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_dist_x_z0\lyxdot 25to0\lyxdot 15}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/hist_dist_x_z0\lyxdot 25to0\lyxdot 15}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/shifting_r_z0\lyxdot 15}
 
-\caption{The histogram shown in blue is that of the distances between the position
-of the halos at $z=0.25$ and where they have moved to in the simulation
-at $z=0.15$. The histogram shown in green is that of the distances
-between the positions of the halos at $z=0.15,$ and the positions
-that would be predicted by shifting the positions from the $z=0.25$
-simulation assuming the peculiar velocity was constant between the
-snapshots (described in Eq. \ref{eq:lightcone}). The plot shows that
-the distances between the halos at different redshifts become smaller
-after the shifting. \label{fig:Histograms-of-distance}}
+\caption{\textcolor{black}{Left: Comparison of the $x$-component of the distance
+before and after shifting the positions of halos from $z=0.25$ to
+$z=0.15$. We assume that the peculiar velocity is constant between
+the snapshots (described in Eq. \ref{eq:lightcone}) to compute the
+distances to shift. }The plot shows that the scatter after shifting
+shrinks to half of the original scatter.\textcolor{black}{{} Right:}
+The ratio of the power spectrum of the shifted halos to its expected
+value. We shift halos from the redshift shown in the plot ($z=0.4,$
+$0.25$, and $0.2$) to $z=0.15$\textcolor{black}{{} and compute the
+halo-matter cross power spectra with the matter density field at $z=0.15$.
+The denominator is the cross power spectra at $z=0.15$, which is
+an expected value after shifting. }The solid line shows the results
+after shifting, while the dashed lines are before shifting. We recover
+the expected power spectrum to better than $1\%$ out to $k=1h{\rm Mpc}^{-1}$\textcolor{black}{{}
+for the case of $\Delta z<0.25$.\label{fig:lightcone_pos}}}
 \end{figure}
 
 
-As an additional check, we compare the affect on halo bias due to
-shifting. Figure~\ref{fig:power-lightcone} shows the ratios of the
-halo matter cross power spectra to an auto matter power spectrum at
-$z=0.25$. The plot shows that shifting halos from $z=0.15$ to $z=0.25$
-brings down the halo bias to the one at $z=0.25$ (an analogous test
-is shown for redshifts $z=0.7$ and $z=0.8$). The agreement between
-the original power spectrum at $z=0.25$ and the shifted power spectrum
-is 99.8\% up to $k=1h{\rm Mpc^{-1}}$. This demonstrates that the
-spatial distribution of the halos is statistically correct across
-the scales of interest.
-\begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting1}
-
-\caption{\label{fig:power-lightcone}In this figure, we use the halo matter
-cross power spectra at $z=0.25$ and $z=0.7$ as a denominator. The
-dashed lines show the ratio with the cross power spectra at $z=0.15$
-and $z=0.8$ respectively before shifting, and the solid lines are
-the ratio after shifting halo positions. It indicates that shifting
-the positions of halos from one redshift to the another preserves
-the distribution of halos statistically.}
-\end{figure}
-
-
-A parameter when building light cones by stitching static snapshots
-together is how large $\Delta z$ can be between various snapshots.
-Figure \ref{fig:power-lightcone2} test this in both real and redshift
-space; in redshift space, we assume the velocity of the object is
-unchanged between the snapshots. We see that the agreement in real
-space is within 1\% even for the case of shifting for $\Delta z=0.25$,
-while the discrepancy increases more rapidly for larger $\Delta z$
-in redshift space. In order to understand the cause of rapid discrepancy
-of the power spectra in redshift-space, we further investigate the
-distribution of velocity differences at different redshifts shown
-in Figure \ref{fig:vel_hist_expFac}. \textcolor{red}{We compare original
-velocities computed from the simulations in the left panel, while
-we linearly interpolate velocities in the right panel. We take velocities
-at $z=z_{1}$ and $z=z_{2}$ and interpolated linearly using the corresponding
-redshift to positions $z_{pos}$ as weights:
+\textcolor{black}{Working in redshift space requires interpolating
+both the position and the velocities of halos. Since we do not store
+accelerations of halos, we simply linearly interpolate the halo velocities
+between two redshifts, $z_{1}$ and $z_{2}$ : 
 \begin{equation}
-v(z=z_{pos})=v(z=z_{1})\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+v(z=z_{2})\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
+\vec{v}|_{z=z_{pos}}=\vec{v}|_{z=z_{1}}\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+\vec{v}|_{z=z_{2}}\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
 \end{equation}
-where $z_{1}<z_{pos}<z_{2}$. After linear interpolation, the velocity
-differences at different redshifts become smaller by XXX. Figure \ref{fig:shift-expFac}
-shows the power spectra recomputed with the linearly interpolated
-velocities, where $z$ is the redshift of the simulation. The clustering
-in redshift-space is improved significantly that the overall agreement
-becomes within XXX\% on $k<1[h{\rm Mpc^{-1}]}$.}
+where $z_{1}<z_{pos}<z_{2}$ and $z_{pos}$ is the corresponding redshift
+for positions. Fig.\ref{fig:lightcone_vel} uses the redshift slices
+at $z=0.15$ and $0.25$ to predict the values at $z=0.2$; we recover
+the true velocities with a scatter of 38.8km/s, which is improved
+from the original scatter of 57.4km/s as shown in the left panel.
+The right panel of the same figure plots the ratio of the predicted
+angle-averaged power spectrum to the expected value. While the accuracy
+is degraded compared to the real space case, we still recover the
+power spectrum to 1\% out to $k=0.8h{\rm Mpc}^{-1}$. The fall off
+at large $k$ is expected since the errors in the velocities introduce
+a random scatter in the positions of the galaxies, washing out the
+signal on small scales. }
+
+\textcolor{black}{These results suggest using a redshift spacing of
+$\Delta z=0.1$ or better between different simulation outputs. For
+the simulation suite discussed in the next section, we choose to be
+conservative and store outputs every $\Delta z=0.05$ over the region
+on interest, corresponding to a maximum shift in redshift of $0.025$
+(smaller than all the cases considered here).}
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/test1}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/test2}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/hist_vx}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/shifting_s_interp_z0\lyxdot 15}
 
-\caption{\label{fig:power-lightcone2}Ratio of halo matter cross power spectra
-in real space {[}left{]} and in redshift space {[}right{]} after shifting
-the position of the halos from the redshift labeled in the plots to
-$z=0.15$. The denominator is the cross power spectra at $z=0.15,$where
-we use the halo density field in real space and redshift space respectively.
-For all cases, we use the DM density field in real space at $z=0.15$. }
-\end{figure}
-
-
-\begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_vx}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/hist_vx_expFac}
-
-\caption{\label{fig:vel_hist_expFac}Comparisons of the velocities of halos
-matched across simulations at different redshifts to the one at $z=0.15$.
-From left to right, we compare original halo velocities and the velocities
-multiplied by the expansion factor $a(z)$. As shown, the scatter
-in the velocity differences decreases in the right panel. This indicates
-that the change in velocities at different redshifts is largely affected
-by the expansion of the Universe.}
-\end{figure}
-
-
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/shifting_s_expFac_z0\lyxdot 15}
-
-\caption{\label{fig:shift-expFac}Ratio of halo matter cross power spectra
-in redshift space as shown in Figure \ref{fig:power-lightcone2}.
-The only difference is that here we use the velocity field multiplied
-by the ratio of the expansion factor $a(z)/a(z=0.15)$ (where z is
-the redshift shown in the figure) to compute the halo positions in
-redshift-space. The denominator is the cross power spectra at $z=0.15,$where
-we use the halo density field in redshift space. For all cases, we
-use the DM density field in real space at $z=0.15$.}
+\caption{\label{fig:lightcone_vel}\textcolor{black}{Left: Comparisons of the
+$x$-component of velocities for the halos matched across simulations
+between $z=0.25$ and $z=0.2$. The blue line shows the difference
+in the velocities at $z=0.25$ and $z=0.2$, while the green line
+compares the velocities linearly interpolated between $z=0.25$ and
+$z=0.15$ to estimate the velocity at $z=0.2$ the original velocities
+at $z=0.2$. Right: }The ratio of the power spectrum of the shifted
+halos to its expected value in redshift space. We shift halos from
+$z=0.25$ to $z=0.2$\textcolor{black}{{} and use original velocities
+at $z=0.25$ (blue line) and the linearly interpolated velocities
+(green line) to define redshift space. The denominator is the redshift
+space cross power spectra at $z=0.2$, which is an expected value
+after shifting. As a reference, the result of shifting from $z=0.25$
+to $z=0.2$ in real space is shown as a dashed line. }We recover the
+expected power spectrum to better than $1\%$ out to $k=0.8h{\rm Mpc}^{-1}$\textcolor{black}{{}
+by linearly interpolating velocities.}}
 \end{figure}
 
 
@@ -749,41 +855,44 @@ use the DM density field in real space at $z=0.15$.}
 \section{BOSS Mock Catalogs}
 
 As a concrete implementation of the approach discussed above, we construct
-catalogs designed to mock BOSS galaxy samples. BOSS (\cite{2013AJ....145...10D}),
+catalogs designed to mimic the Baryon Oscillation Spectroscopic Survey
+(hereafter, BOSS) galaxy samples. BOSS (\cite{2013AJ....145...10D}),
 part of the SDSS-III project (\cite{2011AJ....142...72E}), is a spectroscopic
-survey that aims to make percent level distance measurements using
-the baryon acoustic oscillation technique. The low redshift ($z<0.7$)
-distance measurements use two galaxy samples : the LOWZ ($z<0.45$)
-and CMASS ($z<0.7$) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
-We focus on the CMASS sample below; however, the same halo catalogs
-are useful for the LOWZ sample as well.
+survey that has achieved percent level distance measurements using
+the baryon acoustic oscillation technique (\cite{2014MNRAS.441...24A}).
+The low redshift ($z<0.7$) distance measurements use two galaxy samples
+: the LOWZ ($z<0.45$) and CMASS ($z<0.7$) samples (\cite{2014MNRAS.441...24A,2014MNRAS.440.2222T}).
+We describe the construction of the CMASS sample below. The construction
+of the LOWZ sample is analogous, and the same simulations (as different
+time slices) can be used in its construction.
 
 We choose a simulation volume large enough to build a full-sky mock
-BOSS catalog. Since the CMASS sample extends to $z\sim0.7$, we choose
+catalog. Since the CMASS sample extends to $z\sim0.7$, we choose
 a simulation side of $4000h^{-1}{\rm Mpc}$, corresponding to a comoving
-distance to $z\sim0.8$ from the center of the box; Fig.~\ref{fig:boss-geom}
-shows the BOSS CMASS redshift distribution as a function of redshift
-and comoving distance (assuming our fiducial cosmology). Our simulations
-are run with $4000^{3}$ particles, corresponding to a particle mass
-of $10^{11}{\rm M_{\odot}}$. The characteristic halo mass for BOSS
-galaxies corresponds to $10^{13}M_{\odot}$, which we resolve with
-100 particles. We keep all halos down to 40 particles corresponding
-to a halo mass of $10^{12.6}{\rm M_{\odot}}$. The simulations are
-started at \textcolor{red}{$z=200$} with Zel'dovich initial conditions
-and are stopped at $z=0.15$ with simulation outputs every $\Delta z=0.05$
-starting from $z=4.0$. \textcolor{red}{At each of these steps, we
-store central positions, mean velocities and masses of FOF halos with
-the linking length $b=0.168$ and 40 particles minimum, and $1\%$
-of halo particles with minimum of 5 particles per halo and $1\%$
-of all particles randomly sampled. }
+distance to $z\sim0.8$ from the center of the box. We start the simulations
+at $z=200$ using Zel\textquoteright{}dovich initial conditions and
+are run down to $z=0.15$ using the time-stepping procedure described
+earlier in the paper. We store outputs every $\Delta z\sim0.05$ starting
+at $z\sim0.75$; in addition, we store outputs uniformly spaced by
+$\Delta z=0.2$ between $z=1$ and $z=2$ as well as at $z\sim2.5$,
+$3$ and $4$. The close spacing at low redshift enables us to make
+lightcones using the method described in the previous section. We
+run a friends-of-friends halo finder on each of the outputs with a
+linking length of $b=0.168$, keeping halos down to 40 particles,
+or $10^{12.6}M_{\odot}$. By comparison, the characteristic halo mass
+of the BOSS galaxies is $10^{13}M_{\odot}$, which we resolve with
+100 particles. Each output store\textcolor{black}{s central positions,
+mean velocities and halo masses , and $1\%$ of halo particles with
+minimum of 5 particles per halo and $1\%$ of all particles randomly
+sampled. }
 
 The BOSS angular geometry is split into two regions : one in the North
 Galactic Cap and one in the South Galactic Cap (Figure~\ref{fig:boss-geom}).
 Since we generate full-sky mocks, it is straightforward to embed two
-full non-overlapping BOSS surveys in a single mock realization (Figure~\ref{fig:boss-geom}).
-We cut out a first BOSS volume with $\vec{x}_{old}$ and then define
+full non-overlapping BOSS surveys in a single mock realization. We
+cut out a first BOSS volume with $\vec{x}_{old}$ and then define
 a new coordinate system $\vec{x}_{new}$ such that $\vec{x}_{new}=R\vec{x}_{old}$,
-where $R$ is the Euler rotation matrix for Figure~\ref{fig:boss-geom}:
+where $R$ is the Euler rotation matrix:
 \[
 R=\left(\begin{array}{ccc}
 0.088 & 0.096 & 0.991\\
@@ -793,8 +902,8 @@ R=\left(\begin{array}{ccc}
 \]
 
 
-\begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/boss_geom}
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/boss_geom}
 
 \caption{\label{fig:boss-geom}Fitting two non-overlapping BOSS volumes into
 the same simulation box. The blue region is the BOSS survey footprint
@@ -803,24 +912,21 @@ rotated using the rotation matrix given in the text.}
 \end{figure}
 
 
-
-\subsection{Building the Galaxy Catalog}
-
-To generate the galaxy mock catalogs, we proceed in two steps, 1)
-populate halos with galaxies using an HOD approach, 2) assign positions
-and velocities to the galaxies assuming an NFW profile~\cite{1996ApJ...462..563N}.
-The HOD functional form (based on a number of free parameters, 5 in
-our case) provides probabilities for the number of central and satellite
+To generate the galaxy mock catalogs, we first populate halos with
+galaxies using a halo occupational distribution (HOD) approach. The
+HOD functional form (based on a number of free parameters, 5 in our
+case) provides probabilities for the number of central and satellite
 galaxies based on the masses of halos that host those galaxies. A
-halo hosts a central galaxy with probability $N_{cen}(M)$ and a number
-of satellite galaxies given by a Poisson distribution with mean $N_{sat}(M)$:
+halo hosts a central galaxy with probability $<N_{cen}(M)>$ and a
+number of satellite galaxies given by a Poisson distribution with
+mean $<N_{sat}(M)>$:
 
 \begin{equation}
-N_{cen}(M)=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}\right],\label{eq:Ncen}
+<N_{cen}(M)>=\frac{1}{2}{\rm erfc}\left[\frac{{\rm ln}(M_{cut}/M)}{\sqrt{2}\sigma}\right],\label{eq:Ncen}
 \end{equation}
 and 
 \begin{equation}
-N_{sat}(M)=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},\label{eq:Nsat}
+<N_{sat}(M)>=N_{cen}(M)\left(\frac{M-\kappa M_{cut}}{M_{1}}\right)^{\alpha},\label{eq:Nsat}
 \end{equation}
 where $M_{cut}$, $M_{1}$, $\sigma$, $\kappa$, and $\alpha$ are
 free parameters and $M$ is the halo mass. We assume that $N_{sat}(M)$
@@ -833,178 +939,244 @@ to change this. However, these forms are known to successfully reproduce
 the clustering of the BOSS galaxies~\cite{2011ApJ...728..126W} and
 are therefore a convenient choice.
 
-Central galaxies are given a velocity equal to the halo velocity;
-satellite galaxies are distributed around them with a spherically
-symmetric NFW profile specified by: 
+After assigning a number of galaxies to each halo, we distribute those
+galaxies within the halo. The central galaxy is always at the center
+of the halo, while the distribution of satellite galaxies follow a
+spherically symmetric NFW profile specified by: 
 \begin{equation}
-\rho(r)=\frac{4\rho_{s}}{\frac{cr}{R_{vir}}(1+\frac{cr}{R_{vir}})^{2}},
+\rho(r)=\frac{4\rho_{s}}{\frac{cr}{R_{{\rm vir}}}(1+\frac{cr}{R_{{\rm vir}}})^{2}},
 \end{equation}
 where $\rho_{s}$ is the density at the char\textcolor{black}{acteristic
-scale $r_{s}=R_{vir}/c$ , $R_{vir}$ is the virial radius for the
-halo and $c$ determines how centrally concentrated the profile is.
-$R_{vir}$ is computed from $M=\frac{4\pi}{3}R_{vir}^{3}\rho_{crit}\Delta_{h}$,
-where $\Delta_{h}=(18\pi^{2}+82(\Omega_{m}-1)-39(\Omega_{m}-1)^{2})/\Omega_{m}$
-and $\rho_{crit}=\frac{3c^{2}H_{0}^{2}}{8\pi G}$} ($c$ is the speed
-of light here). \textcolor{red}{We use a cosmic emulator \cite{2013ApJ...768..123K}
-to generate a table of concentration-mass relation for halos at each
-redshift with the given cosmology.}
+scale $r_{s}=R_{{\rm vir}}/c$ , $R_{{\rm vir}}$ is the virial radius
+for the halo and $c$ is the concentration parameter. $R_{{\rm vir}}$
+is the virial radius of the halo}.\textcolor{black}{{} We use a cosmic
+emulator \cite{2013ApJ...768..123K} to generate a table of concentration-mass
+relation for halos at each redshift with the given cosmology.}
 
-The velocities of the satellite galaxies are the sum of their host
-halo velocity and a random virial component. This random component
-is given by
+The velocity of the central galaxy is equal to the host halo velocity.
+We assume that satellite galaxies are randomly moving inside the host
+halos. Therefore, the velocities of the satellite galaxies are the
+sum of their host halo velocity and a random virial component. For
+this random component, we draw a Gaussian distribution with zero mean
+and variance given by:
 
 \begin{equation}
 <v_{x}^{2}>=<v_{y}^{2}>=<v_{z}^{2}>=\frac{1}{3}\frac{GM}{R_{vir}}.\label{eq:variance}
 \end{equation}
-We draw a Gaussian distribution with zero mean and variance in Eq.
-\ref{eq:variance} to give each component of an internal velocity
-for the satellite galaxies. Here, we assume that satellite galaxies
-are randomly moving inside the host halos. 
 
-\textcolor{red}{Now, we generate galaxy mocks from the static snapshot
-of halos at $z=0.55$ and also from the lightcone sample described
-in Section 4. We use the following HOD parameters,$M_{cut}=12.9$,
-$M_{1}=14.0$, $\alpha=1.013$, $\kappa=1.0$, $\sigma=0.85$, to
-populate the halos in those samples with galaxies and assign velocities
-to the satellite galaxies in the way described above. Then, we compute
-the positions of the galaxies in redshift-space.}
 
-\textcolor{red}{The next step is matching the number density $n(z)$
-from observation to the redshift selection function of Ref. \cite{2013arXiv1303.4666A}.
-Figure \ref{fig:nz_gal} shows before and after subsampling for BOSS
-CMASS North Galactic Cap. The dashed lines represent the number density
-of the mock galaxies before subsampling. The green line represents
-$n(z)$ from the mock at $z=0.55$, and the red line is from the lighcone
-sample. The dashed lines represent $n(z)$ before subsamping, while
-the solid lines are after.}
+Following the above procedures, we generate two galaxy mocks from
+the simulation at $z=0.55$ and from the lightcone sample described
+in Section 4. Using the simulation at $z=0.55$ is the way to generate
+galaxy mocks described in Ref. \cite{2013MNRAS.428.1036M,2014arXiv1401.4171M}
+and used in \cite{2014MNRAS.441...24A}, The reason we also generate
+a galaxy mock from the lightcone sample is to explore whether those
+two galaxy mocks exhibit any differences or not.\textcolor{black}{{}
+We use the following HOD parameters, $M_{cut}=12.9$, $M_{1}=14.0$,
+$\alpha=1.013$, $\kappa=1.0$, $\sigma=0.85$, to populate the halos
+with galaxies. Note that the goal here is not to completely fit to
+the observed DR11 correlation functions, but to show that our simulations
+have capability to compute correlation functions for BOSS.}
 
-\textcolor{red}{After matching,we finally compute correlation functions
-for those galaxy mocks. In Figure \ref{fig:xis}, we compare those
-correlation functions to the one from DR11. The left panel shows the
-monopole terms of the correlation functions, and the right panel is
-the quadrupole terms.}
+\textcolor{black}{Once generating the galaxy mocks, the next step
+is matching the number density $n(z)$ to the redshift selection function
+of Ref. \cite{2013arXiv1303.4666A}. For each redshift bin, we randomly
+subsample galaxies. Figure \ref{fig:nz_gal} shows redshift distributions
+of galaxies before and after subsampling for BOSS CMASS North Galactic
+Cap, which correspond to dashed and solid lines respectively. The
+blue solid line is the redshift distribution of galaxies for BOSS,
+while the green and red line represents $n(z)$ from the mock at $z=0.55$
+and the lightcone sample. }
 
-\textcolor{red}{Q: What can we say more about this Figure?}
-
-\textcolor{red}{NOTE: not clear at all what is being done here; what
-do the dashed lines in Fig. 13 mean? Should we even show Fig. 13?}
-
-\textcolor{red}{NOTE: better and more complete discussion of the results
-is needed here; how well do our mock results compare with those obtained
-by other people? why is the chi\textbackslash{}textasciicircum\{\}2
-a relevant test here?}
+\textcolor{black}{After matching the redshift distribution of galaxies,
+we finally compute correlation functions for those galaxy mocks. In
+Figure \ref{fig:xis}, we compare those correlation functions to the
+one from DR11. The left panel shows the monopole terms of the correlation
+functions, and the right panel is the quadrupole terms. We do not
+see siginificant differences between the galaxy mocks from the simulation
+at $z=0.55$ and the lightcone sample for both monopole and quadrupole
+terms. For the monopole terms, the mocks agree relatively well with
+the one from DR11 on $r\in[40h^{-1}{\rm Mpc},80h^{-1}{\rm Mpc}]$.
+On the other hand, we fail to fit the quedrupole terms to the observed
+quadrupole term from DR11 by overestimating the power, which also
+happens in Ref. \cite{2014MNRAS.437.2594W}. }
 
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/nz_dr11_N}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/nz_dr11_N}
 
-\caption{\label{fig:nz_gal}\textcolor{red}{A comparison of galaxy number densities
-before fitting to DR11 redshift selection function (dashed lines)
-and after (solid lines). The blue solid line is $n(z)$ from DR11
-(North) in Ref.~\cite{2013arXiv1303.4666A}. The green and red lines
-are from the mocks at $z=0.55$ and the lightcone output respectively.
-The HOD parameters used to generate the mock catalogs can be found
-in text.}}
+\caption{\label{fig:nz_gal}\textcolor{red}{Normalized redshift distribution
+of galaxies from DR11 (North) in Ref.~\cite{2013arXiv1303.4666A}
+(blue solid line), and a comparison of galaxy number densities before
+fitting to DR11 redshift selection function (dashed lines) and after
+(solid lines). The green and red lines are from the mocks at $z=0.55$
+and the lightcone output respectively. The HOD parameters used to
+generate the mock catalogs can be found in text.}}
 \end{figure}
 
 
-\textcolor{red}{NOTE: not clear what the point of this figure is}
-
 \begin{figure}
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi0_obs}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi2_obs}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/xi0_obs}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/xi2_obs}
 
 \caption{\label{fig:xis}Correlation function monopoles $\xi^{(0)}(s)$ (left)
-and quadrupoles $\xi^{(2)}(s)$ (right) of the mocks (green) and DR11
-in Ref.~\cite{2013MNRAS.428.1036M} (blue) at $z=0.55$. The HOD
-parameters used to generate the mock catalogs can be found in text.}
+and quadrupoles $\xi^{(2)}(s)$ (right) of the mocks (green and red)
+and DR11 in Ref.~\cite{2013MNRAS.428.1036M} (blue) at $z=0.55$.
+The HOD parameters used to generate the mock catalogs can be found
+in text.}
 \end{figure}
 
 
-\textcolor{red}{NOTE: need a better discussion of these results in
-the text}
+One of the other applications of those mocks is to use the mock correlation
+functions as a template function, which we discuss in detail in Section
+5.1, to fit to an observed correlation function. As a demonstration,
+we fit our mock correlation functions to the one from DR11. We use
+the mock correlation function as a template shown in Eq. \ref{eq:model1}
+and measure the value of $\alpha$, which is the scale dilation parameter
+measuring the relative distance between observations and the fiducial
+model. This parameter $\alpha$ is related to the ratio:
+\begin{equation}
+\alpha\equiv\left(\frac{D_{{\rm V}}(z)}{r_{{\rm d}}}\right)\left(\frac{r_{{\rm d,fid}}}{D_{{\rm V}}^{{\rm fid}}(z)}\right),\label{eq:alpha_ratio}
+\end{equation}
+where $r_{{\rm d}}$ is the projection of the sound horizon at the
+drag epoch and $D_{{\rm V}}\equiv\left[cz(1+z)^{2}D_{{\rm A}}(z)^{2}H^{-1}(z)\right]^{1/3}$
+where $D_{{\rm A}}$ is the angular diameter distance and $H(z)$
+is the Hubble parameter. The ratio $\left(\frac{r_{{\rm d,fid}}}{D_{{\rm V}}^{{\rm fid}}(z)}\right)$
+for our simulations is 13.44 at $z=0.57$, while the ratio $\left(\frac{D_{{\rm V}}(z)}{r_{{\rm d}}}\right)$
+from DR11 is $13.91\pm0.13$. So, the estimated value for $\alpha$
+is $1.025\pm0.010$.
+
+Figure \ref{fig:alpha_fit} shows the $\chi^{2}$ values as a function
+of the parameter $\alpha$ in the left panel and compares the monopole
+correlation function from DR11 and the fitted function in the right
+panel. We obtain the value of $1.033\pm0.012$, which is within $1\sigma$
+from the estimated value for $\alpha$.
+
+\begin{figure}[H]
+\includegraphics[width=1\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/xi_lightcone}
+
+\caption{\label{fig:alpha_fit}Left: Plot of $\Delta\chi^{2}$ vs. $\alpha$
+for the data from DR11. The dashed lines (from top to bottom) correspond
+to $2\sigma$ and $1\sigma$ for the value of $\alpha$. The best
+fit value of $\alpha$ is $1.033\pm0.012$. Right: The monopole correlation
+functions of the data from DR11 (blue line) and of the lightcone galaxy
+mock fitted with $\alpha=1.033$.}
+\end{figure}
+
 
 
 \subsection{Testing the shift of the BAO peaks}
 
-In order to demonstrate how we can use the HACC simulations to test
-various cosmological measurements, we investigate how the peak of
-the  baryon acoustic oscillations (hereafter, BAO) shifts by varying
-the HOD parameters described in Ref. \cite{2011ApJ...734...94M}.
-We first split each $(4h^{-1}{\rm Gpc)^{3}}$ full box into 64 cubical
-subboxes, whose volume is $(1h^{-1}{\rm Gpc})^{3}$ each. Since we
-have four full boxes, we have 256 subboxes in total. This is to compute
-a covariance matrix.
+As a second application of this suite of simulations, we explore how
+the baryon acoustic oscillation (hereafter BAO) changes as a function
+of changing galaxy bias. These shifts, predicted by basic perturbative
+arguments (e.g.. \cite{2008PhRvD..77b3533C,2009PhRvD..80f3508P,2012PhRvD..85j3523S}),
+must be calibrated at the sub percent level for future BAO experiments
+as a function of the underlying cosmology and galaxy type. Measuring
+these shifts requires large simulation volumes to robustly measure
+them from under the statistical error. The approximations we describe
+in this paper allow such large volumes to be run, without sacrificing
+the gross details (positions, masses, velocities) of the halos themselves
+(which, in turn, allow one to construct mock galaxy populations).
+Note that our goal here is to demonstrate the statistical power of
+these simulations, deferring an exhaustive study to later work.
 
-For the HOD parameters, we use the same HOD parameters described in
-Section 5.1 except $M_{cut}$. We vary $M_{cut}$ from 12.5 to 13.5
-for every 0.2. Then, we compute correlation function $\xi_{{\rm HOD}}(r)$
-for each of 256 samples and use $\chi^{2}$ analysis to fit each correlation
-function $\xi_{{\rm HOD}}(r)$ to the template correlation function
-$\xi_{m}(r)$:
+In order to construct samples of different galaxy biases, we construct
+realizations of HODs with the same parameters as in Sec 5.1, except
+for $M_{cut}$ which we vary from 12.5 to 14.1 in steps of 0.2. The
+resulting nine HODs span a range of biases from 1.5 to 3.5. In order
+to estimate the covariance matrix for galaxy correlation functions,
+we subdivide each of our $4\times(4h^{-1}{\rm Gpc})^{3}$ volumes
+into $4\times64=256$ subvolumes. For simplicity, we analyze each
+of these subvolumes individually, except for the Mcut=13.9 and 14.1
+samples where we analyze groups of 4 sub volumes to reduce the noise
+in the measurements. %
+\footnote{In these cases, we scale the covariance matrix by a factor of 1/4.%
+} We focus here on real-space measurements. 
+
+We measure the BAO scale using the methodology in Ref. \cite{2013arXiv1303.4666A}.
+Specifically, we describe the observed correlation function by $\xi_{{\rm fit}}$:
 \begin{equation}
-\xi_{{\rm HOD}}(r)=B\xi_{m}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
+\xi_{{\rm fit}}(r)=B\xi_{t}(\alpha r)+A_{0}+A_{1}/r+A_{2}/r^{2},\label{eq:model1}
 \end{equation}
-where $B$, $A_{0}$, $A_{1}$, $A_{2}$, and $\alpha$ are free parameters
-to fit. $B$ represents squared linear bias, and the terms with $A_{0}$,
-$A_{1}$, and $A_{2}$ take care of the effects due to shot noise
-and non-linear evolution. $\alpha$ measures the shift of the BAO
-peak from its original position predicted by the linear perturbation
-theory. $\alpha=1$ implies that there is no shift of the BAO peak.
-
-The template correlation function is given by
+where $\xi_{t}$ is a template correlation function, $B$ is the galaxy
+bias squared and $A_{0,1,2}$ represent nuisance parameters to account
+for shot noise, nonlinear evolution of the matter density field and
+the mapping from matter to galaxies. The template correlation function
+$\xi_{t}(r)$ is given by Fourier transforming $P_{t}(k)$:
 \begin{equation}
-\xi_{m}(r)=dk(P_{{\rm lin}}(k)e^{-k^{2}\Sigma^{2}}+P_{nw}(k)),
+P_{t}(r)=(P_{{\rm lin}}(k)-P_{nw}(k))e^{-\frac{k^{2}\Sigma^{2}}{2}}+P_{nw}(k),
 \end{equation}
 where $ $$P_{{\rm lin}}(k)$ is the linear power spectrum and $P_{nw}(k)$
 is the no-wiggle power spectrum described in Ref. \cite{1998ApJ...496..605E},
 and $\Sigma$ is a nonlinear parameter which accounts for broadening
-the BAO peak due to non-linear evolution. We set $\Sigma=7h^{-1}{\rm Mpc}$.
-Since all parameters are linear except $\alpha$, we can find the
-best-fit values for those parameters analytically and only need to
-vary $\alpha$ to find the minimum $\chi^{2}$. Figure \ref{fig:demo}
-shows $\chi^{2}$-distribution as a function of $\alpha$ in the left
-panel and the correlation function computed by using the full box
-with $M_{cut}=12.9$ and the correlation function described as Eq.
-\ref{eq:model1} with the best-fit parameters. Since the covariance
-matrix uses the $(1h^{-1}{\rm Gpc})^{3}$ subboxes, we devide it by
-64 for the full correlation function. We fit the correlation functions
-in the range of $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$. The
-error bars are too small to be appeared in the plot.
+the BAO peak due to non-linear evolution. We set $\Sigma=5h^{-1}{\rm Mpc}$.
+We determine the parameters by\textcolor{black}{{} minimizing $\chi^{2}=(\xi_{{\rm HOD}}-\xi_{{\rm fit}})^{{\rm T}}C^{-1}(\xi_{{\rm HOD}}-\xi_{{\rm fit}})$
+where $C^{-1}$ is the inverse covariance matrix and $\xi_{{\rm HOD}}$
+is a correlation function which $\xi_{{\rm fit}}$ is fitted to.}
+We consider the measured correlation function from $60h^{-1}{\rm Mpc}$
+to $160h^{-1}{\rm Mpc}$ in bins of $4h^{-1}{\rm Mpc}$ for a total
+of 25 data points. Since all parameters except $\alpha$ are linear,
+we perform the minimization on a grid of $\alpha$ values, computing
+the minimum value of the other parameters directly. The parameter
+$\alpha$ measures the shift of the BAO peak from its original position
+predicted by the linear perturbation theory. Note that $\alpha=1$
+implies that there is no shift of the BAO peak.
+
+The left panel of Figure \ref{fig:demo} compares the correlation
+function computed from one of the full boxes with $M_{cut}=12.9$
+(which corresponds to the galaxy bias of 1.81) and the model correlation
+function described in Eq. \ref{eq:model1} with the best-fit parameters.
+The best fit value of $\alpha$ for this mock is 1.003. Note that
+the error bars shown in the left panel of Figure \ref{fig:demo} are
+computed from the covariance matrix. The right panel of Figure \ref{fig:demo}
+shows the distribution of $\alpha-1$ for the case of $M_{cut}=12.9$
+for the 256 samples. The mean value of $\alpha-1$ is $0.0068\pm0.0012$.
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/alpha_bias}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi_hod3}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/xi_hod3}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/alpha_hist_hod3}
 
-\caption{\label{fig:demo}Left: An example $\chi^{2}$-distribution as a function
-of $\alpha-1$. We minimize $\chi^{2}$ by varying the $\alpha$ value
-to find a best fit parameter for each sample. In this case, the best-fit
-$\alpha$ is 1.003. The number of degree of freedom is 25. Right:
-The correlation function $\xi_{{\rm HOD}}(r)$ computed from the full
-HOD galaxy mock (labeled as ``data'') and the template correlation
-function with the best-fit parameters (labeled as ``model''). We
-fit $\xi_{{\rm HOD}}(r)$ to the template in $r\in[60h^{-1}{\rm Mpc},160h^{-1}{\rm Mpc}]$.
-The error bars are too small to be appeared in the plot.}
+\caption{\label{fig:demo}Left: The correlation function $\xi_{{\rm HOD}}(r)$
+computed from the full HOD galaxy mock (labeled as ``data'') with
+$M_{cut}=12.9$ (which corresponds to the bias value of 1.81) and
+the template correlation function with the best-fit parameters (labeled
+as ``model''). The best fit value of $\alpha$ for this mock is
+1.003. The error bars are computed from the covariance matrix. Right:
+Distribution of the values $\alpha-1$ for the case of $M_{cut}=12.9$.
+The dashed line corresponds to the mean value of $\alpha-1$, which
+is 0.006.}
 \end{figure}
 
 
-After generating galaxy mocks with six different HOD parameters and
-fitting variables through $\chi^{2}$ analysis, we plot $\alpha$
-as a function of bias in Figure \ref{fig:alpha}. We see that the
-values of $\alpha$ increases as the linear galaxy bias increases,
-which is consistent with the result in Ref. \cite{2011ApJ...734...94M}.
+Figure \ref{fig:alpha} shows the measured shifts in the BAO scale
+as a function of galaxy bias, for the nine HODs described above. We
+detect the shift in the BAO scale at high significance ($\sim6\sigma$
+for most samples) but do not detect a strong variation with the galaxy
+bias. Indeed, the shift is consistent with being constant for biases
+> 3.0 and only increases for extremely large biases. These results
+agree with the trends in Ref. \cite{2011ApJ...734...94M}, although
+note that the absolute values of the shifts differ since Ref. \cite{2011ApJ...734...94M}
+consider samples at $z=1$, while the results here are at $z=0.15$.
+We also observe that our results are roughly consistent with what
+one expects from perturbation theory (\cite{2008PhRvD..77b3533C,2009PhRvD..80f3508P,2012PhRvD..85j3523S}),
+although we find a weaker mass dependence than what was predicted
+by Ref. \cite{2009PhRvD..80f3508P}.
 
-Q:What do I want to say more?
-
-Q: When do I use Ref.X? Should I use Figure X instead of Fig. X? (same
-question for Eq. or Eqn.)
+This work can be extended by using reconstruction on the sample to
+verify that it does indeed reduce these biases both in real-space
+and in redshift-space, comparing to the perturbation theory \textcolor{black}{results},
+testing redshift evolution and cosmology dependence in the shift of
+the peak.
 
 \begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/alpha_bias}
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Dropbox/big-sims/Plots/alpha_bias}
 
-\caption{\label{fig:alpha}Scatter in the $\alpha-1$ values as a function
-of bias. Since $\alpha=1$ implies that the measured BAO peak is at
-the same scale predicted from the linear perturbation theory, the
-value of $\alpha-1$ indicates how much the BAO peak is shifted. We
-see that the value of $\alpha-1$ increases as the bias value increases,
-which agrees with the result in Ref. \cite{2011ApJ...734...94M}.}
+\caption{\label{fig:alpha}The shift in the BAO scale as a function of galaxy
+bias. Note that $\alpha-1$ implies no shift in the BAO scale. We
+detect a significant shift ($\sim6\sigma$ for most cases) for all
+the samples we consider. The shift is consistent with being constant
+for biases > 3.0 and only increases for extremely large biases. These
+results agree with the trends in Ref. \cite{2011ApJ...734...94M}.
+The third point from left uses the HOD parameter of $M_{cut}=12.9$,
+which are the same samples used in Figure \ref{fig:demo}. }
 \end{figure}
 
 
@@ -1058,12 +1230,14 @@ from one redshift to the another. Moving halos over a $\Delta z=0.1$
 interval correctly reduces the standard deviation of those distances
 from $0.25[h^{-1}{\rm Mpc}]$ to}\textcolor{red}{{} }\textcolor{black}{$0.09[h^{-1}{\rm Mpc}]$.
 Moreover, the power spectra are correctly recovered to better than
-1\% for $k<0.5[h{\rm Mpc^{-1}]}$ for $\Delta z=0.25$. This worsens
-in redshift space to 2\% up to $k<0.2[h{\rm Mpc^{-1}]}$.}\textcolor{red}{{}
-The agreement is, however, improved to XXX\% for $k<1[h{\rm Mpc^{-1}]}$
-by using the velocity linearly interpolated between the snapshots
-and the true redshift. }\textcolor{black}{Our fiducial choice to construct
-light cone outputs is $\Delta z=0.05$.}
+1\% for $k<1h{\rm Mpc}^{-1}$ for $\Delta z<0.25$. }\textcolor{red}{This
+worsens in redshift space to 2\% up to $k<0.2h{\rm Mpc}^{-1}$ by
+assuming that the change in velocity across the simulations is negligible
+and using the original velocity to compute redshift space. The agreement
+is, however, improved to 1\% for $k<0.8h{\rm Mpc}^{-1}$ by using
+the velocity linearly interpolated between the snapshots and the true
+redshift. }\textcolor{black}{Our fiducial choice to construct light
+cone outputs is $\Delta z=0.05$.}
 
 This work is a natural extension of the approaches described in \cite{2014MNRAS.439L..21K,2014MNRAS.437.2594W,2014arXiv1409.1124C,2013MNRAS.428.1036M,2014arXiv1401.4171M}.
 The primary goal for those papers was to generate the large numbers
@@ -1074,9 +1248,9 @@ errors in theory and analysis techniques. As a proof of principle,
 we present a set of eight full BOSS (both North and South Galactic
 caps simultaneously) simulations. The time savings presented in this
 paper allowed to extend this to 50 simulations, across a range of
-cosmologies \textcolor{red}{centered at WMAP-7 (citation?) and Planck
-(citation?) with varied $\sigma_{8}$}. These results from these will
-be presented in future publications.
+cosmolog\textcolor{black}{ies centered at WMAP-7 (\cite{2011ApJS..192...18K})
+and Planck (\cite{2015arXiv150201589P}) with varied $\sigma_{8}$.
+}These results from these will be presented in future publications.
 
 
 \section*{Acknowledgement}
