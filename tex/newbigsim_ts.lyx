@@ -906,11 +906,12 @@ reference "fig:mass-scatter1"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/testDB_mass_300_2_z0.15.pdf
+	lyxscale 50
 	width 46.5col%
 
 \end_inset
@@ -918,6 +919,7 @@ status collapsed
  
 \begin_inset Graphics
 	filename ../Plots/testDB_nonDB_300_2_z0.15.pdf
+	lyxscale 50
 	width 53.5col%
 
 \end_inset
@@ -928,6 +930,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/testDB_DB_numPartCut_300_2_z0.15.pdf
+	lyxscale 50
 	width 46.5text%
 
 \end_inset
@@ -935,6 +938,7 @@ status collapsed
  
 \begin_inset Graphics
 	filename ../Plots/testDB_sum_mass_f0.5_300_2_z0.15.pdf
+	lyxscale 50
 	width 53.5col%
 
 \end_inset
@@ -1130,8 +1134,15 @@ reference "fig:HaloProperty_mass"
 \end_inset
 
 ) is used in the FOF algorithm to define halos for all the simulations.)
+\color red
+ For the case of the 300/2 simulation, the deviation from the FOF masses
+ in the 450/5 simulation is about 1.7%, while for the case of the 150/3 and
+ 150/2 simulations, the deviations are about 5.7% and 8.5% respectively.
+
+\color inherit
  Under these circumstances, the FOF mass is highest in the 450/5 simulation,
  decreasing systematically with increase in loss of temporal resolution.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1271,7 +1282,8 @@ As a reference, the standard deviation of velocities for the full resolution
 \color inherit
  
 \color black
-The distributions are very close to Gaussian.
+The distributions are very close to Gaussian shown as dashed lines in the
+ figure.
  
 \color inherit
 As is clear from Figure
@@ -1333,7 +1345,7 @@ reference "fig:HaloProperty_step"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1368,7 +1380,7 @@ Comparison of the positions (left) and velocities (right) of halos matched
  across simulations with different time steps.
  The reference simulation is 450/5 while the colors correspond to 300/3
  (blue), 300/2 (green), 150/3 (red), and 150/2 (cyan).
- 
+ The dashed lines are Gaussian fit.
 \end_layout
 
 \end_inset
@@ -1806,7 +1818,7 @@ reference "fig:massFn_step"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1952,7 +1964,7 @@ reference "fig:HaloProperty_step"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1994,6 +2006,11 @@ ace halo density field for the right panel; the dark matter density fields
  used here are in real-space for both cases.
  The left panel shows that agreements with the 450/5 simulation are all
  within 2%.
+ 
+\color red
+The dashed line shows the case without mass corrections for the 150/2 simulation.
+
+\color inherit
  In the right panel, the large discrepancy of the cross power spectra for
  the simulations with 150 global steps on small scales is mainly due to
  the systematically small velocities shown in Figure 
@@ -2542,10 +2559,6 @@ We recover the expected power spectrum to better than
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
 \color blue
 Once the simulations are run at the chosen time-stepping settings, the next
  step is to construct light-cone outputs.
@@ -2933,6 +2946,516 @@ s central positions, mean velocities and halo masses , and
 
  of all particles randomly sampled.
  
+\color red
+We run the simulations with a range of cosmologies centered at WMAP-7 (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2011ApJS..192...18K"
+
+\end_inset
+
+) and Planck (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2015arXiv150201589P"
+
+\end_inset
+
+) with varied 
+\begin_inset Formula $\sigma_{8}$
+\end_inset
+
+, shown in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:cosmology"
+
+\end_inset
+
+.
+ For each model, we save one full simulation (meaning with very accurate
+ time stepping) out to 
+\begin_inset Formula $z=0$
+\end_inset
+
+, and 5 realizations that have reduced time steps out to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ In this section, we use four realizations from the WMAP-7 cosmology with
+ 
+\begin_inset Formula $\sigma_{8}=0.8$
+\end_inset
+
+.
+ For this case, one realization was failed to save.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="7">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+WMAP-7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+WMAP-7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+WMAP-7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planck
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planck
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planck
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{m}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.265
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.265
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.265
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.315
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.315
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.315
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega_{b}h^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02258
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02258
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02258
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02202
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02202
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.02202
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $h$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.673
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.673
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.673
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n_{s}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.963
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.963
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.963
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.96
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.96
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.96
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sigma_{8}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.77
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.77
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:cosmology"
+
+\end_inset
+
+
+\color red
+Cosmological parameters used to run the simulation.
+ For each model, we run one full simulation (meaning with very accurate
+ time stepping) out to 
+\begin_inset Formula $z=0$
+\end_inset
+
+, and 5 realizations that have reduced time steps out to 
+\begin_inset Formula $z=0.15$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3619,6 +4142,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename ../Plots/xi_lightcone.pdf
+	lyxscale 50
 	width 100col%
 
 \end_inset
@@ -3959,7 +4483,7 @@ reference "fig:demo"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -4127,7 +4651,7 @@ results
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
