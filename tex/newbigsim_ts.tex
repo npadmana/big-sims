@@ -56,19 +56,24 @@ and test a scheme for generating mock catalogs rapidly using suitably
 derated N-body simulations. Our aim is to reproduce the large scale
 structure and the gross properties of dark matter halos with high
 accuracy, while sacrificing the details of the halo's internal structure.
-By adjusting global and local time-steps in an N-body code, we demonstrate
-halo masses, to better than $2\%$ and the power spectrum to $k=1h{\rm Mpc^{-1}}$,
+By adjusting global and local time-steps in an N-body code, we demonstrate that we 
+recover halo masses to better than $2\%$ and the power spectrum (both in 
+real and redshift space, for $k=1h{\rm Mpc^{-1}}$)
 to better than $1\%$, while requiring a factor of 4 less CPU time.
-To reduce the number of output snapshots, we also test the redshift
+We also calibrate the redshift
 spacing of outputs required to generate simulated light cones. We
 find that outputs separated by $\Delta z=0.05$ allow us to interpolate
-particle positions and velocities with sufficient accuracy to reproduce
+particle positions and velocities to reproduce
 the real and redshift space power spectra to better than $1\%$ (out
-to $k=1h{\rm Mpc^{-1}}$). Even with a redshift spacing as large as
-$\Delta z=0.25$, these errors only degrade to less than $2\%$ in
-both real and redshift space. As a practical demonstration of these
-ideas, we generate a suit of simulations matched to the Baryon Oscillation
-Spectroscopic Survey (BOSS).}
+to $k=1h{\rm Mpc^{-1}}$). 
+We apply these ideas to generate a suite of simulations spanning a range
+of cosmologies, motivated by the Baryon Oscillation Spectroscopic Survey (BOSS) but
+broadly applicable to future large scale structure surveys including eBOSS and
+DESI. As an initial demonstration of the utility of such simulations, we 
+calibrate the shift in the BAO position as a function of galaxy bias with 
+higher precision than has been possible before. This paper also serves to 
+document these simulations, which we make publically available.
+}
 
 
 \affiliation{\textsuperscript{a}Yale University, New Haven, CT}
