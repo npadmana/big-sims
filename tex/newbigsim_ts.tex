@@ -96,9 +96,9 @@ galaxies; halos, statistics}
 
 \section{Introduction}
 
-Large-volume spectroscopic surveys of the Universe (\cite{2013arXiv1305.5422S,2000AJ....120.1579Y}\textcolor{red}{missing
-WiggleZ}) are revolutionizing our understanding of cosmology and structure
-formation. Based on these successes, a new generation of surveys (\cite{2013arXiv1308.0847L,2013arXiv1305.5422S,2011arXiv1110.3193L})
+Large-volume spectroscopic surveys of the Universe \citep{2013arXiv1305.5422S,2000AJ....120.1579Y,2011MNRAS.415.2876B}
+are revolutionizing our understanding of cosmology and structure
+formation. Based on these successes, a new generation of surveys \citep{2013arXiv1308.0847L,2013arXiv1305.5422S,2011arXiv1110.3193L}
 is being planned that will improve our constraints by an order of
 magnitude (or more). This unprecedented improvement in statistical
 precision places stringent demands on the theoretical modeling and
@@ -107,26 +107,30 @@ these requirements.
 
 One of the challenges for simulations are the varied roles they play,
 and the different requirements these impose on the simulations. At
-one extreme, simulations are necessary for generating sample covariances
-for the data and measurements. This typically requires very large
+one extreme, simulations are necessary for estimating the errors on the 
+measurements.
+This typically requires very large
 volumes to simulate entire surveys thousands of times, but have lower
 accuracy requirements. Motivated by these considerations, a number
 of recent studies have investigated methods designed to produce mock
 catalogs with reduced accuracy, but much higher throughput compared
-to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
+to the full N-body simulations~\cite{2002ApJ...564....8M,2002MNRAS.331..587M,2008MNRAS.391..435F,
+2013AN....334..691R,2013arXiv1312.2013C,2013JCAP...06..036T,2014MNRAS.437.2594W,
+2013MNRAS.433.2389M,2001A&A...367...18H,2009ApJ...701..945S,2014MNRAS.439L..21K,2014arXiv1409.1124C}.
 An open question still is the effect of changing the input cosmology
 used to generate the covariance matrix on cosmological inferences,
-and how best to implement such variations. More recently, the impact
+and how best to implement such variations (but see \citep{Kalus2015} for 
+recent work on this). More recently, the impact
 of super-survey modes (modes outside the survey volume) on inferred
 errors has been shown to be potentially larger than previously appreciated
-\textcolor{black}{(e.g., \cite{2013PhRvD..87l3504T})} and is an area
+\citep[eg.][]{2013PhRvD..87l3504T} and is an area
 of active study.
 
 At the other extreme, simulations are crucial for calibrating the
 theoretical models used to fit the data. Examples here are quantifying
 shifts in the baryon acoustic oscillation distance scale due to nonlinear
-evolution and galaxy bias (\cite{2008ApJ...686...13S,2008PhRvD..77b3533C,2008PhRvD..77d3525S,2009PhRvD..80f3508P,2010ApJ...720.1650S,2012PhRvD..85j3523S}),
-or templates used to fit the full shape of the correlation function.
+evolution and galaxy bias \citep{2008ApJ...686...13S,2008PhRvD..77b3533C,2008PhRvD..77d3525S,2009PhRvD..80f3508P,2010ApJ...720.1650S,2012PhRvD..85j3523S},
+or templates used to fit the full shape of the galaxy correlation function.
 For such applications, one ideally requires high fidelity simulations.
 The volume requirements are significantly reduced from that for covariance
 matrices, but still need to much larger than survey volumes to keep
@@ -154,11 +158,11 @@ large numbers of simulations required to build sample covariance matrices,
 at error levels ranging from $5-10\%$ (depending on the quantities
 being predicted). It is difficult to estimate, however, what the loss
 of accuracy implies for tests of systematic errors, which may need
-to be modeled at the $\sim1\%$ level.
+to be modeled at the $< 1\%$ level.
 
 The approach we take here is to reduce the small-scale accuracy of
 a high-resolution N-body code by coarsening its temporal resolution.
-In the present case, the time-stepping consists of two components,
+For the code we consider here, the time-stepping consists of two components,
 (i) a long time step for solving for evolution under the long-range
 particle-mesh (PM) force, and (ii) a set of underlying sub-cycled
 time steps for a short-range particle-particle interaction, computed
@@ -181,11 +185,12 @@ the time-stepping that we exploit here. Sec.~3 presents a sequence
 of convergence tests where we evaluate the effects of time-stepping
 on the halo density field. Sec.~4 discusses interpolating between
 saved time steps, necessary for constructing light-cone outputs. Sec.~5
-presents an example application of these simulations : generating
-mock catalogs that match the BOSS galaxy sample. We conclude in Sec.~6
+presents two example applications of these simulations : generating
+mock catalogs that match the BOSS galaxy sample, and calibrating
+shifts in the baryon acoustic oscillation (BAO) scale. We conclude in Sec.~6
 by outlining possible future directions.
 
-All simulations and calculations in this paper assume a $\Lambda$CDM
+Unless specified, all simulations and calculations in this paper assume a $\Lambda$CDM
 cosmology with $\Omega_{m}=0.2648$, $\Omega_{\Lambda}=0.7352$, $\Omega_{b}h^{2}=0.02258$,
 $n_{s}=0.963$, $\sigma_{8}=0.8$ and $h=0.71$.
 
