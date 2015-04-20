@@ -209,13 +209,13 @@ local programming models, (e.g., OpenCL, OpenMP) and is easily adaptable
 to different platforms. HACC has demonstrated scaling on the entire
 IBM BG/Q Sequoia system up to 1,572,864 cores with an equal number
 of MPI ranks, attaining 13.94 PFlops at 69.2\% of peak and 90\% parallel
-efficiency (for details, see Ref.\cite{2012arXiv1211.4864H}). Examples
+efficiency (for details, see \citep{2012arXiv1211.4864H}). Examples
 of science results obtained using HACC include 64-billion particle
 runs for baryon acoustic oscillations predictions for the BOSS Lyman-$\alpha$
 forest \cite{2010ApJ...713..383W}, high-statistics predictions for
 the halo profiles of massive clusters \cite{2013ApJ...766...32B},
 and 0.5 and 1.1~trillion particle runs at high mass resolution. A
-recent overview of the HACC framework can be found in Ref.~\cite{hacc_2014}.
+recent overview of the HACC framework can be found in ~\citep{hacc_2014}.
 
 HACC uses a hybrid parallel algorithmic structure, splitting the force
 calculation into a specially designed grid-based long/medium range
@@ -232,12 +232,12 @@ a symplectic method with (adaptive) sub-cycling of the short-range
 force. The availability of multiple algorithms within the HACC framework
 allows us to carry out careful error analyses, for example, the P$^{3}$M
 and the TreePM versions agree to within $0.1\%$ for the nonlinear
-power spectrum test in the code comparison suite of Ref.~\cite{2005ApJS..160...28H}.
+power spectrum test in the code comparison suite of \cite{2005ApJS..160...28H}.
 
 As already discussed, an important feature of the work presented here
 is the ability to carry out error-controlled approximate simulations
 at high throughput. In order to understand how we implement this,
-some details of the HACC time-stepping algorithm are now provided.
+we provide some details on the HACC time-stepping algorithm.
 Evolution is viewed as a symplectic map on phase space: $\zeta(t)=\exp(-t{\bf {H}})\zeta(0)$
 where, $\zeta$ is a phase-space vector $({\bf x},{\bf v})$, $H$
 is the (self-consistent) Hamiltonian, and the operator, ${\bf {H}}=[H,~]_{P}$,
@@ -272,7 +272,11 @@ corresponds to a KSK step, where the S is not an exact stream step,
 but has enough $M_{sr}$ steps composed together to obtain the required
 accuracy. (We take care that the time-dependence in the self-consistent
 potential is treated correctly; HACC uses the scale factor, $a$,
-as the time variable.) As discussed later below, we will use the flexibility
+as the time variable.) 
+The code therefore has two degrees to tune its time-steps : the length
+of the full time step ($t$ above), and the number of sub-cycles for the
+short range force ($n_c$ above).
+As discussed later below, we will use the flexibility
 in the sub-cycling as a way of reducing the number of time steps such
 that the loss of accuracy only affects the resolution at very small
 scales, which, as discussed previously, are not of interest in the
