@@ -303,22 +303,22 @@ for all the large scale properties we consider, and is our choice
 for the mocks presented in Sec.~5.
 
 
-\subsection{Matching }
+\subsection{Matching Halos : An Algorithm}
 
 In order to compare detailed halo properties we need to match individual
-halos across different runs (reference vs. run under test). We first
-discuss the algorithm used for identifying the corresponding halos
-in the two cases and then compare halo mass, position, and velocity
-for the matched halos. From this quantitative comparison, we find
-that the simulations with 300 global time steps have significantly
-less scatter in the measured quantities, compared to the baseline
-determined by the 450/5 simulation, than do the samples with 150 global
-steps. In addition, we find that the differences between the different
-sub-cycling choices are almost negligible.
-
-
-\subsubsection{Algorithm}
-
+halos between our reference (450/5) run and test runs with degraded time steps. 
+%%across different runs (reference vs. run under test). We first
+%%discuss the algorithm used for identifying the corresponding halos
+%%in the two cases and then compare halo mass, position, and velocity
+%%for the matched halos. From this quantitative comparison, we find
+%%that the simulations with 300 global time steps have significantly
+%%less scatter in the measured quantities, compared to the baseline
+%%determined by the 450/5 simulation, than do the samples with 150 global
+%%steps. In addition, we find that the differences between the different
+%%sub-cycling choices are almost negligible.
+%%
+%%
+%%\subsubsection{Algorithm}
 All simulations share the same particle initial conditions, allowing
 us to match halos in different runs by matching their individual particle
 content. Given a halo in simulation A, we consider all halos in simulation
@@ -329,39 +329,20 @@ halo in run A. To avoid spurious matches, we also require that the
 fraction of common particles (relative to simulation A) exceeds a
 given threshold. To illustrate how this matching algorithm works,
 we use the samples from the 300/2 simulation and the 450/5 simulation,
-and adopt a threshold of 50\% as our default choice. (Figure \ref{fig:mass-content}
-demonstrates that the unmatched fraction increases with increasing
-threshold and decreasing halo mass.)
-
-\begin{figure}[H]
-\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
-
-\caption{\label{fig:mass-content} Itemization of unmatched halos (from the
-450/5 and 300/2 simulations at $z=0.15$) shown as cumulative number
-densities of the unmatched halos arising from each procedure in the
-matching algorithm. The solid blue line is the total number density
-of the unmatched halos. The dashed green line shows halos with no
-counterpart -- none of the particles were identified as belonging
-to a halo in the comparison simulation; this is significant only at
-low halo mass. The dashed red line shows halos eliminated because
-of not meeting the matching threshold (i.e., the halos do not have
-enough of a fraction of the same particles). The dashed cyan line
-is for the halos eliminated because multiple halos correspond to one
-halo (see text). }
-\end{figure}
+and adopt a threshold of 50\% as our default choice. 
 
 
-The matching algorithm described above is unidirectional, hence multiple
+The matching algorithm described above is unidirectional - multiple
 halos in run A may have particles resident in a single halo in run
-B; in our simulations, this happens at the 1-2\% level, adopting a
+B. In our simulations, this happens at the 1-2\% level, adopting a
 particle matching threshold of 50\%. We refer to these cases as `multiply-booked'
 halos. Figure~\ref{fig:mass-scatter1} compares halo masses matching
 the 450/5 simulation to the 300/2 simulation for the case of multiply-booked
 halos, as well as the rest. The top left panel shows the mass scatter
 for all the matched halos between the two simulations, while the top
 right panel shows the mass scatter only for the non multiply-booked
-halos. The bottom panels show the mass scatter for the case of multiply-booked
-halos only. The bottom left panel shows the mass scatter for individual
+halos. 
+The bottom left panel shows the mass scatter for individual
 multiply-booked halos, while the bottom right panel plots the summed
 halo mass for the corresponding halos. The overall behavior represented
 in Figure~\ref{fig:mass-scatter1} is straightforward to interpret.
@@ -373,23 +354,24 @@ in Figure~\ref{fig:mass-scatter1} is straightforward to interpret.
 \includegraphics[width=0.465\textwidth]{\lyxdot \lyxdot /Plots/testDB_DB_numPartCut_300_2_z0\lyxdot 15}
 \includegraphics[width=0.535\columnwidth]{\lyxdot \lyxdot /Plots/testDB_sum_mass_f0\lyxdot 5_300_2_z0\lyxdot 15}
 
-\caption{\label{fig:mass-scatter1}Distribution of halo masses comparing matched
-halos in the 450/5 simulation (x-axis) to the 300/2 simulation (y-axis)
-at $z=0.15$. Panels correspond to halos with different matching criteria
+\caption{\label{fig:mass-scatter1}Comparing the halo mass of matched halos
+in the 450/5 simulation (x-axis) to the 300/2 simulation (y-axis)
+at $z=0.15$. 
+Panels correspond to halos with different matching criteria
 imposed: all the matched halos (top left), the vast majority of matched
 halos having one-to-one correspondence (top right), matched halos
 not having one-to-one correspondence called ``multiply-booked''
 halos (bottom left), and the multiply-booked halos whose corresponding
 halo masses are added (bottom right). The results shown in these panels
 imply that the low-mass scatter between the 450/5 simulation and the
-300/2 simulation shown in the top left panel arises when``multiply-booked''
+300/2 simulation shown in the top left panel arises when physically associated
 halos in the 450/5 simulation are merged into one halo in the 300/2
 simulation due to an effectively worse resolution in this case.}
 \end{figure}
 
 
 As the top left panel shows, there are low-mass halos in the 450/5
-simulation corresponding to high-mass halos in the 300/2 simulation.
+simulation matched to high-mass halos in the 300/2 simulation.
 The same trend is observed for the case of multiply-booked halos (bottom
 left panel), but not for the non-multiply-booked halos (top right).
 Furthermore, the disagreement for halo masses between the two simulations
@@ -414,12 +396,35 @@ number of common particles. In Figure \ref{fig:mass-content}, we
 show each type of unmatched number density as a function of halo mass.
 The first case occurs only for low halo masses, where low effective
 resolution in a simulation can lead to halo drop out (halos are too
-'fuzzy' to meet the Friends-of-Friends (FOF) overdensity criterion),
+``fuzzy'' to meet the Friends-of-Friends (FOF) overdensity criterion),
 and falls off steeply with rising halo mass. Most of the unmatched
-halos arise due to their not passing the threshold criterion. The
-loss of matching due to multiple-booking follows the trend of the
-below-threshold case, but at a reduced level. We have checked that
-the trends discussed here are not affected by redshift.
+halos arise due to their not passing the threshold criterion. 
+The fraction of unmatched halos due to being ``multiply-booked'' is
+similar to the threshold case, albeit at a lower level.
+
+\begin{figure}[H]
+\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/unmatchHalo2_content_300_2_z0\lyxdot 15}
+
+\caption{\label{fig:mass-content} Itemization of unmatched halos (from the
+450/5 and 300/2 simulations at $z=0.15$) shown as cumulative number
+densities of the unmatched halos arising from each procedure in the
+matching algorithm. The solid blue line is the total number density
+of the unmatched halos. The dashed green line shows halos with no
+counterpart -- none of the particles were identified as belonging
+to a halo in the comparison simulation; this is significant only at
+low halo mass. The dashed red line shows halos eliminated because
+of not meeting the matching threshold (i.e., the halos do not have
+enough of a fraction of the same particles). The dashed cyan line
+is for the halos eliminated because multiple halos correspond to one
+halo (see text). }
+\end{figure}
+
+The trends described above persist at different redshifts. As we reduce the 
+number of total long timesteps taken, the unmatched fraction increases, due
+to the lower resolution of the simulations, while the number of subcycles does 
+not noticeably change these results. In all the halo comparisons that follow, 
+we restrict ourselves to halos with a one-to-one correspondence (i.e. not
+multiply-booked halos).
 
 
 \subsubsection{Halo Properties}
