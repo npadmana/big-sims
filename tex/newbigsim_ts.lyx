@@ -844,7 +844,7 @@ reference "fig:mass-scatter1-1"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1157,7 +1157,7 @@ For the case of the 300/2 simulation, the deviation from the FOF masses
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1354,7 +1354,7 @@ reference "fig:HaloProperty_step-1"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1825,7 +1825,7 @@ reference "fig:massFn_step-1"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1969,7 +1969,7 @@ reference "fig:HaloProperty_step-1"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2449,7 +2449,7 @@ These results suggest using a redshift spacing of
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -4150,7 +4150,7 @@ reference "fig:demo"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics

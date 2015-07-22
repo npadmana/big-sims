@@ -140,7 +140,7 @@ much larger than survey volumes to keep systematic errors below
 statistical errors.
 
 An intermediate application are the generation of mock catalogs that
-capture the observational characteristics of surveys (e.Ourg. geometry,
+capture the observational characteristics of surveys (e.g. geometry,
 selection effects). The importance of these cannot be underestimated,
 since the effects of many observational systematics can only be quantitatively
 estimated by simulating them. These issues will get progressively
@@ -186,7 +186,7 @@ Hardware/Hybrid Accelerated Cosmology Code (HACC) N-body framework
 we use to generate our simulations, focusing on the flexibility in
 the time-stepping that we exploit here. Section~\ref{sec:time} presents a sequence
 of convergence tests where we evaluate the effects of time-stepping
-on the halo density field. Section~\ref{sec:lightcones} discusses interpolating between
+on the halo density field. Section~\ref{sec:lightcones} discusses interpolation between
 saved time steps, necessary for constructing lightcone outputs. Section~\ref{sec:boss}
 presents two example applications of these simulations: generating
 mock catalogs that match the BOSS galaxy sample, and calibrating
@@ -310,7 +310,7 @@ for the mock catalogs presented in Section~\ref{sec:boss}.
 
 \subsection{Matching Halos: An Algorithm}
 
-In order to compare detailed halo properties we need to match individual
+In order to compare detailed halo properties, we need to match individual
 halos between our reference 450/5 run and test runs with reduced time steps. 
 %%across different runs (reference vs. run under test). We first
 %%discuss the algorithm used for identifying the corresponding halos
@@ -328,8 +328,8 @@ All simulations share the same particle initial conditions, allowing
 us to match halos in different runs by matching their individual particle
 content. Given a halo in simulation A, we consider all halos in simulation
 B that between them hold all the particles belonging to the halo in
-simulation A. Given this list of possible matches, we choose the run
-B halo with the largest number of common particles with the reference
+simulation A. Given this list of possible matches, we choose the halo
+in run B with the largest number of common particles with the reference
 halo in run A. To avoid spurious matches, we also require that the
 fraction of common particles (relative to simulation A) exceeds a
 given threshold. To illustrate how this matching algorithm works,
@@ -345,8 +345,7 @@ halos. Figure~\ref{fig:mass-scatter1} compares halo masses matching
 the 450/5 simulation to the 300/2 simulation for the case of multiply-booked
 halos, as well as the rest. The top left panel shows the mass scatter
 for all the matched halos between the two simulations, while the top
-right panel shows the mass scatter only for the non multiply-booked
-halos. 
+right panel shows the mass scatter only for the halos, which have one-to-one correspondence. 
 The bottom left panel shows the mass scatter for individual
 multiply-booked halos, while the bottom right panel plots the summed
 halo mass for the corresponding halos. The overall behavior represented
@@ -365,7 +364,7 @@ at $z=0.15$.
 Panels correspond to halos with different matching criteria
 imposed: all the matched halos (top left), the vast majority of matched
 halos having one-to-one correspondence (top right), matched halos
-not having one-to-one correspondence called ``multiply-booked''
+not having one-to-one correspondence called ''multiply-booked''
 halos (bottom left), and the multiply-booked halos whose corresponding
 halo masses are added (bottom right). The results shown in these panels
 imply that the low-mass scatter between the 450/5 simulation and the
@@ -378,7 +377,7 @@ simulation due to an effectively worse resolution in this case.}
 As the top left panel shows, there are low-mass halos in the 450/5
 simulation matched to high-mass halos in the 300/2 simulation.
 The same trend is observed for the case of multiply-booked halos (bottom
-left panel), but not for the non-multiply-booked halos (top right).
+left panel), but not for the one-to-one matched halos (top right).
 Furthermore, the disagreement for halo masses between the two simulations
 are resolved by adding the corresponding halo masses. This implies
 that there are multiple halos in the 450/5 simulation which are merged
@@ -399,12 +398,12 @@ halos will be eliminated from the matching set. Finally, for the case
 of multiply-booked halos, we remove all but the one with the largest
 number of common particles. In Figure \ref{fig:mass-content}, we
 show each type of unmatched number density as a function of halo mass.
-The first case occurs only for low halo masses, where low effective
+The first case occurs only for low mass halos, where low effective
 resolution in a simulation can lead to halo drop out (halos are too
 ``fuzzy'' to meet the Friends-of-Friends (FOF) overdensity criterion),
 and falls off steeply with rising halo mass. Most of the unmatched
 halos arise due to their not passing the threshold criterion. 
-The fraction of unmatched halos due to being ``multiply-booked'' is
+The fraction of unmatched halos due to being ''multiply-booked'' is
 similar to the threshold case, albeit at a lower level.
 
 \begin{figure}[H]
@@ -419,7 +418,7 @@ counterpart -- none of the particles were identified as belonging
 to a halo in the comparison simulation; this is significant only at
 low halo mass. The dashed red line shows halos eliminated because
 of not meeting the matching threshold (i.e., the halos do not have
-enough of a fraction of the same particles). The dashed cyan line
+enough of a fraction of the same particles). The dashed yellow line
 is for the halos eliminated because multiple halos correspond to one
 halo (see text). }
 \end{figure}
@@ -449,21 +448,20 @@ and $10^{13.5}{\rm M_{\odot}}$ to $10^{14.0}{\rm M_{\odot}}$, and
 compute their means and standard deviations for ${\rm M/M_{450/5}}$,
 where $M_{450/5}$ is a halo mass for the 450/5 simulation and $M$
 corresponds to a halo in the samples generated with different time-stepping
-schemes. Figure \ref{fig:HaloProperty_mass} shows that halos generated
-from the simulations with small number of time steps have systematically
-lower FOF masses than those in the 450/5 simulation. (The same linking
+schemes. Figure \ref{fig:HaloProperty_mass} shows  that the simulations with small number 
+of time steps produce systematically lower FOF mass halos than the 450/5 simulation. (The same linking
 length ($b=0.168$) is used in the FOF algorithm to define halos for
-all the simulations.)\textcolor{red}{{} For the case of the 300/2 simulation,
+all the simulations.) For the case of the 300/2 simulation,
 the deviation from the FOF masses in the 450/5 simulation is about
 1.7\%, while for the case of the 150/3 and 150/2 simulations, the
-deviations are about 5.7\% and 8.5\% respectively.} Under these circumstances,
+deviations are about 5.7\% and 8.5\% respectively. Under these circumstances,
 the FOF mass is highest in the 450/5 simulation, decreasing systematically
 with increase in loss of temporal resolution. 
 
 \begin{figure}[h]
 \textcolor{black}{\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/massSlice_z0\lyxdot 15}}
 
-\textcolor{black}{\caption{\label{fig:HaloProperty_mass}Comparison of halo mass (FOF, $b=0.168$)
+\caption{\label{fig:HaloProperty_mass}Comparison of halo mass (FOF, $b=0.168$)
 for matched halos between the 450/5 simulation and coarsened time-stepping
 schemes at $z=0.15$. We take all the matched halos whose masses are
 between $10^{12.5}{\rm M_{\odot}}$ to $10^{13.0}{\rm M_{\odot}}$,
@@ -474,7 +472,7 @@ for the 450/5 simulation and $M$ is for the simulations with different
 number of time steps corresponding to different colors in the plot.
 The x-positions have been displaced to avoid overlapping the error
 bars. Halo masses decrease systematically as the time resolution is
-coarsened.}
+coarsened.
 }
 \end{figure}
 
@@ -487,11 +485,11 @@ in the velocity. With 300 global time steps, the results are much
 improved; the velocity bias is almost entirely removed and the scatter
 is significantly reduced. The standard deviation in the differences
 in halo distances is matched to better than $200h^{-1}{\rm kpc}$
-in these cases, and better than $50{\rm km/s}$ in velocities. \textcolor{red}{As
+in these cases, and better than $50{\rm km/s}$ in velocities. As
 a reference, the standard deviation of velocities for the full resolution
-simulation (450/5) is about $300{\rm km/s}$.} \textcolor{black}{The
+simulation (450/5) is about $300{\rm km/s}$. The
 distributions are very close to Gaussian shown as dashed lines in
-the figure. }As is clear from Figure~\ref{fig:HaloProperty_step},
+the figure. As is clear from Figure~\ref{fig:HaloProperty_step},
 the difference between 3 and 2 sub-cycles is insignificant for our
 purposes. We observe the same trend in halo properties discussed here
 at different redshifts.
@@ -554,7 +552,7 @@ average halo mass for the 450/5 simulation. For our simulations, we
 find that the following simple form suffices for this task:
 
 \begin{equation}
-M_{re}=M(1.0+\alpha(M/10^{12.0}[{\rm M_{\odot}])^{\beta},}\label{eq:mass_adjust}
+M_{re}=M(1.0+\alpha(M/10^{12.0}[{\rm M_{\odot}])^{\beta}),}\label{eq:mass_adjust}
 \end{equation}
 where $M_{re}$ is the reassigned halo mass, $M$ is the original
 halo mass, and $\alpha$ and $\beta$ are free parameters. The $\alpha$
@@ -593,7 +591,7 @@ Figure \ref{fig:massFn_step}, we show the ratio $n(>M)/n_{450/5}(>M)$,
 where $n_{450/5}(>M)$ is the cumulative mass function for the 450/5
 simulation and $n(>M)$ is the cumulative mass function for the other
 cases. We compare the results before and after mass adjustment. While
-the mass functions from the 250/3 and 150/2 simulations are suppressed
+the mass functions from the 150/3 and 150/2 simulations are suppressed
 by more than 10\% on all mass ranges before correction, they are significantly
 improved afterwards, especially for halo masses greater than $10^{13.0}{\rm M_{\odot}}$.
 For simulations with 300 global time steps, the mass adjustment is
@@ -656,12 +654,12 @@ $z=0.15$. We use the real-space halo density field for the left panel
 and the redshift-space halo density field for the right panel; the
 dark matter density fields used here are in real-space for both cases.
 The left panel shows that agreements with the 450/5 simulation are
-all within 2\%. \textcolor{red}{The dashed line shows the case without
-mass corrections for the 150/2 simulation.} In the right panel, the
+all within 2\%. The dashed line shows the case without
+mass corrections for the 150/2 simulation. In the right panel, the
 large discrepancy of the cross power spectra for the simulations with
 150 global steps on small scales is mainly due to the systematically
 small velocities shown in Figure \ref{fig:HaloProperty_step}. Note
-that the halos are selected based on the soft mass-cut method with
+that the halos are selected based on the soft mass-cut method described in text with
 $M_{cut}=13.0$ and $\sigma=0.5$.}
 \end{figure}
 
@@ -675,7 +673,7 @@ snapshot in redshift or to take the lightcone evolution of the halo
 and galaxy distribution into account. There are two broad approaches
 to the latter problem. The first is to incrementally build up the
 lightcone while the simulation is running, while the second stitches
-together static snapshots at different redshifts to construct an approximate
+static snapshots together at different redshifts to construct an approximate
 lightcone. Both methods have advantages and disadvantages. Building
 the lightcone \textquotedblleft{}on the fly\textquotedblright{} leads
 to the correct redshift evolution by construction, but requires simulation
@@ -699,9 +697,9 @@ from the origin.
 the snapshot redshift to the halo redshift. Note that changing the
 position of the halo strictly changes its redshift, but this is a
 small effect (mostly $<0.1\%$). 
-\item \textcolor{black}{For the case of a halo crossing its boundary of
+\item For the case of a halo crossing its boundary of
 the shell, we choose the halo whose distance from the boundary is
-closer before shifting.}
+closer before shifting.
 \end{enumerate}
 We interpolate the positions of halos using a simple linear rule: 
 
@@ -755,11 +753,11 @@ different redshifts.
 \textcolor{black}{Working in redshift space requires interpolating
 both the positions and the velocities of halos. Since we do not store
 accelerations of halos, we simply linearly interpolate the halo velocities
-between two redshifts, $z_{1}$ and $z_{2}$: }\textcolor{blue}{
+between two redshifts, $z_{1}$ and $z_{2}$: }
 \begin{equation}
 \vec{v}|_{z=z_{pos}}=\vec{v}|_{z=z_{1}}\frac{z_{pos}-z_{2}}{z_{1}-z_{2}}+\vec{v}|_{z=z_{2}}\frac{z_{pos}-z_{1}}{z_{2}-z_{1}},
 \end{equation}
-}\textcolor{black}{where $z_{1}<z_{pos}<z_{2}$ and $z_{pos}$ is
+where $z_{1}<z_{pos}<z_{2}$ and $z_{pos}$ is
 the corresponding redshift for positions. Figure~\ref{fig:lightcone_vel}
 is based on the redshift slices at $z=0.15$ and $0.25$ to predict the values
 at $z=0.2$; we recover the true velocities with a scatter of 38.8km/s,
@@ -770,7 +768,7 @@ While the accuracy is degraded compared to the real space case, we
 still recover the power spectrum to 1\% out to $k=0.8h{\rm Mpc}^{-1}$.
 The fall-off at large $k$ is expected since the errors in the velocities
 introduce a random scatter in the positions of the galaxies, washing
-out the signal on small scales. }
+out the signal on small scales. 
 
 \textcolor{black}{These results suggest using a redshift spacing of
 $\Delta z=0.1$ or better between different simulation outputs. For
@@ -830,8 +828,8 @@ $3$ and $4$. The close spacing at low redshift enables us to make
 lightcones using the method described in the previous section. We
 run a friends-of-friends halo finder on each of the outputs with a
 linking length of $b=0.168$, keeping halos down to 40 particles,
-or $10^{12.6}$M$_{\odot}$. By comparison, the characteristic halo mass
-of BOSS galaxies is $10^{13}$M$_{\odot}$, which we resolve with
+or $10^{12.6}h^{-1}$M$_{\odot}$. By comparison, the characteristic halo mass
+of BOSS galaxies is $10^{13}h^{-1}$M$_{\odot}$, which we resolve with
 100 particles. Each output contains central positions,
 mean velocities and halo masses, and $1\%$ of halo particles with
 a minimum of 5 particles per halo and $1\%$ of all particles randomly
@@ -945,7 +943,7 @@ this random component, we draw a Gaussian distribution with zero mean
 and variance given by:
 
 \begin{equation}
-\langle v_{x}^{2}\rangle=\langle v_{y}^{2}\rangle=\langle v_{z}^{2}\rangle=\frac{1}{3}\frac{GM}{R_{vir}}.\label{eq:variance}
+\langle v_{x}^{2}\rangle=\langle v_{y}^{2}\rangle=\langle v_{z}^{2}\rangle=\frac{1}{3}\frac{GM}{R_{\rm vir}}.\label{eq:variance}
 \end{equation}
 
 
@@ -970,7 +968,7 @@ subsample galaxies. Figure~\ref{fig:nz_gal} shows redshift distributions
 of galaxies before and after subsampling for the BOSS CMASS North Galactic
 Cap, which correspond to dashed and solid lines respectively. The
 blue solid line is the redshift distribution of galaxies for BOSS,
-while the green and red line represents $n(z)$ from the mock catalog at $z=0.55$
+while the green and red lines represent $n(z)$ from the mock catalog at $z=0.55$
 and the lightcone sample. 
 
 \textcolor{black}{After matching the redshift distribution of galaxies,
@@ -991,13 +989,13 @@ Ref. \cite{2014MNRAS.437.2594W}. }
 \begin{figure}
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/nz_dr11_N}
 
-\caption{\label{fig:nz_gal}\textcolor{red}{Normalized redshift distribution
+\caption{\label{fig:nz_gal}Normalized redshift distribution
 of galaxies from DR11 (North) in Ref.~\cite{2013arXiv1303.4666A}
 (blue solid line), and a comparison of galaxy number densities before
 fitting to DR11 redshift selection function (dashed lines) and after
 (solid lines). The green and red lines are from the mock catalogs at $z=0.55$
 and the lightcone output respectively. The HOD parameters used to
-generate the mock catalogs can be found in text.}}
+generate the mock catalogs can be found in text.}
 \end{figure}
 
 
@@ -1090,9 +1088,7 @@ Specifically, we describe the observed correlation function by $\xi_{{\rm fit}}$
 where $\xi_{t}$ is a template correlation function, $B$ is the galaxy
 bias squared and $A_{0,1,2}$ represent nuisance parameters to account
 for shot noise, nonlinear evolution of the matter density field and
-the mapping from matter to galaxies (\textcolor{red}{NEED TO FIND
-A BETTER PHRASE FOR THE LAST}; the galaxy distribution as a biased
-tracer of matter). The template correlation function $\xi_{t}(r)$
+the mapping from matter to galaxies. The template correlation function $\xi_{t}(r)$
 is given by a Fourier transform of $P_{t}(k)$:
 \begin{equation}
 P_{t}(r)=(P_{{\rm lin}}(k)-P_{nw}(k))e^{-\frac{k^{2}\Sigma^{2}}{2}}+P_{nw}(k),
@@ -1127,10 +1123,10 @@ for the 256 samples. The mean value of $\alpha-1$ is $0.0068\pm0.0012$.
 \includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/xi_hod3}\includegraphics[width=0.5\columnwidth]{\lyxdot \lyxdot /Plots/alpha_hist_hod3}
 
 \caption{\label{fig:demo}Left: The correlation function $\xi_{{\rm HOD}}(r)$
-computed from the full HOD galaxy mock catalog (labeled as ``data'') with
+computed from the full HOD galaxy mock catalog (labeled as ``HOD'') with
 $M_{cut}=12.9$ (which corresponds to the bias value of 1.81) and
 the template correlation function with the best-fit parameters (labeled
-as ``model''). The best fit value of $\alpha$ for this mock is
+as ``fit''). The best fit value of $\alpha$ for this mock is
 1.003. The error bars are computed from the covariance matrix. Right:
 Distribution of the values $\alpha-1$ for the case of $M_{cut}=12.9$.
 The dashed line corresponds to the mean value of $\alpha-1$, which
@@ -1220,16 +1216,16 @@ to construct lightcone outputs. We first compare the distances for
 the halos at different redshifts before and after shifting their positions
 from one redshift to the another. Moving halos over a $\Delta z=0.1$
 interval correctly reduces the standard deviation of those distances
-from $0.25h^{-1}{\rm Mpc}$ to}\textcolor{red}{{} }\textcolor{black}{$0.09h^{-1}{\rm Mpc}$.
+from $0.25h^{-1}{\rm Mpc}$ to}\textcolor{black}{$0.09h^{-1}{\rm Mpc}$.
 Moreover, the power spectra are correctly recovered to better than
-1\% for $k<1h{\rm Mpc}^{-1}$ for $\Delta z<0.25$. }\textcolor{red}{This
+1\% for $k<1h{\rm Mpc}^{-1}$ for $\Delta z<0.25$. }This
 worsens in redshift space to 2\% up to $k<0.2h{\rm Mpc}^{-1}$ by
 assuming that the change in velocity across the simulations is negligible
 and using the original velocity to compute redshift space. The agreement
 is, however, improved to 1\% for $k<0.8h{\rm Mpc}^{-1}$ by using
 the velocity linearly interpolated between the snapshots and the true
-redshift. }\textcolor{black}{Our fiducial choice to construct light
-cone outputs is $\Delta z=0.05$.}
+redshift. Our fiducial choice to construct light
+cone outputs is $\Delta z=0.05$.
 
 This work is a natural extension of the approaches described in \cite{2014MNRAS.439L..21K,2014MNRAS.437.2594W,2014arXiv1409.1124C,2013MNRAS.428.1036M,2014arXiv1401.4171M}.
 The primary goal for those papers was to generate the large numbers
